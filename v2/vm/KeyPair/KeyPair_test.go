@@ -1,7 +1,7 @@
 package KeyPair
 
 import (
-	"github.com/aesirteam/cmecloud-golang-sdk/core"
+	"github.com/aesirteam/cmecloud-golang-sdk/v2/core"
 	json "github.com/json-iterator/go"
 	"strconv"
 	"testing"
