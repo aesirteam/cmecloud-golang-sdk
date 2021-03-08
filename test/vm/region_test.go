@@ -1,9 +1,10 @@
 package vm
 
 import (
+	"testing"
+
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/core"
-	"testing"
 )
 
 func TestRegion(t *testing.T) {
@@ -20,6 +21,6 @@ func TestRegion(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		t.Log(result.Dump())
+		t.Log(core.Dump(result))
 	})
 }

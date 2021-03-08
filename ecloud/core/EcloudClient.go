@@ -7,7 +7,6 @@ import (
 	"crypto/sha256"
 	"errors"
 	"fmt"
-	json "github.com/json-iterator/go"
 	"io"
 	"io/ioutil"
 	"math/rand"
@@ -16,6 +15,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	json "github.com/json-iterator/go"
 )
 
 const (
@@ -154,7 +155,7 @@ func (c *EcloudClient) NewRequest(verb, prefixPath string, headers, params, body
 	switch verb {
 	case "GET":
 		reqBody = strings.NewReader("")
-	case "POST":
+	case "PUT", "POST":
 		if body == nil {
 			body = map[string]interface{}{}
 		}

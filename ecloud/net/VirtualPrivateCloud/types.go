@@ -21,13 +21,13 @@ type Interface interface {
 		  region		可用区
 		  tagIds		标签ID列表
 	*/
-	GetVPCList(natGatewayBind, visible bool, scale VpcScale, region string, tagIds []string, page, size int) (result VpcResultArray, err error)
+	GetVPCList(natGatewayBind, visible bool, scale VpcScale, region string, tagIds []string, page, size int) (VpcResultArray, error)
 
 	//根据vpcId查看VPC详情，包含路由详情
-	GetVPCInfo(vpcId string) (result VpcResult, err error)
+	GetVPCInfo(vpcId string) (VpcResult, error)
 
 	//根据vpcId查看VPC详情，包含路由详情
-	GetVPCInfoByName(name string) (result VpcResult, err error)
+	GetVPCInfoByName(name string) (VpcResult, error)
 }
 
 type VpcResult struct {

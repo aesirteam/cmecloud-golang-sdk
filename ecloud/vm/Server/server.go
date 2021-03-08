@@ -7,6 +7,7 @@ import (
 	"encoding/pem"
 	"errors"
 	"fmt"
+
 	json "github.com/json-iterator/go"
 )
 
@@ -18,19 +19,29 @@ MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC/VpRysi0bPRLS7sbgQDJHo1MAt9/bK
 -----END PUBLIC KEY-----
 `)
 
+var newJson = json.Config{
+	EscapeHTML:             true,
+	SortMapKeys:            true,
+	ValidateJsonRawMessage: true,
+	TagKey:                 "newtag",
+}.Froze()
+
 func rsaEncrypt(origData []byte) ([]byte, error) {
-	block, _ := pem.Decode(publicKey) //将密钥解析成公钥实例
+	//将密钥解析成公钥实例
+	block, _ := pem.Decode(publicKey)
 	if block == nil {
 		return nil, errors.New("public key error")
 	}
 
-	pubInterface, err := x509.ParsePKIXPublicKey(block.Bytes) //解析pem.Decode（）返回的Block指针实例
+	//解析pem.Decode（）返回的Block指针实例
+	pubInterface, err := x509.ParsePKIXPublicKey(block.Bytes)
 	if err != nil {
 		return nil, err
 	}
 
 	pub := pubInterface.(*rsa.PublicKey)
-	return rsa.EncryptPKCS1v15(rand.Reader, pub, origData) //RSA算法加密
+	//RSA算法加密
+	return rsa.EncryptPKCS1v15(rand.Reader, pub, origData)
 }
 
 func (a *APIv2) CreatServer(ss *ServerSpec) (result ServerOrderResult, err error) {
@@ -98,7 +109,9 @@ func (a *APIv2) CreatServer(ss *ServerSpec) (result ServerOrderResult, err error
 	}
 
 	if ss.Password != "" {
-		body["password"], _ = rsaEncrypt([]byte(ss.Password))
+		if password, err := rsaEncrypt([]byte(ss.Password)); err == nil {
+			body["password"] = password
+		}
 	} else if ss.KeypairName != "" {
 		body["keypairName"] = ss.KeypairName
 	}
@@ -136,7 +149,9 @@ func (a *APIv2) CreatServer(ss *ServerSpec) (result ServerOrderResult, err error
 		body["quantity"] = ss.Quantity
 	}
 
-	//body["securityGroupIds"] = a.SecurityGroupIds
+	if len(ss.SecurityGroupIds) > 0 {
+		body["securityGroupIds"] = ss.SecurityGroupIds
+	}
 
 	//if bytes, err := json.MarshalIndent(&body, "","  "); err == nil {
 	//	fmt.Printf("%s\n", bytes)
@@ -156,7 +171,7 @@ func (a *APIv2) CreatServer(ss *ServerSpec) (result ServerOrderResult, err error
 	return
 }
 
-func (a *APIv2) GetServerList(ss *ServerSpec, page, size int) (string, error) {
+func (a *APIv2) GetServerList(ss *ServerSpec, page, size int) (result ServerResultArray, err error) {
 	params := map[string]interface{}{
 		"serverTypes":  "VM",
 		"productTypes": "NORMAL,AUTOSCALING,VO,CDN,PAAS_MASTER,PAAS_SLAVE,VCPE,EMR,LOGAUDIT",
@@ -177,48 +192,260 @@ func (a *APIv2) GetServerList(ss *ServerSpec, page, size int) (string, error) {
 
 	resp, err := a.client.NewRequest("GET", "/api/v2/server/web/with/network", nil, params, nil)
 	if err != nil {
-		return "", fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		return
 	}
 
-	return resp.Body, nil
+	obj := json.Get([]byte(resp.Body), "content")
+	if obj.LastError() != nil {
+		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, obj.LastError())
+		return
+	}
+
+	if _err := json.UnmarshalFromString(obj.ToString(), &result); _err != nil {
+		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, _err)
+		return
+	}
+
+	return
 }
 
-func (a *APIv2) GetServerInfo(serverId string, detail bool) {
+func (a *APIv2) GetServerInfo(serverId string, detail bool) (result ServerResult, err error) {
+	if serverId == "" {
+		err = errors.New("No serverId is available")
+		return
+	}
 
+	params := map[string]interface{}{
+		"detail": detail,
+	}
+
+	resp, err := a.client.NewRequest("GET", "/api/server/"+serverId, nil, params, nil)
+	if err != nil {
+		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		return
+	}
+
+	if _err := newJson.Unmarshal([]byte(resp.Body), &result); _err != nil {
+		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, _err)
+		return
+	}
+
+	return
 }
 
 //func (a *APIv2) GetServerQuotaInfo() {
 //
 //}
 
-func (a *APIv2) GetServerVNCAddress(serverId string) {
+func (a *APIv2) GetServerVNCAddress(serverId string) (result string, err error) {
+	if serverId == "" {
+		err = errors.New("No serverId is available")
+		return
+	}
 
+	resp, err := a.client.NewRequest("GET", "/api/server/"+serverId+"/vnc", nil, nil, nil)
+	if err != nil {
+		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		return
+	}
+
+	result = resp.Body
+
+	return
 }
 
-func (a *APIv2) UpdateServerName(id, name string) {
+func (a *APIv2) UpdateServerName(serverId, name string) (result ServerResult, err error) {
+	if serverId == "" {
+		err = errors.New("No serverId is available")
+		return
+	}
 
+	if name == "" {
+		err = errors.New("No serverId is available")
+		return
+	}
+
+	body := map[string]interface{}{
+		"id":   serverId,
+		"name": name,
+	}
+
+	resp, err := a.client.NewRequest("PUT", "/api/server//updateName", nil, nil, body)
+	if err != nil {
+		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		return
+	}
+
+	if _err := newJson.Unmarshal([]byte(resp.Body), &result); _err != nil {
+		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, _err)
+		return
+	}
+
+	return
 }
 
-func (a *APIv2) UpdateServerPassword(id, password string) {
+func (a *APIv2) UpdateServerPassword(serverId, password string) (result ServerResult, err error) {
+	if serverId == "" {
+		err = errors.New("No serverId is available")
+		return
+	}
 
+	if password == "" {
+		err = errors.New("No password is available")
+		return
+	}
+
+	body := map[string]interface{}{
+		"id":       serverId,
+		"password": password,
+	}
+
+	resp, err := a.client.NewRequest("PUT", "/api/server/updatePassword", nil, nil, body)
+	if err != nil {
+		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		return
+	}
+
+	if _err := newJson.Unmarshal([]byte(resp.Body), &result); _err != nil {
+		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, _err)
+		return
+	}
+
+	return
 }
 
-func (a *APIv2) RebootServer(serverId string) {
+func (a *APIv2) RebootServer(serverId string) (result ServerResult, err error) {
+	if serverId == "" {
+		err = errors.New("No serverId is available")
+		return
+	}
 
+	body := map[string]interface{}{
+		"serverId": serverId,
+	}
+
+	resp, err := a.client.NewRequest("POST", "/api/server/"+serverId+"/reboot", nil, nil, body)
+	if err != nil {
+		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		return
+	}
+
+	if _err := newJson.Unmarshal([]byte(resp.Body), &result); _err != nil {
+		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, _err)
+		return
+	}
+
+	return
 }
 
-func (a *APIv2) StartServer(serverId string) {
+func (a *APIv2) StartServer(serverId string) (result ServerResult, err error) {
+	if serverId == "" {
+		err = errors.New("No serverId is available")
+		return
+	}
 
+	body := map[string]interface{}{
+		"serverId": serverId,
+	}
+
+	resp, err := a.client.NewRequest("POST", "/api/server/"+serverId+"/start", nil, nil, body)
+	if err != nil {
+		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		return
+	}
+
+	if _err := newJson.Unmarshal([]byte(resp.Body), &result); _err != nil {
+		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, _err)
+		return
+	}
+
+	return
 }
 
-func (a *APIv2) StopServer(serverId string) {
+func (a *APIv2) StopServer(serverId string) (result ServerResult, err error) {
+	if serverId == "" {
+		err = errors.New("No serverId is available")
+		return
+	}
 
+	body := map[string]interface{}{
+		"serverId": serverId,
+	}
+
+	resp, err := a.client.NewRequest("POST", "/api/server/"+serverId+"/stop", nil, nil, body)
+	if err != nil {
+		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		return
+	}
+
+	if _err := newJson.Unmarshal([]byte(resp.Body), &result); _err != nil {
+		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, _err)
+		return
+	}
+
+	return
 }
 
-func (a *APIv2) GetRebuildImageList(serverId string, imageType int) {
+func (a *APIv2) GetRebuildImageList(serverId string, imageType int) (result ServerRebuildImageArray, err error) {
+	if serverId == "" {
+		err = errors.New("No serverId is available")
+		return
+	}
 
+	if imageType == 0 {
+		imageType = 2
+	}
+
+	params := map[string]interface{}{
+		"type": imageType,
+	}
+
+	resp, err := a.client.NewRequest("GET", "/api/server/"+serverId+"/rebuild/images", nil, params, nil)
+	if err != nil {
+		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		return
+	}
+
+	if _err := json.UnmarshalFromString(resp.Body, &result); _err != nil {
+		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, _err)
+		return
+	}
+
+	return
 }
 
-func (a *APIv2) RebuildServer(serverId, imageId string, adminPass, userData string) {
+func (a *APIv2) RebuildServer(serverId, imageId string, adminPass, userData string) (err error) {
+	if serverId == "" {
+		err = errors.New("No serverId is available")
+		return
+	}
 
+	if imageId == "" {
+		err = errors.New("No imageId is available")
+		return
+	}
+
+	body := map[string]interface{}{
+		"serverId": serverId,
+		"imageId":  imageId,
+	}
+
+	if adminPass != "" {
+		if password, err := rsaEncrypt([]byte(adminPass)); err == nil {
+			body["adminPass"] = password
+		}
+	}
+
+	if userData != "" {
+		body["userData"] = userData
+	}
+
+	resp, err := a.client.NewRequest("PUT", "/api/v2/server/rebuild", nil, nil, body)
+	if err != nil {
+		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		return
+	}
+
+	return
 }

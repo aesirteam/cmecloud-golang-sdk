@@ -2,6 +2,7 @@ package Server
 
 import (
 	"fmt"
+
 	json "github.com/json-iterator/go"
 )
 
@@ -57,11 +58,4 @@ func (a *APIv2) GetProductFlavorList(ss *ServerSpec, page, size int) (result Pro
 	}
 
 	return
-}
-
-func (a *ProductResultArray) Dump() string {
-	if bytes, err := json.MarshalIndent(&a, "", "  "); err == nil {
-		return fmt.Sprintf("\n%s", bytes)
-	}
-	return ""
 }

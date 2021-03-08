@@ -3,12 +3,13 @@ package KeyPair
 import (
 	"errors"
 	"fmt"
+
 	json "github.com/json-iterator/go"
 )
 
-func (a *APIv2) CreateKeypair(name, region string) (result *KeypairResult, err error) {
+func (a *APIv2) CreateKeypair(name, region string) (result KeypairResult, err error) {
 	if name == "" {
-		err = errors.New("No KeyId is available")
+		err = errors.New("No keyName is available")
 		return
 	}
 
@@ -26,7 +27,7 @@ func (a *APIv2) CreateKeypair(name, region string) (result *KeypairResult, err e
 		return
 	}
 
-	result = &KeypairResult{
+	result = KeypairResult{
 		Name:   resp.Body,
 		Region: region,
 	}
@@ -75,7 +76,7 @@ func (a *APIv2) GetKeypairList(name, region string, page, size int) (result Keyp
 
 func (a *APIv2) DeleteKeypair(keyId string) error {
 	if keyId == "" {
-		return errors.New("No KeyId is available")
+		return errors.New("No keyId is available")
 	}
 
 	resp, err := a.client.NewRequest("DELETE", "/api/v2/keypair/"+keyId, nil, nil, nil)
@@ -84,18 +85,4 @@ func (a *APIv2) DeleteKeypair(keyId string) error {
 	}
 
 	return nil
-}
-
-func (a *KeypairResult) Dump() string {
-	if bytes, err := json.MarshalIndent(&a, "", "  "); err == nil {
-		return fmt.Sprintf("\n%s", bytes)
-	}
-	return ""
-}
-
-func (a *KeypairResultArray) Dump() string {
-	if bytes, err := json.MarshalIndent(&a, "", "  "); err == nil {
-		return fmt.Sprintf("\n%s", bytes)
-	}
-	return ""
 }

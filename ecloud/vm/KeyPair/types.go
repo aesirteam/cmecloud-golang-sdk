@@ -14,10 +14,10 @@ func NewForConfig(conf *core.Config) (*APIv2, error) {
 
 type Interface interface {
 	//创建密钥
-	CreateKeypair(name, region string) (result *KeypairResult, err error)
+	CreateKeypair(name, region string) (KeypairResult, error)
 
 	//查询SSH密钥对列表
-	GetKeypairList(name, region string, page, size int) (result KeypairResultArray, err error)
+	GetKeypairList(name, region string, page, size int) (KeypairResultArray, error)
 
 	//删除SSH密钥对
 	DeleteKeypair(keyId string) error
@@ -40,6 +40,6 @@ type KeypairResult struct {
 	ModifiedTime string `json:"modifiedTime,omitempty"`
 	IsDelete     int    `json:"isDelete,omitempty"`
 	Region       string `json:"region,omitempty"`
-	privateKey   string `json:"privateKey,omitempty"`
+	PrivateKey   string `json:"privateKey,omitempty"`
 }
 type KeypairResultArray []KeypairResult

@@ -1,11 +1,12 @@
 package vm
 
 import (
-	"github.com/aesirteam/cmecloud-golang-sdk/ecloud"
-	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/core"
 	"strconv"
 	"testing"
 	"time"
+
+	"github.com/aesirteam/cmecloud-golang-sdk/ecloud"
+	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/core"
 )
 
 func TestKeypair(t *testing.T) {
@@ -26,7 +27,7 @@ func TestKeypair(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		t.Log(result.Dump())
+		t.Log(core.Dump(result))
 	})
 
 	t.Run("GetKeypairList", func(t *testing.T) {
@@ -35,7 +36,7 @@ func TestKeypair(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		t.Log(result.Dump())
+		t.Log(core.Dump(result))
 
 		keyId = result[0].Id
 	})

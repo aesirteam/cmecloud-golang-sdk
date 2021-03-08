@@ -2,6 +2,7 @@ package Server
 
 import (
 	"fmt"
+
 	json "github.com/json-iterator/go"
 )
 
@@ -22,11 +23,4 @@ func (a *APIv2) GetRegionList() (result RegionResultArray, err error) {
 	}
 
 	return
-}
-
-func (a *RegionResultArray) Dump() string {
-	if bytes, err := json.MarshalIndent(&a, "", "  "); err == nil {
-		return fmt.Sprintf("\n%s", bytes)
-	}
-	return ""
 }

@@ -1,9 +1,10 @@
 package net
 
 import (
+	"testing"
+
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/core"
-	"testing"
 )
 
 func TestVPC(t *testing.T) {
@@ -19,7 +20,7 @@ func TestVPC(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		t.Log(result.Dump())
+		t.Log(core.Dump(result))
 	})
 
 	t.Run("GetVPCInfo", func(t *testing.T) {
@@ -28,7 +29,7 @@ func TestVPC(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		t.Log(result.Dump())
+		t.Log(core.Dump(result))
 	})
 
 	t.Run("GetVPCInfoByName", func(t *testing.T) {
@@ -37,6 +38,6 @@ func TestVPC(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		t.Log(result.Dump())
+		t.Log(core.Dump(result))
 	})
 }

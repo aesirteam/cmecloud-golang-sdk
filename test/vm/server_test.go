@@ -1,12 +1,11 @@
 package vm
 
 import (
+	"testing"
+
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/core"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/vm/Server"
-	"strconv"
-	"testing"
-	"time"
 )
 
 func TestServer(t *testing.T) {
@@ -16,9 +15,14 @@ func TestServer(t *testing.T) {
 		ApiGwProtocol: "https",
 	})
 
+	var (
+		name     = "api198994873"
+		password = "ECS@test1234"
+	)
+
 	t.Run("CreatServer", func(t *testing.T) {
 		spec := &Server.ServerSpec{
-			Name: "api" + strconv.Itoa(time.Now().Nanosecond()),
+			Name: name,
 			Cpu:  4,
 			Ram:  8,
 			//Disk:             0,
@@ -26,7 +30,7 @@ func TestServer(t *testing.T) {
 			//	VolumeType: Server.BOOT_VOLUME_PERFORMANCEOPTIMIZATION,
 			//	Size: 50,
 			//},
-			Password:  "ECS@test123",
+			Password:  password,
 			ImageType: Server.IMAGE_BCLINUX_76_X64,
 			//KeypairName:      "",
 			//Networks:         Server.Networks{
@@ -76,23 +80,115 @@ func TestServer(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		t.Log(result.ProcedureCode, result.OrderId)
+		t.Log(core.Dump(result))
 
 		//for _, s := range result.OrderExts {
 		//	t.Log(s)
 		//}
 	})
 
+	var serverId = "eebae258-90d9-4926-aed9-3e04cf480a9a"
+
 	t.Run("GetServerList", func(t *testing.T) {
 		spec := &Server.ServerSpec{
-			Name: "api198994873",
+			Name: name,
 		}
 
-		resp, err := cli.Server().GetServerList(spec, 0, 0)
+		result, err := cli.Server().GetServerList(spec, 0, 0)
 		if err != nil {
 			t.Fatal(err)
 		}
 
-		t.Log(resp)
+		t.Log(core.Dump(result))
+		serverId = result[0].ServerId
 	})
+
+	t.Run("GetServerInfo", func(t *testing.T) {
+		result, err := cli.Server().GetServerInfo(serverId, true)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		t.Log(core.Dump(result))
+	})
+
+	t.Run("GetServerVNCAddress", func(t *testing.T) {
+		addr, err := cli.Server().GetServerVNCAddress(serverId)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		t.Log(addr)
+	})
+
+	t.Run("UpdateServerName", func(t *testing.T) {
+		result, err := cli.Server().UpdateServerName(serverId, name)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		t.Log(core.Dump(result))
+	})
+
+	t.Run("UpdateServerPassword", func(t *testing.T) {
+		result, err := cli.Server().UpdateServerPassword(serverId, password)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		t.Log(core.Dump(result))
+	})
+
+	t.Run("RebootServer", func(t *testing.T) {
+		result, err := cli.Server().RebootServer(serverId)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		t.Log(core.Dump(result))
+	})
+
+	t.Run("StartServer", func(t *testing.T) {
+		result, err := cli.Server().StartServer(serverId)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		t.Log(core.Dump(result))
+	})
+
+	t.Run("StopServer", func(t *testing.T) {
+		result, err := cli.Server().StopServer(serverId)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		t.Log(core.Dump(result))
+	})
+
+	var imageId = "c82bb33a-69e0-4f10-b8e0-856502066384"
+
+	t.Run("GetRebuildImageList", func(t *testing.T) {
+		result, err := cli.Server().GetRebuildImageList(serverId, 0)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		t.Log(core.Dump(result))
+
+		for _, v := range result {
+			if v.Name == Server.IMAGE_BCLINUX_77_X64.String() {
+				imageId = v.Id
+				return
+			}
+		}
+	})
+
+	t.Run("RebuildServer", func(t *testing.T) {
+		err := cli.Server().RebuildServer(serverId, imageId, "", "")
+		if err != nil {
+			t.Fatal(err)
+		}
+	})
+
 }

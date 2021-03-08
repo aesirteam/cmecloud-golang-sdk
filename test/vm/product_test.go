@@ -1,10 +1,11 @@
 package vm
 
 import (
+	"testing"
+
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/core"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/vm/Server"
-	"testing"
 )
 
 func TestProductFlavor(t *testing.T) {
@@ -21,6 +22,6 @@ func TestProductFlavor(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		t.Log(result.Dump())
+		t.Log(core.Dump(result))
 	})
 }

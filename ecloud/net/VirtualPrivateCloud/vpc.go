@@ -3,6 +3,7 @@ package VirtualPrivateCloud
 import (
 	"errors"
 	"fmt"
+
 	json "github.com/json-iterator/go"
 )
 
@@ -61,7 +62,7 @@ func (a *APIv2) GetVPCList(natGatewayBind, visible bool, scale VpcScale, region 
 
 func (a *APIv2) GetVPCInfo(vpcId string) (result VpcResult, err error) {
 	if vpcId == "" {
-		err = errors.New("No vpc Id is available")
+		err = errors.New("No vpcId is available")
 		return
 	}
 
@@ -93,18 +94,4 @@ func (a *APIv2) GetVPCInfoByName(name string) (result VpcResult, err error) {
 
 	err = errors.New("No match vpc info")
 	return
-}
-
-func (a *VpcResult) Dump() string {
-	if bytes, err := json.MarshalIndent(&a, "", "  "); err == nil {
-		return fmt.Sprintf("\n%s", bytes)
-	}
-	return ""
-}
-
-func (a *VpcResultArray) Dump() string {
-	if bytes, err := json.MarshalIndent(&a, "", "  "); err == nil {
-		return fmt.Sprintf("\n%s", bytes)
-	}
-	return ""
 }
