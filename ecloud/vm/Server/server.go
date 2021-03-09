@@ -1,23 +1,12 @@
 package Server
 
 import (
-	"crypto/rand"
-	"crypto/rsa"
-	"crypto/x509"
-	"encoding/pem"
 	"errors"
 	"fmt"
 
+	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/core"
 	json "github.com/json-iterator/go"
 )
-
-var publicKey = []byte(`
------BEGIN PUBLIC KEY-----
-MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC/VpRysi0bPRLS7sbgQDJHo1MAt9/bK
-+nwK5Pe3z0/O4cH5I/8kFNYy4yFsLMM+zyFvVw9C4wzjHaRcmEuF3ziJMC9PD5ufUWgfO
-5nSGgZW1cmgjqnhcWJ3i+Azj72RnhKQRCn9DgJduEC9MiKfbyTICGd6FXf9cxb21nkxI7vtwIDAQAB
------END PUBLIC KEY-----
-`)
 
 var newJson = json.Config{
 	EscapeHTML:             true,
@@ -26,51 +15,35 @@ var newJson = json.Config{
 	TagKey:                 "newtag",
 }.Froze()
 
-func rsaEncrypt(origData []byte) ([]byte, error) {
-	//将密钥解析成公钥实例
-	block, _ := pem.Decode(publicKey)
-	if block == nil {
-		return nil, errors.New("public key error")
-	}
-
-	//解析pem.Decode（）返回的Block指针实例
-	pubInterface, err := x509.ParsePKIXPublicKey(block.Bytes)
-	if err != nil {
-		return nil, err
-	}
-
-	pub := pubInterface.(*rsa.PublicKey)
-	//RSA算法加密
-	return rsa.EncryptPKCS1v15(rand.Reader, pub, origData)
-}
-
-func (a *APIv2) CreatServer(ss *ServerSpec) (result ServerOrderResult, err error) {
+func (a *APIv2) CreatServer(ss ServerSpec) (result ServerOrderResult, err error) {
 	if ss.Name == "" {
-
+		err = errors.New("No name is available")
+		return
 	}
 
 	if ss.Cpu == 0 {
-
+		err = errors.New("Cpu greater than zero")
+		return
 	}
 
 	if ss.Ram == 0 {
-
+		err = errors.New("Ram greater than zero")
+		return
 	}
 
 	if ss.ImageType == 0 {
-
-	}
-
-	if ss.VmType == 0 {
-
+		err = errors.New("No imageType is available")
+		return
 	}
 
 	if ss.Region == "" {
-
+		err = errors.New("No region is available")
+		return
 	}
 
 	if ss.Password == "" && ss.KeypairName == "" {
-
+		err = errors.New("No password and keypairName is available")
+		return
 	}
 
 	body := map[string]interface{}{
@@ -109,7 +82,7 @@ func (a *APIv2) CreatServer(ss *ServerSpec) (result ServerOrderResult, err error
 	}
 
 	if ss.Password != "" {
-		if password, err := rsaEncrypt([]byte(ss.Password)); err == nil {
+		if password, err := core.RsaEncrypt([]byte(ss.Password)); err == nil {
 			body["password"] = password
 		}
 	} else if ss.KeypairName != "" {
@@ -152,10 +125,6 @@ func (a *APIv2) CreatServer(ss *ServerSpec) (result ServerOrderResult, err error
 	if len(ss.SecurityGroupIds) > 0 {
 		body["securityGroupIds"] = ss.SecurityGroupIds
 	}
-
-	//if bytes, err := json.MarshalIndent(&body, "","  "); err == nil {
-	//	fmt.Printf("%s\n", bytes)
-	//}
 
 	resp, err := a.client.NewRequest("POST", "/api/v2/server/order", nil, nil, body)
 	if err != nil {
@@ -415,15 +384,13 @@ func (a *APIv2) GetRebuildImageList(serverId string, imageType int) (result Serv
 	return
 }
 
-func (a *APIv2) RebuildServer(serverId, imageId string, adminPass, userData string) (err error) {
+func (a *APIv2) RebuildServer(serverId, imageId string, adminPass, userData string) error {
 	if serverId == "" {
-		err = errors.New("No serverId is available")
-		return
+		return errors.New("No serverId is available")
 	}
 
 	if imageId == "" {
-		err = errors.New("No imageId is available")
-		return
+		return errors.New("No imageId is available")
 	}
 
 	body := map[string]interface{}{
@@ -432,7 +399,7 @@ func (a *APIv2) RebuildServer(serverId, imageId string, adminPass, userData stri
 	}
 
 	if adminPass != "" {
-		if password, err := rsaEncrypt([]byte(adminPass)); err == nil {
+		if password, err := core.RsaEncrypt([]byte(adminPass)); err == nil {
 			body["adminPass"] = password
 		}
 	}
@@ -443,9 +410,20 @@ func (a *APIv2) RebuildServer(serverId, imageId string, adminPass, userData stri
 
 	resp, err := a.client.NewRequest("PUT", "/api/v2/server/rebuild", nil, nil, body)
 	if err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
-		return
+		return fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
 	}
 
-	return
+	return nil
+}
+
+func (a *APIv2) AttachNic(nicId, serverId string) {
+
+}
+
+func (a *APIv2) DetachNic(nicId, serverId string) {
+
+}
+
+func (a *APIv2) GetUnbindNicList(serverId string, resourceType int, page, size int) {
+
 }

@@ -1,11 +1,16 @@
 package vm
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/core"
 )
+
+func demo(a ...string) {
+	fmt.Println(a)
+}
 
 func TestRegion(t *testing.T) {
 
@@ -16,11 +21,12 @@ func TestRegion(t *testing.T) {
 			ApiGwProtocol: "https",
 		})
 
-		result, err := cli.Server().GetRegionList()
+		result, err := cli.Core().GetRegionList()
 		if err != nil {
 			t.Fatal(err)
 		}
 
 		t.Log(core.Dump(result))
+		demo("a", "b")
 	})
 }

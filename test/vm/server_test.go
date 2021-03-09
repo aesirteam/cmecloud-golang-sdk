@@ -21,7 +21,7 @@ func TestServer(t *testing.T) {
 	)
 
 	t.Run("CreatServer", func(t *testing.T) {
-		spec := &Server.ServerSpec{
+		spec := Server.ServerSpec{
 			Name: name,
 			Cpu:  4,
 			Ram:  8,
@@ -50,7 +50,7 @@ func TestServer(t *testing.T) {
 		}
 
 		//查询networkId
-		vpc, err := cli.VPC().GetVPCInfoByName("vpc_default")
+		vpc, err := cli.VPC().GetVpcInfoByName("vpc_default")
 		if err != nil {
 			t.Fatal(err)
 		}

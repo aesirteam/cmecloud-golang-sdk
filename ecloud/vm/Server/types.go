@@ -13,11 +13,11 @@ func NewForConfig(conf *core.Config) (*APIv2, error) {
 }
 
 type Interface interface {
-	//查询可用区
-	GetRegionList() (RegionResultArray, error)
+	//查询云主机可用规格
+	GetProductFlavorList(spec ServerSpec, page, size int) (ProductResultArray, error)
 
 	//创建云主机
-	CreatServer(spec *ServerSpec) (ServerOrderResult, error)
+	CreatServer(spec ServerSpec) (ServerOrderResult, error)
 
 	//查询云主机列表
 	GetServerList(req *ServerSpec, page, size int) (ServerResultArray, error)
@@ -49,12 +49,6 @@ type Interface interface {
 	//重装指定云主机上的操作系统 (非必填: adminPass, userData)
 	RebuildServer(serverId, imageId string, adminPass, userData string) error
 
-	//为指定云主机挂载云硬盘
-	AttachStorageDisk(serverId, volumeId string)
-
-	//为指定云主机卸载云硬盘
-	DetachStorageDisk(serverId, volumeId string)
-
 	//查看可绑定虚拟网卡列表 (resourceType：云主机0，物理机1)
 	GetUnbindNicList(serverId string, resourceType, page, size int)
 
@@ -63,9 +57,6 @@ type Interface interface {
 
 	//为云主机解绑虚拟网卡
 	DetachNic(nicId, serverId string)
-
-	//查询云主机可用规格
-	GetProductFlavorList(spec *ServerSpec, page, size int) (ProductResultArray, error)
 }
 
 /*
@@ -162,17 +153,6 @@ type Networks struct {
 	NetworkId string
 	PortId    string
 }
-
-type RegionResult struct {
-	Id        int    `json:"id,omitempty"`
-	Name      string `json:"region"`
-	Note      string `json:"name,omitempty"`
-	Component string `json:"component,omitempty"`
-	PoolId    string `json:"poolId,omitempty"`
-	Deleted   bool   `json:"deleted,omitempty"`
-	Visible   bool   `json:"visible,omitempty"`
-}
-type RegionResultArray []RegionResult
 
 type ProductResult struct {
 	ProductId  string `json:"productId"`

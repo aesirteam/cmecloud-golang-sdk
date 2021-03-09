@@ -6,7 +6,7 @@ import (
 	json "github.com/json-iterator/go"
 )
 
-func (a *APIv2) GetProductFlavorList(ss *ServerSpec, page, size int) (result ProductResultArray, err error) {
+func (a *APIv2) GetProductFlavorList(ss ServerSpec, page, size int) (result ProductResultArray, err error) {
 	params := map[string]interface{}{
 		"category": "NORMAL",
 	}

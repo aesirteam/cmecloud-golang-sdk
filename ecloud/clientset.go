@@ -5,6 +5,7 @@ import (
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/ELB"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/FloatingIP"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/VirtualPrivateCloud"
+	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/storage/CloudBlockStorage"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/vm/Image"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/vm/KeyPair"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/vm/SecurityGroup"
@@ -14,6 +15,8 @@ import (
 )
 
 type ClientSet struct {
+	core *core.APIv2
+
 	//net
 	elb *ELB.APIv2
 	fip *FloatingIP.APIv2
@@ -25,6 +28,9 @@ type ClientSet struct {
 	securityGroup *SecurityGroup.APIv2
 	server        *Server.APIv2
 	serverBackup  *ServerBackup.APIv2
+
+	//storage
+	cbs *CloudBlockStorage.APIv2
 }
 
 func NewForConfig(conf *core.Config) (*ClientSet, error) {
@@ -34,6 +40,10 @@ func NewForConfig(conf *core.Config) (*ClientSet, error) {
 	}
 
 	var cs ClientSet
+
+	if cs.core, err = core.NewForConfig(conf); err != nil {
+		return nil, err
+	}
 
 	if cs.elb, err = ELB.NewForConfig(conf); err != nil {
 		return nil, err
@@ -67,6 +77,10 @@ func NewForConfig(conf *core.Config) (*ClientSet, error) {
 		return nil, err
 	}
 
+	if cs.cbs, err = CloudBlockStorage.NewForConfig(conf); err != nil {
+		return nil, err
+	}
+
 	return &cs, nil
 }
 
@@ -76,6 +90,10 @@ func NewForConfigDie(conf *core.Config) *ClientSet {
 		panic(err)
 	}
 	return client
+}
+
+func (c *ClientSet) Core() core.Interface {
+	return c.core
 }
 
 func (c *ClientSet) ELB() ELB.Interface {
@@ -108,4 +126,8 @@ func (c *ClientSet) Server() Server.Interface {
 
 func (c *ClientSet) ServerBackup() ServerBackup.Interface {
 	return c.serverBackup
+}
+
+func (c *ClientSet) CloudBlockStorage() CloudBlockStorage.Interface {
+	return c.cbs
 }

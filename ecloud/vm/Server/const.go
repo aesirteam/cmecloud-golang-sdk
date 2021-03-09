@@ -129,7 +129,7 @@ func (v VmType) String() string {
 	case VM_TYPE_EXCLUSIVE:
 		return "exclusive"
 	default:
-		return ""
+		return "common"
 	}
 }
 
