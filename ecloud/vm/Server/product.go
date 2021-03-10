@@ -1,12 +1,10 @@
 package Server
 
 import (
-	"fmt"
-
 	json "github.com/json-iterator/go"
 )
 
-func (a *APIv2) GetProductFlavorList(ss ServerSpec, page, size int) (result ProductResultArray, err error) {
+func (a *APIv2) GetProductFlavorList(ss *ServerSpec, page, size int) (result []ProductResult, err error) {
 	params := map[string]interface{}{
 		"category": "NORMAL",
 	}
@@ -42,18 +40,18 @@ func (a *APIv2) GetProductFlavorList(ss ServerSpec, page, size int) (result Prod
 
 	resp, err := a.client.NewRequest("GET", "/api/v2/server/product/flavor", nil, params, nil)
 	if err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		err = resp.Error(err)
 		return
 	}
 
 	obj := json.Get([]byte(resp.Body), "content")
 	if obj.LastError() != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, obj.LastError())
+		err = resp.Error(obj.LastError())
 		return
 	}
 
 	if _err := json.UnmarshalFromString(obj.ToString(), &result); _err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, _err)
+		err = resp.Error(_err)
 		return
 	}
 

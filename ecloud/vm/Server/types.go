@@ -14,13 +14,13 @@ func NewForConfig(conf *core.Config) (*APIv2, error) {
 
 type Interface interface {
 	//查询云主机可用规格
-	GetProductFlavorList(spec ServerSpec, page, size int) (ProductResultArray, error)
+	GetProductFlavorList(spec *ServerSpec, page, size int) ([]ProductResult, error)
 
 	//创建云主机
-	CreatServer(spec ServerSpec) (ServerOrderResult, error)
+	CreatServer(spec *ServerSpec) (ServerOrderResult, error)
 
 	//查询云主机列表
-	GetServerList(req *ServerSpec, page, size int) (ServerResultArray, error)
+	GetServerList(req *ServerSpec, page, size int) ([]ServerResult, error)
 
 	//查看云主机详情
 	GetServerInfo(serverId string, detail bool) (ServerResult, error)
@@ -44,7 +44,7 @@ type Interface interface {
 	StopServer(serverId string) (ServerResult, error)
 
 	//查看可重装云主机镜像列表 (imageType: 1:用户创建镜像,2:系统镜像)
-	GetRebuildImageList(serverId string, imageType int) (ServerRebuildImageArray, error)
+	GetRebuildImageList(serverId string, imageType int) ([]ServerRebuildImage, error)
 
 	//重装指定云主机上的操作系统 (非必填: adminPass, userData)
 	RebuildServer(serverId, imageId string, adminPass, userData string) error
@@ -77,7 +77,7 @@ type Interface interface {
   BillingType	计费类型
   Dration		订购时长（月），取值范围[0,60]。按小时付费与按月后付费填写0，按月预付费按需填写
   Quantity	订购数量，取值范围[1,10]
-  DataVolumeArray	云主机数据盘
+  DataVolumes	云主机数据盘集合
   OsType		操作系统类型
 
   //查询请求参数(非必填)：
@@ -108,9 +108,9 @@ type ServerSpec struct {
 	VmType
 	Region string
 	BillingType
-	Dration  int
-	Quantity int
-	DataVolumeArray
+	Dration     int
+	Quantity    int
+	DataVolumes []DataVolume
 	OsType
 
 	ServerId  string
@@ -142,8 +142,6 @@ type DataVolume struct {
 	IsShare      bool
 }
 
-type DataVolumeArray []DataVolume
-
 /*
 云主机网络
 	NetworkId	云主机网络id
@@ -169,7 +167,6 @@ type ProductResult struct {
 	Zone       string `json:"zone"`
 	Deleted    bool   `json:"deleted"`
 }
-type ProductResultArray []ProductResult
 
 type ServerOrderResult struct {
 	ProcedureCode string   `json:"procedureCode"`
@@ -243,7 +240,6 @@ type ServerResult struct {
 	OperationFlag           int    `json:"operationFlag,omitempty"`
 	DeCloudServerName       string `json:"deCloudServerName,omitempty"`
 }
-type ServerResultArray []ServerResult
 
 /*
 云主机绑定的网络信息
@@ -339,4 +335,3 @@ type ServerRebuildImage struct {
 	OsType            string `json:"osType"`
 	MinDisk           int    `json:"minDisk"`
 }
-type ServerRebuildImageArray []ServerRebuildImage

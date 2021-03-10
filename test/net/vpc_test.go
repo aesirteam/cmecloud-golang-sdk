@@ -15,21 +15,31 @@ func TestVPC(t *testing.T) {
 		ApiGwProtocol: "https",
 	})
 
+	spec := VirtualPrivateCloud.VpcSpec{
+		Cidr:        "192.168.101.0/24",
+		CidrV6:      "",
+		Name:        "vpc99999",
+		NetworkName: "subnet_default",
+		Region:      "N0851-GZ-GYGZ01",
+	}
+
+	getVpcInfoByName := func(name string) VirtualPrivateCloud.VpcResult {
+		vpc, err := cli.VPC().GetVpcInfoByName(name)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		return vpc
+	}
+
 	t.Run("CreateVpc", func(t *testing.T) {
-		result, err := cli.VPC().CreatVpc(VirtualPrivateCloud.VpcSpec{
-			Name:        "vpc88888",
-			NetworkName: "network1",
-			Region:      "N0851-GZ-GYGZ01",
-			Subnets: []VirtualPrivateCloud.SubnetSpec{
-				{SubnetName: "network1", IpVersion: 4, Cidr: "192.168.18.0/24"},
-			},
-		})
+		vpcId, err := cli.VPC().CreateVpc(&spec)
 
 		if err != nil {
 			t.Fatal(err)
 		}
 
-		t.Log(result)
+		t.Logf("vpcId:%s\n", vpcId)
 	})
 
 	t.Run("GetVpcList", func(t *testing.T) {
@@ -42,7 +52,9 @@ func TestVPC(t *testing.T) {
 	})
 
 	t.Run("GetVpcInfo", func(t *testing.T) {
-		result, err := cli.VPC().GetVpcInfo("3b91fe26f37f4bc3b0da730ba7cbec33")
+		vpc := getVpcInfoByName(spec.Name)
+
+		result, err := cli.VPC().GetVpcInfo(vpc.Id)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -51,7 +63,15 @@ func TestVPC(t *testing.T) {
 	})
 
 	t.Run("GetVpcInfoByName", func(t *testing.T) {
-		result, err := cli.VPC().GetVpcInfoByName("vpc88888")
+		result := getVpcInfoByName(spec.Name)
+
+		t.Log(core.Dump(result))
+	})
+
+	t.Run("GetVpcNetwork", func(t *testing.T) {
+		vpc := getVpcInfoByName(spec.Name)
+
+		result, err := cli.VPC().GetVpcNetwork(vpc.RouterId)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -59,20 +79,4 @@ func TestVPC(t *testing.T) {
 		t.Log(core.Dump(result))
 	})
 
-	t.Run("CreateSubnet", func(t *testing.T) {
-		result, err := cli.VPC().CreateSubnet(VirtualPrivateCloud.VpcSpec{
-			RouterId:    "0e0c53c0-111c-4e8b-822b-c4f3dcd321aa",
-			NetworkName: "network1",
-			Region:      "N0851-GZ-GYGZ01",
-			Subnets: []VirtualPrivateCloud.SubnetSpec{
-				{SubnetName: "network1", IpVersion: 4, Cidr: "10.15.0.0/24"},
-			},
-		})
-
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		t.Log(result)
-	})
 }

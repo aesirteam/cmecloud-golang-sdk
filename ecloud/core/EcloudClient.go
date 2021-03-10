@@ -153,7 +153,7 @@ func (c *EcloudClient) NewRequest(verb, prefixPath string, headers, params, body
 	var reqBody io.Reader
 
 	switch verb {
-	case "GET":
+	case "GET", "DELETE":
 		reqBody = strings.NewReader("")
 	case "PUT", "POST":
 		if body == nil {
@@ -211,4 +211,8 @@ func (c *EcloudClient) NewRequest(verb, prefixPath string, headers, params, body
 	}
 
 	return
+}
+
+func (r *Response) Error(err error) error {
+	return fmt.Errorf("%s %s [%d] %s", r.Method, r.SignUrl, r.StatusCode, err)
 }

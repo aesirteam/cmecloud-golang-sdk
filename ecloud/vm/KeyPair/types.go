@@ -17,7 +17,7 @@ type Interface interface {
 	CreateKeypair(name, region string) (KeypairResult, error)
 
 	//查询SSH密钥对列表
-	GetKeypairList(name, region string, page, size int) (KeypairResultArray, error)
+	GetKeypairList(name, region string, page, size int) ([]KeypairResult, error)
 
 	//删除SSH密钥对
 	DeleteKeypair(keyId string) error
@@ -42,4 +42,3 @@ type KeypairResult struct {
 	Region       string `json:"region,omitempty"`
 	PrivateKey   string `json:"privateKey,omitempty"`
 }
-type KeypairResultArray []KeypairResult

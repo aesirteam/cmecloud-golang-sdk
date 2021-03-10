@@ -2,14 +2,16 @@ package VirtualPrivateCloud
 
 import (
 	"errors"
-	"fmt"
-	"strconv"
 
-	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/core"
 	json "github.com/json-iterator/go"
 )
 
-func (a *APIv2) CreatVpc(vs VpcSpec) (result string, err error) {
+func (a *APIv2) CreateVpc(vs *VpcSpec) (vpcId string, err error) {
+	if vs.Cidr == "" {
+		err = errors.New("No cidr is available")
+		return
+	}
+
 	if vs.Name == "" {
 		err = errors.New("No name is available")
 		return
@@ -26,47 +28,24 @@ func (a *APIv2) CreatVpc(vs VpcSpec) (result string, err error) {
 	}
 
 	body := map[string]interface{}{
+		"cidr":            vs.Cidr,
+		"cidrV6":          vs.CidrV6,
 		"name":            vs.Name,
 		"networkName":     vs.NetworkName,
 		"region":          vs.Region,
 		"networkTypeEnum": "VM",
-		"routerExternal":  vs.RouterExternal,
 		"specs":           vs.Specs.String(),
 	}
 
-	var ns []map[string]string
-
-	for _, v := range vs.Subnets {
-		if v.Cidr != "" && v.SubnetName != "" {
-			ns = append(ns, map[string]string{
-				"cidr": v.Cidr,
-				"ipVersion": func() string {
-					if v.IpVersion == 0 {
-						return "4"
-					}
-					return strconv.Itoa(v.IpVersion)
-				}(),
-				"subnetName": v.SubnetName,
-			})
-		}
-	}
-
-	if len(ns) == 0 {
-		err = errors.New("No subnets is available")
-		return
-	}
-
-	body["subnets"] = ns
-
-	fmt.Println(core.Dump(body))
+	//fmt.Println(core.Dump(body))
 
 	resp, err := a.client.NewRequest("POST", "/api/v2/netcenter/vpc", nil, nil, body)
 	if err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		err = resp.Error(err)
 		return
 	}
 
-	result = resp.Body
+	vpcId = resp.Body
 
 	return
 }
@@ -75,7 +54,7 @@ func (a *APIv2) DeleteVpc(vpcId string) {
 
 }
 
-func (a *APIv2) GetVpcList(natGatewayBind, visible bool, scale VpcScale, region string, tagIds []string, page, size int) (result VpcResultArray, err error) {
+func (a *APIv2) GetVpcList(natGatewayBind, visible bool, scale VpcScale, region string, tagIds []string, page, size int) (result []VpcResult, err error) {
 	params := map[string]interface{}{
 		"scale": scale.String(),
 	}
@@ -106,18 +85,18 @@ func (a *APIv2) GetVpcList(natGatewayBind, visible bool, scale VpcScale, region 
 
 	resp, err := a.client.NewRequest("GET", "/api/v2/netcenter/vpc", nil, params, nil)
 	if err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		err = resp.Error(err)
 		return
 	}
 
 	obj := json.Get([]byte(resp.Body), "content")
 	if obj.LastError() != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, obj.LastError())
+		err = resp.Error(err)
 		return
 	}
 
 	if _err := json.UnmarshalFromString(obj.ToString(), &result); _err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, _err)
+		err = resp.Error(_err)
 		return
 	}
 
@@ -132,12 +111,12 @@ func (a *APIv2) GetVpcInfo(vpcId string) (result VpcResult, err error) {
 
 	resp, err := a.client.NewRequest("GET", "/api/v2/netcenter/vpc/"+vpcId, nil, nil, nil)
 	if err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		err = resp.Error(err)
 		return
 	}
 
 	if _err := json.UnmarshalFromString(resp.Body, &result); _err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, _err)
+		err = resp.Error(_err)
 		return
 	}
 
@@ -150,9 +129,9 @@ func (a *APIv2) GetVpcInfoByName(name string) (result VpcResult, err error) {
 		return
 	}
 
-	for _, r := range arr {
-		if r.Name == name {
-			return a.GetVpcInfo(r.Id)
+	for _, vpc := range arr {
+		if vpc.Name == name {
+			return a.GetVpcInfo(vpc.Id)
 		}
 	}
 
@@ -160,7 +139,7 @@ func (a *APIv2) GetVpcInfoByName(name string) (result VpcResult, err error) {
 	return
 }
 
-func (a *APIv2) GetVpcInfoByRouterId(id string) {
+func (a *APIv2) GetVpcInfoByRouterId(routerId string) {
 
 }
 
@@ -172,8 +151,34 @@ func (a *APIv2) GetVpcFirewall(routerId string) {
 
 }
 
-func (a *APIv2) GetVpcNetwork(routerId string) {
+func (a *APIv2) GetVpcNetwork(routerId string) (result []VpcNetResult, err error) {
+	if routerId == "" {
+		err = errors.New("No routerId is available")
+		return
+	}
 
+	params := map[string]interface{}{
+		"routerId": routerId,
+	}
+
+	resp, err := a.client.NewRequest("GET", "/api/v2/netcenter/network/NetworkResps", nil, params, nil)
+	if err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	obj := json.Get([]byte(resp.Body), "content")
+	if obj.LastError() != nil {
+		err = resp.Error(obj.LastError())
+		return
+	}
+
+	if _err := json.UnmarshalFromString(obj.ToString(), &result); _err != nil {
+		err = resp.Error(_err)
+		return
+	}
+
+	return
 }
 
 func (a *APIv2) GetVpcVPN(routerId string) {

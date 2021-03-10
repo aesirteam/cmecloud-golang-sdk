@@ -17,7 +17,7 @@ func TestProductFlavor(t *testing.T) {
 			ApiGwProtocol: "https",
 		})
 
-		result, err := cli.Server().GetProductFlavorList(Server.ServerSpec{Cpu: 4, Ram: 8}, 0, 0)
+		result, err := cli.Server().GetProductFlavorList(&Server.ServerSpec{Cpu: 4, Ram: 8}, 0, 0)
 		if err != nil {
 			t.Fatal(err)
 		}

@@ -2,7 +2,6 @@ package Server
 
 import (
 	"errors"
-	"fmt"
 
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/core"
 	json "github.com/json-iterator/go"
@@ -15,7 +14,7 @@ var newJson = json.Config{
 	TagKey:                 "newtag",
 }.Froze()
 
-func (a *APIv2) CreatServer(ss ServerSpec) (result ServerOrderResult, err error) {
+func (a *APIv2) CreatServer(ss *ServerSpec) (result ServerOrderResult, err error) {
 	if ss.Name == "" {
 		err = errors.New("No name is available")
 		return
@@ -95,7 +94,7 @@ func (a *APIv2) CreatServer(ss ServerSpec) (result ServerOrderResult, err error)
 
 	var dvs []map[string]interface{}
 
-	for _, dv := range ss.DataVolumeArray {
+	for _, dv := range ss.DataVolumes {
 		if dv.Size >= 10 && dv.Size <= 32768 {
 			dvs = append(dvs, map[string]interface{}{
 				"resourceType": dv.ResourceType.String(),
@@ -128,19 +127,19 @@ func (a *APIv2) CreatServer(ss ServerSpec) (result ServerOrderResult, err error)
 
 	resp, err := a.client.NewRequest("POST", "/api/v2/server/order", nil, nil, body)
 	if err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		err = resp.Error(err)
 		return
 	}
 
 	if _err := json.UnmarshalFromString(resp.Body, &result); _err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, _err)
+		err = resp.Error(_err)
 		return
 	}
 
 	return
 }
 
-func (a *APIv2) GetServerList(ss *ServerSpec, page, size int) (result ServerResultArray, err error) {
+func (a *APIv2) GetServerList(ss *ServerSpec, page, size int) (result []ServerResult, err error) {
 	params := map[string]interface{}{
 		"serverTypes":  "VM",
 		"productTypes": "NORMAL,AUTOSCALING,VO,CDN,PAAS_MASTER,PAAS_SLAVE,VCPE,EMR,LOGAUDIT",
@@ -161,18 +160,18 @@ func (a *APIv2) GetServerList(ss *ServerSpec, page, size int) (result ServerResu
 
 	resp, err := a.client.NewRequest("GET", "/api/v2/server/web/with/network", nil, params, nil)
 	if err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		err = resp.Error(err)
 		return
 	}
 
 	obj := json.Get([]byte(resp.Body), "content")
 	if obj.LastError() != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, obj.LastError())
+		err = resp.Error(obj.LastError())
 		return
 	}
 
 	if _err := json.UnmarshalFromString(obj.ToString(), &result); _err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, _err)
+		err = resp.Error(_err)
 		return
 	}
 
@@ -191,12 +190,12 @@ func (a *APIv2) GetServerInfo(serverId string, detail bool) (result ServerResult
 
 	resp, err := a.client.NewRequest("GET", "/api/server/"+serverId, nil, params, nil)
 	if err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		err = resp.Error(err)
 		return
 	}
 
 	if _err := newJson.Unmarshal([]byte(resp.Body), &result); _err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, _err)
+		err = resp.Error(_err)
 		return
 	}
 
@@ -215,7 +214,7 @@ func (a *APIv2) GetServerVNCAddress(serverId string) (result string, err error) 
 
 	resp, err := a.client.NewRequest("GET", "/api/server/"+serverId+"/vnc", nil, nil, nil)
 	if err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		err = resp.Error(err)
 		return
 	}
 
@@ -242,12 +241,12 @@ func (a *APIv2) UpdateServerName(serverId, name string) (result ServerResult, er
 
 	resp, err := a.client.NewRequest("PUT", "/api/server//updateName", nil, nil, body)
 	if err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		err = resp.Error(err)
 		return
 	}
 
 	if _err := newJson.Unmarshal([]byte(resp.Body), &result); _err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, _err)
+		err = resp.Error(_err)
 		return
 	}
 
@@ -272,12 +271,12 @@ func (a *APIv2) UpdateServerPassword(serverId, password string) (result ServerRe
 
 	resp, err := a.client.NewRequest("PUT", "/api/server/updatePassword", nil, nil, body)
 	if err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		err = resp.Error(err)
 		return
 	}
 
 	if _err := newJson.Unmarshal([]byte(resp.Body), &result); _err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, _err)
+		err = resp.Error(_err)
 		return
 	}
 
@@ -296,12 +295,12 @@ func (a *APIv2) RebootServer(serverId string) (result ServerResult, err error) {
 
 	resp, err := a.client.NewRequest("POST", "/api/server/"+serverId+"/reboot", nil, nil, body)
 	if err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		err = resp.Error(err)
 		return
 	}
 
 	if _err := newJson.Unmarshal([]byte(resp.Body), &result); _err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, _err)
+		err = resp.Error(_err)
 		return
 	}
 
@@ -320,12 +319,12 @@ func (a *APIv2) StartServer(serverId string) (result ServerResult, err error) {
 
 	resp, err := a.client.NewRequest("POST", "/api/server/"+serverId+"/start", nil, nil, body)
 	if err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		err = resp.Error(err)
 		return
 	}
 
 	if _err := newJson.Unmarshal([]byte(resp.Body), &result); _err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, _err)
+		err = resp.Error(_err)
 		return
 	}
 
@@ -344,19 +343,19 @@ func (a *APIv2) StopServer(serverId string) (result ServerResult, err error) {
 
 	resp, err := a.client.NewRequest("POST", "/api/server/"+serverId+"/stop", nil, nil, body)
 	if err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		err = resp.Error(err)
 		return
 	}
 
 	if _err := newJson.Unmarshal([]byte(resp.Body), &result); _err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, _err)
+		err = resp.Error(_err)
 		return
 	}
 
 	return
 }
 
-func (a *APIv2) GetRebuildImageList(serverId string, imageType int) (result ServerRebuildImageArray, err error) {
+func (a *APIv2) GetRebuildImageList(serverId string, imageType int) (result []ServerRebuildImage, err error) {
 	if serverId == "" {
 		err = errors.New("No serverId is available")
 		return
@@ -372,12 +371,12 @@ func (a *APIv2) GetRebuildImageList(serverId string, imageType int) (result Serv
 
 	resp, err := a.client.NewRequest("GET", "/api/server/"+serverId+"/rebuild/images", nil, params, nil)
 	if err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		err = resp.Error(err)
 		return
 	}
 
 	if _err := json.UnmarshalFromString(resp.Body, &result); _err != nil {
-		err = fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, _err)
+		err = resp.Error(_err)
 		return
 	}
 
@@ -410,7 +409,7 @@ func (a *APIv2) RebuildServer(serverId, imageId string, adminPass, userData stri
 
 	resp, err := a.client.NewRequest("PUT", "/api/v2/server/rebuild", nil, nil, body)
 	if err != nil {
-		return fmt.Errorf("%s %s [%d] %s", resp.Method, resp.SignUrl, resp.StatusCode, err)
+		return resp.Error(err)
 	}
 
 	return nil

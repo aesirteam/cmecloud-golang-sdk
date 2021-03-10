@@ -10,7 +10,7 @@ func NewForConfig(conf *Config) (*APIv2, error) {
 
 type Interface interface {
 	//查询可用区
-	GetRegionList() (RegionResultArray, error)
+	GetRegionList() ([]RegionResult, error)
 }
 
 type RegionResult struct {
@@ -22,4 +22,3 @@ type RegionResult struct {
 	Deleted   bool   `json:"deleted,omitempty"`
 	Visible   bool   `json:"visible,omitempty"`
 }
-type RegionResultArray []RegionResult

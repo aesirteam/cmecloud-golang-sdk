@@ -43,9 +43,9 @@ func TestServer(t *testing.T) {
 			//BillingType:      BILLING_TYPE_YEAR,
 			//Dration:          0,
 			//Quantity:         0,
-			//DataVolumeArray:  []Server.DataVolume{
-			//	{ ResourceType: Server.DATA_VOLUME_CAPEBS, Size: 10 },
-			//},
+			// DataVolumes: []Server.DataVolume{
+			// 	{ResourceType: Server.DATA_VOLUME_CAPEBS, Size: 10},
+			// },
 			//OsType:           OS_TYPE_WINDOWS,
 		}
 
@@ -64,7 +64,7 @@ func TestServer(t *testing.T) {
 		spec.Region = vpc.Region
 
 		//步骤1：查询云主机可用规格
-		product_arr, err := cli.Server().GetProductFlavorList(spec, 0, 0)
+		product_arr, err := cli.Server().GetProductFlavorList(&spec, 0, 0)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -75,7 +75,7 @@ func TestServer(t *testing.T) {
 
 		//t.Log(product_arr.Dump())
 
-		result, err := cli.Server().CreatServer(spec)
+		result, err := cli.Server().CreatServer(&spec)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -90,11 +90,11 @@ func TestServer(t *testing.T) {
 	var serverId = "eebae258-90d9-4926-aed9-3e04cf480a9a"
 
 	t.Run("GetServerList", func(t *testing.T) {
-		spec := &Server.ServerSpec{
+		spec := Server.ServerSpec{
 			Name: name,
 		}
 
-		result, err := cli.Server().GetServerList(spec, 0, 0)
+		result, err := cli.Server().GetServerList(&spec, 0, 0)
 		if err != nil {
 			t.Fatal(err)
 		}
