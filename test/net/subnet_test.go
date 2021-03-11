@@ -33,7 +33,7 @@ func TestSubnet(t *testing.T) {
 	t.Run("CreateSubnet", func(t *testing.T) {
 		vpc := getVpcInfoByName(vpcName)
 
-		subnetSpec := VirtualPrivateCloud.SubnetSpec{
+		subnetSpec := global.SubnetSpec{
 			RouterId:    vpc.RouterId,
 			NetworkName: "subnet1",
 			Region:      region,

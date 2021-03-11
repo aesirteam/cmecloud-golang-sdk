@@ -5,7 +5,6 @@ import (
 
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
-	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/vm/Server"
 )
 
 func TestProductFlavor(t *testing.T) {
@@ -17,7 +16,7 @@ func TestProductFlavor(t *testing.T) {
 			ApiGwProtocol: "https",
 		}).VM()
 
-		result, err := vm.GetProductFlavorList(&Server.ServerSpec{Cpu: 4, Ram: 8}, 0, 0)
+		result, err := vm.GetProductFlavorList(&global.ServerSpec{Cpu: 4, Ram: 8}, 0, 0)
 		if err != nil {
 			t.Fatal(err)
 		}

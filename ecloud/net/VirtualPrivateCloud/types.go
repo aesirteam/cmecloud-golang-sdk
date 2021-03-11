@@ -15,7 +15,7 @@ func NewForConfig(conf *global.Config) (*APIv2, error) {
 
 type VPCInterface interface {
 	//创建VPC
-	CreateVpc(spec *VpcSpec) (string, error)
+	CreateVpc(spec *global.VpcSpec) (string, error)
 
 	//退订VPC
 	DeleteVpc(vpcId string)
@@ -27,7 +27,7 @@ type VPCInterface interface {
 			region		可用区
 			tagIds		标签ID列表
 	*/
-	GetVpcList(natGatewayBind bool, scale VpcScale, region string, tagIds []string, page, size int) ([]VpcResult, error)
+	GetVpcList(natGatewayBind bool, scale global.VpcScale, region string, tagIds []string, page, size int) ([]VpcResult, error)
 
 	//根据vpcId查看VPC详情，包含路由详情
 	GetVpcInfo(vpcId string) (VpcResult, error)
@@ -75,7 +75,7 @@ type VPCInterface interface {
 	GetRouterInfo(routerId string) (RouterResult, error)
 
 	//创建子网
-	CreateSubnet(spec *SubnetSpec) (string, error)
+	CreateSubnet(spec *global.SubnetSpec) (string, error)
 
 	//删除子网
 	DeleteSubnet(networkId string) error
@@ -90,45 +90,10 @@ type VPCInterface interface {
 	//FirewallBindRouter(firewallId, routerId string) (result string, err error)
 
 	//查看IPSecVPN列表
-	GetIpsecVpnList(vpcName, routerId string, scale VpcScale, region string, page, size int) ([]VpnResult, error)
+	GetIpsecVpnList(vpcName, routerId string, scale global.VpcScale, region string, page, size int) ([]VpnResult, error)
 
 	//根据vpnId查看IPSecVPN服务的详情
 	GetIpsecVpnInfo(vpnId string) (result VpnResult, err error)
-}
-
-/*
-虚拟私有云
-  Cidr	【必填】cidr
-  Name		【必填】vpc名称,路由器名称
-  NetworkName	【必填】网络名称
-  RouterExternal	【必填】路由器是否开启网关
-  Region		【必填】可用区
-  Specs		VPC规格
-*/
-type VpcSpec struct {
-	Cidr        string
-	CidrV6      string
-	Name        string
-	NetworkName string
-	Region      string
-	Specs       VpcScale
-}
-
-/*
-子网信息
-  Cidr		【必填】子网cid
-  IpVersion	【必填】enum(4,6)
-  SubnetName	【必填】子网名称
-*/
-type SubnetSpec struct {
-	RouterId    string
-	NetworkName string
-	Region      string
-	Subnets     []struct {
-		Cidr       string
-		IpVersion  int
-		SubnetName string
-	}
 }
 
 type VpcResult struct {

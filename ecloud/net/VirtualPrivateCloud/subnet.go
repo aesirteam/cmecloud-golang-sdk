@@ -3,9 +3,11 @@ package VirtualPrivateCloud
 import (
 	"errors"
 	"strconv"
+
+	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
 )
 
-func (a *APIv2) CreateSubnet(ss *SubnetSpec) (networkId string, err error) {
+func (a *APIv2) CreateSubnet(ss *global.SubnetSpec) (networkId string, err error) {
 	if ss.RouterId == "" {
 		err = errors.New("No routerId is available")
 		return

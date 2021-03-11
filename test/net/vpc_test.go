@@ -15,7 +15,7 @@ func TestVPC(t *testing.T) {
 		ApiGwProtocol: "https",
 	}).Net()
 
-	spec := VirtualPrivateCloud.VpcSpec{
+	spec := global.VpcSpec{
 		Cidr:        "192.168.101.0/24",
 		CidrV6:      "",
 		Name:        "vpc99999",

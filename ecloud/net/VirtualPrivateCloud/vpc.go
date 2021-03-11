@@ -2,9 +2,11 @@ package VirtualPrivateCloud
 
 import (
 	"errors"
+
+	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
 )
 
-func (a *APIv2) CreateVpc(vs *VpcSpec) (vpcId string, err error) {
+func (a *APIv2) CreateVpc(vs *global.VpcSpec) (vpcId string, err error) {
 	if vs.Cidr == "" {
 		err = errors.New("No cidr is available")
 		return
@@ -52,7 +54,7 @@ func (a *APIv2) DeleteVpc(vpcId string) {
 
 }
 
-func (a *APIv2) GetVpcList(natGatewayBind bool, scale VpcScale, region string, tagIds []string, page, size int) (result []VpcResult, err error) {
+func (a *APIv2) GetVpcList(natGatewayBind bool, scale global.VpcScale, region string, tagIds []string, page, size int) (result []VpcResult, err error) {
 	params := map[string]interface{}{
 		"scale":   scale.String(),
 		"visible": true,
@@ -117,7 +119,7 @@ func (a *APIv2) GetVpcInfo(vpcId string) (result VpcResult, err error) {
 }
 
 func (a *APIv2) GetVpcInfoByName(name string) (result VpcResult, err error) {
-	arr, err := a.GetVpcList(false, VPC_SCALE_HIGH, "", nil, 0, 0)
+	arr, err := a.GetVpcList(false, 0, "", nil, 0, 0)
 	if err != nil {
 		return
 	}
@@ -229,7 +231,7 @@ func (a *APIv2) GetVpcVPN(routerId string) (result []VpnResult, err error) {
 		return
 	}
 
-	result, err = a.GetIpsecVpnList("", routerId, VPC_SCALE_HIGH, "", 0, 0)
+	result, err = a.GetIpsecVpnList("", routerId, 0, "", 0, 0)
 
 	return
 }

@@ -1,6 +1,10 @@
 package VirtualPrivateCloud
 
-import "errors"
+import (
+	"errors"
+
+	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
+)
 
 func (a *APIv2) CreateIpsecVpnConnection() {
 
@@ -10,7 +14,7 @@ func (a *APIv2) DeleteIpsecVpnConnection() {
 
 }
 
-func (a *APIv2) GetIpsecVpnList(vpcName, routerId string, scale VpcScale, region string, page, size int) (result []VpnResult, err error) {
+func (a *APIv2) GetIpsecVpnList(vpcName, routerId string, scale global.VpcScale, region string, page, size int) (result []VpnResult, err error) {
 	params := map[string]interface{}{
 		"vpcScale": scale.String(),
 		"visible":  true,

@@ -6,7 +6,7 @@ import (
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
 )
 
-func (a *APIv2) CreatServer(ss *ServerSpec) (result ServerOrderResult, err error) {
+func (a *APIv2) CreatServer(ss *global.ServerSpec) (result ServerOrderResult, err error) {
 	if ss.Name == "" {
 		err = errors.New("No name is available")
 		return
@@ -51,7 +51,7 @@ func (a *APIv2) CreatServer(ss *ServerSpec) (result ServerOrderResult, err error
 
 	body["disk"] = func() int {
 		switch ss.OsType {
-		case OS_TYPE_WINDOWS:
+		case global.OS_TYPE_WINDOWS:
 			return 40
 		default:
 			return 20
@@ -59,16 +59,16 @@ func (a *APIv2) CreatServer(ss *ServerSpec) (result ServerOrderResult, err error
 	}()
 
 	body["bootVolume"] = map[string]interface{}{
-		"volumeType": ss.BootVolume.VolumeType.String(),
+		"volumeType": ss.BootVolumeSpec.VolumeType.String(),
 		"size": func() int {
-			if ss.BootVolume.Size <= 0 {
-				if ss.OsType == OS_TYPE_LINUX {
+			if ss.BootVolumeSpec.Size <= 0 {
+				if ss.OsType == global.OS_TYPE_LINUX {
 					return 20
-				} else if ss.OsType == OS_TYPE_WINDOWS {
+				} else if ss.OsType == global.OS_TYPE_WINDOWS {
 					return 40
 				}
 			}
-			return ss.BootVolume.Size
+			return ss.BootVolumeSpec.Size
 		}(),
 	}
 
@@ -100,8 +100,8 @@ func (a *APIv2) CreatServer(ss *ServerSpec) (result ServerOrderResult, err error
 		body["dataVolume"] = dvs
 	}
 
-	if ss.BillingType == BILLING_TYPE_YEAR {
-		body["billingType"] = BILLING_TYPE_MONTH.String()
+	if ss.BillingType == global.BILLING_TYPE_YEAR {
+		body["billingType"] = global.BILLING_TYPE_MONTH.String()
 		if ss.Dration == 0 {
 			body["dration"] = 24
 		} else if ss.Dration > 0 && ss.Dration <= 60 {
@@ -131,7 +131,7 @@ func (a *APIv2) CreatServer(ss *ServerSpec) (result ServerOrderResult, err error
 	return
 }
 
-func (a *APIv2) GetServerList(ss *ServerSpec, page, size int) (result []ServerResult, err error) {
+func (a *APIv2) GetServerList(ss *global.ServerSpec, page, size int) (result []ServerResult, err error) {
 	params := map[string]interface{}{
 		"serverTypes":  "VM",
 		"productTypes": "NORMAL,AUTOSCALING,VO,CDN,PAAS_MASTER,PAAS_SLAVE,VCPE,EMR,LOGAUDIT",
@@ -341,7 +341,7 @@ func (a *APIv2) StopServer(serverId string) (result ServerResult, err error) {
 	return
 }
 
-func (a *APIv2) GetRebuildImageList(serverId string, imageType int) (result []ServerRebuildImage, err error) {
+func (a *APIv2) GetRebuildImageList(serverId string, imageType int) (result []ServerRebuildImageResult, err error) {
 	if serverId == "" {
 		err = errors.New("No serverId is available")
 		return

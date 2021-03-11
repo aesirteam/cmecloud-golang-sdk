@@ -1,6 +1,8 @@
 package Server
 
-func (a *APIv2) GetProductFlavorList(ss *ServerSpec, page, size int) (result []ProductResult, err error) {
+import "github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
+
+func (a *APIv2) GetProductFlavorList(ss *global.ServerSpec, page, size int) (result []ProductResult, err error) {
 	params := map[string]interface{}{
 		"category": "NORMAL",
 	}
@@ -14,11 +16,11 @@ func (a *APIv2) GetProductFlavorList(ss *ServerSpec, page, size int) (result []P
 	}
 
 	switch ss.OsType {
-	case OS_TYPE_WINDOWS:
-		params["osType"] = OS_TYPE_WINDOWS.String()
+	case global.OS_TYPE_WINDOWS:
+		params["osType"] = global.OS_TYPE_WINDOWS.String()
 		params["disk"] = 40
 	default:
-		params["osType"] = OS_TYPE_LINUX.String()
+		params["osType"] = global.OS_TYPE_LINUX.String()
 		params["disk"] = 20
 	}
 
