@@ -50,7 +50,7 @@ func TestServer(t *testing.T) {
 		}
 
 		//查询networkId
-		vpc, err := cli.VPC().GetVpcInfoByName("vpc_default")
+		vpc, err := cli.Net().GetVpcInfoByName("vpc_default")
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -64,7 +64,7 @@ func TestServer(t *testing.T) {
 		spec.Region = vpc.Region
 
 		//步骤1：查询云主机可用规格
-		product_arr, err := cli.Server().GetProductFlavorList(&spec, 0, 0)
+		product_arr, err := cli.VM().GetProductFlavorList(&spec, 0, 0)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -75,7 +75,7 @@ func TestServer(t *testing.T) {
 
 		//t.Log(product_arr.Dump())
 
-		result, err := cli.Server().CreatServer(&spec)
+		result, err := cli.VM().CreatServer(&spec)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -94,7 +94,7 @@ func TestServer(t *testing.T) {
 			Name: name,
 		}
 
-		result, err := cli.Server().GetServerList(&spec, 0, 0)
+		result, err := cli.VM().GetServerList(&spec, 0, 0)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -104,7 +104,7 @@ func TestServer(t *testing.T) {
 	})
 
 	t.Run("GetServerInfo", func(t *testing.T) {
-		result, err := cli.Server().GetServerInfo(serverId, true)
+		result, err := cli.VM().GetServerInfo(serverId, true)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -113,7 +113,7 @@ func TestServer(t *testing.T) {
 	})
 
 	t.Run("GetServerVNCAddress", func(t *testing.T) {
-		addr, err := cli.Server().GetServerVNCAddress(serverId)
+		addr, err := cli.VM().GetServerVNCAddress(serverId)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -122,7 +122,7 @@ func TestServer(t *testing.T) {
 	})
 
 	t.Run("UpdateServerName", func(t *testing.T) {
-		result, err := cli.Server().UpdateServerName(serverId, name)
+		result, err := cli.VM().UpdateServerName(serverId, name)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -131,7 +131,7 @@ func TestServer(t *testing.T) {
 	})
 
 	t.Run("UpdateServerPassword", func(t *testing.T) {
-		result, err := cli.Server().UpdateServerPassword(serverId, password)
+		result, err := cli.VM().UpdateServerPassword(serverId, password)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -140,7 +140,7 @@ func TestServer(t *testing.T) {
 	})
 
 	t.Run("RebootServer", func(t *testing.T) {
-		result, err := cli.Server().RebootServer(serverId)
+		result, err := cli.VM().RebootServer(serverId)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -149,7 +149,7 @@ func TestServer(t *testing.T) {
 	})
 
 	t.Run("StartServer", func(t *testing.T) {
-		result, err := cli.Server().StartServer(serverId)
+		result, err := cli.VM().StartServer(serverId)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -158,7 +158,7 @@ func TestServer(t *testing.T) {
 	})
 
 	t.Run("StopServer", func(t *testing.T) {
-		result, err := cli.Server().StopServer(serverId)
+		result, err := cli.VM().StopServer(serverId)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -169,7 +169,7 @@ func TestServer(t *testing.T) {
 	var imageId = "c82bb33a-69e0-4f10-b8e0-856502066384"
 
 	t.Run("GetRebuildImageList", func(t *testing.T) {
-		result, err := cli.Server().GetRebuildImageList(serverId, 0)
+		result, err := cli.VM().GetRebuildImageList(serverId, 0)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -185,7 +185,7 @@ func TestServer(t *testing.T) {
 	})
 
 	t.Run("RebuildServer", func(t *testing.T) {
-		err := cli.Server().RebuildServer(serverId, imageId, "", "")
+		err := cli.VM().RebuildServer(serverId, imageId, "", "")
 		if err != nil {
 			t.Fatal(err)
 		}

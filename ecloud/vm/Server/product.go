@@ -1,9 +1,5 @@
 package Server
 
-import (
-	json "github.com/json-iterator/go"
-)
-
 func (a *APIv2) GetProductFlavorList(ss *ServerSpec, page, size int) (result []ProductResult, err error) {
 	params := map[string]interface{}{
 		"category": "NORMAL",
@@ -44,14 +40,8 @@ func (a *APIv2) GetProductFlavorList(ss *ServerSpec, page, size int) (result []P
 		return
 	}
 
-	obj := json.Get([]byte(resp.Body), "content")
-	if obj.LastError() != nil {
-		err = resp.Error(obj.LastError())
-		return
-	}
-
-	if _err := json.UnmarshalFromString(obj.ToString(), &result); _err != nil {
-		err = resp.Error(_err)
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
+		err = resp.Error(err)
 		return
 	}
 

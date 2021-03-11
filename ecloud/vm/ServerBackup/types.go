@@ -12,5 +12,5 @@ func NewForConfig(conf *core.Config) (*APIv2, error) {
 	return &APIv2{client: core.New(conf)}, nil
 }
 
-type Interface interface {
+type ServerBackupInterface interface {
 }

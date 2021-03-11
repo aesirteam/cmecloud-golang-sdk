@@ -11,13 +11,13 @@ import (
 func TestProductFlavor(t *testing.T) {
 
 	t.Run("GetProductFlavorList", func(t *testing.T) {
-		cli := ecloud.NewForConfigDie(&core.Config{
+		vm := ecloud.NewForConfigDie(&core.Config{
 			ApiGwHost: "api-guiyang-1.cmecloud.cn",
 			//ApiGwPort:     8443,
 			ApiGwProtocol: "https",
-		})
+		}).VM()
 
-		result, err := cli.Server().GetProductFlavorList(&Server.ServerSpec{Cpu: 4, Ram: 8}, 0, 0)
+		result, err := vm.GetProductFlavorList(&Server.ServerSpec{Cpu: 4, Ram: 8}, 0, 0)
 		if err != nil {
 			t.Fatal(err)
 		}

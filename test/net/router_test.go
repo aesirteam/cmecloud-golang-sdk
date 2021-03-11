@@ -9,14 +9,14 @@ import (
 )
 
 func TestRouter(t *testing.T) {
-	cli := ecloud.NewForConfigDie(&core.Config{
+	net := ecloud.NewForConfigDie(&core.Config{
 		ApiGwHost: "api-guiyang-1.cmecloud.cn",
 		//ApiGwPort:     8443,
 		ApiGwProtocol: "https",
-	})
+	}).Net()
 
 	getVpcInfoByName := func(name string) VirtualPrivateCloud.VpcResult {
-		vpc, err := cli.VPC().GetVpcInfoByName(name)
+		vpc, err := net.GetVpcInfoByName(name)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -29,7 +29,7 @@ func TestRouter(t *testing.T) {
 	t.Run("GetRouterNetList", func(t *testing.T) {
 		vpc := getVpcInfoByName(vpcName)
 
-		result, err := cli.VPC().GetRouterNetList(vpc.RouterId)
+		result, err := net.GetRouterNetList(vpc.RouterId)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -40,7 +40,7 @@ func TestRouter(t *testing.T) {
 	t.Run("GetRouterInfo", func(t *testing.T) {
 		vpc := getVpcInfoByName(vpcName)
 
-		result, err := cli.VPC().GetRouterInfo(vpc.RouterId)
+		result, err := net.GetRouterInfo(vpc.RouterId)
 		if err != nil {
 			t.Fatal(err)
 		}

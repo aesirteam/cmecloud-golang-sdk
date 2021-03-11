@@ -8,7 +8,7 @@ func NewForConfig(conf *Config) (*APIv2, error) {
 	return &APIv2{client: New(conf)}, nil
 }
 
-type Interface interface {
+type CoreInterface interface {
 	//查询可用区
 	GetRegionList() ([]RegionResult, error)
 }

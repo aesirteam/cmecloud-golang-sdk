@@ -2,8 +2,6 @@ package KeyPair
 
 import (
 	"errors"
-
-	json "github.com/json-iterator/go"
 )
 
 func (a *APIv2) CreateKeypair(name, region string) (result KeypairResult, err error) {
@@ -59,14 +57,8 @@ func (a *APIv2) GetKeypairList(name, region string, page, size int) (result []Ke
 		return
 	}
 
-	obj := json.Get([]byte(resp.Body), "content")
-	if obj.LastError() != nil {
-		err = resp.Error(obj.LastError())
-		return
-	}
-
-	if _err := json.UnmarshalFromString(obj.ToString(), &result); _err != nil {
-		err = resp.Error(_err)
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
+		err = resp.Error(err)
 		return
 	}
 

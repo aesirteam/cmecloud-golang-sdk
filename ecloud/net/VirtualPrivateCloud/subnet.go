@@ -3,8 +3,6 @@ package VirtualPrivateCloud
 import (
 	"errors"
 	"strconv"
-
-	json "github.com/json-iterator/go"
 )
 
 func (a *APIv2) CreateSubnet(ss *SubnetSpec) (networkId string, err error) {
@@ -115,13 +113,7 @@ func (a *APIv2) GetSubnetInfo(networkId string) (result []SubnetResult, err erro
 		return
 	}
 
-	obj := json.Get([]byte(resp.Body), "content")
-	if obj.LastError() != nil {
-		err = resp.Error(err)
-		return
-	}
-
-	if _err := json.UnmarshalFromString(obj.ToString(), &result); _err != nil {
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
 		err = resp.Error(err)
 		return
 	}

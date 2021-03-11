@@ -3,8 +3,12 @@ package core
 import (
 	"bytes"
 	"crypto/hmac"
+	_rand "crypto/rand"
+	"crypto/rsa"
 	"crypto/sha1"
 	"crypto/sha256"
+	"crypto/x509"
+	"encoding/pem"
 	"errors"
 	"fmt"
 	"io"
@@ -215,4 +219,65 @@ func (c *EcloudClient) NewRequest(verb, prefixPath string, headers, params, body
 
 func (r *Response) Error(err error) error {
 	return fmt.Errorf("%s %s [%d] %s", r.Method, r.SignUrl, r.StatusCode, err)
+}
+
+func (r *Response) UnmarshalFromContent(result interface{}, tagKey string) error {
+	var fronze = json.ConfigDefault
+
+	if tagKey != "" {
+		fronze = json.Config{
+			EscapeHTML:             true,
+			SortMapKeys:            true,
+			ValidateJsonRawMessage: true,
+			TagKey:                 "newtag",
+		}.Froze()
+	}
+
+	var obj = fronze.Get([]byte(r.Body))
+	if obj.LastError() != nil {
+		return obj.LastError()
+	}
+
+	if content := obj.Get("content"); content.LastError() == nil {
+		obj = content
+	}
+
+	if err := fronze.UnmarshalFromString(obj.ToString(), result); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+var publicKey = []byte(`
+-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC/VpRysi0bPRLS7sbgQDJHo1MAt9/bK
++nwK5Pe3z0/O4cH5I/8kFNYy4yFsLMM+zyFvVw9C4wzjHaRcmEuF3ziJMC9PD5ufUWgfO
+5nSGgZW1cmgjqnhcWJ3i+Azj72RnhKQRCn9DgJduEC9MiKfbyTICGd6FXf9cxb21nkxI7vtwIDAQAB
+-----END PUBLIC KEY-----
+`)
+
+func RsaEncrypt(origData []byte) ([]byte, error) {
+	//将密钥解析成公钥实例
+	block, _ := pem.Decode(publicKey)
+	if block == nil {
+		return nil, errors.New("public key error")
+	}
+
+	//解析pem.Decode（）返回的Block指针实例
+	pubInterface, err := x509.ParsePKIXPublicKey(block.Bytes)
+	if err != nil {
+		return nil, err
+	}
+
+	pub := pubInterface.(*rsa.PublicKey)
+	//RSA算法加密
+	return rsa.EncryptPKCS1v15(_rand.Reader, pub, origData)
+}
+
+func Dump(a interface{}) string {
+	if bytes, err := json.MarshalIndent(&a, "", "  "); err == nil {
+		return fmt.Sprintf("\n%s", bytes)
+	}
+	return ""
 }

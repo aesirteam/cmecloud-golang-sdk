@@ -2,8 +2,6 @@ package VirtualPrivateCloud
 
 import (
 	"errors"
-
-	json "github.com/json-iterator/go"
 )
 
 func (a *APIv2) CreateVpc(vs *VpcSpec) (vpcId string, err error) {
@@ -54,17 +52,14 @@ func (a *APIv2) DeleteVpc(vpcId string) {
 
 }
 
-func (a *APIv2) GetVpcList(natGatewayBind, visible bool, scale VpcScale, region string, tagIds []string, page, size int) (result []VpcResult, err error) {
+func (a *APIv2) GetVpcList(natGatewayBind bool, scale VpcScale, region string, tagIds []string, page, size int) (result []VpcResult, err error) {
 	params := map[string]interface{}{
-		"scale": scale.String(),
+		"scale":   scale.String(),
+		"visible": true,
 	}
 
 	if natGatewayBind {
 		params["natGatewayBind"] = true
-	}
-
-	if visible {
-		params["visible"] = true
 	}
 
 	if region != "" {
@@ -89,14 +84,8 @@ func (a *APIv2) GetVpcList(natGatewayBind, visible bool, scale VpcScale, region 
 		return
 	}
 
-	obj := json.Get([]byte(resp.Body), "content")
-	if obj.LastError() != nil {
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
 		err = resp.Error(err)
-		return
-	}
-
-	if _err := json.UnmarshalFromString(obj.ToString(), &result); _err != nil {
-		err = resp.Error(_err)
 		return
 	}
 
@@ -109,14 +98,18 @@ func (a *APIv2) GetVpcInfo(vpcId string) (result VpcResult, err error) {
 		return
 	}
 
-	resp, err := a.client.NewRequest("GET", "/api/v2/netcenter/vpc/"+vpcId, nil, nil, nil)
+	params := map[string]interface{}{
+		"visible": true,
+	}
+
+	resp, err := a.client.NewRequest("GET", "/api/v2/netcenter/vpc/"+vpcId, nil, params, nil)
 	if err != nil {
 		err = resp.Error(err)
 		return
 	}
 
-	if _err := json.UnmarshalFromString(resp.Body, &result); _err != nil {
-		err = resp.Error(_err)
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
+		err = resp.Error(err)
 		return
 	}
 
@@ -124,7 +117,7 @@ func (a *APIv2) GetVpcInfo(vpcId string) (result VpcResult, err error) {
 }
 
 func (a *APIv2) GetVpcInfoByName(name string) (result VpcResult, err error) {
-	arr, err := a.GetVpcList(false, false, VPC_SCALE_HIGH, "", nil, 0, 0)
+	arr, err := a.GetVpcList(false, VPC_SCALE_HIGH, "", nil, 0, 0)
 	if err != nil {
 		return
 	}
@@ -139,16 +132,71 @@ func (a *APIv2) GetVpcInfoByName(name string) (result VpcResult, err error) {
 	return
 }
 
-func (a *APIv2) GetVpcInfoByRouterId(routerId string) {
+func (a *APIv2) GetVpcInfoByRouterId(routerId string) (result VpcResult, err error) {
+	if routerId == "" {
+		err = errors.New("No routerId is available")
+		return
+	}
 
+	params := map[string]interface{}{
+		"visible": true,
+	}
+
+	resp, err := a.client.NewRequest("GET", "/api/v2/vpc/router/"+routerId, nil, params, nil)
+	if err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	return
 }
 
-func (a *APIv2) ModifyVpcInfo(vpcId, name, desc string) {
+func (a *APIv2) ModifyVpcInfo(vpcId, name, desc string) error {
+	if vpcId == "" {
+		return errors.New("No vpcId is available")
+	}
 
+	if name == "" {
+		return errors.New("No name is available")
+	}
+
+	body := map[string]interface{}{
+		"id":   vpcId,
+		"name": name,
+	}
+
+	if desc != "" {
+		body["description"] = desc
+	}
+
+	resp, err := a.client.NewRequest("PUT", "/api/v2/vpc", nil, nil, body)
+	if err != nil {
+		return resp.Error(err)
+	}
+
+	return nil
 }
 
-func (a *APIv2) GetVpcFirewall(routerId string) {
+func (a *APIv2) GetVpcFirewall(routerId string) (result string, err error) {
+	if routerId == "" {
+		err = errors.New("No routerId is available")
+		return
+	}
 
+	resp, err := a.client.NewRequest("GET", "/api/vpc/"+routerId+"/firewall", nil, nil, nil)
+	if err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	result = resp.Body
+
+	return
 }
 
 func (a *APIv2) GetVpcNetwork(routerId string) (result []VpcNetResult, err error) {
@@ -167,24 +215,41 @@ func (a *APIv2) GetVpcNetwork(routerId string) (result []VpcNetResult, err error
 		return
 	}
 
-	obj := json.Get([]byte(resp.Body), "content")
-	if obj.LastError() != nil {
-		err = resp.Error(obj.LastError())
-		return
-	}
-
-	if _err := json.UnmarshalFromString(obj.ToString(), &result); _err != nil {
-		err = resp.Error(_err)
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
+		err = resp.Error(err)
 		return
 	}
 
 	return
 }
 
-func (a *APIv2) GetVpcVPN(routerId string) {
+func (a *APIv2) GetVpcVPN(routerId string) (result []VpnResult, err error) {
+	if routerId == "" {
+		err = errors.New("No routerId is available")
+		return
+	}
 
+	result, err = a.GetIpsecVpnList("", routerId, VPC_SCALE_HIGH, "", 0, 0)
+
+	return
 }
 
-func (a *APIv2) GetVpcNIC(routerId string) {
+func (a *APIv2) GetVpcNic(routerId string) (result []NicResult, err error) {
+	if routerId == "" {
+		err = errors.New("No routerId is available")
+		return
+	}
 
+	resp, err := a.client.NewRequest("GET", "/api/vpc/"+routerId+"/nic", nil, nil, nil)
+	if err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	return
 }

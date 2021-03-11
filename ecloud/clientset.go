@@ -14,23 +14,61 @@ import (
 	"github.com/caarlos0/env/v6"
 )
 
+type _core struct {
+	core.CoreInterface
+}
+
+type vm struct {
+	Image.ImageInterface
+	KeyPair.KeypairInterface
+	SecurityGroup.SecurityGroupInterface
+	Server.ServerInterface
+	ServerBackup.ServerBackupInterface
+}
+
+type net struct {
+	ELB.ELBInterface
+	FloatingIP.EIPInterface
+	VirtualPrivateCloud.VPCInterface
+}
+
+type storage struct {
+	CloudBlockStorage.CBSInterface
+}
+
 type ClientSet struct {
-	core *core.APIv2
+	coreAPIv2 *core.APIv2
 
 	//net
-	elb *ELB.APIv2
-	fip *FloatingIP.APIv2
-	vpc *VirtualPrivateCloud.APIv2
+	elbAPIv2 *ELB.APIv2
+	eipAPIv2 *FloatingIP.APIv2
+	vpcAPIv2 *VirtualPrivateCloud.APIv2
 
 	//vm
-	image         *Image.APIv2
-	keypair       *KeyPair.APIv2
-	securityGroup *SecurityGroup.APIv2
-	server        *Server.APIv2
-	serverBackup  *ServerBackup.APIv2
+	imageAPIv2         *Image.APIv2
+	keypairAPIv2       *KeyPair.APIv2
+	securityGroupAPIv2 *SecurityGroup.APIv2
+	serverAPIv2        *Server.APIv2
+	serverBackupAPIv2  *ServerBackup.APIv2
 
 	//storage
-	cbs *CloudBlockStorage.APIv2
+	cbsAPIv2 *CloudBlockStorage.APIv2
+}
+
+func (c *ClientSet) Core() *_core {
+	return &_core{c.coreAPIv2}
+}
+
+func (c *ClientSet) Net() *net {
+	return &net{c.elbAPIv2, c.eipAPIv2, c.vpcAPIv2}
+}
+
+func (c *ClientSet) VM() *vm {
+	return &vm{c.imageAPIv2, c.keypairAPIv2, c.securityGroupAPIv2, c.serverAPIv2, c.serverBackupAPIv2}
+}
+
+func (c *ClientSet) Storage() *storage {
+	return &storage{c.cbsAPIv2}
 }
 
 func NewForConfig(conf *core.Config) (*ClientSet, error) {
@@ -41,43 +79,43 @@ func NewForConfig(conf *core.Config) (*ClientSet, error) {
 
 	var cs ClientSet
 
-	if cs.core, err = core.NewForConfig(conf); err != nil {
+	if cs.coreAPIv2, err = core.NewForConfig(conf); err != nil {
 		return nil, err
 	}
 
-	if cs.elb, err = ELB.NewForConfig(conf); err != nil {
+	if cs.elbAPIv2, err = ELB.NewForConfig(conf); err != nil {
 		return nil, err
 	}
 
-	if cs.fip, err = FloatingIP.NewForConfig(conf); err != nil {
+	if cs.eipAPIv2, err = FloatingIP.NewForConfig(conf); err != nil {
 		return nil, err
 	}
 
-	if cs.vpc, err = VirtualPrivateCloud.NewForConfig(conf); err != nil {
+	if cs.vpcAPIv2, err = VirtualPrivateCloud.NewForConfig(conf); err != nil {
 		return nil, err
 	}
 
-	if cs.image, err = Image.NewForConfig(conf); err != nil {
+	if cs.imageAPIv2, err = Image.NewForConfig(conf); err != nil {
 		return nil, err
 	}
 
-	if cs.keypair, err = KeyPair.NewForConfig(conf); err != nil {
+	if cs.keypairAPIv2, err = KeyPair.NewForConfig(conf); err != nil {
 		return nil, err
 	}
 
-	if cs.securityGroup, err = SecurityGroup.NewForConfig(conf); err != nil {
+	if cs.securityGroupAPIv2, err = SecurityGroup.NewForConfig(conf); err != nil {
 		return nil, err
 	}
 
-	if cs.server, err = Server.NewForConfig(conf); err != nil {
+	if cs.serverAPIv2, err = Server.NewForConfig(conf); err != nil {
 		return nil, err
 	}
 
-	if cs.serverBackup, err = ServerBackup.NewForConfig(conf); err != nil {
+	if cs.serverBackupAPIv2, err = ServerBackup.NewForConfig(conf); err != nil {
 		return nil, err
 	}
 
-	if cs.cbs, err = CloudBlockStorage.NewForConfig(conf); err != nil {
+	if cs.cbsAPIv2, err = CloudBlockStorage.NewForConfig(conf); err != nil {
 		return nil, err
 	}
 
@@ -90,44 +128,4 @@ func NewForConfigDie(conf *core.Config) *ClientSet {
 		panic(err)
 	}
 	return client
-}
-
-func (c *ClientSet) Core() core.Interface {
-	return c.core
-}
-
-func (c *ClientSet) ELB() ELB.Interface {
-	return c.elb
-}
-
-func (c *ClientSet) FloatingIP() FloatingIP.Interface {
-	return c.fip
-}
-
-func (c *ClientSet) VPC() VirtualPrivateCloud.Interface {
-	return c.vpc
-}
-
-func (c *ClientSet) Image() Image.Interface {
-	return c.image
-}
-
-func (c *ClientSet) Keypair() KeyPair.Interface {
-	return c.keypair
-}
-
-func (c *ClientSet) SecurityGroup() SecurityGroup.Interface {
-	return c.securityGroup
-}
-
-func (c *ClientSet) Server() Server.Interface {
-	return c.server
-}
-
-func (c *ClientSet) ServerBackup() ServerBackup.Interface {
-	return c.serverBackup
-}
-
-func (c *ClientSet) CloudBlockStorage() CloudBlockStorage.Interface {
-	return c.cbs
 }

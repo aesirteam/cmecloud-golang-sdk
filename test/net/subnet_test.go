@@ -9,14 +9,14 @@ import (
 )
 
 func TestSubnet(t *testing.T) {
-	cli := ecloud.NewForConfigDie(&core.Config{
+	net := ecloud.NewForConfigDie(&core.Config{
 		ApiGwHost: "api-guiyang-1.cmecloud.cn",
 		//ApiGwPort:     8443,
 		ApiGwProtocol: "https",
-	})
+	}).Net()
 
 	getVpcInfoByName := func(name string) VirtualPrivateCloud.VpcResult {
-		vpc, err := cli.VPC().GetVpcInfoByName(name)
+		vpc, err := net.GetVpcInfoByName(name)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -47,7 +47,7 @@ func TestSubnet(t *testing.T) {
 		}
 
 		var err error
-		networkId, err = cli.VPC().CreateSubnet(&subnetSpec)
+		networkId, err = net.CreateSubnet(&subnetSpec)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -61,7 +61,7 @@ func TestSubnet(t *testing.T) {
 			networkId = vpc.NetworkId
 		}
 
-		result, err := cli.VPC().GetSubnetInfo(networkId)
+		result, err := net.GetSubnetInfo(networkId)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -75,7 +75,7 @@ func TestSubnet(t *testing.T) {
 			networkId = vpc.NetworkId
 		}
 
-		err := cli.VPC().ModifySubnet(networkId, "subnet99")
+		err := net.ModifySubnet(networkId, "subnet99")
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -87,7 +87,7 @@ func TestSubnet(t *testing.T) {
 			networkId = vpc.NetworkId
 		}
 
-		err := cli.VPC().DeleteSubnet(networkId)
+		err := net.DeleteSubnet(networkId)
 		if err != nil {
 			t.Fatal(err)
 		}

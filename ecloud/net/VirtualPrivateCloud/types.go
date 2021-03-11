@@ -2,6 +2,7 @@ package VirtualPrivateCloud
 
 import (
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/core"
+	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/vm/Server"
 )
 
 type APIv2 struct {
@@ -12,7 +13,7 @@ func NewForConfig(conf *core.Config) (*APIv2, error) {
 	return &APIv2{client: core.New(conf)}, nil
 }
 
-type Interface interface {
+type VPCInterface interface {
 	//创建VPC
 	CreateVpc(spec *VpcSpec) (string, error)
 
@@ -22,12 +23,11 @@ type Interface interface {
 	/*
 		查看VPC列表
 			natGatewayBind	VPC是否绑定了NAT网关
-			visible		是否可见
 			scale			VPC规格
 			region		可用区
 			tagIds		标签ID列表
 	*/
-	GetVpcList(natGatewayBind, visible bool, scale VpcScale, region string, tagIds []string, page, size int) ([]VpcResult, error)
+	GetVpcList(natGatewayBind bool, scale VpcScale, region string, tagIds []string, page, size int) ([]VpcResult, error)
 
 	//根据vpcId查看VPC详情，包含路由详情
 	GetVpcInfo(vpcId string) (VpcResult, error)
@@ -36,22 +36,22 @@ type Interface interface {
 	GetVpcInfoByName(name string) (VpcResult, error)
 
 	//根据routerId查看VPC详情
-	GetVpcInfoByRouterId(routerId string)
+	GetVpcInfoByRouterId(routerId string) (VpcResult, error)
 
 	//更新VPC名称和描述信息
-	ModifyVpcInfo(vpcId, name, desc string)
+	ModifyVpcInfo(vpcId, name, desc string) error
 
 	//根据routerId查询VPC下防火墙
-	GetVpcFirewall(routerId string)
+	GetVpcFirewall(routerId string) (string, error)
 
 	//根据routerId查询VPC下的网络
 	GetVpcNetwork(routerId string) ([]VpcNetResult, error)
 
 	//根据routerId查询VPC下IPSecVPN
-	GetVpcVPN(routerId string)
+	GetVpcVPN(routerId string) ([]VpnResult, error)
 
 	//根据routerId查询VPC下虚拟网卡
-	GetVpcNIC(routerId string)
+	GetVpcNic(routerId string) ([]NicResult, error)
 
 	//创建虚拟网卡
 	CreateNic()
@@ -68,7 +68,7 @@ type Interface interface {
 	//修改虚拟网卡安全组
 	ModifyNicSecurityGroup(id, name string, securityGroupIds []string)
 
-	//查询路由所关联的子网列表
+	//查询路由器所关联的子网列表
 	GetRouterNetList(routerId string) ([]RouterNetResult, error)
 
 	//查看路由器详情
@@ -85,6 +85,15 @@ type Interface interface {
 
 	//根据subnetId查询子网详情
 	GetSubnetInfo(networkId string) ([]SubnetResult, error)
+
+	//根据routerId绑定云防火墙
+	//FirewallBindRouter(firewallId, routerId string) (result string, err error)
+
+	//查看IPSecVPN列表
+	GetIpsecVpnList(vpcName, routerId string, scale VpcScale, region string, page, size int) ([]VpnResult, error)
+
+	//根据vpnId查看IPSecVPN服务的详情
+	GetIpsecVpnInfo(vpnId string) (result VpnResult, err error)
 }
 
 /*
@@ -192,4 +201,51 @@ type SubnetResult struct {
 	} `json:"pools,omitempty"`
 	NetworkTypeEnum string `json:"networkTypeEnum,omitempty"`
 	Region          string `json:"region"`
+}
+
+type NicResult struct {
+	Id             string `json:"id"`
+	Name           string `json:"name"`
+	Status         int    `json:"status"`
+	AdminStateUp   int    `json:"adminStateUp"`
+	MacAddress     string `json:"macAddress"`
+	NetworkId      string `json:"networkId"`
+	ResourceId     string `json:"resourceId,omitempty"`
+	Proposer       string `json:"proposer,omitempty"`
+	CustomerId     string `json:"customerId"`
+	PoolId         string `json:"poolId,omitempty"`
+	CreatedBy      string `json:"createdBy"`
+	CreateTime     string `json:"createdTime"`
+	IsBasic        int    `json:"isBasic"`
+	Source         int    `json:"source"`
+	HostName       string `json:"hostName,omitempty"`
+	SecurityGroups []struct {
+		Id   string `json:"id"`
+		Name string `json:"name"`
+	} `json:"securityGroups,omitempty"`
+	FixedIps      Server.ServerFixedIpDetailArray `json:"fixedIps,omitempty"`
+	IpId          string                          `json:"ipId,omitempty"`
+	PublicIp      string                          `json:"publicIp,omitempty"`
+	BandWidthsize string                          `json:"bandWidthsize,omitempty"`
+}
+
+type VpnResult struct {
+	Id                 string         `json:"id"`
+	Name               string         `json:"name"`
+	Desc               string         `json:"description,omitempty"`
+	RouterId           string         `json:"routerId"`
+	EcStatus           string         `json:"ecStatus"`
+	AdminStateUp       bool           `json:"adminStateUp"`
+	FloatingIpId       string         `json:"floatingipId,omitempty"`
+	Region             string         `json:"region"`
+	MaxSiteConnections string         `json:"maxSiteConnections,omitempty"`
+	LocalGateway       string         `json:"localGateway"`
+	BandwidthSize      int            `json:"bandwidthSize"`
+	BandwidthType      string         `json:"bandwidthType"`
+	CreateTime         string         `json:"createdTime"`
+	Deleted            bool           `json:"deleted"`
+	Visible            bool           `json:"visible"`
+	SubnetIds          []string       `json:"subnetIds"`
+	SubnetResps        []SubnetResult `json:"subnetResps,omitempty"`
+	SiteConnIds        []string       `json:"siteConnIds"`
 }

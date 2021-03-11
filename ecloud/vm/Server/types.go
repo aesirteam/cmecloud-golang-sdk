@@ -12,7 +12,7 @@ func NewForConfig(conf *core.Config) (*APIv2, error) {
 	return &APIv2{client: core.New(conf)}, nil
 }
 
-type Interface interface {
+type ServerInterface interface {
 	//查询云主机可用规格
 	GetProductFlavorList(spec *ServerSpec, page, size int) ([]ProductResult, error)
 
@@ -282,6 +282,7 @@ type ServerFixedIpDetail struct {
 	Ipv6BandwidthSize int    `json:"ipv6BandwidthSize,omitempty"`
 	SubnetId          string `json:"subnetId"`
 	SubnetName        string `json:"subnetName,omitempty"`
+	PortId            string `json:"portId,omitempty"`
 }
 type ServerFixedIpDetailArray []ServerFixedIpDetail
 

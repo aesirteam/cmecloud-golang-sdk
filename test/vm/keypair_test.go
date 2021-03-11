@@ -10,11 +10,11 @@ import (
 )
 
 func TestKeypair(t *testing.T) {
-	cli := ecloud.NewForConfigDie(&core.Config{
+	vm := ecloud.NewForConfigDie(&core.Config{
 		ApiGwHost: "api-guiyang-1.cmecloud.cn",
 		//ApiGwPort:     8443,
 		ApiGwProtocol: "https",
-	})
+	}).VM()
 
 	var (
 		name  = "kp" + strconv.Itoa(time.Now().Nanosecond())
@@ -22,7 +22,7 @@ func TestKeypair(t *testing.T) {
 	)
 
 	t.Run("CreateKeypair", func(t *testing.T) {
-		result, err := cli.Keypair().CreateKeypair(name, "")
+		result, err := vm.CreateKeypair(name, "")
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -31,7 +31,7 @@ func TestKeypair(t *testing.T) {
 	})
 
 	t.Run("GetKeypairList", func(t *testing.T) {
-		result, err := cli.Keypair().GetKeypairList(name, "", 0, 0)
+		result, err := vm.GetKeypairList(name, "", 0, 0)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -42,7 +42,7 @@ func TestKeypair(t *testing.T) {
 	})
 
 	t.Run("DeleteKeypair", func(t *testing.T) {
-		err := cli.Keypair().DeleteKeypair(keyId)
+		err := vm.DeleteKeypair(keyId)
 		if err != nil {
 			t.Fatal(err)
 		}

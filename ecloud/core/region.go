@@ -1,9 +1,5 @@
 package core
 
-import (
-	json "github.com/json-iterator/go"
-)
-
 func (a *APIv2) GetRegionList() (result []RegionResult, err error) {
 	params := map[string]interface{}{
 		"component": "NOVA",
@@ -15,8 +11,8 @@ func (a *APIv2) GetRegionList() (result []RegionResult, err error) {
 		return
 	}
 
-	if _err := json.UnmarshalFromString(resp.Body, &result); _err != nil {
-		err = resp.Error(_err)
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
+		err = resp.Error(err)
 		return
 	}
 

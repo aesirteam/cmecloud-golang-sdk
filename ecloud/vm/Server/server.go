@@ -4,15 +4,7 @@ import (
 	"errors"
 
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/core"
-	json "github.com/json-iterator/go"
 )
-
-var newJson = json.Config{
-	EscapeHTML:             true,
-	SortMapKeys:            true,
-	ValidateJsonRawMessage: true,
-	TagKey:                 "newtag",
-}.Froze()
 
 func (a *APIv2) CreatServer(ss *ServerSpec) (result ServerOrderResult, err error) {
 	if ss.Name == "" {
@@ -131,8 +123,8 @@ func (a *APIv2) CreatServer(ss *ServerSpec) (result ServerOrderResult, err error
 		return
 	}
 
-	if _err := json.UnmarshalFromString(resp.Body, &result); _err != nil {
-		err = resp.Error(_err)
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
+		err = resp.Error(err)
 		return
 	}
 
@@ -164,14 +156,8 @@ func (a *APIv2) GetServerList(ss *ServerSpec, page, size int) (result []ServerRe
 		return
 	}
 
-	obj := json.Get([]byte(resp.Body), "content")
-	if obj.LastError() != nil {
-		err = resp.Error(obj.LastError())
-		return
-	}
-
-	if _err := json.UnmarshalFromString(obj.ToString(), &result); _err != nil {
-		err = resp.Error(_err)
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
+		err = resp.Error(err)
 		return
 	}
 
@@ -194,8 +180,8 @@ func (a *APIv2) GetServerInfo(serverId string, detail bool) (result ServerResult
 		return
 	}
 
-	if _err := newJson.Unmarshal([]byte(resp.Body), &result); _err != nil {
-		err = resp.Error(_err)
+	if err = resp.UnmarshalFromContent(&result, "newtag"); err != nil {
+		err = resp.Error(err)
 		return
 	}
 
@@ -245,8 +231,8 @@ func (a *APIv2) UpdateServerName(serverId, name string) (result ServerResult, er
 		return
 	}
 
-	if _err := newJson.Unmarshal([]byte(resp.Body), &result); _err != nil {
-		err = resp.Error(_err)
+	if err = resp.UnmarshalFromContent(&result, "newtag"); err != nil {
+		err = resp.Error(err)
 		return
 	}
 
@@ -275,8 +261,8 @@ func (a *APIv2) UpdateServerPassword(serverId, password string) (result ServerRe
 		return
 	}
 
-	if _err := newJson.Unmarshal([]byte(resp.Body), &result); _err != nil {
-		err = resp.Error(_err)
+	if err = resp.UnmarshalFromContent(&result, "newtag"); err != nil {
+		err = resp.Error(err)
 		return
 	}
 
@@ -299,8 +285,8 @@ func (a *APIv2) RebootServer(serverId string) (result ServerResult, err error) {
 		return
 	}
 
-	if _err := newJson.Unmarshal([]byte(resp.Body), &result); _err != nil {
-		err = resp.Error(_err)
+	if err = resp.UnmarshalFromContent(&result, "newtag"); err != nil {
+		err = resp.Error(err)
 		return
 	}
 
@@ -323,8 +309,8 @@ func (a *APIv2) StartServer(serverId string) (result ServerResult, err error) {
 		return
 	}
 
-	if _err := newJson.Unmarshal([]byte(resp.Body), &result); _err != nil {
-		err = resp.Error(_err)
+	if err = resp.UnmarshalFromContent(&result, "newtag"); err != nil {
+		err = resp.Error(err)
 		return
 	}
 
@@ -347,8 +333,8 @@ func (a *APIv2) StopServer(serverId string) (result ServerResult, err error) {
 		return
 	}
 
-	if _err := newJson.Unmarshal([]byte(resp.Body), &result); _err != nil {
-		err = resp.Error(_err)
+	if err = resp.UnmarshalFromContent(&result, "newtag"); err != nil {
+		err = resp.Error(err)
 		return
 	}
 
@@ -375,8 +361,8 @@ func (a *APIv2) GetRebuildImageList(serverId string, imageType int) (result []Se
 		return
 	}
 
-	if _err := json.UnmarshalFromString(resp.Body, &result); _err != nil {
-		err = resp.Error(_err)
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
+		err = resp.Error(err)
 		return
 	}
 
