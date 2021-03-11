@@ -4,12 +4,12 @@ import (
 	"testing"
 
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud"
-	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/core"
+	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/VirtualPrivateCloud"
 )
 
 func TestRouter(t *testing.T) {
-	net := ecloud.NewForConfigDie(&core.Config{
+	net := ecloud.NewForConfigDie(&global.Config{
 		ApiGwHost: "api-guiyang-1.cmecloud.cn",
 		//ApiGwPort:     8443,
 		ApiGwProtocol: "https",
@@ -34,7 +34,7 @@ func TestRouter(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		t.Log(core.Dump(result))
+		t.Log(global.Dump(result))
 	})
 
 	t.Run("GetRouterInfo", func(t *testing.T) {
@@ -45,6 +45,6 @@ func TestRouter(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		t.Log(core.Dump(result))
+		t.Log(global.Dump(result))
 	})
 }

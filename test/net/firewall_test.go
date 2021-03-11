@@ -5,7 +5,7 @@ import (
 )
 
 func TestFirewall(t *testing.T) {
-	// net := ecloud.NewForConfigDie(&core.Config{
+	// net := ecloud.NewForConfigDie(&global.Config{
 	// 	ApiGwHost: "api-guiyang-1.cmecloud.cn",
 	// 	//ApiGwPort:     8443,
 	// 	ApiGwProtocol: "https",

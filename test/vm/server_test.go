@@ -4,12 +4,12 @@ import (
 	"testing"
 
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud"
-	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/core"
+	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/vm/Server"
 )
 
 func TestServer(t *testing.T) {
-	cli := ecloud.NewForConfigDie(&core.Config{
+	cli := ecloud.NewForConfigDie(&global.Config{
 		ApiGwHost: "api-guiyang-1.cmecloud.cn",
 		//ApiGwPort:     8443,
 		ApiGwProtocol: "https",
@@ -80,7 +80,7 @@ func TestServer(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		t.Log(core.Dump(result))
+		t.Log(global.Dump(result))
 
 		//for _, s := range result.OrderExts {
 		//	t.Log(s)
@@ -99,7 +99,8 @@ func TestServer(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		t.Log(core.Dump(result))
+		t.Log(global.Dump(result))
+
 		serverId = result[0].ServerId
 	})
 
@@ -109,7 +110,7 @@ func TestServer(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		t.Log(core.Dump(result))
+		t.Log(global.Dump(result))
 	})
 
 	t.Run("GetServerVNCAddress", func(t *testing.T) {
@@ -127,7 +128,7 @@ func TestServer(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		t.Log(core.Dump(result))
+		t.Log(global.Dump(result))
 	})
 
 	t.Run("UpdateServerPassword", func(t *testing.T) {
@@ -136,7 +137,7 @@ func TestServer(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		t.Log(core.Dump(result))
+		t.Log(global.Dump(result))
 	})
 
 	t.Run("RebootServer", func(t *testing.T) {
@@ -145,7 +146,7 @@ func TestServer(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		t.Log(core.Dump(result))
+		t.Log(global.Dump(result))
 	})
 
 	t.Run("StartServer", func(t *testing.T) {
@@ -154,7 +155,7 @@ func TestServer(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		t.Log(core.Dump(result))
+		t.Log(global.Dump(result))
 	})
 
 	t.Run("StopServer", func(t *testing.T) {
@@ -163,7 +164,7 @@ func TestServer(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		t.Log(core.Dump(result))
+		t.Log(global.Dump(result))
 	})
 
 	var imageId = "c82bb33a-69e0-4f10-b8e0-856502066384"
@@ -174,7 +175,7 @@ func TestServer(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		t.Log(core.Dump(result))
+		t.Log(global.Dump(result))
 
 		for _, v := range result {
 			if v.Name == Server.IMAGE_BCLINUX_77_X64.String() {

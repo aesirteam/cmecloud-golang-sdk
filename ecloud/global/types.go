@@ -1,4 +1,4 @@
-package core
+package global
 
 type APIv2 struct {
 	client *EcloudClient

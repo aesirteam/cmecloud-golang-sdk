@@ -1,7 +1,7 @@
 package ecloud
 
 import (
-	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/core"
+	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/ELB"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/FloatingIP"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/VirtualPrivateCloud"
@@ -14,8 +14,8 @@ import (
 	"github.com/caarlos0/env/v6"
 )
 
-type _core struct {
-	core.CoreInterface
+type core struct {
+	global.CoreInterface
 }
 
 type vm struct {
@@ -37,7 +37,7 @@ type storage struct {
 }
 
 type ClientSet struct {
-	coreAPIv2 *core.APIv2
+	coreAPIv2 *global.APIv2
 
 	//net
 	elbAPIv2 *ELB.APIv2
@@ -55,8 +55,8 @@ type ClientSet struct {
 	cbsAPIv2 *CloudBlockStorage.APIv2
 }
 
-func (c *ClientSet) Core() *_core {
-	return &_core{c.coreAPIv2}
+func (c *ClientSet) Core() *core {
+	return &core{c.coreAPIv2}
 }
 
 func (c *ClientSet) Net() *net {
@@ -71,7 +71,7 @@ func (c *ClientSet) Storage() *storage {
 	return &storage{c.cbsAPIv2}
 }
 
-func NewForConfig(conf *core.Config) (*ClientSet, error) {
+func NewForConfig(conf *global.Config) (*ClientSet, error) {
 	var err error
 	if err = env.Parse(conf); err != nil {
 		return nil, err
@@ -79,7 +79,7 @@ func NewForConfig(conf *core.Config) (*ClientSet, error) {
 
 	var cs ClientSet
 
-	if cs.coreAPIv2, err = core.NewForConfig(conf); err != nil {
+	if cs.coreAPIv2, err = global.NewForConfig(conf); err != nil {
 		return nil, err
 	}
 
@@ -122,7 +122,7 @@ func NewForConfig(conf *core.Config) (*ClientSet, error) {
 	return &cs, nil
 }
 
-func NewForConfigDie(conf *core.Config) *ClientSet {
+func NewForConfigDie(conf *global.Config) *ClientSet {
 	client, err := NewForConfig(conf)
 	if err != nil {
 		panic(err)

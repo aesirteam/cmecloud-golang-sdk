@@ -1,13 +1,13 @@
 package SecurityGroup
 
-import "github.com/aesirteam/cmecloud-golang-sdk/ecloud/core"
+import "github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
 
 type APIv2 struct {
-	client *core.EcloudClient
+	client *global.EcloudClient
 }
 
-func NewForConfig(conf *core.Config) (*APIv2, error) {
-	return &APIv2{client: core.New(conf)}, nil
+func NewForConfig(conf *global.Config) (*APIv2, error) {
+	return &APIv2{client: global.New(conf)}, nil
 }
 
 type SecurityGroupInterface interface {

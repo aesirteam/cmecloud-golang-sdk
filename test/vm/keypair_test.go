@@ -6,11 +6,11 @@ import (
 	"time"
 
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud"
-	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/core"
+	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
 )
 
 func TestKeypair(t *testing.T) {
-	vm := ecloud.NewForConfigDie(&core.Config{
+	vm := ecloud.NewForConfigDie(&global.Config{
 		ApiGwHost: "api-guiyang-1.cmecloud.cn",
 		//ApiGwPort:     8443,
 		ApiGwProtocol: "https",
@@ -27,7 +27,7 @@ func TestKeypair(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		t.Log(core.Dump(result))
+		t.Log(global.Dump(result))
 	})
 
 	t.Run("GetKeypairList", func(t *testing.T) {
@@ -36,7 +36,7 @@ func TestKeypair(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		t.Log(core.Dump(result))
+		t.Log(global.Dump(result))
 
 		keyId = result[0].Id
 	})

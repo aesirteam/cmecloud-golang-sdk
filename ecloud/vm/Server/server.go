@@ -3,7 +3,7 @@ package Server
 import (
 	"errors"
 
-	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/core"
+	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
 )
 
 func (a *APIv2) CreatServer(ss *ServerSpec) (result ServerOrderResult, err error) {
@@ -73,7 +73,7 @@ func (a *APIv2) CreatServer(ss *ServerSpec) (result ServerOrderResult, err error
 	}
 
 	if ss.Password != "" {
-		if password, err := core.RsaEncrypt([]byte(ss.Password)); err == nil {
+		if password, err := global.RsaEncrypt([]byte(ss.Password)); err == nil {
 			body["password"] = password
 		}
 	} else if ss.KeypairName != "" {
@@ -384,7 +384,7 @@ func (a *APIv2) RebuildServer(serverId, imageId string, adminPass, userData stri
 	}
 
 	if adminPass != "" {
-		if password, err := core.RsaEncrypt([]byte(adminPass)); err == nil {
+		if password, err := global.RsaEncrypt([]byte(adminPass)); err == nil {
 			body["adminPass"] = password
 		}
 	}
