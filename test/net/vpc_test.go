@@ -15,25 +15,24 @@ func TestVPC(t *testing.T) {
 		ApiGwProtocol: "https",
 	}).Net()
 
-	spec := global.VpcSpec{
-		Cidr:        "192.168.101.0/24",
-		CidrV6:      "",
-		Name:        "vpc99999",
-		NetworkName: "subnet_default",
-		Region:      "N0851-GZ-GYGZ01",
-	}
-
-	getVpcInfoByName := func(name string) VirtualPrivateCloud.VpcResult {
-		vpc, err := net.GetVpcInfoByName(name)
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		return vpc
-	}
+	var (
+		vpcName     = "vpc99999"
+		region      = "N0851-GZ-GYGZ01"
+		networkName = "subnet_default"
+		vpcId       string
+	)
 
 	t.Run("CreateVpc", func(t *testing.T) {
-		vpcId, err := net.CreateVpc(&spec)
+		spec := global.VpcSpec{
+			Cidr:        "192.168.101.0/24",
+			CidrV6:      "",
+			Name:        vpcName,
+			NetworkName: networkName,
+			Region:      region,
+		}
+
+		var err error
+		vpcId, err = net.CreateVpc(&spec)
 
 		if err != nil {
 			t.Fatal(err)
@@ -51,10 +50,21 @@ func TestVPC(t *testing.T) {
 		t.Log(global.Dump(result))
 	})
 
-	t.Run("GetVpcInfo", func(t *testing.T) {
-		vpc := getVpcInfoByName(spec.Name)
+	vpc := func() VirtualPrivateCloud.VpcResult {
+		vpc, err := net.GetVpcInfoByName(vpcName)
+		if err != nil {
+			t.Fatal(err)
+		}
 
-		result, err := net.GetVpcInfo(vpc.Id)
+		return vpc
+	}
+
+	t.Run("GetVpcInfo", func(t *testing.T) {
+		if vpcId == "" {
+			vpcId = vpc().Id
+		}
+
+		result, err := net.GetVpcInfo(vpcId)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -63,15 +73,13 @@ func TestVPC(t *testing.T) {
 	})
 
 	t.Run("GetVpcInfoByName", func(t *testing.T) {
-		result := getVpcInfoByName(spec.Name)
-
-		t.Log(global.Dump(result))
+		t.Log(global.Dump(vpc))
 	})
 
 	t.Run("GetVpcInfoByRouterId", func(t *testing.T) {
-		vpc := getVpcInfoByName(spec.Name)
+		routerId := vpc().RouterId
 
-		result, err := net.GetVpcInfoByRouterId(vpc.RouterId)
+		result, err := net.GetVpcInfoByRouterId(routerId)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -80,29 +88,29 @@ func TestVPC(t *testing.T) {
 	})
 
 	t.Run("ModifyVpcInfo", func(t *testing.T) {
-		vpc := getVpcInfoByName(spec.Name)
+		if vpcId == "" {
+			vpcId = vpc().Id
+		}
 
-		err := net.ModifyVpcInfo(vpc.Id, spec.Name, "ModifyVpcInfo")
+		err := net.ModifyVpcInfo(vpcId, vpcName, "ModifyVpcInfo")
 		if err != nil {
 			t.Fatal(err)
 		}
 	})
 
-	t.Run("GetVpcFirewall", func(t *testing.T) {
-		vpc := getVpcInfoByName(spec.Name)
+	// t.Run("GetVpcFirewall", func(t *testing.T) {
+	// 	result, err := net.GetVpcFirewall(vpc.RouterId)
+	// 	if err != nil {
+	// 		t.Fatal(err)
+	// 	}
 
-		result, err := net.GetVpcFirewall(vpc.RouterId)
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		t.Log(result)
-	})
+	// 	t.Log(result)
+	// })
 
 	t.Run("GetVpcNetwork", func(t *testing.T) {
-		vpc := getVpcInfoByName(spec.Name)
+		routerId := vpc().RouterId
 
-		result, err := net.GetVpcNetwork(vpc.RouterId)
+		result, err := net.GetVpcNetwork(routerId)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -111,9 +119,9 @@ func TestVPC(t *testing.T) {
 	})
 
 	t.Run("GetVpcIPSecVPN", func(t *testing.T) {
-		vpc := getVpcInfoByName(spec.Name)
+		routerId := vpc().RouterId
 
-		result, err := net.GetVpcVPN(vpc.RouterId)
+		result, err := net.GetVpcVPN(routerId)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -122,9 +130,9 @@ func TestVPC(t *testing.T) {
 	})
 
 	t.Run("GetVpcNic", func(t *testing.T) {
-		vpc := getVpcInfoByName(spec.Name)
+		routerId := vpc().RouterId
 
-		result, err := net.GetVpcNic(vpc.RouterId)
+		result, err := net.GetVpcNic(routerId)
 		if err != nil {
 			t.Fatal(err)
 		}

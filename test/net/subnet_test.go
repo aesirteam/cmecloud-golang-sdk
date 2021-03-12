@@ -15,8 +15,15 @@ func TestSubnet(t *testing.T) {
 		ApiGwProtocol: "https",
 	}).Net()
 
-	getVpcInfoByName := func(name string) VirtualPrivateCloud.VpcResult {
-		vpc, err := net.GetVpcInfoByName(name)
+	var (
+		vpcName     = "vpc99999"
+		region      = "N0851-GZ-GYGZ01"
+		networkName = "subnet_test"
+		networkId   string
+	)
+
+	vpc := func() VirtualPrivateCloud.VpcResult {
+		vpc, err := net.GetVpcInfoByName(vpcName)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -24,25 +31,19 @@ func TestSubnet(t *testing.T) {
 		return vpc
 	}
 
-	var (
-		vpcName   = "vpc99999"
-		region    = "N0851-GZ-GYGZ01"
-		networkId string
-	)
-
 	t.Run("CreateSubnet", func(t *testing.T) {
-		vpc := getVpcInfoByName(vpcName)
+		routerId := vpc().RouterId
 
 		subnetSpec := global.SubnetSpec{
-			RouterId:    vpc.RouterId,
-			NetworkName: "subnet1",
+			RouterId:    routerId,
+			NetworkName: networkName,
 			Region:      region,
 			Subnets: []struct {
 				Cidr       string
 				IpVersion  int
 				SubnetName string
 			}{
-				{"10.18.0.0/24", 4, "subnet1"},
+				{"10.18.0.0/24", 4, networkName},
 			},
 		}
 
@@ -56,9 +57,8 @@ func TestSubnet(t *testing.T) {
 	})
 
 	t.Run("GetSubnetInfo", func(t *testing.T) {
-		vpc := getVpcInfoByName(vpcName)
 		if networkId == "" {
-			networkId = vpc.NetworkId
+			networkId = vpc().NetworkId
 		}
 
 		result, err := net.GetSubnetInfo(networkId)
@@ -70,21 +70,19 @@ func TestSubnet(t *testing.T) {
 	})
 
 	t.Run("ModifySubnet", func(t *testing.T) {
-		vpc := getVpcInfoByName(vpcName)
 		if networkId == "" {
-			networkId = vpc.NetworkId
+			networkId = vpc().NetworkId
 		}
 
-		err := net.ModifySubnet(networkId, "subnet99")
+		err := net.ModifySubnet(networkId, networkName)
 		if err != nil {
 			t.Fatal(err)
 		}
 	})
 
 	t.Run("DeleteSubnet", func(t *testing.T) {
-		vpc := getVpcInfoByName(vpcName)
 		if networkId == "" {
-			networkId = vpc.NetworkId
+			networkId = vpc().NetworkId
 		}
 
 		err := net.DeleteSubnet(networkId)

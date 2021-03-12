@@ -6,8 +6,8 @@ type APIv2 struct {
 	client *global.EcloudClient
 }
 
-func NewForConfig(conf *global.Config) (*APIv2, error) {
-	return &APIv2{client: global.New(conf)}, nil
+func New(client *global.EcloudClient) *APIv2 {
+	return &APIv2{client}
 }
 
 type ServerInterface interface {
@@ -27,10 +27,10 @@ type ServerInterface interface {
 	GetServerVNCAddress(serverId string) (string, error)
 
 	//修改云主机名称信息
-	UpdateServerName(serverId, name string) (ServerResult, error)
+	ModifyServerName(serverId, name string) (ServerResult, error)
 
 	//重置云主机的密码
-	UpdateServerPassword(serverId, password string) (ServerResult, error)
+	ModifyServerPassword(serverId, password string) (ServerResult, error)
 
 	//重启云主机
 	RebootServer(serverId string) (ServerResult, error)
@@ -187,6 +187,7 @@ type ServerFixedIpDetail struct {
 	Ipv6BandwidthSize int    `json:"ipv6BandwidthSize,omitempty"`
 	SubnetId          string `json:"subnetId"`
 	SubnetName        string `json:"subnetName,omitempty"`
+	SubnetCidr        string `json:"subnetCidr,omitempty"`
 	PortId            string `json:"portId,omitempty"`
 }
 type ServerFixedIpDetailArray []ServerFixedIpDetail

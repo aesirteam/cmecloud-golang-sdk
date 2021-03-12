@@ -81,18 +81,18 @@ func (a *APIv2) DeleteSubnet(networkId string) error {
 	return nil
 }
 
-func (a *APIv2) ModifySubnet(networkId, name string) error {
+func (a *APIv2) ModifySubnet(networkId, networkName string) error {
 	if networkId == "" {
 		return errors.New("No networkId is available")
 	}
 
-	if name == "" {
-		return errors.New("No name is available")
+	if networkName == "" {
+		return errors.New("No networkName is available")
 	}
 
 	body := map[string]interface{}{
 		"networkId":   networkId,
-		"networkName": name,
+		"networkName": networkName,
 	}
 
 	resp, err := a.client.NewRequest("PUT", "/api/v2/netcenter/network/networkName", nil, nil, body)

@@ -15,20 +15,18 @@ func TestRouter(t *testing.T) {
 		ApiGwProtocol: "https",
 	}).Net()
 
-	getVpcInfoByName := func(name string) VirtualPrivateCloud.VpcResult {
-		vpc, err := net.GetVpcInfoByName(name)
+	var vpcName = "vpc99999"
+
+	vpc := func() VirtualPrivateCloud.VpcResult {
+		vpc, err := net.GetVpcInfoByName(vpcName)
 		if err != nil {
 			t.Fatal(err)
 		}
 
 		return vpc
-	}
-
-	var vpcName = "vpc99999"
+	}()
 
 	t.Run("GetRouterNetList", func(t *testing.T) {
-		vpc := getVpcInfoByName(vpcName)
-
 		result, err := net.GetRouterNetList(vpc.RouterId)
 		if err != nil {
 			t.Fatal(err)
@@ -38,8 +36,6 @@ func TestRouter(t *testing.T) {
 	})
 
 	t.Run("GetRouterInfo", func(t *testing.T) {
-		vpc := getVpcInfoByName(vpcName)
-
 		result, err := net.GetRouterInfo(vpc.RouterId)
 		if err != nil {
 			t.Fatal(err)

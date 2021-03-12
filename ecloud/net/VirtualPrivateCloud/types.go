@@ -2,6 +2,7 @@ package VirtualPrivateCloud
 
 import (
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
+	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/IPSecVpn"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/vm/Server"
 )
 
@@ -9,8 +10,8 @@ type APIv2 struct {
 	client *global.EcloudClient
 }
 
-func NewForConfig(conf *global.Config) (*APIv2, error) {
-	return &APIv2{client: global.New(conf)}, nil
+func New(client *global.EcloudClient) *APIv2 {
+	return &APIv2{client}
 }
 
 type VPCInterface interface {
@@ -48,25 +49,25 @@ type VPCInterface interface {
 	GetVpcNetwork(routerId string) ([]VpcNetResult, error)
 
 	//根据routerId查询VPC下IPSecVPN
-	GetVpcVPN(routerId string) ([]VpnResult, error)
+	GetVpcVPN(routerId string) ([]IPSecVpn.VpnResult, error)
 
 	//根据routerId查询VPC下虚拟网卡
 	GetVpcNic(routerId string) ([]NicResult, error)
 
 	//创建虚拟网卡
-	CreateNic()
+	CreateNic(spec *global.NicSpec) (string, error)
 
 	//删除虚拟网卡
-	DeleteNic(portId string)
+	DeleteNic(portId string) error
 
 	//查询虚拟网卡详情
-	GetNicDetail(portId string)
+	GetNicDetail(portId string) (NicResult, error)
 
 	//修改虚拟网卡名称
-	ModifyNicName(id, name string)
+	ModifyNicName(portId, portName string) error
 
 	//修改虚拟网卡安全组
-	ModifyNicSecurityGroup(id, name string, securityGroupIds []string)
+	ModifyNicSecurityGroup(portId string, securityGroupIds []string) error
 
 	//查询路由器所关联的子网列表
 	GetRouterNetList(routerId string) ([]RouterNetResult, error)
@@ -81,19 +82,10 @@ type VPCInterface interface {
 	DeleteSubnet(networkId string) error
 
 	//修改子网名称
-	ModifySubnet(networkId, name string) error
+	ModifySubnet(networkId, networkName string) error
 
 	//根据subnetId查询子网详情
 	GetSubnetInfo(networkId string) ([]SubnetResult, error)
-
-	//根据routerId绑定云防火墙
-	//FirewallBindRouter(firewallId, routerId string) (result string, err error)
-
-	//查看IPSecVPN列表
-	GetIpsecVpnList(vpcName, routerId string, scale global.VpcScale, region string, page, size int) ([]VpnResult, error)
-
-	//根据vpnId查看IPSecVPN服务的详情
-	GetIpsecVpnInfo(vpnId string) (result VpnResult, err error)
 }
 
 type VpcResult struct {
@@ -169,48 +161,29 @@ type SubnetResult struct {
 }
 
 type NicResult struct {
-	Id             string `json:"id"`
-	Name           string `json:"name"`
-	Status         int    `json:"status"`
-	AdminStateUp   int    `json:"adminStateUp"`
-	MacAddress     string `json:"macAddress"`
-	NetworkId      string `json:"networkId"`
-	ResourceId     string `json:"resourceId,omitempty"`
-	Proposer       string `json:"proposer,omitempty"`
-	CustomerId     string `json:"customerId"`
-	PoolId         string `json:"poolId,omitempty"`
-	CreatedBy      string `json:"createdBy"`
-	CreateTime     string `json:"createdTime"`
-	IsBasic        int    `json:"isBasic"`
-	Source         int    `json:"source"`
-	HostName       string `json:"hostName,omitempty"`
-	SecurityGroups []struct {
-		Id   string `json:"id"`
-		Name string `json:"name"`
-	} `json:"securityGroups,omitempty"`
-	FixedIps      Server.ServerFixedIpDetailArray `json:"fixedIps,omitempty"`
-	IpId          string                          `json:"ipId,omitempty"`
-	PublicIp      string                          `json:"publicIp,omitempty"`
-	BandWidthsize string                          `json:"bandWidthsize,omitempty"`
-}
-
-type VpnResult struct {
-	Id                 string         `json:"id"`
-	Name               string         `json:"name"`
-	Desc               string         `json:"description,omitempty"`
-	RouterId           string         `json:"routerId"`
-	EcStatus           string         `json:"ecStatus"`
-	AdminStateUp       bool           `json:"adminStateUp"`
-	FloatingIpId       string         `json:"floatingipId,omitempty"`
-	Region             string         `json:"region"`
-	MaxSiteConnections string         `json:"maxSiteConnections,omitempty"`
-	LocalGateway       string         `json:"localGateway"`
-	BandwidthSize      int            `json:"bandwidthSize"`
-	BandwidthType      string         `json:"bandwidthType"`
-	CreateTime         string         `json:"createdTime"`
-	Deleted            bool           `json:"deleted"`
-	Visible            bool           `json:"visible"`
-	SubnetIds          []string       `json:"subnetIds"`
-	SubnetResps        []SubnetResult `json:"subnetResps,omitempty"`
-	SiteConnIds        []string       `json:"siteConnIds"`
+	Id              string                          `json:"id"`
+	Name            string                          `json:"name"`
+	Status          int                             `json:"status,omitempty"`
+	AdminStateUp    interface{}                     `json:"adminStateUp"`
+	MacAddress      string                          `json:"macAddress"`
+	NetworkId       string                          `json:"networkId,omitempty"`
+	ResourceId      string                          `json:"resourceId,omitempty"`
+	ResourceName    string                          `json:"resourceName,omitempty"`
+	FipBind         bool                            `json:"fipBind,omitempty"`
+	OperationStatus string                          `json:"operationStatus,omitempty"`
+	Proposer        string                          `json:"proposer,omitempty"`
+	CustomerId      string                          `json:"customerId,omitempty"`
+	PoolId          string                          `json:"poolId,omitempty"`
+	CreatedBy       string                          `json:"createdBy,omitempty"`
+	CreateTime      string                          `json:"createdTime,omitempty"`
+	IsBasic         interface{}                     `json:"isBasic" newtag:"basic"`
+	Source          interface{}                     `json:"source"`
+	AddressCheck    bool                            `json:"addressCheck,omitempty"`
+	Region          string                          `json:"region,omitempty"`
+	HostName        string                          `json:"hostName,omitempty"`
+	SecurityGroups  []interface{}                   `json:"securityGroups,omitempty" newtag:"sgIds"`
+	FixedIps        Server.ServerFixedIpDetailArray `json:"fixedIps,omitempty" newtag:"fixedIpResps"`
+	IpId            string                          `json:"ipId,omitempty"`
+	PublicIp        string                          `json:"publicIp,omitempty"`
+	BandWidthsize   string                          `json:"bandWidthsize,omitempty"`
 }

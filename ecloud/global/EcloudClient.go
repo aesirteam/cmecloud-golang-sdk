@@ -102,11 +102,11 @@ func signature(c *signatureContent) string {
 	return fmt.Sprintf("%s://%s:%d%s?%s&Signature=%s", c.scheme, c.host, c.port, c.prefixPath, canonicalQueryString, _signature)
 }
 
-func New(c *Config) *EcloudClient {
+func NewEcloudClient(c *Config) (*EcloudClient, error) {
 	if c == nil {
-		return nil
+		return nil, errors.New("Config invalid")
 	}
-	return &EcloudClient{*c}
+	return &EcloudClient{*c}, nil
 }
 
 func (c *EcloudClient) NewRequest(verb, prefixPath string, headers, params, body map[string]interface{}) (_resp Response, err error) {

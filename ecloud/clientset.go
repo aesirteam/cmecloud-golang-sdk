@@ -4,6 +4,7 @@ import (
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/ELB"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/FloatingIP"
+	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/IPSecVpn"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/VirtualPrivateCloud"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/storage/CloudBlockStorage"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/vm/Image"
@@ -14,11 +15,11 @@ import (
 	"github.com/caarlos0/env/v6"
 )
 
-type core struct {
+type coreInterface struct {
 	global.CoreInterface
 }
 
-type vm struct {
+type vmInterface struct {
 	Image.ImageInterface
 	KeyPair.KeypairInterface
 	SecurityGroup.SecurityGroupInterface
@@ -26,100 +27,74 @@ type vm struct {
 	ServerBackup.ServerBackupInterface
 }
 
-type net struct {
+type netInterface struct {
 	ELB.ELBInterface
 	FloatingIP.EIPInterface
 	VirtualPrivateCloud.VPCInterface
+	IPSecVpn.VPNInterface
 }
 
-type storage struct {
+type storageInterface struct {
 	CloudBlockStorage.CBSInterface
 }
 
 type ClientSet struct {
+	//core
 	coreAPIv2 *global.APIv2
-
 	//net
 	elbAPIv2 *ELB.APIv2
 	eipAPIv2 *FloatingIP.APIv2
 	vpcAPIv2 *VirtualPrivateCloud.APIv2
-
+	vpnAPIv2 *IPSecVpn.APIv2
 	//vm
 	imageAPIv2         *Image.APIv2
 	keypairAPIv2       *KeyPair.APIv2
 	securityGroupAPIv2 *SecurityGroup.APIv2
 	serverAPIv2        *Server.APIv2
 	serverBackupAPIv2  *ServerBackup.APIv2
-
 	//storage
 	cbsAPIv2 *CloudBlockStorage.APIv2
 }
 
-func (c *ClientSet) Core() *core {
-	return &core{c.coreAPIv2}
+func (cs *ClientSet) Core() *coreInterface {
+	return &coreInterface{cs.coreAPIv2}
 }
 
-func (c *ClientSet) Net() *net {
-	return &net{c.elbAPIv2, c.eipAPIv2, c.vpcAPIv2}
+func (c *ClientSet) Net() *netInterface {
+	return &netInterface{c.elbAPIv2, c.eipAPIv2, c.vpcAPIv2, c.vpnAPIv2}
 }
 
-func (c *ClientSet) VM() *vm {
-	return &vm{c.imageAPIv2, c.keypairAPIv2, c.securityGroupAPIv2, c.serverAPIv2, c.serverBackupAPIv2}
+func (c *ClientSet) VM() *vmInterface {
+	return &vmInterface{c.imageAPIv2, c.keypairAPIv2, c.securityGroupAPIv2, c.serverAPIv2, c.serverBackupAPIv2}
 }
 
-func (c *ClientSet) Storage() *storage {
-	return &storage{c.cbsAPIv2}
+func (c *ClientSet) Storage() *storageInterface {
+	return &storageInterface{c.cbsAPIv2}
 }
 
 func NewForConfig(conf *global.Config) (*ClientSet, error) {
-	var err error
-	if err = env.Parse(conf); err != nil {
+	if err := env.Parse(conf); err != nil {
 		return nil, err
 	}
 
-	var cs ClientSet
-
-	if cs.coreAPIv2, err = global.NewForConfig(conf); err != nil {
+	client, err := global.NewEcloudClient(conf)
+	if err != nil {
 		return nil, err
 	}
 
-	if cs.elbAPIv2, err = ELB.NewForConfig(conf); err != nil {
-		return nil, err
-	}
-
-	if cs.eipAPIv2, err = FloatingIP.NewForConfig(conf); err != nil {
-		return nil, err
-	}
-
-	if cs.vpcAPIv2, err = VirtualPrivateCloud.NewForConfig(conf); err != nil {
-		return nil, err
-	}
-
-	if cs.imageAPIv2, err = Image.NewForConfig(conf); err != nil {
-		return nil, err
-	}
-
-	if cs.keypairAPIv2, err = KeyPair.NewForConfig(conf); err != nil {
-		return nil, err
-	}
-
-	if cs.securityGroupAPIv2, err = SecurityGroup.NewForConfig(conf); err != nil {
-		return nil, err
-	}
-
-	if cs.serverAPIv2, err = Server.NewForConfig(conf); err != nil {
-		return nil, err
-	}
-
-	if cs.serverBackupAPIv2, err = ServerBackup.NewForConfig(conf); err != nil {
-		return nil, err
-	}
-
-	if cs.cbsAPIv2, err = CloudBlockStorage.NewForConfig(conf); err != nil {
-		return nil, err
-	}
-
-	return &cs, nil
+	return &ClientSet{
+		coreAPIv2:          global.New(client),
+		elbAPIv2:           ELB.New(client),
+		eipAPIv2:           FloatingIP.New(client),
+		vpcAPIv2:           VirtualPrivateCloud.New(client),
+		vpnAPIv2:           IPSecVpn.New(client),
+		imageAPIv2:         Image.New(client),
+		keypairAPIv2:       KeyPair.New(client),
+		securityGroupAPIv2: SecurityGroup.New(client),
+		serverAPIv2:        Server.New(client),
+		serverBackupAPIv2:  ServerBackup.New(client),
+		cbsAPIv2:           CloudBlockStorage.New(client),
+	}, nil
 }
 
 func NewForConfigDie(conf *global.Config) *ClientSet {

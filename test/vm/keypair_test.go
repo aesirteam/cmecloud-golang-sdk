@@ -27,7 +27,7 @@ func TestKeypair(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		t.Log(global.Dump(result))
+		t.Log(result)
 	})
 
 	t.Run("GetKeypairList", func(t *testing.T) {

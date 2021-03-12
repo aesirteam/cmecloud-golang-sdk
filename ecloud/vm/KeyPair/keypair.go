@@ -4,7 +4,7 @@ import (
 	"errors"
 )
 
-func (a *APIv2) CreateKeypair(name, region string) (result KeypairResult, err error) {
+func (a *APIv2) CreateKeypair(name, region string) (result string, err error) {
 	if name == "" {
 		err = errors.New("No keyName is available")
 		return
@@ -24,10 +24,7 @@ func (a *APIv2) CreateKeypair(name, region string) (result KeypairResult, err er
 		return
 	}
 
-	result = KeypairResult{
-		Name:   resp.Body,
-		Region: region,
-	}
+	result = resp.Body
 
 	return
 }

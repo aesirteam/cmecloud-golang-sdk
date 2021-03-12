@@ -123,8 +123,8 @@ func TestServer(t *testing.T) {
 		t.Log(addr)
 	})
 
-	t.Run("UpdateServerName", func(t *testing.T) {
-		result, err := vm.UpdateServerName(serverId, name)
+	t.Run("ModifyServerName", func(t *testing.T) {
+		result, err := vm.ModifyServerName(serverId, name)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -132,8 +132,8 @@ func TestServer(t *testing.T) {
 		t.Log(global.Dump(result))
 	})
 
-	t.Run("UpdateServerPassword", func(t *testing.T) {
-		result, err := vm.UpdateServerPassword(serverId, password)
+	t.Run("ModifyServerPassword", func(t *testing.T) {
+		result, err := vm.ModifyServerPassword(serverId, password)
 		if err != nil {
 			t.Fatal(err)
 		}

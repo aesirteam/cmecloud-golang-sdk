@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
+	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/IPSecVpn"
 )
 
 func (a *APIv2) CreateVpc(vs *global.VpcSpec) (vpcId string, err error) {
@@ -225,15 +226,14 @@ func (a *APIv2) GetVpcNetwork(routerId string) (result []VpcNetResult, err error
 	return
 }
 
-func (a *APIv2) GetVpcVPN(routerId string) (result []VpnResult, err error) {
+func (a *APIv2) GetVpcVPN(routerId string) ([]IPSecVpn.VpnResult, error) {
 	if routerId == "" {
-		err = errors.New("No routerId is available")
-		return
+		return nil, errors.New("No routerId is available")
 	}
 
-	result, err = a.GetIpsecVpnList("", routerId, 0, "", 0, 0)
+	vpn := IPSecVpn.New(a.client)
 
-	return
+	return vpn.GetIpsecVpnList("", routerId, 0, "", 0, 0)
 }
 
 func (a *APIv2) GetVpcNic(routerId string) (result []NicResult, err error) {

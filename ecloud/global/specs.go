@@ -1,11 +1,10 @@
 package global
 
 /*
-虚拟私有云
+虚拟私有云(VPC)
   Cidr	【必填】cidr
   Name		【必填】vpc名称,路由器名称
   NetworkName	【必填】网络名称
-  RouterExternal	【必填】路由器是否开启网关
   Region		【必填】可用区
   Specs		VPC规格
 */
@@ -19,10 +18,7 @@ type VpcSpec struct {
 }
 
 /*
-子网信息
-  Cidr		【必填】子网cid
-  IpVersion	【必填】enum(4,6)
-  SubnetName	【必填】子网名称
+子网
 */
 type SubnetSpec struct {
 	RouterId    string
@@ -32,6 +28,19 @@ type SubnetSpec struct {
 		Cidr       string
 		IpVersion  int
 		SubnetName string
+	}
+}
+
+/*
+虚拟网卡
+*/
+type NicSpec struct {
+	Name           string
+	NetworkId      string
+	SecurityGroups []string
+	Subnets        []struct {
+		IpAddress string
+		SubnetId  string
 	}
 }
 

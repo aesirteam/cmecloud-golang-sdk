@@ -209,7 +209,7 @@ func (a *APIv2) GetServerVNCAddress(serverId string) (result string, err error) 
 	return
 }
 
-func (a *APIv2) UpdateServerName(serverId, name string) (result ServerResult, err error) {
+func (a *APIv2) ModifyServerName(serverId, name string) (result ServerResult, err error) {
 	if serverId == "" {
 		err = errors.New("No serverId is available")
 		return
@@ -239,7 +239,7 @@ func (a *APIv2) UpdateServerName(serverId, name string) (result ServerResult, er
 	return
 }
 
-func (a *APIv2) UpdateServerPassword(serverId, password string) (result ServerResult, err error) {
+func (a *APIv2) ModifyServerPassword(serverId, password string) (result ServerResult, err error) {
 	if serverId == "" {
 		err = errors.New("No serverId is available")
 		return

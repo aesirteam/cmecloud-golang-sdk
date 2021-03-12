@@ -4,8 +4,8 @@ type APIv2 struct {
 	client *EcloudClient
 }
 
-func NewForConfig(conf *Config) (*APIv2, error) {
-	return &APIv2{client: New(conf)}, nil
+func New(client *EcloudClient) *APIv2 {
+	return &APIv2{client}
 }
 
 type CoreInterface interface {

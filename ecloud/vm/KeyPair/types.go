@@ -6,13 +6,13 @@ type APIv2 struct {
 	client *global.EcloudClient
 }
 
-func NewForConfig(conf *global.Config) (*APIv2, error) {
-	return &APIv2{client: global.New(conf)}, nil
+func New(client *global.EcloudClient) *APIv2 {
+	return &APIv2{client}
 }
 
 type KeypairInterface interface {
 	//创建密钥
-	CreateKeypair(name, region string) (KeypairResult, error)
+	CreateKeypair(name, region string) (string, error)
 
 	//查询SSH密钥对列表
 	GetKeypairList(name, region string, page, size int) ([]KeypairResult, error)

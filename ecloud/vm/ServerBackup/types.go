@@ -6,8 +6,8 @@ type APIv2 struct {
 	client *global.EcloudClient
 }
 
-func NewForConfig(conf *global.Config) (*APIv2, error) {
-	return &APIv2{client: global.New(conf)}, nil
+func New(client *global.EcloudClient) *APIv2 {
+	return &APIv2{client}
 }
 
 type ServerBackupInterface interface {
