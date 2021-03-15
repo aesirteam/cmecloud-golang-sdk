@@ -6,6 +6,10 @@ import (
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
 )
 
+func (a *APIv2) CreateIpsecVpn() {
+
+}
+
 func (a *APIv2) GetIpsecVpnList(vpcName, routerId string, scale global.VpcScale, region string, page, size int) (result []VpnResult, err error) {
 	params := map[string]interface{}{
 		"vpcScale": scale.String(),

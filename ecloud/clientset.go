@@ -15,29 +15,6 @@ import (
 	"github.com/caarlos0/env/v6"
 )
 
-type coreInterface struct {
-	global.CoreInterface
-}
-
-type vmInterface struct {
-	Image.ImageInterface
-	KeyPair.KeypairInterface
-	SecurityGroup.SecurityGroupInterface
-	Server.ServerInterface
-	ServerBackup.ServerBackupInterface
-}
-
-type netInterface struct {
-	ELB.ELBInterface
-	FloatingIP.EIPInterface
-	VirtualPrivateCloud.VPCInterface
-	IPSecVpn.VPNInterface
-}
-
-type storageInterface struct {
-	CloudBlockStorage.CBSInterface
-}
-
 type ClientSet struct {
 	//core
 	coreAPIv2 *global.APIv2
@@ -54,22 +31,6 @@ type ClientSet struct {
 	serverBackupAPIv2  *ServerBackup.APIv2
 	//storage
 	cbsAPIv2 *CloudBlockStorage.APIv2
-}
-
-func (cs *ClientSet) Core() *coreInterface {
-	return &coreInterface{cs.coreAPIv2}
-}
-
-func (c *ClientSet) Net() *netInterface {
-	return &netInterface{c.elbAPIv2, c.eipAPIv2, c.vpcAPIv2, c.vpnAPIv2}
-}
-
-func (c *ClientSet) VM() *vmInterface {
-	return &vmInterface{c.imageAPIv2, c.keypairAPIv2, c.securityGroupAPIv2, c.serverAPIv2, c.serverBackupAPIv2}
-}
-
-func (c *ClientSet) Storage() *storageInterface {
-	return &storageInterface{c.cbsAPIv2}
 }
 
 func NewForConfig(conf *global.Config) (*ClientSet, error) {
@@ -103,4 +64,43 @@ func NewForConfigDie(conf *global.Config) *ClientSet {
 		panic(err)
 	}
 	return client
+}
+
+type coreInterface struct {
+	global.CoreInterface
+}
+
+type vmInterface struct {
+	Image.ImageInterface
+	KeyPair.KeypairInterface
+	SecurityGroup.SecurityGroupInterface
+	Server.ServerInterface
+	ServerBackup.ServerBackupInterface
+}
+
+type netInterface struct {
+	ELB.ELBInterface
+	FloatingIP.EIPInterface
+	VirtualPrivateCloud.VPCInterface
+	IPSecVpn.VPNInterface
+}
+
+type storageInterface struct {
+	CloudBlockStorage.CBSInterface
+}
+
+func (cs *ClientSet) Core() *coreInterface {
+	return &coreInterface{cs.coreAPIv2}
+}
+
+func (cs *ClientSet) Net() *netInterface {
+	return &netInterface{cs.elbAPIv2, cs.eipAPIv2, cs.vpcAPIv2, cs.vpnAPIv2}
+}
+
+func (cs *ClientSet) VM() *vmInterface {
+	return &vmInterface{cs.imageAPIv2, cs.keypairAPIv2, cs.securityGroupAPIv2, cs.serverAPIv2, cs.serverBackupAPIv2}
+}
+
+func (cs *ClientSet) Storage() *storageInterface {
+	return &storageInterface{cs.cbsAPIv2}
 }

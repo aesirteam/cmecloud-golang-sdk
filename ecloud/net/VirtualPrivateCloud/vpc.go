@@ -51,8 +51,17 @@ func (a *APIv2) CreateVpc(vs *global.VpcSpec) (vpcId string, err error) {
 	return
 }
 
-func (a *APIv2) DeleteVpc(vpcId string) {
+func (a *APIv2) DeleteVpc(vpcId string) error {
+	if vpcId == "" {
+		return errors.New("No vpcId is available")
+	}
 
+	resp, err := a.client.NewRequest("DELETE", "/api/v2/netcenter/vpc/"+vpcId, nil, nil, nil)
+	if err != nil {
+		return resp.Error(err)
+	}
+
+	return nil
 }
 
 func (a *APIv2) GetVpcList(natGatewayBind bool, scale global.VpcScale, region string, tagIds []string, page, size int) (result []VpcResult, err error) {

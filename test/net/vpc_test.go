@@ -139,4 +139,15 @@ func TestVPC(t *testing.T) {
 
 		t.Log(global.Dump(result))
 	})
+
+	t.Run("DeleteVpc", func(t *testing.T) {
+		if vpcId == "" {
+			vpcId = vpc().Id
+		}
+
+		err := net.DeleteVpc(vpcId)
+		if err != nil {
+			t.Fatal(err)
+		}
+	})
 }

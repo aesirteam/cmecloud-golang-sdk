@@ -43,7 +43,7 @@ func TestNic(t *testing.T) {
 	}(vpc.NetworkId)
 
 	securityGroups := func() []SecurityGroup.SecurityGroupResult {
-		result, err := cli.VM().GetSecurityGroupList("", 0, 0)
+		result, err := cli.VM().GetSecurityGroupList("default", false, 0, 0)
 		if err != nil {
 			t.Fatal(err)
 		}

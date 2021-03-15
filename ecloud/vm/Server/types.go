@@ -1,6 +1,9 @@
 package Server
 
-import "github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
+import (
+	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
+	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/VirtualPrivateCloud"
+)
 
 type APIv2 struct {
 	client *global.EcloudClient
@@ -48,13 +51,13 @@ type ServerInterface interface {
 	RebuildServer(serverId, imageId string, adminPass, userData string) error
 
 	//查看可绑定虚拟网卡列表 (resourceType：云主机0，物理机1)
-	GetUnbindNicList(serverId string, resourceType, page, size int)
+	GetUnbindNicList(serverId string, resourceType, page, size int) (string, error)
 
 	//为云主机绑定虚拟网卡
-	AttachNic(nicId, serverId string)
+	AttachNic(serverId, portId string) (VirtualPrivateCloud.NicResult, error)
 
 	//为云主机解绑虚拟网卡
-	DetachNic(nicId, serverId string)
+	DetachNic(serverId, portId string) (VirtualPrivateCloud.NicResult, error)
 }
 
 type ProductResult struct {

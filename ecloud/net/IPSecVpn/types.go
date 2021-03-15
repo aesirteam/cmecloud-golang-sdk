@@ -13,6 +13,9 @@ func New(client *global.EcloudClient) *APIv2 {
 }
 
 type VPNInterface interface {
+	//创建IPSecVPN
+	CreateIpsecVpn()
+
 	//查看IPSecVPN列表
 	GetIpsecVpnList(vpcName, routerId string, scale global.VpcScale, region string, page, size int) ([]VpnResult, error)
 

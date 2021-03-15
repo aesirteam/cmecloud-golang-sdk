@@ -31,11 +31,11 @@ func (a *APIv2) CreateSubnet(ss *global.SubnetSpec) (networkId string, err error
 		"networkTypeEnum":       "VM",
 	}
 
-	var ns []map[string]string
+	subnets := make([]map[string]string, 0)
 
 	for _, v := range ss.Subnets {
 		if v.Cidr != "" && v.SubnetName != "" {
-			ns = append(ns, map[string]string{
+			subnets = append(subnets, map[string]string{
 				"cidr": v.Cidr,
 				"ipVersion": func() string {
 					if v.IpVersion == 0 {
@@ -48,12 +48,12 @@ func (a *APIv2) CreateSubnet(ss *global.SubnetSpec) (networkId string, err error
 		}
 	}
 
-	if len(ns) == 0 {
+	if len(subnets) == 0 {
 		err = errors.New("No subnets is available")
 		return
 	}
 
-	body["subnets"] = ns
+	body["subnets"] = subnets
 
 	//fmt.Println(core.Dump(body))
 

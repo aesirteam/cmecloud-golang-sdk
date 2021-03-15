@@ -3,7 +3,6 @@ package VirtualPrivateCloud
 import (
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/IPSecVpn"
-	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/vm/Server"
 )
 
 type APIv2 struct {
@@ -19,7 +18,7 @@ type VPCInterface interface {
 	CreateVpc(spec *global.VpcSpec) (string, error)
 
 	//退订VPC
-	DeleteVpc(vpcId string)
+	DeleteVpc(vpcId string) error
 
 	/*
 		查看VPC列表
@@ -161,29 +160,53 @@ type SubnetResult struct {
 }
 
 type NicResult struct {
-	Id              string                          `json:"id"`
-	Name            string                          `json:"name"`
-	Status          int                             `json:"status,omitempty"`
-	AdminStateUp    interface{}                     `json:"adminStateUp"`
-	MacAddress      string                          `json:"macAddress"`
-	NetworkId       string                          `json:"networkId,omitempty"`
-	ResourceId      string                          `json:"resourceId,omitempty"`
-	ResourceName    string                          `json:"resourceName,omitempty"`
-	FipBind         bool                            `json:"fipBind,omitempty"`
-	OperationStatus string                          `json:"operationStatus,omitempty"`
-	Proposer        string                          `json:"proposer,omitempty"`
-	CustomerId      string                          `json:"customerId,omitempty"`
-	PoolId          string                          `json:"poolId,omitempty"`
-	CreatedBy       string                          `json:"createdBy,omitempty"`
-	CreateTime      string                          `json:"createdTime,omitempty"`
-	IsBasic         interface{}                     `json:"isBasic" newtag:"basic"`
-	Source          interface{}                     `json:"source"`
-	AddressCheck    bool                            `json:"addressCheck,omitempty"`
-	Region          string                          `json:"region,omitempty"`
-	HostName        string                          `json:"hostName,omitempty"`
-	SecurityGroups  []interface{}                   `json:"securityGroups,omitempty" newtag:"sgIds"`
-	FixedIps        Server.ServerFixedIpDetailArray `json:"fixedIps,omitempty" newtag:"fixedIpResps"`
-	IpId            string                          `json:"ipId,omitempty"`
-	PublicIp        string                          `json:"publicIp,omitempty"`
-	BandWidthsize   string                          `json:"bandWidthsize,omitempty"`
+	Id              string                `json:"id"`
+	Name            string                `json:"name"`
+	Status          int                   `json:"status,omitempty"`
+	AdminStateUp    interface{}           `json:"adminStateUp"`
+	MacAddress      string                `json:"macAddress"`
+	NetworkId       string                `json:"networkId,omitempty"`
+	ResourceId      string                `json:"resourceId,omitempty"`
+	ResourceName    string                `json:"resourceName,omitempty"`
+	FipBind         bool                  `json:"fipBind,omitempty"`
+	OperationStatus string                `json:"operationStatus,omitempty"`
+	Proposer        string                `json:"proposer,omitempty"`
+	CustomerId      string                `json:"customerId,omitempty"`
+	PoolId          string                `json:"poolId,omitempty"`
+	CreatedBy       string                `json:"createdBy,omitempty"`
+	CreateTime      string                `json:"createdTime,omitempty"`
+	IsBasic         interface{}           `json:"isBasic" newtag:"basic"`
+	Source          interface{}           `json:"source"`
+	AddressCheck    bool                  `json:"addressCheck,omitempty"`
+	Region          string                `json:"region,omitempty"`
+	HostName        string                `json:"hostName,omitempty"`
+	SecurityGroups  []interface{}         `json:"securityGroups,omitempty" newtag:"sgIds"`
+	FixedIps        []ServerFixedIpDetail `json:"fixedIps,omitempty" newtag:"fixedIpResps"`
+	IpId            string                `json:"ipId,omitempty"`
+	PublicIp        string                `json:"publicIp,omitempty"`
+	BandWidthsize   string                `json:"bandWidthsize,omitempty"`
+}
+
+/*
+绑定信息
+  IpAddress		内网ip
+  IpVersion		v4/v6
+  PublicIP		公网ip
+  BandwidthSize		公网ip带宽（Mb）
+  BandwidthType		带宽类型
+  Ipv6BandwidthSize	Ipv6带宽值（Mb）
+  SubnetId		子网id
+  SubnetName		子网名称
+*/
+type ServerFixedIpDetail struct {
+	IpAddress         string `json:"ipAddress"`
+	IpVersion         int    `json:"ipVersion"`
+	PublicIP          string `json:"publicIP,omitempty"`
+	BandwidthSize     int    `json:"bandwidthSize,omitempty"`
+	BandwidthType     string `json:"bandwidthType,omitempty"`
+	Ipv6BandwidthSize int    `json:"ipv6BandwidthSize,omitempty"`
+	SubnetId          string `json:"subnetId"`
+	SubnetName        string `json:"subnetName,omitempty"`
+	SubnetCidr        string `json:"subnetCidr,omitempty"`
+	PortId            string `json:"portId,omitempty"`
 }

@@ -2,8 +2,10 @@ package Server
 
 import (
 	"errors"
+	"strconv"
 
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
+	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/VirtualPrivateCloud"
 )
 
 func (a *APIv2) CreatServer(ss *global.ServerSpec) (result ServerOrderResult, err error) {
@@ -24,6 +26,11 @@ func (a *APIv2) CreatServer(ss *global.ServerSpec) (result ServerOrderResult, er
 
 	if ss.ImageType == 0 {
 		err = errors.New("No imageType is available")
+		return
+	}
+
+	if len(ss.Networks) == 0 {
+		err = errors.New("No networks is available")
 		return
 	}
 
@@ -59,16 +66,16 @@ func (a *APIv2) CreatServer(ss *global.ServerSpec) (result ServerOrderResult, er
 	}()
 
 	body["bootVolume"] = map[string]interface{}{
-		"volumeType": ss.BootVolumeSpec.VolumeType.String(),
+		"volumeType": ss.BootVolume.VolumeType.String(),
 		"size": func() int {
-			if ss.BootVolumeSpec.Size <= 0 {
+			if ss.BootVolume.Size <= 0 {
 				if ss.OsType == global.OS_TYPE_LINUX {
 					return 20
 				} else if ss.OsType == global.OS_TYPE_WINDOWS {
 					return 40
 				}
 			}
-			return ss.BootVolumeSpec.Size
+			return ss.BootVolume.Size
 		}(),
 	}
 
@@ -80,11 +87,16 @@ func (a *APIv2) CreatServer(ss *global.ServerSpec) (result ServerOrderResult, er
 		body["keypairName"] = ss.KeypairName
 	}
 
-	body["networks"] = map[string]string{
-		"networkId": ss.NetworkId,
+	netwroks := make([]map[string]string, len(ss.Networks))
+	for i, v := range ss.Networks {
+		netwroks[i] = map[string]string{
+			"networkId": v.NetworkId,
+			"portId":    v.PortId,
+		}
 	}
+	body["networks"] = netwroks
 
-	var dvs []map[string]interface{}
+	dvs := make([]map[string]interface{}, 0, 15)
 
 	for _, dv := range ss.DataVolumes {
 		if dv.Size >= 10 && dv.Size <= 32768 {
@@ -401,14 +413,89 @@ func (a *APIv2) RebuildServer(serverId, imageId string, adminPass, userData stri
 	return nil
 }
 
-func (a *APIv2) AttachNic(nicId, serverId string) {
+func (a *APIv2) AttachNic(serverId, portId string) (result VirtualPrivateCloud.NicResult, err error) {
+	if serverId == "" {
+		err = errors.New("No serverId is available")
+		return
+	}
 
+	if portId == "" {
+		err = errors.New("No portId is available")
+		return
+	}
+
+	body := map[string]interface{}{
+		"id":       portId,
+		"serverId": serverId,
+	}
+
+	resp, err := a.client.NewRequest("POST", "/api/port/attach", nil, nil, body)
+	if err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	return
 }
 
-func (a *APIv2) DetachNic(nicId, serverId string) {
+func (a *APIv2) DetachNic(serverId, portId string) (result VirtualPrivateCloud.NicResult, err error) {
+	if serverId == "" {
+		err = errors.New("No serverId is available")
+		return
+	}
 
+	if portId == "" {
+		err = errors.New("No portId is available")
+		return
+	}
+
+	body := map[string]interface{}{
+		"id":       portId,
+		"serverId": serverId,
+	}
+
+	resp, err := a.client.NewRequest("POST", "/api/port/detach", nil, nil, body)
+	if err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	return
 }
 
-func (a *APIv2) GetUnbindNicList(serverId string, resourceType int, page, size int) {
+func (a *APIv2) GetUnbindNicList(serverId string, resourceType int, page, size int) (result string, err error) {
+	if serverId == "" {
+		err = errors.New("No serverId is available")
+		return
+	}
 
+	params := map[string]interface{}{}
+
+	if page > 0 {
+		params["page"] = page
+	}
+
+	if size > 0 {
+		params["size"] = size
+	}
+
+	resp, err := a.client.NewRequest("GET", "/api/server/unbindNic/"+serverId+"/"+strconv.Itoa(resourceType), nil, params, nil)
+	if err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	result = resp.Body
+
+	return
 }

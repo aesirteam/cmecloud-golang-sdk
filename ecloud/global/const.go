@@ -7,6 +7,11 @@ type OsType int32
 type BillingType int32
 type ImageType int32
 
+type SecurityGroupDirection int32
+type SecurityGroupEtherType int32
+type SecurityGroupProtocol int32
+type SecurityGroupRemoteType int32
+
 const (
 	//Linux操作系统
 	OS_TYPE_LINUX OsType = 0
@@ -70,6 +75,21 @@ const (
 	IMAGE_BCLINUX_74_X64 ImageType = 5
 	IMAGE_BCLINUX_71_X64 ImageType = 6
 	IMAGE_BCLINUX_65_X64 ImageType = 7
+
+	SECURITYGROUP_DIRECTION_INGRESS SecurityGroupDirection = 0
+	SECURITYGROUP_DIRECTION_EGRESS  SecurityGroupDirection = 1
+
+	SECURITYGROUP_ETHERTYPE_IPV4 SecurityGroupEtherType = 0
+	SECURITYGROUP_ETHERTYPE_IPV6 SecurityGroupEtherType = 1
+
+	SECURITYGROUP_PROTOCOL_TCP  SecurityGroupProtocol = 0
+	SECURITYGROUP_PROTOCOL_UDP  SecurityGroupProtocol = 1
+	SECURITYGROUP_PROTOCOL_ICMP SecurityGroupProtocol = 2
+	SECURITYGROUP_PROTOCOL_IGMP SecurityGroupProtocol = 3
+	SECURITYGROUP_PROTOCOL_ANY  SecurityGroupProtocol = 4
+
+	SECURITYGROUP_REMOTETYPE_CIDR          SecurityGroupRemoteType = 0
+	SECURITYGROUP_REMOTETYPE_SECURITYGROUP SecurityGroupRemoteType = 1
 )
 
 func (b BootVolumeType) String() string {
@@ -173,6 +193,56 @@ func (t ImageType) String() string {
 		return "BC-Linux 6.5 64位"
 	default:
 		return ""
+	}
+}
+
+func (s SecurityGroupDirection) String() string {
+	switch s {
+	case SECURITYGROUP_DIRECTION_INGRESS:
+		return "ingress"
+	case SECURITYGROUP_DIRECTION_EGRESS:
+		return "egress"
+	default:
+		return "ingress"
+	}
+}
+
+func (s SecurityGroupEtherType) String() string {
+	switch s {
+	case SECURITYGROUP_ETHERTYPE_IPV4:
+		return "IPv4"
+	case SECURITYGROUP_ETHERTYPE_IPV6:
+		return "IPv6"
+	default:
+		return "IPv6"
+	}
+}
+
+func (s SecurityGroupProtocol) String() string {
+	switch s {
+	case SECURITYGROUP_PROTOCOL_TCP:
+		return "TCP"
+	case SECURITYGROUP_PROTOCOL_UDP:
+		return "UDP"
+	case SECURITYGROUP_PROTOCOL_ICMP:
+		return "ICMP"
+	case SECURITYGROUP_PROTOCOL_IGMP:
+		return "IGMP"
+	case SECURITYGROUP_PROTOCOL_ANY:
+		return "ANY"
+	default:
+		return "TCP"
+	}
+}
+
+func (s SecurityGroupRemoteType) String() string {
+	switch s {
+	case SECURITYGROUP_REMOTETYPE_CIDR:
+		return "cidr"
+	case SECURITYGROUP_REMOTETYPE_SECURITYGROUP:
+		return "security_group"
+	default:
+		return "cidr"
 	}
 }
 

@@ -34,13 +34,13 @@ func (a *APIv2) CreateNic(ns *global.NicSpec) (portId string, err error) {
 		"type":      "vm",
 	}
 
-	var dvs []map[string]string
+	dvs := make([]map[string]string, len(ns.Subnets))
 
-	for _, v := range ns.Subnets {
-		dvs = append(dvs, map[string]string{
+	for i, v := range ns.Subnets {
+		dvs[i] = map[string]string{
 			"ipAddress": v.IpAddress,
 			"subnetId":  v.SubnetId,
-		})
+		}
 	}
 
 	body["ips"] = dvs
