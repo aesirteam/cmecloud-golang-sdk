@@ -2,6 +2,7 @@ package VirtualPrivateCloud
 
 import (
 	"errors"
+	"strings"
 
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/IPSecVpn"
@@ -79,7 +80,7 @@ func (a *APIv2) GetVpcList(natGatewayBind bool, scale global.VpcScale, region st
 	}
 
 	if tagIds != nil && len(tagIds) > 0 {
-		params["tagIds"] = tagIds
+		params["tagIds"] = strings.Join(tagIds, ",")
 	}
 
 	if page > 0 {

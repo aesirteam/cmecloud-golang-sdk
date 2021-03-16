@@ -52,8 +52,8 @@ func (a *APIv2) CreatServer(ss *global.ServerSpec) (result ServerOrderResult, er
 		"vmType":      ss.VmType.String(),
 		"region":      ss.Region,
 		"billingType": ss.BillingType.String(),
-		"dration":     ss.Dration,
-		"quantity":    1,
+		//"duration":    ss.Duration,
+		"quantity": 1,
 	}
 
 	body["disk"] = func() int {
@@ -112,12 +112,19 @@ func (a *APIv2) CreatServer(ss *global.ServerSpec) (result ServerOrderResult, er
 		body["dataVolume"] = dvs
 	}
 
-	if ss.BillingType == global.BILLING_TYPE_YEAR {
+	switch ss.BillingType {
+	case global.BILLING_TYPE_YEAR:
 		body["billingType"] = global.BILLING_TYPE_MONTH.String()
-		if ss.Dration == 0 {
-			body["dration"] = 24
-		} else if ss.Dration > 0 && ss.Dration <= 60 {
-			body["dration"] = ss.Dration
+		if ss.Duration == 0 {
+			body["duration"] = 12
+		} else if ss.Duration > 0 && ss.Duration <= 5*12 {
+			body["duration"] = ss.Duration
+		}
+	case global.BILLING_TYPE_MONTH:
+		if ss.Duration == 0 {
+			body["duration"] = 1
+		} else if ss.Duration > 0 && ss.Duration <= 12 {
+			body["duration"] = ss.Duration
 		}
 	}
 

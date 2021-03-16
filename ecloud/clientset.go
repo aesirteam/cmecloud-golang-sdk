@@ -20,7 +20,7 @@ type ClientSet struct {
 	coreAPIv2 *global.APIv2
 	//net
 	elbAPIv2 *ELB.APIv2
-	eipAPIv2 *FloatingIP.APIv2
+	fipAPIv2 *FloatingIP.APIv2
 	vpcAPIv2 *VirtualPrivateCloud.APIv2
 	vpnAPIv2 *IPSecVpn.APIv2
 	//vm
@@ -46,7 +46,7 @@ func NewForConfig(conf *global.Config) (*ClientSet, error) {
 	return &ClientSet{
 		coreAPIv2:          global.New(client),
 		elbAPIv2:           ELB.New(client),
-		eipAPIv2:           FloatingIP.New(client),
+		fipAPIv2:           FloatingIP.New(client),
 		vpcAPIv2:           VirtualPrivateCloud.New(client),
 		vpnAPIv2:           IPSecVpn.New(client),
 		imageAPIv2:         Image.New(client),
@@ -80,7 +80,7 @@ type vmInterface struct {
 
 type netInterface struct {
 	ELB.ELBInterface
-	FloatingIP.EIPInterface
+	FloatingIP.FIPInterface
 	VirtualPrivateCloud.VPCInterface
 	IPSecVpn.VPNInterface
 }
@@ -94,7 +94,7 @@ func (cs *ClientSet) Core() *coreInterface {
 }
 
 func (cs *ClientSet) Net() *netInterface {
-	return &netInterface{cs.elbAPIv2, cs.eipAPIv2, cs.vpcAPIv2, cs.vpnAPIv2}
+	return &netInterface{cs.elbAPIv2, cs.fipAPIv2, cs.vpcAPIv2, cs.vpnAPIv2}
 }
 
 func (cs *ClientSet) VM() *vmInterface {

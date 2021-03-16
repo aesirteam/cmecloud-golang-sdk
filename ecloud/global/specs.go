@@ -17,9 +17,7 @@ type VpcSpec struct {
 	Specs       VpcScale
 }
 
-/*
-子网
-*/
+// VPC子网
 type SubnetSpec struct {
 	RouterId    string
 	NetworkName string
@@ -31,9 +29,7 @@ type SubnetSpec struct {
 	}
 }
 
-/*
-虚拟网卡
-*/
+//VPC 虚拟网卡
 type NicSpec struct {
 	Name           string
 	NetworkId      string
@@ -42,6 +38,77 @@ type NicSpec struct {
 		IpAddress string
 		SubnetId  string
 	}
+}
+
+// IPSecVpn服务
+type IPSecVpnSpec struct {
+	Name         string
+	RouterId     string
+	FloatingIpId string
+}
+
+/*
+IPSecVpn连接
+  	Name	ipsec站点连接的名称
+	LocalSubnetId	本端子网id
+	PeerAddress	对端网关公网地址 or FQDN
+	PeerSubnetCidr	对端子网cidr
+	Psk	共享秘钥字符串
+	ServiceId	ipsec站点连接所属的ipsecVPN服务id
+	IkePolicy:
+	    AuthAlgorithm	认证算法
+		EncryptionAlgorithm	加密算法
+		Pfs	完美向前加密
+		Version	IKE策略版本
+		Lifetime	生命期
+		Phase1NegotiationMode	协商模式
+	IpsecPolicy:
+	    AuthAlgorithm	认证算法
+		EncryptionAlgorithm	加密算法
+		EncapsulationMode	传输封装模式
+		Pfs	完美向前加密
+		Lifetime	生命期
+*/
+type IPSecVpnSiteConnectionSpec struct {
+	Name           string
+	LocalSubnetId  string
+	PeerAddress    string
+	PeerSubnetCidr []string
+	Psk            string
+	ServiceId      string
+	IkePolicy      struct {
+		AuthAlgorithm         VpnAuthAlgorithm
+		EncryptionAlgorithm   VpnEncryptionAlgorithm
+		Pfs                   VpnPfs
+		Version               VpnIkeVersion
+		Lifetime              int
+		Phase1NegotiationMode VpnIkePhase1NegotiationMode
+	}
+	IpsecPolicy struct {
+		AuthAlgorithm       VpnAuthAlgorithm
+		EncryptionAlgorithm VpnEncryptionAlgorithm
+		EncapsulationMode   VpnEncapsulationMode
+		Pfs                 VpnPfs
+		Lifetime            int
+	}
+}
+
+/*
+弹性公网IP
+  ChargeMode	带宽计费方式
+  ChargePeriod	带宽计费周期
+  Duration	购买时长
+  Quantity	购买数量
+  BandwidthSize	购买带宽值大小, 单位:MB (1M~10240M)
+  FloatingIpAddress	指定公网IP创建的IP地址(只能指定当前用户历史订购且已退订的公网IP)
+*/
+type FloatingIpSpec struct {
+	ChargeMode        FloatingIpChargeMode
+	ChargePeriod      BillingType
+	Duration          int
+	Quantity          int
+	BandwidthSize     int
+	FloatingIpAddress string
 }
 
 /*
@@ -60,7 +127,7 @@ type NicSpec struct {
   VmType		主机规格类型
   Region		可用区
   BillingType	计费类型
-  Dration		订购时长（月），取值范围[0,60]。按小时付费与按月后付费填写0，按月预付费按需填写
+  Duration		订购时长（月），取值范围[0,60]。按小时付费与按月后付费填写0，按月预付费按需填写
   Quantity	订购数量，取值范围[1,10]
   DataVolumes	云主机数据盘(ResourceType: 数据盘类型，Size: 数据盘大小(G)，取值范围[10,32768]，IsShare: 是否为共享数据盘，默认为非共享数据盘)
   OsType		操作系统类型
@@ -99,7 +166,7 @@ type ServerSpec struct {
 	VmType
 	Region string
 	BillingType
-	Dration     int
+	Duration    int
 	Quantity    int
 	DataVolumes []struct {
 		ResourceType DataVolumeType
