@@ -5,6 +5,7 @@ import (
 
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
+	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/IPSecVpn"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/VirtualPrivateCloud"
 )
 
@@ -16,9 +17,10 @@ func TestVPN(t *testing.T) {
 	}).Net()
 
 	var (
-		vpcName = "vpc99999"
-		vpnName = "vpn99999"
-		vpnId   string
+		vpcName         = "vpc99999"
+		vpnName         = "vpn99999"
+		vpnSiteConnName = "vpn_conn_99999"
+		vpnId           string
 	)
 
 	vpc := func() VirtualPrivateCloud.VpcResult {
@@ -28,6 +30,21 @@ func TestVPN(t *testing.T) {
 		}
 
 		return vpc
+	}()
+
+	subnetIds := func() []string {
+		result, err := net.GetSubnetInfo(vpc.NetworkId)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		subnetIds := make([]string, len(result))
+
+		for i, v := range result {
+			subnetIds[i] = v.Id
+		}
+
+		return subnetIds
 	}()
 
 	getFloatingIpId := func() string {
@@ -52,6 +69,21 @@ func TestVPN(t *testing.T) {
 		}
 
 		return result[0].Id
+	}
+
+	vpnSiteConnection := func() *IPSecVpn.VpnConnectionResult {
+		connList, err := net.GetIpsecVpnConnectionList("", "", "", nil, 0, 0)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		for _, v := range connList {
+			if v.Name == vpnSiteConnName {
+				return &v
+			}
+		}
+
+		return nil
 	}
 
 	t.Run("CreateIpsecVpn", func(t *testing.T) {
@@ -94,23 +126,27 @@ func TestVPN(t *testing.T) {
 		t.Log(global.Dump(result))
 	})
 
+	t.Run("GetIpsecVpnQuota", func(t *testing.T) {
+		result, err := net.GetIpsecVpnQuota()
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		t.Log(global.Dump(result))
+	})
+
 	t.Run("CreateIpsecVpnConnection", func(t *testing.T) {
 		if vpnId == "" {
 			vpnId = getVpnId()
 		}
 
-		subnet, err := net.GetSubnetInfo(vpc.NetworkId)
-		if err != nil {
-			t.Fatal(err)
-		}
-
 		spec := global.IPSecVpnSiteConnectionSpec{
-			Name:           "vpn_conn_99999",
-			LocalSubnetId:  subnet[0].Id,
-			PeerAddress:    "117.187.201.180",
-			PeerSubnetCidr: []string{"10.204.80.0/24", "10.204.62.0/24"},
-			ServiceId:      vpnId,
-			Psk:            "vpn12345",
+			VpnServiceId:   vpnId,
+			Name:           vpnSiteConnName,
+			LocalSubnetIds: subnetIds,
+			PeerAddress:    "36.134.93.99",
+			PeerSubnets:    []string{"192.168.0.0/24"},
+			Psk:            "vpn123456789",
 			IkePolicy: struct {
 				AuthAlgorithm         global.VpnAuthAlgorithm
 				EncryptionAlgorithm   global.VpnEncryptionAlgorithm
@@ -124,7 +160,7 @@ func TestVPN(t *testing.T) {
 				global.VPN_PFS_GROUP2,
 				global.VPN_IKE_VERSION_V2,
 				3600,
-				global.VPN_IKE_PHASE1NEGOTIATIONMODE_AGGRESSIVE,
+				global.VPN_IKE_PHASE1NEGOTIATIONMODE_MAIN,
 			},
 			IpsecPolicy: struct {
 				AuthAlgorithm       global.VpnAuthAlgorithm
@@ -133,15 +169,15 @@ func TestVPN(t *testing.T) {
 				Pfs                 global.VpnPfs
 				Lifetime            int
 			}{
-				global.VPN_AUTHALGORITHM_SHA256,
-				global.VPN_ENCRYPTIONALGORITHM_DES3,
+				global.VPN_AUTHALGORITHM_SHA1,
+				global.VPN_ENCRYPTIONALGORITHM_AES128,
 				global.VPN_ENCAPSULATIONMODE_TUNNEL,
 				global.VPN_PFS_GROUP2,
 				3600,
 			},
 		}
 
-		err = net.CreateIpsecVpnConnection(&spec)
+		err := net.CreateIpsecVpnConnection(&spec)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -153,7 +189,81 @@ func TestVPN(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		t.Log(result)
+		t.Log(global.Dump(result))
+	})
+
+	t.Run("GetIpsecVpnConnectionInfo", func(t *testing.T) {
+		siteConnection := vpnSiteConnection()
+		if siteConnection == nil {
+			t.Fatal("No match siteConnection")
+		}
+
+		result, err := net.GetIpsecVpnConnectionInfo(siteConnection.Id)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		t.Log(global.Dump(result))
+	})
+
+	t.Run("GetIkePolicyInfo", func(t *testing.T) {
+		siteConnection := vpnSiteConnection()
+		if siteConnection == nil {
+			t.Fatal("No match siteConnection")
+		}
+
+		result, err := net.GetIkePolicyInfo(siteConnection.Id, siteConnection.IkePolicyId)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		t.Log(global.Dump(result))
+	})
+
+	t.Run("GetIpsecPolicyInfo", func(t *testing.T) {
+		siteConnection := vpnSiteConnection()
+		if siteConnection == nil {
+			t.Fatal("No match siteConnection")
+		}
+
+		result, err := net.GetIpsecPolicyInfo(siteConnection.Id, siteConnection.IpsecPolicyId)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		t.Log(global.Dump(result))
+	})
+
+	t.Run("ModifyIpsecVpnConnection", func(t *testing.T) {
+		siteConnection := vpnSiteConnection()
+		if siteConnection == nil {
+			t.Fatal("No match siteConnection")
+		}
+
+		spec := global.IPSecVpnSiteConnectionSpec{
+			Name:           vpnSiteConnName,
+			LocalSubnetIds: subnetIds,
+			PeerAddress:    "36.134.93.99",
+			PeerSubnets:    []string{"192.168.0.0/24"},
+			Psk:            "vpn123456789",
+		}
+
+		err := net.ModifyIpsecVpnConnection(siteConnection.Id, &spec)
+		if err != nil {
+			t.Fatal(err)
+		}
+	})
+
+	t.Run("DeleteIpsecVpnConnection", func(t *testing.T) {
+		siteConnection := vpnSiteConnection()
+		if siteConnection == nil {
+			t.Fatal("No match siteConnection")
+		}
+
+		err := net.DeleteIpsecVpnConnection(siteConnection.Id)
+		if err != nil {
+			t.Fatal(err)
+		}
 	})
 
 	t.Run("DeleteIpsecVpn", func(t *testing.T) {
@@ -166,4 +276,5 @@ func TestVPN(t *testing.T) {
 			t.Fatal(err)
 		}
 	})
+
 }

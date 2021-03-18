@@ -49,12 +49,12 @@ type IPSecVpnSpec struct {
 
 /*
 IPSecVpn连接
+    VpnServiceId	ipsec站点连接所属的ipsecVPN服务id
   	Name	ipsec站点连接的名称
 	LocalSubnetId	本端子网id
 	PeerAddress	对端网关公网地址 or FQDN
-	PeerSubnetCidr	对端子网cidr
+	PeerSubnets	对端子网cidr列表
 	Psk	共享秘钥字符串
-	ServiceId	ipsec站点连接所属的ipsecVPN服务id
 	IkePolicy:
 	    AuthAlgorithm	认证算法
 		EncryptionAlgorithm	加密算法
@@ -70,12 +70,12 @@ IPSecVpn连接
 		Lifetime	生命期
 */
 type IPSecVpnSiteConnectionSpec struct {
+	VpnServiceId   string
 	Name           string
-	LocalSubnetId  string
+	LocalSubnetIds []string
 	PeerAddress    string
-	PeerSubnetCidr []string
+	PeerSubnets    []string
 	Psk            string
-	ServiceId      string
 	IkePolicy      struct {
 		AuthAlgorithm         VpnAuthAlgorithm
 		EncryptionAlgorithm   VpnEncryptionAlgorithm
@@ -157,7 +157,7 @@ type ServerSpec struct {
 	Password string
 	ImageType
 	KeypairName string
-	Networks    []struct {
+	Networks    *struct {
 		NetworkId string
 		PortId    string
 	}

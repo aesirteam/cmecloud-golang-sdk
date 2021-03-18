@@ -55,13 +55,8 @@ type Response struct {
 }
 
 type signatureContent struct {
-	accessKey string
-	secretKey string
-
-	scheme string
-	host   string
-	port   int
-
+	accessKey  string
+	secretKey  string
 	prefixPath string
 	verb       string
 	params     map[string]interface{}
@@ -92,14 +87,14 @@ func signature(c *signatureContent) string {
 
 	ha := sha256.New()
 	ha.Write([]byte(canonicalQueryString))
-	stringToSign := c.verb + "\n" + url.QueryEscape(c.prefixPath) + "\n" + fmt.Sprintf("%x", ha.Sum(nil))
+	stringToSign := fmt.Sprintf("%s\n%s\n%x", c.verb, url.QueryEscape(c.prefixPath), ha.Sum(nil))
 	//fmt.Println(stringToSign)
 
 	h := hmac.New(sha1.New, []byte(fmt.Sprintf("BC_SIGNATURE&%s", c.secretKey)))
 	h.Write([]byte(stringToSign))
 	_signature := fmt.Sprintf("%x", h.Sum(nil))
 
-	return fmt.Sprintf("%s://%s:%d%s?%s&Signature=%s", c.scheme, c.host, c.port, c.prefixPath, canonicalQueryString, _signature)
+	return fmt.Sprintf("%s?%s&Signature=%s", c.prefixPath, canonicalQueryString, _signature)
 }
 
 func NewEcloudClient(c *Config) (*EcloudClient, error) {
@@ -143,9 +138,6 @@ func (c *EcloudClient) NewRequest(verb, prefixPath string, headers, params, body
 	signUrl := signature(&signatureContent{
 		accessKey:  c.Config.AccessKey,
 		secretKey:  c.Config.SecretKey,
-		scheme:     c.Config.ApiGwProtocol,
-		host:       c.Config.ApiGwHost,
-		port:       c.Config.ApiGwPort,
 		prefixPath: prefixPath,
 		verb:       verb,
 		params:     params,
@@ -164,6 +156,8 @@ func (c *EcloudClient) NewRequest(verb, prefixPath string, headers, params, body
 			body = map[string]interface{}{}
 		}
 
+		//fmt.Println(Dump(body))
+
 		_bytes, err := json.Marshal(body)
 		if err != nil {
 			return _resp, err
@@ -171,7 +165,7 @@ func (c *EcloudClient) NewRequest(verb, prefixPath string, headers, params, body
 		reqBody = bytes.NewBuffer(_bytes)
 	}
 
-	req, err := http.NewRequest(verb, signUrl, reqBody)
+	req, err := http.NewRequest(verb, fmt.Sprintf("%s://%s:%d%s", c.Config.ApiGwProtocol, c.Config.ApiGwHost, c.Config.ApiGwPort, signUrl), reqBody)
 	if err != nil {
 		return _resp, err
 	}

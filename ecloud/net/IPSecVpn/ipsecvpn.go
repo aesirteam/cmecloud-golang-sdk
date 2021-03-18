@@ -2,7 +2,6 @@ package IPSecVpn
 
 import (
 	"errors"
-	"fmt"
 	"strings"
 
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
@@ -102,8 +101,23 @@ func (a *APIv2) GetIpsecVpnInfo(vpnId string) (result VpnResult, err error) {
 	return
 }
 
-func (a *APIv2) ModifyIpsecVpn() {
+// func (a *APIv2) ModifyIpsecVpn() {
 
+// }
+
+func (a *APIv2) GetIpsecVpnQuota() (result VpnQuotaResult, err error) {
+	resp, err := a.client.NewRequest("GET", "/api/vpn/vpnService/quota", nil, nil, nil)
+	if err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	return
 }
 
 func (a *APIv2) DeleteIpsecVpn(vpnId string) error {
@@ -116,14 +130,12 @@ func (a *APIv2) DeleteIpsecVpn(vpnId string) error {
 		return resp.Error(err)
 	}
 
-	fmt.Println(resp.Body)
-
 	return nil
 }
 
 func (a *APIv2) CreateIpsecVpnConnection(cs *global.IPSecVpnSiteConnectionSpec) (err error) {
-	if cs.ServiceId == "" {
-		err = errors.New("No serviceId is available")
+	if cs.VpnServiceId == "" {
+		err = errors.New("No vpnServiceId is available")
 		return
 	}
 
@@ -132,8 +144,8 @@ func (a *APIv2) CreateIpsecVpnConnection(cs *global.IPSecVpnSiteConnectionSpec) 
 		return
 	}
 
-	if cs.LocalSubnetId == "" {
-		err = errors.New("No localSubnetId is available")
+	if cs.LocalSubnetIds == nil || len(cs.LocalSubnetIds) == 0 {
+		err = errors.New("No localSubnetIds is available")
 		return
 	}
 
@@ -142,8 +154,8 @@ func (a *APIv2) CreateIpsecVpnConnection(cs *global.IPSecVpnSiteConnectionSpec) 
 		return
 	}
 
-	if cs.PeerSubnetCidr == nil || len(cs.PeerSubnetCidr) == 0 {
-		err = errors.New("No peerSubnetCidr is available")
+	if cs.PeerSubnets == nil || len(cs.PeerSubnets) == 0 {
+		err = errors.New("No peerSubnets is available")
 		return
 	}
 
@@ -167,18 +179,18 @@ func (a *APIv2) CreateIpsecVpnConnection(cs *global.IPSecVpnSiteConnectionSpec) 
 		"peerAddress":  cs.PeerAddress,
 		"peerId":       "",
 		"psk":          cs.Psk,
-		"serviceId":    cs.ServiceId,
+		"serviceId":    cs.VpnServiceId,
 	}
 
 	endpointGroups := make([]map[string]interface{}, 2)
 
 	endpointGroups[0] = map[string]interface{}{
-		"endpoints": []string{cs.LocalSubnetId},
+		"endpoints": cs.LocalSubnetIds,
 		"type":      "subnet",
 	}
 
 	endpointGroups[1] = map[string]interface{}{
-		"endpoints": cs.PeerSubnetCidr,
+		"endpoints": cs.PeerSubnets,
 		"type":      "cidr",
 	}
 
@@ -216,11 +228,7 @@ func (a *APIv2) CreateIpsecVpnConnection(cs *global.IPSecVpnSiteConnectionSpec) 
 	return
 }
 
-func (a *APIv2) DeleteIpsecVpnConnection() {
-
-}
-
-func (a *APIv2) GetIpsecVpnConnectionList(queryWord, name, networkId string, serviceIdsInRange []string, page, size int) (result string, err error) {
+func (a *APIv2) GetIpsecVpnConnectionList(queryWord, name, networkId string, serviceIdsInRange []string, page, size int) (result []VpnConnectionResult, err error) {
 	params := map[string]interface{}{}
 
 	if queryWord != "" {
@@ -253,23 +261,166 @@ func (a *APIv2) GetIpsecVpnConnectionList(queryWord, name, networkId string, ser
 		return
 	}
 
-	result = resp.Body
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
+		err = resp.Error(err)
+		return
+	}
 
 	return
 }
 
-func (a *APIv2) GetIpsecVpnConnectionInfo() {
+func (a *APIv2) GetIpsecVpnConnectionInfo(siteConnectionId string) (result VpnConnectionResult, err error) {
+	if siteConnectionId == "" {
+		err = errors.New("No siteConnectionId is available")
+		return
+	}
 
+	resp, err := a.client.NewRequest("GET", "/api/v2/network/IPSecVpn/siteConnection/"+siteConnectionId+"/IPSecVpnSiteConnectionResp", nil, nil, nil)
+	if err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	return
 }
 
-func (a *APIv2) GetIkePolicyInfo() {
+func (a *APIv2) GetIkePolicyInfo(siteConnectionId, ikePolicyId string) (result VpnConnectionPolicyResult, err error) {
+	if siteConnectionId == "" {
+		err = errors.New("No siteConnectionId is available")
+		return
+	}
 
+	if ikePolicyId == "" {
+		err = errors.New("No ikePolicyId is available")
+		return
+	}
+
+	params := map[string]interface{}{
+		"siteConnectionId": siteConnectionId,
+	}
+
+	resp, err := a.client.NewRequest("GET", "/api/v2/netcenter/IPSecVpn/IkePolicy/"+ikePolicyId, nil, params, nil)
+	if err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	return
 }
 
-func (a *APIv2) GetIpsecPolicyInfo() {
+func (a *APIv2) GetIpsecPolicyInfo(siteConnectionId, ipsecPolicyId string) (result VpnConnectionPolicyResult, err error) {
+	if siteConnectionId == "" {
+		err = errors.New("No siteConnectionId is available")
+		return
+	}
 
+	if ipsecPolicyId == "" {
+		err = errors.New("No ipsecPolicyId is available")
+		return
+	}
+
+	params := map[string]interface{}{
+		"siteConnectionId": siteConnectionId,
+	}
+
+	resp, err := a.client.NewRequest("GET", "/api/v2/netcenter/IPSecVpn/IPSecPolicy/"+ipsecPolicyId, nil, params, nil)
+	if err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	return
 }
 
-func (a *APIv2) GetIpsecVpnQuota() {
+func (a *APIv2) ModifyIpsecVpnConnection(siteConnectionId string, cs *global.IPSecVpnSiteConnectionSpec) (err error) {
+	if siteConnectionId == "" {
+		err = errors.New("No siteConnectionId is available")
+		return
+	}
 
+	if cs.Name == "" {
+		err = errors.New("No name is available")
+		return
+	}
+
+	if cs.LocalSubnetIds == nil || len(cs.LocalSubnetIds) == 0 {
+		err = errors.New("No localSubnetIds is available")
+		return
+	}
+
+	if cs.PeerAddress == "" {
+		err = errors.New("No peerAddress is available")
+		return
+	}
+
+	if cs.PeerSubnets == nil || len(cs.PeerSubnets) == 0 {
+		err = errors.New("No peerSubnets is available")
+		return
+	}
+
+	if cs.Psk == "" {
+		err = errors.New("No psk is available")
+		return
+	}
+
+	body := map[string]interface{}{
+		"bandwithSize": 0,
+		"localId":      "",
+		"name":         cs.Name,
+		"peerAddress":  cs.PeerAddress,
+		"peerId":       "",
+		"psk":          cs.Psk,
+	}
+
+	endpointGroups := make([]map[string]interface{}, 2)
+
+	endpointGroups[0] = map[string]interface{}{
+		"endpoints": cs.LocalSubnetIds,
+		"type":      "subnet",
+	}
+
+	endpointGroups[1] = map[string]interface{}{
+		"endpoints": cs.PeerSubnets,
+		"type":      "cidr",
+	}
+
+	body["endpointGroups"] = endpointGroups
+
+	resp, err := a.client.NewRequest("PUT", "/api/v2/network/IPSecVpn/siteConnection/"+siteConnectionId, nil, nil, body)
+	if err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	return
+}
+
+func (a *APIv2) DeleteIpsecVpnConnection(siteConnectionId string) (err error) {
+	if siteConnectionId == "" {
+		err = errors.New("No siteConnectionId is available")
+		return
+	}
+
+	resp, err := a.client.NewRequest("DELETE", "/api/v2/network/IPSecVpn/siteConnection/"+siteConnectionId, nil, nil, nil)
+	if err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	return
 }

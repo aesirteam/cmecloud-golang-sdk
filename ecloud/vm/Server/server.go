@@ -29,11 +29,6 @@ func (a *APIv2) CreatServer(ss *global.ServerSpec) (result ServerOrderResult, er
 		return
 	}
 
-	if len(ss.Networks) == 0 {
-		err = errors.New("No networks is available")
-		return
-	}
-
 	if ss.Region == "" {
 		err = errors.New("No region is available")
 		return
@@ -41,6 +36,11 @@ func (a *APIv2) CreatServer(ss *global.ServerSpec) (result ServerOrderResult, er
 
 	if ss.Password == "" && ss.KeypairName == "" {
 		err = errors.New("No password and keypairName is available")
+		return
+	}
+
+	if ss.Networks == nil {
+		err = errors.New("No networks is available")
 		return
 	}
 
@@ -52,8 +52,7 @@ func (a *APIv2) CreatServer(ss *global.ServerSpec) (result ServerOrderResult, er
 		"vmType":      ss.VmType.String(),
 		"region":      ss.Region,
 		"billingType": ss.BillingType.String(),
-		//"duration":    ss.Duration,
-		"quantity": 1,
+		"quantity":    1,
 	}
 
 	body["disk"] = func() int {
@@ -87,14 +86,10 @@ func (a *APIv2) CreatServer(ss *global.ServerSpec) (result ServerOrderResult, er
 		body["keypairName"] = ss.KeypairName
 	}
 
-	netwroks := make([]map[string]string, len(ss.Networks))
-	for i, v := range ss.Networks {
-		netwroks[i] = map[string]string{
-			"networkId": v.NetworkId,
-			"portId":    v.PortId,
-		}
+	body["networks"] = map[string]string{
+		"networkId": ss.Networks.NetworkId,
+		"portId":    ss.Networks.PortId,
 	}
-	body["networks"] = netwroks
 
 	dvs := make([]map[string]interface{}, 0, 15)
 
@@ -116,15 +111,15 @@ func (a *APIv2) CreatServer(ss *global.ServerSpec) (result ServerOrderResult, er
 	case global.BILLING_TYPE_YEAR:
 		body["billingType"] = global.BILLING_TYPE_MONTH.String()
 		if ss.Duration == 0 {
-			body["duration"] = 12
+			body["dration"] = 12
 		} else if ss.Duration > 0 && ss.Duration <= 5*12 {
-			body["duration"] = ss.Duration
+			body["dration"] = ss.Duration
 		}
 	case global.BILLING_TYPE_MONTH:
 		if ss.Duration == 0 {
-			body["duration"] = 1
+			body["dration"] = 1
 		} else if ss.Duration > 0 && ss.Duration <= 12 {
-			body["duration"] = ss.Duration
+			body["dration"] = ss.Duration
 		}
 	}
 

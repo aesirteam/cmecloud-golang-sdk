@@ -56,7 +56,7 @@ func TestServer(t *testing.T) {
 			//VmType:           0,
 			//Region:           "",
 			// BillingType: global.BILLING_TYPE_YEAR,
-			//Dration:          0,
+			//Duration: 0,
 			//Quantity:         0,
 			// DataVolumes: []struct {
 			// 	ResourceType global.DataVolumeType
@@ -70,19 +70,18 @@ func TestServer(t *testing.T) {
 		}
 
 		//查询networkId
-		vpc_default := vpc("vpc_default")
+		//vpc_default := vpc("vpc_default")
+		vpc_default := vpc(vpcName)
 
 		if vpc_default.NetworkId == "" {
 			t.Fatal("No found NetworkId")
 		}
 
 		//t.Log(vpc.Dump())
-		spec.Networks = []struct {
+		spec.Networks = &struct {
 			NetworkId string
 			PortId    string
-		}{
-			{vpc_default.NetworkId, ""},
-		}
+		}{vpc_default.NetworkId, ""}
 
 		spec.Region = vpc_default.Region
 
