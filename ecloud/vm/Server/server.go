@@ -24,8 +24,8 @@ func (a *APIv2) CreatServer(ss *global.ServerSpec) (result ServerOrderResult, er
 		return
 	}
 
-	if ss.ImageType == 0 {
-		err = errors.New("No imageType is available")
+	if ss.ImageName == "" {
+		err = errors.New("No imageName is available")
 		return
 	}
 
@@ -48,7 +48,7 @@ func (a *APIv2) CreatServer(ss *global.ServerSpec) (result ServerOrderResult, er
 		"name":        ss.Name,
 		"cpu":         ss.Cpu,
 		"ram":         ss.Ram,
-		"imageName":   ss.ImageType.String(),
+		"imageName":   ss.ImageName,
 		"vmType":      ss.VmType.String(),
 		"region":      ss.Region,
 		"billingType": ss.BillingType.String(),

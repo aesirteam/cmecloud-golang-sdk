@@ -113,13 +113,13 @@ type FloatingIpSpec struct {
 
 /*
 云主机
-  Name		云主机名称，名称为5-22位数字、字母、“-”组合，且“-”不可在名称的开头或结尾
+  Name		云主机名称 (名称为5-22位数字、字母、“-”组合，且“-”不可在名称的开头或结尾)
   Cpu		主机cpu
   Ram		主机ram
   Disk		20/40（创建linux操作系统云主机仅可填写20，windows操作系统仅可填写40）
   BootVolume	云主机系统盘(VolumeType: 系统盘类型，Size: 云硬盘大小(GB)，linux主机系统盘最小为20，windows主机系统盘最小为40，最大均为500)
   Password	密文（采用RSA对明文加密，password和keypairName能且仅能填写一个）
-  ImageType	镜像类型
+  ImageName	镜像名称
   KeypairName	SSH密钥名称
   Networks	云主机网络 (NetworkId:云主机网络id, PortId: 网卡id)
   SecurityGroupIds 安全组id
@@ -133,7 +133,7 @@ type FloatingIpSpec struct {
   OsType		操作系统类型
 
   //查询请求参数(非必填)：
-  Name		云主机名称result
+  Name		云主机名称
   Ram		主机ram
   Disk		系统盘大小
   EcStatus	云主机底层状态
@@ -154,8 +154,8 @@ type ServerSpec struct {
 		VolumeType BootVolumeType
 		Size       int
 	}
-	Password string
-	ImageType
+	Password    string
+	ImageName   string
 	KeypairName string
 	Networks    *struct {
 		NetworkId string

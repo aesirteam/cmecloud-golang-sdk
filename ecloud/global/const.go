@@ -6,7 +6,7 @@ type VmType int32
 type OsType int32
 type BillingType int32
 type ImageFormat int32
-type ImageType int32
+type ImageName int32
 
 const (
 	// Linux操作系统
@@ -70,13 +70,13 @@ const (
 	IMAGE_FORMAT_RAW   ImageFormat = 2
 
 	// 云主机镜像
-	IMAGE_BCLINUX_81_X64 ImageType = 1
-	IMAGE_BCLINUX_77_X64 ImageType = 2
-	IMAGE_BCLINUX_76_X64 ImageType = 3
-	IMAGE_BCLINUX_75_X64 ImageType = 4
-	IMAGE_BCLINUX_74_X64 ImageType = 5
-	IMAGE_BCLINUX_71_X64 ImageType = 6
-	IMAGE_BCLINUX_65_X64 ImageType = 7
+	IMAGE_BCLINUX_81_X64 ImageName = 1
+	IMAGE_BCLINUX_77_X64 ImageName = 2
+	IMAGE_BCLINUX_76_X64 ImageName = 3
+	IMAGE_BCLINUX_75_X64 ImageName = 4
+	IMAGE_BCLINUX_74_X64 ImageName = 5
+	IMAGE_BCLINUX_71_X64 ImageName = 6
+	IMAGE_BCLINUX_65_X64 ImageName = 7
 )
 
 func (b BootVolumeType) String() string {
@@ -175,7 +175,7 @@ func (t ImageFormat) String() string {
 	}
 }
 
-func (t ImageType) String() string {
+func (t ImageName) String() string {
 	switch t {
 	case IMAGE_BCLINUX_81_X64:
 		return "BC-Linux 8.1 64位"

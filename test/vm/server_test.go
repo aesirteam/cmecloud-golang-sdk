@@ -70,7 +70,7 @@ func TestServer(t *testing.T) {
 			// 	Size       int
 			// }{global.BOOT_VOLUME_PERFORMANCEOPTIMIZATION, 50},
 			Password:  password,
-			ImageType: global.IMAGE_BCLINUX_76_X64,
+			ImageName: global.IMAGE_BCLINUX_76_X64.String(),
 			//KeypairName:      "",
 			// Networks: []struct{NetworkId string; PortId string}{
 			// 	{"63ba602a-c6f6-4975-a507-017979346dee", ""},
