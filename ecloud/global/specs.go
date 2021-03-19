@@ -205,3 +205,23 @@ type SecurityGroupRuleSpec struct {
 	RemoteSecurityGroupId string
 	RemoteIpPrefix        string
 }
+
+/*
+自定义镜像导入
+  	ImageUrl	制作好的镜像url
+	ImageName	镜像名称
+	OsType	操作系统类型
+	MinDisk	磁盘容量 (Linux系统最小为20，Windows系统最小为40)
+	ImageFormat	镜像格式
+	OsVersion	操作系统版本
+	Desc	描述
+*/
+type UserImageImportSpec struct {
+	ImageUrl  string
+	ImageName string
+	OsType
+	MinDisk int64
+	ImageFormat
+	OsVersion string
+	Desc      string
+}

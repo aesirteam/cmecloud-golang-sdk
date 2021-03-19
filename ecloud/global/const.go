@@ -5,6 +5,7 @@ type DataVolumeType int32
 type VmType int32
 type OsType int32
 type BillingType int32
+type ImageFormat int32
 type ImageType int32
 
 const (
@@ -62,6 +63,11 @@ const (
 	BILLING_TYPE_MONTH BillingType = 1
 	// 按年计费
 	BILLING_TYPE_YEAR BillingType = 2
+
+	// 镜像格式
+	IMAGE_FORMAT_QCOW2 ImageFormat = 0
+	IMAGE_FORMAT_VHD   ImageFormat = 1
+	IMAGE_FORMAT_RAW   ImageFormat = 2
 
 	// 云主机镜像
 	IMAGE_BCLINUX_81_X64 ImageType = 1
@@ -153,6 +159,19 @@ func (b BillingType) String() string {
 		return "HOUR"
 	default:
 		return "HOUR"
+	}
+}
+
+func (t ImageFormat) String() string {
+	switch t {
+	case IMAGE_FORMAT_QCOW2:
+		return "qcow2"
+	case IMAGE_FORMAT_VHD:
+		return "vhd"
+	case IMAGE_FORMAT_RAW:
+		return "raw"
+	default:
+		return "qcow2"
 	}
 }
 

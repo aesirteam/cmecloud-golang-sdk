@@ -5,7 +5,6 @@ import (
 
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
-	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/VirtualPrivateCloud"
 )
 
 func TestVPC(t *testing.T) {
@@ -16,11 +15,21 @@ func TestVPC(t *testing.T) {
 	}).Net()
 
 	var (
-		vpcName     = "vpc99999"
-		region      = "N0851-GZ-GYGZ01"
-		networkName = "subnet_default"
-		vpcId       string
+		vpcName         = "vpc99999"
+		region          = "N0851-GZ-GYGZ01"
+		networkName     = "subnet_default"
+		vpcId, routerId string
 	)
+
+	getVpcId := func() (string, string) {
+		if vpcId == "" || routerId == "" {
+			if result, err := net.GetVpcInfoByName(vpcName); err == nil && result != nil {
+				vpcId, routerId = result.Id, result.RouterId
+			}
+		}
+
+		return vpcId, routerId
+	}
 
 	t.Run("CreateVpc", func(t *testing.T) {
 		spec := global.VpcSpec{
@@ -50,19 +59,8 @@ func TestVPC(t *testing.T) {
 		t.Log(global.Dump(result))
 	})
 
-	vpc := func() VirtualPrivateCloud.VpcResult {
-		vpc, err := net.GetVpcInfoByName(vpcName)
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		return vpc
-	}
-
 	t.Run("GetVpcInfo", func(t *testing.T) {
-		if vpcId == "" {
-			vpcId = vpc().Id
-		}
+		vpcId, routerId = getVpcId()
 
 		result, err := net.GetVpcInfo(vpcId)
 		if err != nil {
@@ -73,11 +71,16 @@ func TestVPC(t *testing.T) {
 	})
 
 	t.Run("GetVpcInfoByName", func(t *testing.T) {
-		t.Log(global.Dump(vpc))
+		result, err := net.GetVpcInfoByName(vpcName)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		t.Log(global.Dump(result))
 	})
 
 	t.Run("GetVpcInfoByRouterId", func(t *testing.T) {
-		routerId := vpc().RouterId
+		vpcId, routerId = getVpcId()
 
 		result, err := net.GetVpcInfoByRouterId(routerId)
 		if err != nil {
@@ -88,9 +91,7 @@ func TestVPC(t *testing.T) {
 	})
 
 	t.Run("ModifyVpcInfo", func(t *testing.T) {
-		if vpcId == "" {
-			vpcId = vpc().Id
-		}
+		vpcId, routerId = getVpcId()
 
 		err := net.ModifyVpcInfo(vpcId, vpcName, "ModifyVpcInfo")
 		if err != nil {
@@ -108,7 +109,7 @@ func TestVPC(t *testing.T) {
 	// })
 
 	t.Run("GetVpcNetwork", func(t *testing.T) {
-		routerId := vpc().RouterId
+		_, routerId = getVpcId()
 
 		result, err := net.GetVpcNetwork(routerId)
 		if err != nil {
@@ -119,7 +120,7 @@ func TestVPC(t *testing.T) {
 	})
 
 	t.Run("GetVpcIPSecVPN", func(t *testing.T) {
-		routerId := vpc().RouterId
+		_, routerId = getVpcId()
 
 		result, err := net.GetVpcVPN(routerId)
 		if err != nil {
@@ -130,7 +131,7 @@ func TestVPC(t *testing.T) {
 	})
 
 	t.Run("GetVpcNic", func(t *testing.T) {
-		routerId := vpc().RouterId
+		_, routerId = getVpcId()
 
 		result, err := net.GetVpcNic(routerId)
 		if err != nil {
@@ -141,9 +142,7 @@ func TestVPC(t *testing.T) {
 	})
 
 	t.Run("DeleteVpc", func(t *testing.T) {
-		if vpcId == "" {
-			vpcId = vpc().Id
-		}
+		vpcId, _ = getVpcId()
 
 		err := net.DeleteVpc(vpcId)
 		if err != nil {

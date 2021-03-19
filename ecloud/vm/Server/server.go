@@ -178,7 +178,7 @@ func (a *APIv2) GetServerList(ss *global.ServerSpec, page, size int) (result []S
 	return
 }
 
-func (a *APIv2) GetServerInfo(serverId string, detail bool) (result ServerResult, err error) {
+func (a *APIv2) GetServerInfo(serverId string, detail bool) (result *ServerResult, err error) {
 	if serverId == "" {
 		err = errors.New("No serverId is available")
 		return

@@ -24,7 +24,7 @@ type ServerInterface interface {
 	GetServerList(req *global.ServerSpec, page, size int) ([]ServerResult, error)
 
 	//查看云主机详情
-	GetServerInfo(serverId string, detail bool) (ServerResult, error)
+	GetServerInfo(serverId string, detail bool) (*ServerResult, error)
 
 	//获取VNC登录云主机地址
 	GetServerVNCAddress(serverId string) (string, error)

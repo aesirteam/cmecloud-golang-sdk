@@ -6,7 +6,7 @@ import (
 
 func (a *APIv2) CreateKeypair(name, region string) (result string, err error) {
 	if name == "" {
-		err = errors.New("No keyName is available")
+		err = errors.New("No name is available")
 		return
 	}
 

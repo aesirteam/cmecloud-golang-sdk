@@ -24,7 +24,7 @@ type ClientSet struct {
 	vpcAPIv2 *VirtualPrivateCloud.APIv2
 	vpnAPIv2 *IPSecVpn.APIv2
 	//vm
-	imageAPIv2         *Image.APIv2
+	imageAPIv1         *Image.APIv1
 	keypairAPIv2       *KeyPair.APIv2
 	securityGroupAPIv2 *SecurityGroup.APIv2
 	serverAPIv2        *Server.APIv2
@@ -49,7 +49,7 @@ func NewForConfig(conf *global.Config) (*ClientSet, error) {
 		fipAPIv2:           FloatingIP.New(client),
 		vpcAPIv2:           VirtualPrivateCloud.New(client),
 		vpnAPIv2:           IPSecVpn.New(client),
-		imageAPIv2:         Image.New(client),
+		imageAPIv1:         Image.New(client),
 		keypairAPIv2:       KeyPair.New(client),
 		securityGroupAPIv2: SecurityGroup.New(client),
 		serverAPIv2:        Server.New(client),
@@ -98,7 +98,7 @@ func (cs *ClientSet) Net() *netInterface {
 }
 
 func (cs *ClientSet) VM() *vmInterface {
-	return &vmInterface{cs.imageAPIv2, cs.keypairAPIv2, cs.securityGroupAPIv2, cs.serverAPIv2, cs.serverBackupAPIv2}
+	return &vmInterface{cs.imageAPIv1, cs.keypairAPIv2, cs.securityGroupAPIv2, cs.serverAPIv2, cs.serverBackupAPIv2}
 }
 
 func (cs *ClientSet) Storage() *storageInterface {

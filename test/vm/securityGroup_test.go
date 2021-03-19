@@ -17,31 +17,32 @@ func TestSecurityGroup(t *testing.T) {
 	var (
 		sgName                     = "SecurityGroup_test"
 		minPortRange, maxPortRange = 22, 22
-		sgId                       string
-		ruleId                     string
+		sgId, ruleId               string
 	)
 
 	getSecurityGroupId := func() string {
-		result, err := vm.GetSecurityGroupList(sgName, false, 0, 0)
-		if err != nil {
-			t.Fatal(err)
-		}
-		return result[0].Id
-	}
-
-	getSecurityGroupRuleId := func(sgId string) string {
-		result, err := vm.GetSecurityGroupRules(sgId, "")
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		for _, rule := range result {
-			if rule.PortRangeMin == minPortRange && rule.PortRangeMax == maxPortRange {
-				return rule.Id
+		if sgId == "" {
+			if result, err := vm.GetSecurityGroupList(sgName, false, 0, 0); err == nil && len(result) > 0 {
+				sgId = result[0].Id
 			}
 		}
 
-		return ""
+		return sgId
+	}
+
+	getSecurityGroupRuleId := func(sgId string) string {
+		if ruleId == "" {
+			if result, err := vm.GetSecurityGroupRules(sgId, ""); err == nil {
+				for _, rule := range result {
+					if rule.PortRangeMin == minPortRange && rule.PortRangeMax == maxPortRange {
+						ruleId = rule.Id
+						break
+					}
+				}
+			}
+		}
+
+		return ruleId
 	}
 
 	t.Run("CreateSecurityGroup", func(t *testing.T) {
@@ -65,9 +66,7 @@ func TestSecurityGroup(t *testing.T) {
 	})
 
 	t.Run("ModifySecurityGroup", func(t *testing.T) {
-		if sgId == "" {
-			sgId = getSecurityGroupId()
-		}
+		sgId = getSecurityGroupId()
 
 		newName := sgName + "_1"
 		result, err := vm.ModifySecurityGroup(sgId, newName, "")
@@ -81,9 +80,7 @@ func TestSecurityGroup(t *testing.T) {
 	})
 
 	t.Run("AddSecurityGroupRules", func(t *testing.T) {
-		if sgId == "" {
-			sgId = getSecurityGroupId()
-		}
+		sgId = getSecurityGroupId()
 
 		spec := global.SecurityGroupRuleSpec{
 			SecurityGroupId: sgId,
@@ -108,9 +105,7 @@ func TestSecurityGroup(t *testing.T) {
 	})
 
 	t.Run("GetSecurityGroupRules", func(t *testing.T) {
-		if sgId == "" {
-			sgId = getSecurityGroupId()
-		}
+		sgId = getSecurityGroupId()
 
 		result, err := vm.GetSecurityGroupRules(sgId, ruleId)
 		if err != nil {
@@ -121,13 +116,8 @@ func TestSecurityGroup(t *testing.T) {
 	})
 
 	t.Run("DeleteSecurityGroupRules", func(t *testing.T) {
-		if sgId == "" {
-			sgId = getSecurityGroupId()
-		}
-
-		if ruleId == "" {
-			ruleId = getSecurityGroupRuleId(sgId)
-		}
+		sgId = getSecurityGroupId()
+		ruleId = getSecurityGroupRuleId(sgId)
 
 		err := vm.DeleteSecurityGroupRules(ruleId)
 		if err != nil {
@@ -136,9 +126,7 @@ func TestSecurityGroup(t *testing.T) {
 	})
 
 	t.Run("DeleteSecurityGroup", func(t *testing.T) {
-		if sgId == "" {
-			sgId = getSecurityGroupId()
-		}
+		sgId = getSecurityGroupId()
 
 		err := vm.DeleteSecurityGroup(sgId)
 		if err != nil {

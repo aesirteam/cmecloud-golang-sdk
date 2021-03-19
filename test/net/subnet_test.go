@@ -16,10 +16,10 @@ func TestSubnet(t *testing.T) {
 	}).Net()
 
 	var (
-		vpcName     = "vpc99999"
-		region      = "N0851-GZ-GYGZ01"
-		networkName = "subnet_test"
-		networkId   string
+		vpcName             = "vpc99999"
+		region              = "N0851-GZ-GYGZ01"
+		networkName         = "subnet_test"
+		networkId, subnetId string
 	)
 
 	vpc := func() VirtualPrivateCloud.VpcResult {
@@ -28,14 +28,27 @@ func TestSubnet(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		return vpc
+		return *vpc
+	}()
+
+	getNetworkId := func() (string, string) {
+		if networkId == "" || subnetId == "" {
+			if result, err := net.GetVpcNetwork(vpc.RouterId); err == nil {
+				for _, v := range result {
+					if v.Name == networkName {
+						networkId, subnetId = v.Subnets[0].NetworkId, v.Subnets[0].Id
+						break
+					}
+				}
+			}
+		}
+
+		return networkId, subnetId
 	}
 
 	t.Run("CreateSubnet", func(t *testing.T) {
-		routerId := vpc().RouterId
-
 		subnetSpec := global.SubnetSpec{
-			RouterId:    routerId,
+			RouterId:    vpc.RouterId,
 			NetworkName: networkName,
 			Region:      region,
 			Subnets: []struct {
@@ -56,12 +69,10 @@ func TestSubnet(t *testing.T) {
 		t.Logf("netoworkId:%s\n", networkId)
 	})
 
-	t.Run("GetSubnetInfo", func(t *testing.T) {
-		if networkId == "" {
-			networkId = vpc().NetworkId
-		}
+	t.Run("GetSubnetList", func(t *testing.T) {
+		networkId, subnetId = getNetworkId()
 
-		result, err := net.GetSubnetInfo(networkId)
+		result, err := net.GetSubnetList(networkId)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -69,21 +80,28 @@ func TestSubnet(t *testing.T) {
 		t.Log(global.Dump(result))
 	})
 
-	t.Run("ModifySubnet", func(t *testing.T) {
-		if networkId == "" {
-			networkId = vpc().NetworkId
+	t.Run("GetSubnetInfo", func(t *testing.T) {
+		networkId, subnetId = getNetworkId()
+
+		result, err := net.GetSubnetInfo(subnetId)
+		if err != nil {
+			t.Fatal(err)
 		}
 
-		err := net.ModifySubnet(networkId, networkName)
+		t.Log(global.Dump(result))
+	})
+
+	t.Run("ModifySubnetName", func(t *testing.T) {
+		networkId, _ = getNetworkId()
+
+		err := net.ModifySubnetName(networkId, networkName)
 		if err != nil {
 			t.Fatal(err)
 		}
 	})
 
 	t.Run("DeleteSubnet", func(t *testing.T) {
-		if networkId == "" {
-			networkId = vpc().NetworkId
-		}
+		networkId, _ = getNetworkId()
 
 		err := net.DeleteSubnet(networkId)
 		if err != nil {

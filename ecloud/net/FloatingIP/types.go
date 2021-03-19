@@ -28,7 +28,7 @@ type FIPInterface interface {
 	GetFloatingIpList(queryWord, routerId, natGatewayId string, bound, frozen, openIpv6Converter, availableForSbw bool, tagIds []string, page, size int) ([]FloatingIpResult, error)
 
 	//  查看公网IP详情
-	GetFloatingIpDetail(ipId string) (FloatingIpResult, error)
+	GetFloatingIpDetail(ipId string) (*FloatingIpResult, error)
 
 	// 查看IP带宽配额 (k版)
 	GetFloatingIpQuotaWithK() (FloatingIpQuotaResult, error)

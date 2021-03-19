@@ -81,7 +81,7 @@ func (a *APIv2) DeleteSubnet(networkId string) error {
 	return nil
 }
 
-func (a *APIv2) ModifySubnet(networkId, networkName string) error {
+func (a *APIv2) ModifySubnetName(networkId, networkName string) error {
 	if networkId == "" {
 		return errors.New("No networkId is available")
 	}
@@ -103,13 +103,33 @@ func (a *APIv2) ModifySubnet(networkId, networkName string) error {
 	return nil
 }
 
-func (a *APIv2) GetSubnetInfo(networkId string) (result []SubnetResult, err error) {
+func (a *APIv2) GetSubnetList(networkId string) (result []SubnetResult, err error) {
 	if networkId == "" {
 		err = errors.New("No networkId is available")
 		return
 	}
 
 	resp, err := a.client.NewRequest("GET", "/api/v2/netcenter/subnet/networkId/"+networkId+"/SubnetResps", nil, nil, nil)
+	if err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	return
+}
+
+func (a *APIv2) GetSubnetInfo(subnetId string) (result *SubnetResult, err error) {
+	if subnetId == "" {
+		err = errors.New("No subnetId is available")
+		return
+	}
+
+	resp, err := a.client.NewRequest("GET", "/api/v2/netcenter/subnet/subnetId/"+subnetId+"/SubnetDetailResp", nil, nil, nil)
 	if err != nil {
 		err = resp.Error(err)
 		return

@@ -22,18 +22,42 @@ func TestServer(t *testing.T) {
 		name             = "api198994873"
 		password         = "ECS@test1234"
 		rebuildImageId   = "c82bb33a-69e0-4f10-b8e0-856502066384"
-		vpcName          = "vpc99999"
+		vpcName          = "vpc_default"
 		portName         = "port99999"
 		serverId, portId string
 	)
 
-	vpc := func(name string) VirtualPrivateCloud.VpcResult {
-		vpc, err := net.GetVpcInfoByName(name)
+	vpc := func() VirtualPrivateCloud.VpcResult {
+		vpc, err := net.GetVpcInfoByName(vpcName)
 		if err != nil {
 			t.Fatal(err)
 		}
 
-		return vpc
+		return *vpc
+	}()
+
+	getServerId := func() string {
+		if serverId == "" {
+			if result, err := vm.GetServerList(&global.ServerSpec{Name: name}, 0, 0); err == nil && len(result) > 0 {
+				serverId = result[0].ServerId
+			}
+		}
+		return serverId
+	}
+
+	getPortId := func() string {
+		if portId == "" {
+			if nicList, err := net.GetVpcNic(vpc.RouterId); err == nil {
+				for _, v := range nicList {
+					if v.Name == portName {
+						portId = v.FixedIps[0].PortId
+						break
+					}
+				}
+			}
+		}
+
+		return portId
 	}
 
 	t.Run("CreateServer", func(t *testing.T) {
@@ -70,20 +94,12 @@ func TestServer(t *testing.T) {
 		}
 
 		//查询networkId
-		//vpc_default := vpc("vpc_default")
-		vpc_default := vpc(vpcName)
-
-		if vpc_default.NetworkId == "" {
-			t.Fatal("No found NetworkId")
-		}
-
-		//t.Log(vpc.Dump())
 		spec.Networks = &struct {
 			NetworkId string
 			PortId    string
-		}{vpc_default.NetworkId, ""}
+		}{vpc.FirstNetworkId, ""}
 
-		spec.Region = vpc_default.Region
+		spec.Region = vpc.Region
 
 		//步骤1：查询云主机可用规格
 		product_arr, err := vm.GetProductFlavorList(&spec, 0, 0)
@@ -124,19 +140,8 @@ func TestServer(t *testing.T) {
 		serverId = result[0].ServerId
 	})
 
-	getServerId := func() string {
-		result, err := vm.GetServerList(&global.ServerSpec{Name: name}, 0, 0)
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		return result[0].ServerId
-	}
-
 	t.Run("GetServerInfo", func(t *testing.T) {
-		if serverId == "" {
-			serverId = getServerId()
-		}
+		serverId = getServerId()
 
 		result, err := vm.GetServerInfo(serverId, true)
 		if err != nil {
@@ -147,9 +152,7 @@ func TestServer(t *testing.T) {
 	})
 
 	t.Run("GetServerVNCAddress", func(t *testing.T) {
-		if serverId == "" {
-			serverId = getServerId()
-		}
+		serverId = getServerId()
 
 		addr, err := vm.GetServerVNCAddress(serverId)
 		if err != nil {
@@ -160,9 +163,7 @@ func TestServer(t *testing.T) {
 	})
 
 	t.Run("ModifyServerName", func(t *testing.T) {
-		if serverId == "" {
-			serverId = getServerId()
-		}
+		serverId = getServerId()
 
 		result, err := vm.ModifyServerName(serverId, name)
 		if err != nil {
@@ -173,9 +174,7 @@ func TestServer(t *testing.T) {
 	})
 
 	t.Run("ModifyServerPassword", func(t *testing.T) {
-		if serverId == "" {
-			serverId = getServerId()
-		}
+		serverId = getServerId()
 
 		result, err := vm.ModifyServerPassword(serverId, password)
 		if err != nil {
@@ -186,9 +185,7 @@ func TestServer(t *testing.T) {
 	})
 
 	t.Run("RebootServer", func(t *testing.T) {
-		if serverId == "" {
-			serverId = getServerId()
-		}
+		serverId = getServerId()
 
 		result, err := vm.RebootServer(serverId)
 		if err != nil {
@@ -199,9 +196,7 @@ func TestServer(t *testing.T) {
 	})
 
 	t.Run("StartServer", func(t *testing.T) {
-		if serverId == "" {
-			serverId = getServerId()
-		}
+		serverId = getServerId()
 
 		result, err := vm.StartServer(serverId)
 		if err != nil {
@@ -212,9 +207,7 @@ func TestServer(t *testing.T) {
 	})
 
 	t.Run("StopServer", func(t *testing.T) {
-		if serverId == "" {
-			serverId = getServerId()
-		}
+		serverId = getServerId()
 
 		result, err := vm.StopServer(serverId)
 		if err != nil {
@@ -225,9 +218,7 @@ func TestServer(t *testing.T) {
 	})
 
 	t.Run("GetRebuildImageList", func(t *testing.T) {
-		if serverId == "" {
-			serverId = getServerId()
-		}
+		serverId = getServerId()
 
 		result, err := vm.GetRebuildImageList(serverId, 0)
 		if err != nil {
@@ -245,9 +236,7 @@ func TestServer(t *testing.T) {
 	})
 
 	t.Run("RebuildServer", func(t *testing.T) {
-		if serverId == "" {
-			serverId = getServerId()
-		}
+		serverId = getServerId()
 
 		err := vm.RebuildServer(serverId, rebuildImageId, "", "")
 		if err != nil {
@@ -255,31 +244,9 @@ func TestServer(t *testing.T) {
 		}
 	})
 
-	getPortId := func() string {
-		routerId := vpc(vpcName).RouterId
-
-		nicList, err := net.GetVpcNic(routerId)
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		for _, v := range nicList {
-			if v.Name == portName {
-				return v.FixedIps[0].PortId
-			}
-		}
-
-		return ""
-	}
-
 	t.Run("AttachNic", func(t *testing.T) {
-		if serverId == "" {
-			serverId = getServerId()
-		}
-
-		if portId == "" {
-			portId = getPortId()
-		}
+		serverId = getServerId()
+		portId = getPortId()
 
 		result, err := vm.AttachNic(serverId, portId)
 		if err != nil {
@@ -290,13 +257,8 @@ func TestServer(t *testing.T) {
 	})
 
 	t.Run("DetachNic", func(t *testing.T) {
-		if serverId == "" {
-			serverId = getServerId()
-		}
-
-		if portId == "" {
-			portId = getPortId()
-		}
+		serverId = getServerId()
+		portId = getPortId()
 
 		result, err := vm.DetachNic(serverId, portId)
 		if err != nil {
@@ -307,9 +269,7 @@ func TestServer(t *testing.T) {
 	})
 
 	t.Run("GetUnbindNicList", func(t *testing.T) {
-		if serverId == "" {
-			serverId = getServerId()
-		}
+		serverId = getServerId()
 
 		result, err := vm.GetUnbindNicList(serverId, 0, 0, 0)
 		if err != nil {

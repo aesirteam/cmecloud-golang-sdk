@@ -24,7 +24,7 @@ func (a *APIv2) GetRouterNetList(routerId string) (result []RouterNetResult, err
 	return
 }
 
-func (a *APIv2) GetRouterInfo(routerId string) (result RouterResult, err error) {
+func (a *APIv2) GetRouterInfo(routerId string) (result *RouterResult, err error) {
 	if routerId == "" {
 		err = errors.New("No routerId is available")
 		return

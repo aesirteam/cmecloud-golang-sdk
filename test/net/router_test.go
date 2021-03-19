@@ -23,7 +23,7 @@ func TestRouter(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		return vpc
+		return *vpc
 	}()
 
 	t.Run("GetRouterNetList", func(t *testing.T) {

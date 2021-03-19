@@ -20,7 +20,7 @@ type VPNInterface interface {
 	GetIpsecVpnList(vpcName, routerId string, scale global.VpcScale, region string, page, size int) ([]VpnResult, error)
 
 	// 根据vpnId查看IPSecVPN服务的详情
-	GetIpsecVpnInfo(vpnId string) (result VpnResult, err error)
+	GetIpsecVpnInfo(vpnId string) (result *VpnResult, err error)
 
 	// 查看VPN配额情况
 	GetIpsecVpnQuota() (VpnQuotaResult, error)
@@ -35,13 +35,13 @@ type VPNInterface interface {
 	GetIpsecVpnConnectionList(queryWord, name, networkId string, serviceIdsInRange []string, page, size int) ([]VpnConnectionResult, error)
 
 	// 查看VPN站点连接详情
-	GetIpsecVpnConnectionInfo(siteConnectionId string) (VpnConnectionResult, error)
+	GetIpsecVpnConnectionInfo(siteConnectionId string) (*VpnConnectionResult, error)
 
 	// 查看ikePolicy详情
-	GetIkePolicyInfo(siteConnectionId, ikePolicyId string) (VpnConnectionPolicyResult, error)
+	GetIkePolicyInfo(siteConnectionId, ikePolicyId string) (*VpnConnectionPolicyResult, error)
 
 	// 查看ipsecPolicy详情
-	GetIpsecPolicyInfo(siteConnectionId, ipsecPolicyId string) (VpnConnectionPolicyResult, error)
+	GetIpsecPolicyInfo(siteConnectionId, ipsecPolicyId string) (*VpnConnectionPolicyResult, error)
 
 	// 修改VPN站点连接信息
 	ModifyIpsecVpnConnection(siteConnectionId string, cs *global.IPSecVpnSiteConnectionSpec) error

@@ -2,7 +2,6 @@ package FloatingIP
 
 import (
 	"errors"
-	"fmt"
 	"strings"
 
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
@@ -51,8 +50,6 @@ func (a *APIv2) CreateFloatingIp(fs *global.FloatingIpSpec) (result string, err 
 	if fs.FloatingIpAddress != "" {
 		body["floatingIpAddress"] = fs.FloatingIpAddress
 	}
-
-	fmt.Println(global.Dump(body))
 
 	resp, err := a.client.NewRequest("POST", "/api/v2/netcenter/order/create/floatingip", nil, nil, body)
 	if err != nil {
@@ -124,7 +121,7 @@ func (a *APIv2) GetFloatingIpList(queryWord, routerId, natGatewayId string, boun
 	return
 }
 
-func (a *APIv2) GetFloatingIpDetail(ipId string) (result FloatingIpResult, err error) {
+func (a *APIv2) GetFloatingIpDetail(ipId string) (result *FloatingIpResult, err error) {
 	if ipId == "" {
 		err = errors.New("No ipId is available")
 		return

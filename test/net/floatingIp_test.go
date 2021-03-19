@@ -23,6 +23,16 @@ func TestFloatingIP(t *testing.T) {
 		ipId       string
 	)
 
+	getIpId := func() string {
+		if ipId == "" {
+			if result, err := net.GetFloatingIpList(fipAddress, "", "", false, false, false, false, nil, 0, 0); err == nil && len(result) > 0 {
+				ipId = result[0].Id
+			}
+		}
+
+		return ipId
+	}
+
 	t.Run("CreateFloatingIp", func(t *testing.T) {
 		spec := global.FloatingIpSpec{
 			ChargeMode:        global.FLOATINGIP_CHARGEMODE_TRAFFIC,
@@ -39,21 +49,6 @@ func TestFloatingIP(t *testing.T) {
 		t.Log(result)
 	})
 
-	getIpId := func() string {
-		result, err := net.GetFloatingIpList("", "", "", false, false, false, false, nil, 0, 0)
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		for _, v := range result {
-			if v.Ipv4 == fipAddress {
-				return v.Id
-			}
-		}
-
-		return ""
-	}
-
 	t.Run("GetFloatingIpList", func(t *testing.T) {
 		result, err := net.GetFloatingIpList("", "", "", false, false, false, false, nil, 0, 0)
 		if err != nil {
@@ -64,9 +59,7 @@ func TestFloatingIP(t *testing.T) {
 	})
 
 	t.Run("GetFloatingIpDetail", func(t *testing.T) {
-		if ipId == "" {
-			ipId = getIpId()
-		}
+		ipId = getIpId()
 
 		result, err := net.GetFloatingIpDetail(ipId)
 		if err != nil {
@@ -95,15 +88,17 @@ func TestFloatingIP(t *testing.T) {
 	})
 
 	t.Run("AttachFloatingIp", func(t *testing.T) {
-		if ipId == "" {
-			ipId = getIpId()
-		}
+		ipId = getIpId()
 
 		resources, err := vm.GetServerList(&global.ServerSpec{
 			Name: serverName,
 		}, 0, 0)
 		if err != nil {
 			t.Fatal(err)
+		}
+
+		if len(resources) == 0 {
+			t.Fatalf("No match server: %s", serverName)
 		}
 
 		portDetails := resources[0].ServerPortDetailArray
@@ -118,9 +113,7 @@ func TestFloatingIP(t *testing.T) {
 	})
 
 	t.Run("DetachFloatingIp", func(t *testing.T) {
-		if ipId == "" {
-			ipId = getIpId()
-		}
+		ipId = getIpId()
 
 		err := net.DetachFloatingIp(ipId)
 		if err != nil {

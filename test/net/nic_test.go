@@ -30,17 +30,21 @@ func TestNic(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		return vpc
+		return *vpc
 	}()
 
-	subnet := func(id string) VirtualPrivateCloud.SubnetResult {
-		result, err := net.GetSubnetInfo(id)
+	subnet := func() VirtualPrivateCloud.SubnetResult {
+		result, err := net.GetSubnetList(vpc.FirstNetworkId)
 		if err != nil {
 			t.Fatal(err)
 		}
 
+		if len(result) == 0 {
+			t.Fatalf("No match subnet by vpc: %s\n", vpcName)
+		}
+
 		return result[0]
-	}(vpc.NetworkId)
+	}()
 
 	securityGroups := func() []SecurityGroup.SecurityGroupResult {
 		result, err := cli.VM().GetSecurityGroupList("default", false, 0, 0)
@@ -48,13 +52,32 @@ func TestNic(t *testing.T) {
 			t.Fatal(err)
 		}
 
+		if len(result) == 0 {
+			t.Fatal("No match securityGroup: default")
+		}
+
 		return result
 	}()
+
+	getPortId := func() string {
+		if portId == "" {
+			if nicList, err := net.GetVpcNic(vpc.RouterId); err == nil {
+				for _, v := range nicList {
+					if v.Name == portName {
+						portId = v.FixedIps[0].PortId
+						break
+					}
+				}
+			}
+		}
+
+		return portId
+	}
 
 	t.Run("CreateNic", func(t *testing.T) {
 		spec := global.NicSpec{
 			Name:           portName,
-			NetworkId:      vpc.NetworkId,
+			NetworkId:      vpc.FirstNetworkId,
 			SecurityGroups: []string{securityGroups[0].Id},
 			Subnets: []struct {
 				IpAddress string
@@ -74,25 +97,8 @@ func TestNic(t *testing.T) {
 
 	})
 
-	getPortId := func() string {
-		nicList, err := net.GetVpcNic(vpc.RouterId)
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		for _, v := range nicList {
-			if v.Name == portName {
-				return v.FixedIps[0].PortId
-			}
-		}
-
-		return ""
-	}
-
 	t.Run("GetNicDetail", func(t *testing.T) {
-		if portId == "" {
-			portId = getPortId()
-		}
+		portId = getPortId()
 
 		result, err := net.GetNicDetail(portId)
 		if err != nil {
@@ -103,9 +109,7 @@ func TestNic(t *testing.T) {
 	})
 
 	t.Run("ModifyNicName", func(t *testing.T) {
-		if portId == "" {
-			portId = getPortId()
-		}
+		portId = getPortId()
 
 		err := net.ModifyNicName(portId, portName)
 		if err != nil {
@@ -114,9 +118,7 @@ func TestNic(t *testing.T) {
 	})
 
 	t.Run("ModifyNicSecurityGroup", func(t *testing.T) {
-		if portId == "" {
-			portId = getPortId()
-		}
+		portId = getPortId()
 
 		Ids := make([]string, len(securityGroups))
 		for i, v := range securityGroups {
@@ -130,9 +132,7 @@ func TestNic(t *testing.T) {
 	})
 
 	t.Run("DeleteNic", func(t *testing.T) {
-		if portId == "" {
-			portId = getPortId()
-		}
+		portId = getPortId()
 
 		err := net.DeleteNic(portId)
 		if err != nil {

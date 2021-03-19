@@ -105,7 +105,7 @@ func (a *APIv2) GetVpcList(natGatewayBind bool, scale global.VpcScale, region st
 	return
 }
 
-func (a *APIv2) GetVpcInfo(vpcId string) (result VpcResult, err error) {
+func (a *APIv2) GetVpcInfo(vpcId string) (result *VpcResult, err error) {
 	if vpcId == "" {
 		err = errors.New("No vpcId is available")
 		return
@@ -129,7 +129,7 @@ func (a *APIv2) GetVpcInfo(vpcId string) (result VpcResult, err error) {
 	return
 }
 
-func (a *APIv2) GetVpcInfoByName(name string) (result VpcResult, err error) {
+func (a *APIv2) GetVpcInfoByName(name string) (result *VpcResult, err error) {
 	arr, err := a.GetVpcList(false, 0, "", nil, 0, 0)
 	if err != nil {
 		return
@@ -141,11 +141,11 @@ func (a *APIv2) GetVpcInfoByName(name string) (result VpcResult, err error) {
 		}
 	}
 
-	err = errors.New("No match vpc info")
+	err = errors.New("No match vpc: " + name)
 	return
 }
 
-func (a *APIv2) GetVpcInfoByRouterId(routerId string) (result VpcResult, err error) {
+func (a *APIv2) GetVpcInfoByRouterId(routerId string) (result *VpcResult, err error) {
 	if routerId == "" {
 		err = errors.New("No routerId is available")
 		return

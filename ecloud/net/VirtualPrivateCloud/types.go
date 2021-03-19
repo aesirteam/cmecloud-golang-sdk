@@ -30,13 +30,13 @@ type VPCInterface interface {
 	GetVpcList(natGatewayBind bool, scale global.VpcScale, region string, tagIds []string, page, size int) ([]VpcResult, error)
 
 	//根据vpcId查看VPC详情，包含路由详情
-	GetVpcInfo(vpcId string) (VpcResult, error)
+	GetVpcInfo(vpcId string) (*VpcResult, error)
 
 	//根据name查看VPC详情，包含路由详情
-	GetVpcInfoByName(name string) (VpcResult, error)
+	GetVpcInfoByName(name string) (*VpcResult, error)
 
 	//根据routerId查看VPC详情
-	GetVpcInfoByRouterId(routerId string) (VpcResult, error)
+	GetVpcInfoByRouterId(routerId string) (*VpcResult, error)
 
 	//更新VPC名称和描述信息
 	ModifyVpcInfo(vpcId, name, desc string) error
@@ -60,7 +60,7 @@ type VPCInterface interface {
 	DeleteNic(portId string) error
 
 	//查询虚拟网卡详情
-	GetNicDetail(portId string) (NicResult, error)
+	GetNicDetail(portId string) (*NicResult, error)
 
 	//修改虚拟网卡名称
 	ModifyNicName(portId, portName string) error
@@ -72,7 +72,7 @@ type VPCInterface interface {
 	GetRouterNetList(routerId string) ([]RouterNetResult, error)
 
 	//查看路由器详情
-	GetRouterInfo(routerId string) (RouterResult, error)
+	GetRouterInfo(routerId string) (*RouterResult, error)
 
 	//创建子网
 	CreateSubnet(spec *global.SubnetSpec) (string, error)
@@ -81,26 +81,29 @@ type VPCInterface interface {
 	DeleteSubnet(networkId string) error
 
 	//修改子网名称
-	ModifySubnet(networkId, networkName string) error
+	ModifySubnetName(networkId, networkName string) error
+
+	//根据networkId查询子网列表
+	GetSubnetList(networkId string) ([]SubnetResult, error)
 
 	//根据subnetId查询子网详情
-	GetSubnetInfo(networkId string) ([]SubnetResult, error)
+	GetSubnetInfo(subnetId string) (*SubnetResult, error)
 }
 
 type VpcResult struct {
-	Id           string `json:"id"`
-	Name         string `json:"name"`
-	Desc         string `json:"description,omitempty"`
-	CreateTime   string `json:"createdTime"`
-	RouterId     string `json:"routerId"`
-	Deleted      bool   `json:"deleted"`
-	Scale        string `json:"scale"`
-	EcStatus     string `json:"ecStatus"`
-	AdminStateUp bool   `json:"adminStateUp"`
-	NetworkId    string `json:"firstNetworkId"`
-	UserId       string `json:"userId"`
-	UserName     string `json:"userName,omitempty"`
-	Region       string `json:"region"`
+	Id             string `json:"id"`
+	Name           string `json:"name"`
+	Desc           string `json:"description,omitempty"`
+	CreateTime     string `json:"createdTime"`
+	RouterId       string `json:"routerId"`
+	Deleted        bool   `json:"deleted"`
+	Scale          string `json:"scale"`
+	EcStatus       string `json:"ecStatus"`
+	AdminStateUp   bool   `json:"adminStateUp"`
+	FirstNetworkId string `json:"firstNetworkId"`
+	UserId         string `json:"userId"`
+	UserName       string `json:"userName,omitempty"`
+	Region         string `json:"region"`
 }
 
 type VpcNetResult struct {
