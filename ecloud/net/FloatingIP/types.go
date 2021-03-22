@@ -12,7 +12,7 @@ func New(client *global.EcloudClient) *APIv2 {
 
 type FIPInterface interface {
 	// 订购弹性公网IP和带宽
-	CreateFloatingIp(fs *global.FloatingIpSpec) (string, error)
+	CreateFloatingIp(fs *global.FloatingIpSpec) (FloatingIpOrderResult, error)
 
 	/*
 		查看IP带宽的列表
@@ -47,6 +47,18 @@ type FIPInterface interface {
 
 	//  弹性公网IP解绑资源
 	DetachFloatingIp(ipId string) error
+}
+
+type FloatingIpOrderResult struct {
+	OrderId       string `json:"orderId"`
+	OrderExtResps []struct {
+		ProductType       string `json:"productType"`
+		OrderExtId        string `json:"orderExtId"`
+		OrderExtStatus    int    `json:"orderExtStatus"`
+		RelProductType    string `json:"relProductType"`
+		RelOrderExtId     string `json:"relOrderExtId"`
+		RelOrderExtStatus int    `json:"relOrderExtStatus"`
+	} `json:"orderExtResps"`
 }
 
 type FloatingIpResult struct {

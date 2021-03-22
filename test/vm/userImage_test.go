@@ -95,8 +95,8 @@ func TestUserImage(t *testing.T) {
 
 	t.Run("ImportUserImage", func(t *testing.T) {
 		spec := global.UserImageImportSpec{
-			ImageUrl:    "http://eos-guiyang-1.cmecloud.cn/custom-images/blj.qcow2",
-			ImageName:   "blj_qcow2",
+			ImageUrl:    "http://eos-guiyang-1.cmecloud.cn/custom-images/Ubuntu-1604.qcow2",
+			ImageName:   "Ubuntu_1604",
 			OsType:      global.OS_TYPE_LINUX,
 			MinDisk:     20,
 			ImageFormat: global.IMAGE_FORMAT_QCOW2,

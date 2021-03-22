@@ -508,3 +508,88 @@ func (v VpnIkePhase1NegotiationMode) String() string {
 		return "main"
 	}
 }
+
+type LoadbalanceProtocol int32
+type LoadbalanceAlgorithm int32
+type LoadbalanceSessionPersistence int32
+type LoadbalanceHealthCheck int32
+
+const (
+	// 监听器协议类型
+	ELB_PROTOCOL_TCP   LoadbalanceProtocol = 0
+	ELB_PROTOCOL_HTTP  LoadbalanceProtocol = 1
+	ELB_PROTOCOL_HTTPS LoadbalanceProtocol = 2
+
+	// 负载均衡算法
+	ELB_ALGORITHM_ROUND_ROBIN       LoadbalanceAlgorithm = 0
+	ELB_ALGORITHM_LEAST_CONNECTIONS LoadbalanceAlgorithm = 1
+	ELB_ALGORITHM_SOURCE_IP         LoadbalanceAlgorithm = 2
+
+	// 会话保持类型
+	ELB_PERSISTENCE_NONE        LoadbalanceSessionPersistence = 0
+	ELB_PERSISTENCE_SOURCE_IP   LoadbalanceSessionPersistence = 1
+	ELB_PERSISTENCE_HTTP_COOKIE LoadbalanceSessionPersistence = 2
+	ELB_PERSISTENCE_APP_COOKIE  LoadbalanceSessionPersistence = 3
+
+	// 健康检查方式
+	ELB_HEALTHCHECK_TCP   LoadbalanceHealthCheck = 0
+	ELB_HEALTHCHECK_HTTP  LoadbalanceHealthCheck = 1
+	ELB_HEALTHCHECK_HTTPS LoadbalanceHealthCheck = 2
+	ELB_HEALTHCHECK_PING  LoadbalanceHealthCheck = 3
+)
+
+func (p LoadbalanceProtocol) String() string {
+	switch p {
+	case ELB_PROTOCOL_TCP:
+		return "TCP"
+	case ELB_PROTOCOL_HTTP:
+		return "HTTP"
+	case ELB_PROTOCOL_HTTPS:
+		return "HTTPS"
+	default:
+		return "TCP"
+	}
+}
+
+func (p LoadbalanceAlgorithm) String() string {
+	switch p {
+	case ELB_ALGORITHM_ROUND_ROBIN:
+		return "ROUND_ROBIN"
+	case ELB_ALGORITHM_LEAST_CONNECTIONS:
+		return "LEAST_CONNECTIONS"
+	case ELB_ALGORITHM_SOURCE_IP:
+		return "SOURCE_IP"
+	default:
+		return "ROUND_ROBIN"
+	}
+}
+
+func (p LoadbalanceSessionPersistence) String() string {
+	switch p {
+	case ELB_PERSISTENCE_NONE:
+		return "NONE"
+	case ELB_PERSISTENCE_SOURCE_IP:
+		return "SOURCE_IP"
+	case ELB_PERSISTENCE_HTTP_COOKIE:
+		return "HTTP_COOKIE"
+	case ELB_PERSISTENCE_APP_COOKIE:
+		return "APP_COOKIE"
+	default:
+		return "NONE"
+	}
+}
+
+func (p LoadbalanceHealthCheck) String() string {
+	switch p {
+	case ELB_HEALTHCHECK_TCP:
+		return "TCP"
+	case ELB_HEALTHCHECK_HTTP:
+		return "HTTP"
+	case ELB_HEALTHCHECK_HTTPS:
+		return "HTTPS"
+	case ELB_HEALTHCHECK_PING:
+		return "PING"
+	default:
+		return "TCP"
+	}
+}

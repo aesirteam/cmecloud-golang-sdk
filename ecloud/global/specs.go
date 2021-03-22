@@ -40,8 +40,19 @@ type NicSpec struct {
 	}
 }
 
-// IPSecVpn服务
+/*
+IPSecVpn服务
+  ChargePeriod	计费周期
+  Duration	购买时长
+  Quantity	购买数量
+  Name	VPN服务名称
+  RouterId 关联VPC的routerId
+  FloatingIpId 关联弹性公网IP的IpId
+*/
 type IPSecVpnSpec struct {
+	ChargePeriod BillingType
+	Duration     int
+	Quantity     int
 	Name         string
 	RouterId     string
 	FloatingIpId string
@@ -96,7 +107,7 @@ type IPSecVpnSiteConnectionSpec struct {
 /*
 弹性公网IP
   ChargeMode	带宽计费方式
-  ChargePeriod	带宽计费周期
+  ChargePeriod 计费周期
   Duration	购买时长
   Quantity	购买数量
   BandwidthSize	购买带宽值大小, 单位:MB (1M~10240M)
@@ -109,6 +120,78 @@ type FloatingIpSpec struct {
 	Quantity          int
 	BandwidthSize     int
 	FloatingIpAddress string
+}
+
+/*
+弹性负载均衡器
+  ChargePeriod	计费方式
+  LoadBalanceName	负载均衡器名称
+  SubnetId	关联VPC子网的id
+  FloatingIpId	关联弹性公网IP的IpId
+*/
+type ELBSpec struct {
+	ChargePeriod    BillingType
+	LoadBalanceName string
+	SubnetId        string
+	FloatingIpId    string
+}
+
+/*
+弹性负载均衡器 监听器
+  LoadbalanceId	负载均衡器id
+  Name	监听器名称
+  Protocol 监听器协议类型
+  ProtocolPort	监听器的服务端口
+  Algorithm	负载均衡算法
+  SessionPersistence	会话保持类型
+  CookieName	cookie名称
+  HealthType	健康检查方式
+  HealthDelay	健康检查间隔
+  HealthMaxRetries   最大尝试次数
+  HealthTimeout	超时时间
+  HealthHttpMethod	用于监控的http方法
+  HealthUrlPath	用于监控的url
+  HealthExpectedCode 期望http状态代码
+  MutualAuthenticationUp	开启双向认证
+*/
+type ELBListenerSpec struct {
+	LoadbalanceId          string
+	Name                   string
+	Protocol               LoadbalanceProtocol
+	ProtocolPort           int
+	Algorithm              LoadbalanceAlgorithm
+	SessionPersistence     LoadbalanceSessionPersistence
+	CookieName             string
+	HealthType             LoadbalanceHealthCheck
+	HealthDelay            int
+	HealthMaxRetries       int
+	HealthTimeout          int
+	HealthHttpMethod       string
+	HealthUrlPath          string
+	HealthExpectedCode     string
+	MutualAuthenticationUp bool
+}
+
+/*
+弹性负载均衡器 业务主机
+  PoolId	监听器poolid
+  Ip	服务器ip
+  PortId	服务器端口
+  SubnetId	子网id
+  Weight	权重，1-100
+  Type	类型 (1:云主机 2:云数据库)
+  VmHostId	虚拟机id
+  Desc	描述
+*/
+type ELBMemberSpec struct {
+	PoolId   string
+	Ip       string
+	PortId   int
+	SubnetId string
+	Weight   int
+	Type     int
+	VmHostId string
+	Desc     string
 }
 
 /*

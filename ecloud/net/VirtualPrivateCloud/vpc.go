@@ -8,7 +8,7 @@ import (
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/IPSecVpn"
 )
 
-func (a *APIv2) CreateVpc(vs *global.VpcSpec) (vpcId string, err error) {
+func (a *APIv2) CreateVpc(vs *global.VpcSpec) (result VpcOrderResult, err error) {
 	if vs.Cidr == "" {
 		err = errors.New("No cidr is available")
 		return
@@ -30,24 +30,25 @@ func (a *APIv2) CreateVpc(vs *global.VpcSpec) (vpcId string, err error) {
 	}
 
 	body := map[string]interface{}{
+		"name":            vs.Name,
+		"specs":           vs.Specs.String(),
+		"networkName":     vs.NetworkName,
 		"cidr":            vs.Cidr,
 		"cidrV6":          vs.CidrV6,
-		"name":            vs.Name,
-		"networkName":     vs.NetworkName,
 		"region":          vs.Region,
 		"networkTypeEnum": "VM",
-		"specs":           vs.Specs.String(),
 	}
 
-	//fmt.Println(core.Dump(body))
-
-	resp, err := a.client.NewRequest("POST", "/api/v2/netcenter/vpc", nil, nil, body)
+	resp, err := a.client.NewRequest("POST", "/api/v2/netcenter/order/create/vpc", nil, nil, body)
 	if err != nil {
 		err = resp.Error(err)
 		return
 	}
 
-	vpcId = resp.Body
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
+		err = resp.Error(err)
+		return
+	}
 
 	return
 }

@@ -40,14 +40,13 @@ func TestVPC(t *testing.T) {
 			Region:      region,
 		}
 
-		var err error
-		vpcId, err = net.CreateVpc(&spec)
+		result, err := net.CreateVpc(&spec)
 
 		if err != nil {
 			t.Fatal(err)
 		}
 
-		t.Logf("vpcId:%s\n", vpcId)
+		t.Log(global.Dump(result))
 	})
 
 	t.Run("GetVpcList", func(t *testing.T) {

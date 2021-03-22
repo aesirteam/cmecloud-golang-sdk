@@ -14,7 +14,7 @@ func New(client *global.EcloudClient) *APIv2 {
 
 type VPNInterface interface {
 	// 创建IPSecVPN
-	CreateIpsecVpn(spec *global.IPSecVpnSpec) (string, error)
+	CreateIpsecVpn(spec *global.IPSecVpnSpec) (VpnOrderResult, error)
 
 	// 查看IPSecVPN列表
 	GetIpsecVpnList(vpcName, routerId string, scale global.VpcScale, region string, page, size int) ([]VpnResult, error)
@@ -48,6 +48,15 @@ type VPNInterface interface {
 
 	// 删除VPN站点连接
 	DeleteIpsecVpnConnection(siteConnectionId string) error
+}
+
+type VpnOrderResult struct {
+	OrderId       string `json:"orderId"`
+	OrderExtResps []struct {
+		ProductType    string `json:"productType"`
+		OrderExtId     string `json:"orderExtId"`
+		OrderExtStatus int    `json:"orderExtStatus"`
+	} `json:"orderExtResps"`
 }
 
 type VpnResult struct {

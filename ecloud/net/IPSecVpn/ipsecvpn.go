@@ -7,7 +7,7 @@ import (
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
 )
 
-func (a *APIv2) CreateIpsecVpn(vs *global.IPSecVpnSpec) (vpnId string, err error) {
+func (a *APIv2) CreateIpsecVpn(vs *global.IPSecVpnSpec) (result VpnOrderResult, err error) {
 
 	if vs.Name == "" {
 		err = errors.New("No name is available")
@@ -25,18 +25,42 @@ func (a *APIv2) CreateIpsecVpn(vs *global.IPSecVpnSpec) (vpnId string, err error
 	}
 
 	body := map[string]interface{}{
-		"name":         vs.Name,
-		"routerId":     vs.RouterId,
-		"floatingipId": vs.FloatingIpId,
+		"chargePeriodEnum": strings.ToLower(vs.ChargePeriod.String()),
+		"quantity":         1,
+		"name":             vs.Name,
+		"routerId":         vs.RouterId,
+		"floatingipId":     vs.FloatingIpId,
 	}
 
-	resp, err := a.client.NewRequest("POST", "/api/v2/netcenter/IPSecVpn/service", nil, nil, body)
+	switch vs.ChargePeriod {
+	case global.BILLING_TYPE_YEAR:
+		if vs.Duration == 0 {
+			body["duration"] = 12
+		} else if vs.Duration > 0 && vs.Duration <= 5*12 {
+			body["duration"] = vs.Duration
+		}
+	case global.BILLING_TYPE_MONTH:
+		if vs.Duration == 0 {
+			body["duration"] = 1
+		} else if vs.Duration > 0 && vs.Duration <= 12 {
+			body["duration"] = vs.Duration
+		}
+	}
+
+	if vs.Quantity > 0 {
+		body["quantity"] = vs.Quantity
+	}
+
+	resp, err := a.client.NewRequest("POST", "/api/v2/netcenter/order/create/ipsecvpn", nil, nil, body)
 	if err != nil {
 		err = resp.Error(err)
 		return
 	}
 
-	vpnId = resp.Body
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
+		err = resp.Error(err)
+		return
+	}
 
 	return
 }

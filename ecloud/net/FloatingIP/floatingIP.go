@@ -7,7 +7,7 @@ import (
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
 )
 
-func (a *APIv2) CreateFloatingIp(fs *global.FloatingIpSpec) (result string, err error) {
+func (a *APIv2) CreateFloatingIp(fs *global.FloatingIpSpec) (result FloatingIpOrderResult, err error) {
 	body := map[string]interface{}{
 		"chargeModeEnum":   fs.ChargeMode.String(),
 		"chargePeriodEnum": strings.ToLower(fs.ChargePeriod.String()),
@@ -57,7 +57,10 @@ func (a *APIv2) CreateFloatingIp(fs *global.FloatingIpSpec) (result string, err 
 		return
 	}
 
-	result = resp.Body
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
+		err = resp.Error(err)
+		return
+	}
 
 	return
 }

@@ -78,12 +78,12 @@ func TestVPN(t *testing.T) {
 			ipId string
 		)
 
-		result, err := net.GetFloatingIpList("", "", "", false, false, false, false, nil, 0, 0)
+		fips, err := net.GetFloatingIpList("", "", "", false, false, false, false, nil, 0, 0)
 		if err != nil {
 			t.Fatal(err)
 		}
 
-		for _, v := range result {
+		for _, v := range fips {
 			if !v.Bound && v.Status == global.FLOATINGIP_BINDSTATUS_UNBOUND.String() {
 				ipId = v.Id
 				break
@@ -91,17 +91,18 @@ func TestVPN(t *testing.T) {
 		}
 
 		spec := global.IPSecVpnSpec{
+			ChargePeriod: global.BILLING_TYPE_HOUR,
 			Name:         vpnName,
 			RouterId:     vpc.RouterId,
 			FloatingIpId: ipId,
 		}
 
-		vpnId, err = net.CreateIpsecVpn(&spec)
+		result, err := net.CreateIpsecVpn(&spec)
 		if err != nil {
 			t.Fatal(err)
 		}
 
-		t.Logf("vpnId:%s\n", vpnId)
+		t.Log(global.Dump(result))
 	})
 
 	t.Run("GetIpsecVpnList", func(t *testing.T) {
@@ -133,7 +134,7 @@ func TestVPN(t *testing.T) {
 		t.Log(global.Dump(result))
 	})
 
-	t.Run("CreateIpsecVpnConnection", func(t *testing.T) {
+	t.Run("CreateConnection", func(t *testing.T) {
 		vpnId = getVpnId()
 
 		spec := global.IPSecVpnSiteConnectionSpec{
@@ -179,7 +180,7 @@ func TestVPN(t *testing.T) {
 		}
 	})
 
-	t.Run("GetIpsecVpnConnectionList", func(t *testing.T) {
+	t.Run("GetConnectionList", func(t *testing.T) {
 		result, err := net.GetIpsecVpnConnectionList("", "", "", nil, 0, 0)
 		if err != nil {
 			t.Fatal(err)
@@ -188,7 +189,7 @@ func TestVPN(t *testing.T) {
 		t.Log(global.Dump(result))
 	})
 
-	t.Run("GetIpsecVpnConnectionInfo", func(t *testing.T) {
+	t.Run("GetConnectionInfo", func(t *testing.T) {
 		siteConnectionId, siteConnectionIkePolicyId, siteConnectionIpsecPolicyId = getVpnSiteConnectionId()
 
 		result, err := net.GetIpsecVpnConnectionInfo(siteConnectionId)
@@ -221,7 +222,7 @@ func TestVPN(t *testing.T) {
 		t.Log(global.Dump(result))
 	})
 
-	t.Run("ModifyIpsecVpnConnection", func(t *testing.T) {
+	t.Run("ModifyConnection", func(t *testing.T) {
 		siteConnectionId, _, _ = getVpnSiteConnectionId()
 
 		spec := global.IPSecVpnSiteConnectionSpec{
@@ -238,7 +239,7 @@ func TestVPN(t *testing.T) {
 		}
 	})
 
-	t.Run("DeleteIpsecVpnConnection", func(t *testing.T) {
+	t.Run("DeleteConnection", func(t *testing.T) {
 		siteConnectionId, _, _ = getVpnSiteConnectionId()
 
 		err := net.DeleteIpsecVpnConnection(siteConnectionId)

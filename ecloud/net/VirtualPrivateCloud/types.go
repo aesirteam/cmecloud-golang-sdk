@@ -15,7 +15,7 @@ func New(client *global.EcloudClient) *APIv2 {
 
 type VPCInterface interface {
 	//创建VPC
-	CreateVpc(spec *global.VpcSpec) (string, error)
+	CreateVpc(spec *global.VpcSpec) (VpcOrderResult, error)
 
 	//退订VPC
 	DeleteVpc(vpcId string) error
@@ -88,6 +88,15 @@ type VPCInterface interface {
 
 	//根据subnetId查询子网详情
 	GetSubnetInfo(subnetId string) (*SubnetResult, error)
+}
+
+type VpcOrderResult struct {
+	OrderId       string `json:"orderId"`
+	OrderExtResps []struct {
+		ProductType    string `json:"productType"`
+		OrderExtId     string `json:"orderExtId"`
+		OrderExtStatus int    `json:"orderExtStatus"`
+	} `json:"orderExtResps"`
 }
 
 type VpcResult struct {

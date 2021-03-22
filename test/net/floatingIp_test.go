@@ -46,7 +46,7 @@ func TestFloatingIP(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		t.Log(result)
+		t.Log(global.Dump(result))
 	})
 
 	t.Run("GetFloatingIpList", func(t *testing.T) {
