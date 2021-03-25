@@ -14,14 +14,17 @@ func New(client *global.EcloudClient) *APIv2 {
 }
 
 type ServerInterface interface {
+	//查询可用区
+	GetRegionList() ([]RegionResult, error)
+
 	//查询云主机可用规格
-	GetProductFlavorList(spec *global.ServerSpec, page, size int) ([]ProductResult, error)
+	GetProductFlavorList(cpu, ram int, osType global.OsType, vmType global.VmType, page, size int) ([]ProductResult, error)
 
 	//创建云主机
 	CreatServer(spec *global.ServerSpec) (ServerOrderResult, error)
 
 	//查询云主机列表
-	GetServerList(req *global.ServerSpec, page, size int) ([]ServerResult, error)
+	GetServerList(name, networkId, region string, page, size int) ([]ServerResult, error)
 
 	//查看云主机详情
 	GetServerInfo(serverId string, detail bool) (*ServerResult, error)
@@ -51,13 +54,23 @@ type ServerInterface interface {
 	RebuildServer(serverId, imageId string, adminPass, userData string) error
 
 	//查看可绑定虚拟网卡列表 (resourceType：云主机0，物理机1)
-	GetUnbindNicList(serverId string, resourceType, page, size int) (string, error)
+	GetUnbindNicList(serverId string, resourceType, page, size int) ([]VirtualPrivateCloud.NicResult, error)
 
 	//为云主机绑定虚拟网卡
 	AttachNic(serverId, portId string) (VirtualPrivateCloud.NicResult, error)
 
 	//为云主机解绑虚拟网卡
 	DetachNic(serverId, portId string) (VirtualPrivateCloud.NicResult, error)
+}
+
+type RegionResult struct {
+	Id        int    `json:"id,omitempty"`
+	Name      string `json:"region"`
+	Note      string `json:"name,omitempty"`
+	Component string `json:"component,omitempty"`
+	PoolId    string `json:"poolId,omitempty"`
+	Deleted   bool   `json:"deleted,omitempty"`
+	Visible   bool   `json:"visible,omitempty"`
 }
 
 type ProductResult struct {

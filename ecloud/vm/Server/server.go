@@ -145,15 +145,23 @@ func (a *APIv2) CreatServer(ss *global.ServerSpec) (result ServerOrderResult, er
 	return
 }
 
-func (a *APIv2) GetServerList(ss *global.ServerSpec, page, size int) (result []ServerResult, err error) {
+func (a *APIv2) GetServerList(name, networkId, region string, page, size int) (result []ServerResult, err error) {
 	params := map[string]interface{}{
 		"serverTypes":  "VM",
 		"productTypes": "NORMAL,AUTOSCALING,VO,CDN,PAAS_MASTER,PAAS_SLAVE,VCPE,EMR,LOGAUDIT",
 		"visible":      true,
 	}
 
-	if ss.Name != "" {
-		params["serverName"] = ss.Name
+	if name != "" {
+		params["serverName"] = name
+	}
+
+	if networkId != "" {
+		params["networkId"] = networkId
+	}
+
+	if region != "" {
+		params["region"] = region
 	}
 
 	if page > 0 {
@@ -475,7 +483,7 @@ func (a *APIv2) DetachNic(serverId, portId string) (result VirtualPrivateCloud.N
 	return
 }
 
-func (a *APIv2) GetUnbindNicList(serverId string, resourceType int, page, size int) (result string, err error) {
+func (a *APIv2) GetUnbindNicList(serverId string, resourceType int, page, size int) (result []VirtualPrivateCloud.NicResult, err error) {
 	if serverId == "" {
 		err = errors.New("No serverId is available")
 		return
@@ -497,7 +505,10 @@ func (a *APIv2) GetUnbindNicList(serverId string, resourceType int, page, size i
 		return
 	}
 
-	result = resp.Body
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
+		err = resp.Error(err)
+		return
+	}
 
 	return
 }

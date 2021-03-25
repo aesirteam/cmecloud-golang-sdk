@@ -177,7 +177,6 @@ type ELBListenerSpec struct {
   PoolId	监听器poolid
   Ip	服务器ip
   PortId	服务器端口
-  SubnetId	子网id
   Weight	权重，1-100
   Type	类型 (1:云主机 2:云数据库)
   VmHostId	虚拟机id
@@ -186,8 +185,7 @@ type ELBListenerSpec struct {
 type ELBMemberSpec struct {
 	PoolId   string
 	Ip       string
-	PortId   int
-	SubnetId string
+	Port     int
 	Weight   int
 	Type     int
 	VmHostId string
@@ -214,19 +212,6 @@ type ELBMemberSpec struct {
   Quantity	订购数量，取值范围[1,10]
   DataVolumes	云主机数据盘(ResourceType: 数据盘类型，Size: 数据盘大小(G)，取值范围[10,32768]，IsShare: 是否为共享数据盘，默认为非共享数据盘)
   OsType		操作系统类型
-
-  //查询请求参数(非必填)：
-  Name		云主机名称
-  Ram		主机ram
-  Disk		系统盘大小
-  EcStatus	云主机底层状态
-  OpStatus	云主机op侧状态
-  PublicIp	公网ip地址
-  PrivateIp	内网ip地址
-  SecurityGroupId	SecurityGroupIds[0]
-  NetworkId	Networks[0].NetworkId
-  KeypairName	SSH密钥名称
-  Region		可用区
 */
 type ServerSpec struct {
 	Name       string
@@ -257,12 +242,6 @@ type ServerSpec struct {
 		IsShare      bool
 	}
 	OsType
-
-	ServerId  string
-	EcStatus  string
-	OpStatus  string
-	PublicIp  string
-	PrivateIp string
 }
 
 /*

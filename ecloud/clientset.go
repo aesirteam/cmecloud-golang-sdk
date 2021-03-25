@@ -16,8 +16,6 @@ import (
 )
 
 type ClientSet struct {
-	//core
-	coreAPIv2 *global.APIv2
 	//net
 	elbAPIv2 *ELB.APIv2
 	fipAPIv2 *FloatingIP.APIv2
@@ -44,7 +42,6 @@ func NewForConfig(conf *global.Config) (*ClientSet, error) {
 	}
 
 	return &ClientSet{
-		coreAPIv2:          global.New(client),
 		elbAPIv2:           ELB.New(client),
 		fipAPIv2:           FloatingIP.New(client),
 		vpcAPIv2:           VirtualPrivateCloud.New(client),
@@ -66,10 +63,6 @@ func NewForConfigDie(conf *global.Config) *ClientSet {
 	return client
 }
 
-type coreInterface struct {
-	global.CoreInterface
-}
-
 type vmInterface struct {
 	Image.ImageInterface
 	KeyPair.KeypairInterface
@@ -87,10 +80,6 @@ type netInterface struct {
 
 type storageInterface struct {
 	CloudBlockStorage.CBSInterface
-}
-
-func (cs *ClientSet) Core() *coreInterface {
-	return &coreInterface{cs.coreAPIv2}
 }
 
 func (cs *ClientSet) Net() *netInterface {

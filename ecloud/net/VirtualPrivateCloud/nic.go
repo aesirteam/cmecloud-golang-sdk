@@ -17,7 +17,7 @@ func (a *APIv2) CreateNic(ns *global.NicSpec) (portId string, err error) {
 		return
 	}
 
-	if len(ns.SecurityGroups) == 0 {
+	if ns.SecurityGroups == nil || len(ns.SecurityGroups) == 0 {
 		err = errors.New("No securityGroups is available")
 		return
 	}

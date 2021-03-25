@@ -3,111 +3,28 @@ package net
 import (
 	"testing"
 
-	"github.com/aesirteam/cmecloud-golang-sdk/ecloud"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
-	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/VirtualPrivateCloud"
 )
 
 func TestELB(t *testing.T) {
-	cli := ecloud.NewForConfigDie(&global.Config{
-		ApiGwHost: "api-guiyang-1.cmecloud.cn",
-		//ApiGwPort:     8443,
-		ApiGwProtocol: "https",
-	})
-
-	net := cli.Net()
-
 	var (
-		vpcName      = "vpc99999"
-		elbName      = "elb99999"
-		listenerName = "listener99999"
-
-		loadBalanceId, listenerId, poolId string
+		fipAddress   = "36.137.45.147"
+		floatingIpId = ""
 	)
 
-	vpc := func() VirtualPrivateCloud.VpcResult {
-		vpc, err := net.GetVpcInfoByName(vpcName)
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		return *vpc
-	}()
-
-	subnetIds := func() []string {
-		result, err := net.GetSubnetList(vpc.FirstNetworkId)
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		subnetIds := make([]string, len(result))
-
-		for i, v := range result {
-			subnetIds[i] = v.Id
-		}
-
-		return subnetIds
-	}()
-
-	getLoadBalanceId := func() string {
-		if loadBalanceId == "" {
-			if result, err := net.GetELBList(elbName, "", "", false, false, 0, 0); err == nil && len(result) > 0 {
-				loadBalanceId = result[0].Id
-			}
-		}
-		return loadBalanceId
-	}
-
-	getListenerId := func() string {
-		if listenerId == "" {
-			loadBalanceId = getLoadBalanceId()
-			if result, err := net.GetELBListenerList(loadBalanceId); err == nil {
-				for _, v := range result {
-					if v.Name == listenerName {
-						listenerId = v.Id
-						break
-					}
-				}
-			}
-		}
-
-		return listenerId
-	}
-
-	getPoolId := func() string {
-		if poolId == "" {
-			listenerId = getListenerId()
-			if result, err := net.GetELBListenerInfo(listenerId); err == nil {
-				poolId = result.PoolId
-			}
-		}
-
-		return poolId
-	}
-
 	t.Run("CreateELB", func(t *testing.T) {
-		var (
-			err  error
-			ipId string
-		)
+		floatingIpId = getFloatingIpId(fipAddress)
+		subnetIds := getSubnetIds()
 
-		fips, err := net.GetFloatingIpList("", "", "", false, false, false, false, nil, 0, 0)
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		for _, v := range fips {
-			if !v.Bound && v.Status == global.FLOATINGIP_BINDSTATUS_UNBOUND.String() {
-				ipId = v.Id
-				break
-			}
+		if subnetIds == nil || len(subnetIds) == 0 {
+			t.Fatal("No match subnetIds")
 		}
 
 		spec := global.ELBSpec{
 			ChargePeriod:    global.BILLING_TYPE_HOUR,
 			LoadBalanceName: elbName,
 			SubnetId:        subnetIds[0],
-			FloatingIpId:    ipId,
+			FloatingIpId:    floatingIpId,
 		}
 
 		result, err := net.CreateELB(&spec)
@@ -143,7 +60,7 @@ func TestELB(t *testing.T) {
 			LoadbalanceId: loadBalanceId,
 			Name:          listenerName,
 			Protocol:      global.ELB_PROTOCOL_HTTP,
-			ProtocolPort:  1443,
+			ProtocolPort:  1080,
 			Algorithm:     global.ELB_ALGORITHM_ROUND_ROBIN,
 			// SessionPersistence: global.ELB_PERSISTENCE_APP_COOKIE,
 			// CookieName:         "JSESSION",
@@ -171,7 +88,7 @@ func TestELB(t *testing.T) {
 	})
 
 	t.Run("GetListenerInfo", func(t *testing.T) {
-		listenerId = getListenerId()
+		listenerId, _ = getListenerId()
 
 		result, err := net.GetELBListenerInfo(listenerId)
 		if err != nil {
@@ -183,13 +100,64 @@ func TestELB(t *testing.T) {
 		poolId = result.PoolId
 	})
 
-	t.Run("", func(t *testing.T) {
-		poolId = getPoolId()
+	t.Run("AddMember", func(t *testing.T) {
+		_, poolId = getListenerId()
+		serverPort := getServerPort()
+
+		if serverPort == nil {
+			t.Fatal("No match server")
+		}
+
+		memberId, err := net.AddELBMember(&global.ELBMemberSpec{
+			PoolId:   poolId,
+			Ip:       serverPort["privateIp"],
+			Port:     80,
+			Weight:   100,
+			Type:     1,
+			VmHostId: serverPort["serverId"],
+		})
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		t.Logf("memberId:%s\n", memberId)
+	})
+
+	t.Run("GetMemberList", func(t *testing.T) {
+		_, poolId = getListenerId()
+
+		result, err := net.GetELBMemberList(poolId)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		t.Log(global.Dump(result))
+	})
+
+	t.Run("GetMemberInfo", func(t *testing.T) {
+		_, poolId = getListenerId()
+		memberId = getMemberId()
+
+		result, err := net.GetELBMemberInfo(poolId, memberId)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		t.Log(global.Dump(result))
+	})
+
+	t.Run("DeleteMember", func(t *testing.T) {
+		_, poolId = getListenerId()
+		memberId = getMemberId()
+
+		err := net.DeleteELBMember(poolId, memberId)
+		if err != nil {
+			t.Fatal(err)
+		}
 	})
 
 	t.Run("DeleteListener", func(t *testing.T) {
-		listenerId = getListenerId()
-
+		listenerId, _ = getListenerId()
 		err := net.DeleteELBListener(listenerId)
 		if err != nil {
 			t.Fatal(err)

@@ -37,7 +37,7 @@ func (a *APIv2) GetKeypairList(name, region string, page, size int) (result []Ke
 	}
 
 	if region != "" {
-		params["region"] = name
+		params["region"] = region
 	}
 
 	if page > 0 {

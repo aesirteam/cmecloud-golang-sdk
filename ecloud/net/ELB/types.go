@@ -42,10 +42,13 @@ type ELBInterface interface {
 	AddELBMember(ms *global.ELBMemberSpec) (string, error)
 
 	// 查看弹性负载均衡中的业务主机列表
-	GetELBMemberList(poolId string) (string, error)
+	GetELBMemberList(poolId string) ([]ELBMemberResult, error)
+
+	// 查看弹性负载均衡中的业务主机详情
+	GetELBMemberInfo(poolId, memberId string) (ELBMemberResult, error)
 
 	// 从弹性负载均衡中删除一台业务主机
-	DeleteELBMember(poolId, memberId string) (string, error)
+	DeleteELBMember(poolId, memberId string) error
 }
 
 type ELBOrderResult struct {
@@ -122,4 +125,23 @@ type ELBListenerResult struct {
 	LoadBalanceFlavor      int    `json:"loadBalanceFlavor"`
 	RedirectToListenerId   string `json:"redirectToListenerId,omitempty"`
 	RedirectToListenerName string `json:"redirectToListenerName,omitempty"`
+}
+
+type ELBMemberResult struct {
+	Id           string `json:"id"`
+	Desc         string `json:"description,omitempty"`
+	CreateTime   string `json:"createdTime"`
+	Status       string `json:"status,omitempty"`
+	Ip           string `json:"ip"`
+	Port         int    `json:"port"`
+	HealthStatus string `json:"healthStatus"`
+	PoolId       string `json:"poolId"`
+	SubnetId     string `json:"subnetId"`
+	VmHostId     string `json:"vmHostId"`
+	VmName       string `json:"vmName,omitempty"`
+	Weight       int    `json:"weight"`
+	Type         int    `json:"type"`
+	Proposer     string `json:"proposer"`
+	IsDeleted    int    `json:"isDelete"`
+	Region       string `json:"region,omitempty"`
 }

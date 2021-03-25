@@ -22,18 +22,16 @@ type VPCInterface interface {
 
 	/*
 		查看VPC列表
+		    queryWord	查询关键字
 			natGatewayBind	VPC是否绑定了NAT网关
 			scale			VPC规格
 			region		可用区
 			tagIds		标签ID列表
 	*/
-	GetVpcList(natGatewayBind bool, scale global.VpcScale, region string, tagIds []string, page, size int) ([]VpcResult, error)
+	GetVpcList(queryWord, region string, natGatewayBind bool, scale global.VpcScale, tagIds []string, page, size int) ([]VpcResult, error)
 
 	//根据vpcId查看VPC详情，包含路由详情
 	GetVpcInfo(vpcId string) (*VpcResult, error)
-
-	//根据name查看VPC详情，包含路由详情
-	GetVpcInfoByName(name string) (*VpcResult, error)
 
 	//根据routerId查看VPC详情
 	GetVpcInfoByRouterId(routerId string) (*VpcResult, error)
@@ -45,7 +43,7 @@ type VPCInterface interface {
 	GetVpcFirewall(routerId string) (string, error)
 
 	//根据routerId查询VPC下的网络
-	GetVpcNetwork(routerId string) ([]VpcNetResult, error)
+	GetVpcNetwork(queryWord, routerId string, cidrInRange, networkIdsInRange []string, page, size int) ([]VpcNetResult, error)
 
 	//根据routerId查询VPC下IPSecVPN
 	GetVpcVPN(routerId string) ([]IPSecVpn.VpnResult, error)
@@ -109,7 +107,7 @@ type VpcResult struct {
 	Scale          string `json:"scale"`
 	EcStatus       string `json:"ecStatus"`
 	AdminStateUp   bool   `json:"adminStateUp"`
-	FirstNetworkId string `json:"firstNetworkId"`
+	FirstNetworkId string `json:"firstNetworkId,omitempty"`
 	UserId         string `json:"userId"`
 	UserName       string `json:"userName,omitempty"`
 	Region         string `json:"region"`
@@ -172,31 +170,31 @@ type SubnetResult struct {
 }
 
 type NicResult struct {
-	Id              string                `json:"id"`
-	Name            string                `json:"name"`
-	Status          int                   `json:"status,omitempty"`
-	AdminStateUp    interface{}           `json:"adminStateUp"`
-	MacAddress      string                `json:"macAddress"`
-	NetworkId       string                `json:"networkId,omitempty"`
-	ResourceId      string                `json:"resourceId,omitempty"`
-	ResourceName    string                `json:"resourceName,omitempty"`
-	FipBind         bool                  `json:"fipBind,omitempty"`
-	OperationStatus string                `json:"operationStatus,omitempty"`
-	Proposer        string                `json:"proposer,omitempty"`
-	CustomerId      string                `json:"customerId,omitempty"`
-	PoolId          string                `json:"poolId,omitempty"`
-	CreatedBy       string                `json:"createdBy,omitempty"`
-	CreateTime      string                `json:"createdTime,omitempty"`
-	IsBasic         interface{}           `json:"isBasic" newtag:"basic"`
-	Source          interface{}           `json:"source"`
-	AddressCheck    bool                  `json:"addressCheck,omitempty"`
-	Region          string                `json:"region,omitempty"`
-	HostName        string                `json:"hostName,omitempty"`
-	SecurityGroups  []interface{}         `json:"securityGroups,omitempty" newtag:"sgIds"`
-	FixedIps        []ServerFixedIpDetail `json:"fixedIps,omitempty" newtag:"fixedIpResps"`
-	IpId            string                `json:"ipId,omitempty"`
-	PublicIp        string                `json:"publicIp,omitempty"`
-	BandWidthsize   string                `json:"bandWidthsize,omitempty"`
+	Id              string                   `json:"id"`
+	Name            string                   `json:"name"`
+	Status          int                      `json:"status,omitempty"`
+	AdminStateUp    interface{}              `json:"adminStateUp"`
+	MacAddress      string                   `json:"macAddress"`
+	NetworkId       string                   `json:"networkId,omitempty"`
+	ResourceId      string                   `json:"resourceId,omitempty"`
+	ResourceName    string                   `json:"resourceName,omitempty"`
+	FipBind         bool                     `json:"fipBind,omitempty"`
+	OperationStatus string                   `json:"operationStatus,omitempty"`
+	Proposer        string                   `json:"proposer,omitempty"`
+	CustomerId      string                   `json:"customerId,omitempty"`
+	PoolId          string                   `json:"poolId,omitempty"`
+	CreatedBy       string                   `json:"createdBy,omitempty"`
+	CreateTime      string                   `json:"createdTime,omitempty"`
+	IsBasic         interface{}              `json:"isBasic" newtag:"basic"`
+	Source          interface{}              `json:"source"`
+	AddressCheck    bool                     `json:"addressCheck,omitempty"`
+	Region          string                   `json:"region,omitempty"`
+	HostName        string                   `json:"hostName,omitempty"`
+	SecurityGroups  []map[string]interface{} `json:"securityGroups,omitempty" newtag:"sgIds"`
+	FixedIps        []ServerFixedIpDetail    `json:"fixedIps,omitempty" newtag:"fixedIpResps"`
+	IpId            string                   `json:"ipId,omitempty"`
+	PublicIp        string                   `json:"publicIp,omitempty"`
+	BandWidthsize   string                   `json:"bandWidthsize,omitempty"`
 }
 
 /*

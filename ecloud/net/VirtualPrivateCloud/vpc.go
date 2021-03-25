@@ -66,7 +66,7 @@ func (a *APIv2) DeleteVpc(vpcId string) error {
 	return nil
 }
 
-func (a *APIv2) GetVpcList(natGatewayBind bool, scale global.VpcScale, region string, tagIds []string, page, size int) (result []VpcResult, err error) {
+func (a *APIv2) GetVpcList(queryWord, region string, natGatewayBind bool, scale global.VpcScale, tagIds []string, page, size int) (result []VpcResult, err error) {
 	params := map[string]interface{}{
 		"scale":   scale.String(),
 		"visible": true,
@@ -103,6 +103,15 @@ func (a *APIv2) GetVpcList(natGatewayBind bool, scale global.VpcScale, region st
 		return
 	}
 
+	if queryWord != "" {
+		for _, v := range result {
+			if v.Name == queryWord {
+				result = []VpcResult{v}
+				break
+			}
+		}
+	}
+
 	return
 }
 
@@ -127,22 +136,6 @@ func (a *APIv2) GetVpcInfo(vpcId string) (result *VpcResult, err error) {
 		return
 	}
 
-	return
-}
-
-func (a *APIv2) GetVpcInfoByName(name string) (result *VpcResult, err error) {
-	arr, err := a.GetVpcList(false, 0, "", nil, 0, 0)
-	if err != nil {
-		return
-	}
-
-	for _, vpc := range arr {
-		if vpc.Name == name {
-			return a.GetVpcInfo(vpc.Id)
-		}
-	}
-
-	err = errors.New("No match vpc: " + name)
 	return
 }
 
@@ -213,14 +206,27 @@ func (a *APIv2) GetVpcFirewall(routerId string) (result string, err error) {
 	return
 }
 
-func (a *APIv2) GetVpcNetwork(routerId string) (result []VpcNetResult, err error) {
-	if routerId == "" {
-		err = errors.New("No routerId is available")
-		return
+func (a *APIv2) GetVpcNetwork(queryWord, routerId string, cidrInRange, networkIdsInRange []string, page, size int) (result []VpcNetResult, err error) {
+	params := map[string]interface{}{}
+
+	if queryWord != "" {
+		params["queryWord"] = queryWord
 	}
 
-	params := map[string]interface{}{
-		"routerId": routerId,
+	if routerId != "" {
+		params["routerId"] = routerId
+	}
+
+	if networkIdsInRange != nil && len(networkIdsInRange) > 0 {
+		params["rangeInNetworkIds"] = strings.Join(networkIdsInRange, ",")
+	}
+
+	if page > 0 {
+		params["page"] = page
+	}
+
+	if size > 0 {
+		params["size"] = size
 	}
 
 	resp, err := a.client.NewRequest("GET", "/api/v2/netcenter/network/NetworkResps", nil, params, nil)
@@ -232,6 +238,20 @@ func (a *APIv2) GetVpcNetwork(routerId string) (result []VpcNetResult, err error
 	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
 		err = resp.Error(err)
 		return
+	}
+
+	if cidrInRange != nil && len(cidrInRange) > 0 {
+		var obj []VpcNetResult
+		for _, v := range result {
+			for _, cidr := range cidrInRange {
+				if len(v.Subnets) > 0 && v.Subnets[0].Cidr == cidr {
+					obj = append(obj, v)
+					break
+				}
+			}
+		}
+
+		result = obj
 	}
 
 	return

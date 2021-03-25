@@ -2,31 +2,29 @@ package Server
 
 import "github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
 
-func (a *APIv2) GetProductFlavorList(ss *global.ServerSpec, page, size int) (result []ProductResult, err error) {
+func (a *APIv2) GetProductFlavorList(cpu, ram int, osType global.OsType, vmType global.VmType, page, size int) (result []ProductResult, err error) {
 	params := map[string]interface{}{
-		"category": "NORMAL",
+		"serverType": "VM",
+		"category":   "NORMAL",
 	}
 
-	if ss.Cpu > 0 {
-		params["cpu"] = ss.Cpu
+	if cpu > 0 {
+		params["cpu"] = cpu
 	}
 
-	if ss.Ram > 0 {
-		params["ram"] = ss.Ram
+	if ram > 0 {
+		params["ram"] = ram
 	}
 
-	switch ss.OsType {
+	switch osType {
 	case global.OS_TYPE_WINDOWS:
-		params["osType"] = global.OS_TYPE_WINDOWS.String()
 		params["disk"] = 40
 	default:
-		params["osType"] = global.OS_TYPE_LINUX.String()
 		params["disk"] = 20
 	}
 
-	if ss.VmType.String() != "" {
-		params["vmType"] = ss.VmType.String()
-	}
+	params["osType"] = osType.String()
+	params["vmType"] = vmType.String()
 
 	if page > 0 {
 		params["page"] = page

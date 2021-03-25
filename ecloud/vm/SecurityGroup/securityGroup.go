@@ -50,12 +50,15 @@ func (a *APIv2) DeleteSecurityGroup(id string) error {
 
 func (a *APIv2) GetSecurityGroupList(name string, ruleShow bool, page, size int) (result []SecurityGroupResult, err error) {
 	params := map[string]interface{}{
-		"types":    "VM",
-		"ruleShow": ruleShow,
+		"types": "VM",
 	}
 
 	if name != "" {
 		params["name"] = name
+	}
+
+	if ruleShow {
+		params["ruleShow"] = true
 	}
 
 	if page > 0 {
@@ -154,12 +157,6 @@ func (a *APIv2) AddSecurityGroupRules(sg *global.SecurityGroupRuleSpec) (result 
 	switch sg.RemoteType {
 	case global.SECURITYGROUP_REMOTETYPE_CIDR:
 		if sg.RemoteIpPrefix == "" {
-			// switch sg.EtherType {
-			// case global.SECURITYGROUP_ETHERTYPE_IPV4:
-			// 	body["remoteIpPrefix"] = "0.0.0.0/0"
-			// case global.SECURITYGROUP_ETHERTYPE_IPV6:
-			// 	body["remoteIpPrefix"] = "0:0:0:0:0:0:0:0/0"
-			// }
 			body["remoteIpPrefix"] = "0.0.0.0/0"
 		} else {
 			body["remoteIpPrefix"] = sg.RemoteIpPrefix

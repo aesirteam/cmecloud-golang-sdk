@@ -3,52 +3,25 @@ package vm
 import (
 	"testing"
 
-	"github.com/aesirteam/cmecloud-golang-sdk/ecloud"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
 )
 
 func TestUserImage(t *testing.T) {
-	vm := ecloud.NewForConfigDie(&global.Config{
-		ApiGwHost: "api-guiyang-1.cmecloud.cn",
-		//ApiGwPort:     8443,
-		ApiGwProtocol: "https",
-	}).VM()
 
 	var (
-		serverName        = "api198994873"
-		imageName         = "imageApi198994873"
-		serverId, imageId string
+		imageName = "image" + serverName
 	)
-
-	getServerId := func() string {
-		if serverId == "" {
-			if result, err := vm.GetServerList(&global.ServerSpec{Name: serverName}, 0, 0); err == nil && len(result) > 0 {
-				serverId = result[0].ServerId
-			}
-		}
-		return serverId
-	}
-
-	getImageId := func() string {
-		if imageId == "" {
-			if result, err := vm.GetUserImageList("", "", imageName, nil, nil, 0, 0); err == nil && len(result) > 0 {
-				imageId = result[0].Id
-			}
-		}
-
-		return imageId
-	}
 
 	t.Run("CreateUserImage", func(t *testing.T) {
 		serverId = getServerId()
 
 		var err error
-		imageId, err = vm.CreateUserImage(serverId, imageName, "")
+		userImageId, err = vm.CreateUserImage(serverId, imageName, "")
 		if err != nil {
 			t.Fatal(err)
 		}
 
-		t.Logf("imageId:%s\n", imageId)
+		t.Logf("imageId:%s\n", userImageId)
 	})
 
 	t.Run("GetUserImageList", func(t *testing.T) {
@@ -63,9 +36,9 @@ func TestUserImage(t *testing.T) {
 	})
 
 	t.Run("GetUserImageInfo", func(t *testing.T) {
-		imageId = getImageId()
+		userImageId = getUserImageId(imageName)
 
-		result, err := vm.GetUserImageInfo(imageId)
+		result, err := vm.GetUserImageInfo(userImageId)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -74,9 +47,9 @@ func TestUserImage(t *testing.T) {
 	})
 
 	t.Run("UpdateUserImageInfo", func(t *testing.T) {
-		imageId = getImageId()
+		userImageId = getUserImageId(imageName)
 
-		result, err := vm.UpdateUserImageInfo(imageId, imageName, "")
+		result, err := vm.UpdateUserImageInfo(userImageId, imageName, "")
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -85,9 +58,9 @@ func TestUserImage(t *testing.T) {
 	})
 
 	t.Run("DeleteUserImage", func(t *testing.T) {
-		imageId = getImageId()
+		userImageId = getUserImageId(imageName)
 
-		err := vm.DeleteUserImage(imageId)
+		err := vm.DeleteUserImage(userImageId)
 		if err != nil {
 			t.Fatal(err)
 		}

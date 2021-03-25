@@ -19,17 +19,15 @@ func (a *APIv2) CreateELB(es *global.ELBSpec) (result ELBOrderResult, err error)
 		return
 	}
 
-	if es.FloatingIpId == "" {
-		err = errors.New("No floatingIpId is available")
-		return
-	}
-
 	body := map[string]interface{}{
 		"chargePeriodEnum": strings.ToLower(es.ChargePeriod.String()),
 		"loadBalanceName":  es.LoadBalanceName,
 		"subnetId":         es.SubnetId,
-		"ipId":             es.FloatingIpId,
 		"flavor":           "1",
+	}
+
+	if es.FloatingIpId != "" {
+		body["ipId"] = es.FloatingIpId
 	}
 
 	resp, err := a.client.NewRequest("POST", "/api/v2/netcenter/order/create/loadbalance", nil, nil, body)
@@ -243,13 +241,120 @@ func (a *APIv2) DeleteELBListener(listenerId string) (err error) {
 }
 
 func (a *APIv2) AddELBMember(ms *global.ELBMemberSpec) (result string, err error) {
+	if ms.PoolId == "" {
+		err = errors.New("No poolId is available")
+		return
+	}
+
+	if ms.Ip == "" {
+		err = errors.New("No ip is available")
+		return
+	}
+
+	if ms.Port == 0 || ms.Port > 65535 {
+		err = errors.New("No port is available")
+		return
+	}
+
+	if ms.Weight == 0 || ms.Weight > 100 {
+		err = errors.New("No weight is available")
+		return
+	}
+
+	if ms.Type == 0 || ms.Type > 2 {
+		err = errors.New("No type is available")
+		return
+	}
+
+	if ms.VmHostId == "" {
+		err = errors.New("No vmHostId is available")
+		return
+	}
+
+	body := map[string]interface{}{
+		"ip":       ms.Ip,
+		"port":     ms.Port,
+		"weight":   ms.Weight,
+		"type":     ms.Type,
+		"vmHostId": ms.VmHostId,
+	}
+
+	if ms.Desc != "" {
+		body["description"] = ms.Desc
+	}
+
+	resp, err := a.client.NewRequest("POST", "/api/v2/network/lbpoolmember/"+ms.PoolId+"/member", nil, nil, body)
+	if err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	result = resp.Body
+
 	return
 }
 
-func (a *APIv2) GetELBMemberList(poolId string) (result string, err error) {
+func (a *APIv2) GetELBMemberList(poolId string) (result []ELBMemberResult, err error) {
+	if poolId == "" {
+		err = errors.New("No poolId is available")
+		return
+	}
+
+	resp, err := a.client.NewRequest("GET", "/api/v2/network/lbpoolmember/"+poolId+"/members", nil, nil, nil)
+	if err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
+		err = resp.Error(err)
+		return
+	}
+
 	return
 }
 
-func (a *APIv2) DeleteELBMember(poolId, memberId string) (result string, err error) {
+func (a *APIv2) GetELBMemberInfo(poolId, memberId string) (result ELBMemberResult, err error) {
+	if poolId == "" {
+		err = errors.New("No poolId is available")
+		return
+	}
+
+	if memberId == "" {
+		err = errors.New("No memberId is available")
+		return
+	}
+
+	resp, err := a.client.NewRequest("GET", "/api/v2/network/lbpoolmember/healthStatus/"+poolId+"/"+memberId, nil, nil, nil)
+	if err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	return
+}
+
+func (a *APIv2) DeleteELBMember(poolId, memberId string) (err error) {
+	if poolId == "" {
+		err = errors.New("No poolId is available")
+		return
+	}
+
+	if memberId == "" {
+		err = errors.New("No memberId is available")
+		return
+	}
+
+	resp, err := a.client.NewRequest("DELETE", "/api/v2/network/lbpoolmember/"+poolId+"/member/"+memberId+"/delete", nil, nil, nil)
+	if err != nil {
+		err = resp.Error(err)
+		return
+	}
+
 	return
 }

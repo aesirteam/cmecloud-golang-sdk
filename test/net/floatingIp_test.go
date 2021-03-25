@@ -3,35 +3,14 @@ package net
 import (
 	"testing"
 
-	"github.com/aesirteam/cmecloud-golang-sdk/ecloud"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
 )
 
 func TestFloatingIP(t *testing.T) {
-	cli := ecloud.NewForConfigDie(&global.Config{
-		ApiGwHost: "api-guiyang-1.cmecloud.cn",
-		//ApiGwPort:     8443,
-		ApiGwProtocol: "https",
-	})
-
-	net := cli.Net()
-	vm := cli.VM()
-
 	var (
-		serverName = "api198994873"
-		fipAddress = "36.137.45.147"
-		ipId       string
+		fipAddress   = "36.137.45.147"
+		floatingIpId = ""
 	)
-
-	getIpId := func() string {
-		if ipId == "" {
-			if result, err := net.GetFloatingIpList(fipAddress, "", "", false, false, false, false, nil, 0, 0); err == nil && len(result) > 0 {
-				ipId = result[0].Id
-			}
-		}
-
-		return ipId
-	}
 
 	t.Run("CreateFloatingIp", func(t *testing.T) {
 		spec := global.FloatingIpSpec{
@@ -59,9 +38,9 @@ func TestFloatingIP(t *testing.T) {
 	})
 
 	t.Run("GetFloatingIpDetail", func(t *testing.T) {
-		ipId = getIpId()
+		floatingIpId = getFloatingIpId(fipAddress)
 
-		result, err := net.GetFloatingIpDetail(ipId)
+		result, err := net.GetFloatingIpDetail(floatingIpId)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -88,34 +67,23 @@ func TestFloatingIP(t *testing.T) {
 	})
 
 	t.Run("AttachFloatingIp", func(t *testing.T) {
-		ipId = getIpId()
+		floatingIpId = getFloatingIpId(fipAddress)
+		serverPort := getServerPort()
 
-		resources, err := vm.GetServerList(&global.ServerSpec{
-			Name: serverName,
-		}, 0, 0)
-		if err != nil {
-			t.Fatal(err)
+		if serverPort == nil {
+			t.Fatal("No match serverPort")
 		}
 
-		if len(resources) == 0 {
-			t.Fatalf("No match server: %s", serverName)
-		}
-
-		portDetails := resources[0].ServerPortDetailArray
-		if len(portDetails) == 0 {
-			t.Fatal("No match portDetail")
-		}
-
-		err = net.AttachFloatingIp(global.FLOATINGIP_BINDTYPE_VM, ipId, resources[0].ServerId, portDetails[0].PortId)
+		err := net.AttachFloatingIp(global.FLOATINGIP_BINDTYPE_VM, floatingIpId, serverPort["serverId"], serverPort["portId"])
 		if err != nil {
 			t.Fatal(err)
 		}
 	})
 
 	t.Run("DetachFloatingIp", func(t *testing.T) {
-		ipId = getIpId()
+		floatingIpId = getFloatingIpId(fipAddress)
 
-		err := net.DetachFloatingIp(ipId)
+		err := net.DetachFloatingIp(floatingIpId)
 		if err != nil {
 			t.Fatal(err)
 		}

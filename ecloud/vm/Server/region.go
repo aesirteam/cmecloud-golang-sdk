@@ -1,4 +1,4 @@
-package global
+package Server
 
 func (a *APIv2) GetRegionList() (result []RegionResult, err error) {
 	params := map[string]interface{}{
