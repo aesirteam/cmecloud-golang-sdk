@@ -32,6 +32,9 @@ var (
 
 	serverName            = "api198994873"
 	serverId, userImageId string
+
+	serverBackupName = "backup_" + serverName
+	serverBackupId   string
 )
 
 var region = func() string {
@@ -150,4 +153,16 @@ var getUserImageId = func(name string) string {
 	}
 
 	return userImageId
+}
+
+var getServerBackupId = func() string {
+	if serverBackupId == "" {
+		serverId = getServerId()
+
+		if result, err := vm.GetServerBackupList(serverId, serverBackupName, 0, 0); err == nil && len(result) > 0 {
+			serverBackupId = result[0].Id
+		}
+	}
+
+	return serverBackupId
 }

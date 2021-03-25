@@ -6,7 +6,7 @@ import (
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
 )
 
-func (a *APIv2) CreateSecurityGroup(name, desc string) (result SecurityGroupResult, err error) {
+func (a *APIv1) CreateSecurityGroup(name, desc string) (result SecurityGroupResult, err error) {
 	if name == "" {
 		err = errors.New("No name is available")
 		return
@@ -35,7 +35,7 @@ func (a *APIv2) CreateSecurityGroup(name, desc string) (result SecurityGroupResu
 
 }
 
-func (a *APIv2) DeleteSecurityGroup(id string) error {
+func (a *APIv1) DeleteSecurityGroup(id string) error {
 	if id == "" {
 		return errors.New("No id is available")
 	}
@@ -48,7 +48,7 @@ func (a *APIv2) DeleteSecurityGroup(id string) error {
 	return nil
 }
 
-func (a *APIv2) GetSecurityGroupList(name string, ruleShow bool, page, size int) (result []SecurityGroupResult, err error) {
+func (a *APIv1) GetSecurityGroupList(name string, ruleShow bool, page, size int) (result []SecurityGroupResult, err error) {
 	params := map[string]interface{}{
 		"types": "VM",
 	}
@@ -83,7 +83,7 @@ func (a *APIv2) GetSecurityGroupList(name string, ruleShow bool, page, size int)
 	return
 }
 
-func (a *APIv2) ModifySecurityGroup(id, name, desc string) (result SecurityGroupResult, err error) {
+func (a *APIv1) ModifySecurityGroup(id, name, desc string) (result SecurityGroupResult, err error) {
 	if id == "" {
 		err = errors.New("No networkId is available")
 		return
@@ -117,7 +117,7 @@ func (a *APIv2) ModifySecurityGroup(id, name, desc string) (result SecurityGroup
 	return
 }
 
-func (a *APIv2) AddSecurityGroupRules(sg *global.SecurityGroupRuleSpec) (result SecurityGroupRuleResult, err error) {
+func (a *APIv1) AddSecurityGroupRules(sg *global.SecurityGroupRuleSpec) (result SecurityGroupRuleResult, err error) {
 	if sg.SecurityGroupId == "" {
 		err = errors.New("No securityGroupId is available")
 		return
@@ -179,7 +179,7 @@ func (a *APIv2) AddSecurityGroupRules(sg *global.SecurityGroupRuleSpec) (result 
 	return
 }
 
-func (a *APIv2) GetSecurityGroupRules(securityGroupId, ruleId string) (result []SecurityGroupRuleResult, err error) {
+func (a *APIv1) GetSecurityGroupRules(securityGroupId, ruleId string) (result []SecurityGroupRuleResult, err error) {
 	params := map[string]interface{}{}
 
 	if securityGroupId != "" {
@@ -204,7 +204,7 @@ func (a *APIv2) GetSecurityGroupRules(securityGroupId, ruleId string) (result []
 	return
 }
 
-func (a *APIv2) DeleteSecurityGroupRules(ruleId string) error {
+func (a *APIv1) DeleteSecurityGroupRules(ruleId string) error {
 	if ruleId == "" {
 		return errors.New("No ruleId is available")
 	}
