@@ -1,0 +1,380 @@
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="theme-color" content="#375EAB"/>
+
+  <title>Image - Documentation</title>
+
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="../../../../../lib/style.css"/></head>
+<body>
+
+<div id="lowframe" style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="../../../../../">Documentation</a></div>
+<div class="top-heading" id="heading-narrow"><a href="../../../../../">Documentation</a></div>
+<!--<a href="#" id="menu-button"><span id="menu-button-arrow">▽</span></a>-->
+<div id="menu">
+<a href="../../../../../" style="margin-right: 10px;">Package Index</a>
+</div>
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package Image
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import &#34;<a href="https://github.com/aesirteam/cmecloud-golang-sdk/tree/master/vm/Image" target="_blank">github.com/aesirteam/cmecloud-golang-sdk/vm/Image</a>&#34;</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+			
+			
+				
+				<dd><a href="#APIv1">type APIv1</a></dd>
+				
+					
+					<dd>    <a href="#New">func New(client *global.EcloudClient) *APIv1</a></dd>
+				
+				
+					
+					<dd>    <a href="#APIv1.CreateUserImage">func (a *APIv1) CreateUserImage(serverId, name string, note string) (result string, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv1.DeleteUserImage">func (a *APIv1) DeleteUserImage(imageId string) (err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv1.GetUserImageInfo">func (a *APIv1) GetUserImageInfo(imageId string) (result UserImageResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv1.GetUserImageList">func (a *APIv1) GetUserImageList(imageId, serverId, name string, imageOsTypes, tagIds []string, page, size int) (result []UserImageResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv1.ImportUserImage">func (a *APIv1) ImportUserImage(cs *global.UserImageImportSpec) (result string, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv1.UpdateUserImageInfo">func (a *APIv1) UpdateUserImageInfo(imageId, name string, note string) (result UserImageResult, err error)</a></dd>
+				
+			
+				
+				<dd><a href="#ImageInterface">type ImageInterface</a></dd>
+				
+				
+			
+				
+				<dd><a href="#UserImageResult">type UserImageResult</a></dd>
+				
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Image/types.go.html">types.go</a>
+			
+				<a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Image/userImage.go.html">userImage.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+		
+		
+			
+			
+			<h2 id="APIv1">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Image/types.go.html?s=85:135#L1">APIv1</a>
+				<a class="permalink" href="#APIv1">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type APIv1 struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="New">func <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Image/types.go.html?s=137:181#L1">New</a>
+					<a class="permalink" href="#New">¶</a>
+					
+					
+				</h3>
+				<pre>func New(client *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#EcloudClient">EcloudClient</a>) *<a href="#APIv1">APIv1</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="APIv1.CreateUserImage">func (*APIv1) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Image/userImage.go.html?s=114:208#L1">CreateUserImage</a>
+					<a class="permalink" href="#APIv1.CreateUserImage">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv1">APIv1</a>) CreateUserImage(serverId, name <a href="../../../../../builtin/#string">string</a>, note <a href="../../../../../builtin/#string">string</a>) (result <a href="../../../../../builtin/#string">string</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv1.DeleteUserImage">func (*APIv1) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Image/userImage.go.html?s=2747:2806#L141">DeleteUserImage</a>
+					<a class="permalink" href="#APIv1.DeleteUserImage">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv1">APIv1</a>) DeleteUserImage(imageId <a href="../../../../../builtin/#string">string</a>) (err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv1.GetUserImageInfo">func (*APIv1) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Image/userImage.go.html?s=1665:1749#L84">GetUserImageInfo</a>
+					<a class="permalink" href="#APIv1.GetUserImageInfo">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv1">APIv1</a>) GetUserImageInfo(imageId <a href="../../../../../builtin/#string">string</a>) (result <a href="#UserImageResult">UserImageResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv1.GetUserImageList">func (*APIv1) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Image/userImage.go.html?s=786:935#L39">GetUserImageList</a>
+					<a class="permalink" href="#APIv1.GetUserImageList">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv1">APIv1</a>) GetUserImageList(imageId, serverId, name <a href="../../../../../builtin/#string">string</a>, imageOsTypes, tagIds []<a href="../../../../../builtin/#string">string</a>, page, size <a href="../../../../../builtin/#int">int</a>) (result []<a href="#UserImageResult">UserImageResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv1.ImportUserImage">func (*APIv1) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Image/userImage.go.html?s=3035:3125#L156">ImportUserImage</a>
+					<a class="permalink" href="#APIv1.ImportUserImage">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv1">APIv1</a>) ImportUserImage(cs *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#UserImageImportSpec">UserImageImportSpec</a>) (result <a href="../../../../../builtin/#string">string</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv1.UpdateUserImageInfo">func (*APIv1) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Image/userImage.go.html?s=2081:2187#L104">UpdateUserImageInfo</a>
+					<a class="permalink" href="#APIv1.UpdateUserImageInfo">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv1">APIv1</a>) UpdateUserImageInfo(imageId, name <a href="../../../../../builtin/#string">string</a>, note <a href="../../../../../builtin/#string">string</a>) (result <a href="#UserImageResult">UserImageResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="ImageInterface">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Image/types.go.html?s=210:977#L5">ImageInterface</a>
+				<a class="permalink" href="#ImageInterface">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type ImageInterface interface {
+    <span class="comment">// 云主机制作自定义镜像</span>
+    CreateUserImage(serverId, name <a href="../../../../../builtin/#string">string</a>, note <a href="../../../../../builtin/#string">string</a>) (<a href="../../../../../builtin/#string">string</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 查询用户创建的所有自定义镜像</span>
+    GetUserImageList(imageId, serverId, name <a href="../../../../../builtin/#string">string</a>, imageOsTypes, tagIds []<a href="../../../../../builtin/#string">string</a>, page, size <a href="../../../../../builtin/#int">int</a>) ([]<a href="#UserImageResult">UserImageResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 查询用户创建的自定义镜像详情信息</span>
+    GetUserImageInfo(imageId <a href="../../../../../builtin/#string">string</a>) (<a href="#UserImageResult">UserImageResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 更新镜像属性，包括镜像名称和镜像描述</span>
+    UpdateUserImageInfo(imageId, name <a href="../../../../../builtin/#string">string</a>, note <a href="../../../../../builtin/#string">string</a>) (<a href="#UserImageResult">UserImageResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 删除镜像,正在被主机使用中的镜像不允许删除</span>
+    DeleteUserImage(imageId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a>
+
+    <span class="comment">// 导入自定义镜像信息</span>
+    ImportUserImage(cs *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#UserImageImportSpec">UserImageImportSpec</a>) (<a href="../../../../../builtin/#string">string</a>, <a href="../../../../../builtin/#error">error</a>)
+}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="UserImageResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Image/types.go.html?s=979:2152#L25">UserImageResult</a>
+				<a class="permalink" href="#UserImageResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type UserImageResult struct {
+<span id="UserImageResult.Id"></span>    Id              <a href="../../../../../builtin/#string">string</a> `json:&#34;imageId&#34; newtag:&#34;id&#34;`
+<span id="UserImageResult.ServerId"></span>    ServerId        <a href="../../../../../builtin/#string">string</a> `json:&#34;serverId&#34;`
+<span id="UserImageResult.ImageAlias"></span>    ImageAlias      <a href="../../../../../builtin/#string">string</a> `json:&#34;imageAlias,omitempty&#34;`
+<span id="UserImageResult.Name"></span>    Name            <a href="../../../../../builtin/#string">string</a> `json:&#34;name&#34;`
+<span id="UserImageResult.Url"></span>    Url             <a href="../../../../../builtin/#string">string</a> `json:&#34;url,omitempty&#34;`
+<span id="UserImageResult.SourceImageId"></span>    SourceImageId   <a href="../../../../../builtin/#string">string</a> `json:&#34;sourceImageId,omitempty&#34;`
+<span id="UserImageResult.Status"></span>    Status          <a href="../../../../../builtin/#string">string</a> `json:&#34;status&#34;`
+<span id="UserImageResult.Size"></span>    Size            <a href="../../../../../builtin/#int">int</a>    `json:&#34;size&#34;`
+<span id="UserImageResult.IsPublic"></span>    IsPublic        <a href="../../../../../builtin/#int">int</a>    `json:&#34;isPublic,omitempty&#34;`
+<span id="UserImageResult.CreatedTime"></span>    CreatedTime     <a href="../../../../../builtin/#string">string</a> `json:&#34;createdTime&#34;`
+<span id="UserImageResult.ModifiedTime"></span>    ModifiedTime    <a href="../../../../../builtin/#string">string</a> `json:&#34;modifiedTime,omitempty&#34;`
+<span id="UserImageResult.Note"></span>    Note            <a href="../../../../../builtin/#string">string</a> `json:&#34;note,omitempty&#34;`
+<span id="UserImageResult.Deleted"></span>    Deleted         <a href="../../../../../builtin/#bool">bool</a>   `json:&#34;deleted,omitempty&#34;`
+<span id="UserImageResult.OsType"></span>    OsType          <a href="../../../../../builtin/#string">string</a> `json:&#34;osType,omitempty&#34;`
+<span id="UserImageResult.MinDisk"></span>    MinDisk         <a href="../../../../../builtin/#int">int</a>    `json:&#34;minDisk&#34;`
+<span id="UserImageResult.ImageType"></span>    ImageType       <a href="../../../../../builtin/#string">string</a> `json:&#34;imageType,omitempty&#34;`
+<span id="UserImageResult.PublicImageType"></span>    PublicImageType <a href="../../../../../builtin/#string">string</a> `json:&#34;publicImageType,omitempty&#34;`
+<span id="UserImageResult.BackupType"></span>    BackupType      <a href="../../../../../builtin/#string">string</a> `json:&#34;backupType,omitempty&#34;`
+<span id="UserImageResult.BackupWay"></span>    BackupWay       <a href="../../../../../builtin/#string">string</a> `json:&#34;backupWay,omitempty&#34;`
+<span id="UserImageResult.SnapshotId"></span>    SnapshotId      <a href="../../../../../builtin/#string">string</a> `json:&#34;snapshotId,omitempty&#34;`
+<span id="UserImageResult.Region"></span>    Region          <a href="../../../../../builtin/#string">string</a> `json:&#34;region,omitempty&#34;`
+<span id="UserImageResult.IsAscendOrder"></span>    IsAscendOrder   <a href="../../../../../builtin/#bool">bool</a>   `json:&#34;isAscendOrder,omitempty&#34;`
+<span id="UserImageResult.OsName"></span>    OsName          <a href="../../../../../builtin/#string">string</a> `json:&#34;osName,omitempty&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer"><a href="../../../../../docs.zip">Download docs.zip</a> to browse offline - Generated by <a href="https://godoc.org/golang.org/x/tools/godoc" target="_blank">godoc</a> + <a href="https://gitlab.com/tslocum/godoc-static" target="_blank">godoc-static</a></div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+
+
+</body></html>

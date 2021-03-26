@@ -1,0 +1,1171 @@
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="theme-color" content="#375EAB"/>
+
+  <title>VirtualPrivateCloud - Documentation</title>
+
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="../../../../../lib/style.css"/></head>
+<body>
+
+<div id="lowframe" style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="../../../../../">Documentation</a></div>
+<div class="top-heading" id="heading-narrow"><a href="../../../../../">Documentation</a></div>
+<!--<a href="#" id="menu-button"><span id="menu-button-arrow">▽</span></a>-->
+<div id="menu">
+<a href="../../../../../" style="margin-right: 10px;">Package Index</a>
+</div>
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package VirtualPrivateCloud
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import &#34;<a href="https://github.com/aesirteam/cmecloud-golang-sdk/tree/master/net/VirtualPrivateCloud" target="_blank">github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud</a>&#34;</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+			
+			
+				
+				<dd><a href="#APIv2">type APIv2</a></dd>
+				
+					
+					<dd>    <a href="#New">func New(client *global.EcloudClient) *APIv2</a></dd>
+				
+				
+					
+					<dd>    <a href="#APIv2.AddFirewallRules">func (a *APIv2) AddFirewallRules()</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.CloseRouterGateway">func (a *APIv2) CloseRouterGateway(routerId string) error</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.CreateNic">func (a *APIv2) CreateNic(ns *global.NicSpec) (portId string, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.CreateSubnet">func (a *APIv2) CreateSubnet(ss *global.SubnetSpec) (networkId string, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.CreateVpc">func (a *APIv2) CreateVpc(vs *global.VpcSpec) (result VpcOrderResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.DeleteFirewallRule">func (a *APIv2) DeleteFirewallRule()</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.DeleteNic">func (a *APIv2) DeleteNic(portId string) error</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.DeleteSubnet">func (a *APIv2) DeleteSubnet(networkId string) error</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.DeleteVpc">func (a *APIv2) DeleteVpc(vpcId string) error</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.FirewallBindRouter">func (a *APIv2) FirewallBindRouter(firewallId, routerId string) (result string, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.FirewallUnbindRouter">func (a *APIv2) FirewallUnbindRouter()</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetFirewallQuota">func (a *APIv2) GetFirewallQuota()</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetFirewallRulesList">func (a *APIv2) GetFirewallRulesList()</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetNicDetail">func (a *APIv2) GetNicDetail(portId string) (result NicResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetRouterInfo">func (a *APIv2) GetRouterInfo(routerId string) (result RouterResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetRouterNetList">func (a *APIv2) GetRouterNetList(routerId string) (result []RouterNetResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetSubnetInfo">func (a *APIv2) GetSubnetInfo(subnetId string) (result SubnetResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetSubnetList">func (a *APIv2) GetSubnetList(networkId string) (result []SubnetResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetVpcFirewall">func (a *APIv2) GetVpcFirewall(routerId string) (result string, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetVpcInfo">func (a *APIv2) GetVpcInfo(vpcId string) (result VpcResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetVpcInfoByRouterId">func (a *APIv2) GetVpcInfoByRouterId(routerId string) (result VpcResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetVpcList">func (a *APIv2) GetVpcList(queryWord, region string, natGatewayBind bool, scale global.VpcScale, tagIds []string, page, size int) (result []VpcResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetVpcNetwork">func (a *APIv2) GetVpcNetwork(queryWord, routerId string, cidrInRange, networkIdsInRange []string, page, size int) (result []VpcNetResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetVpcNic">func (a *APIv2) GetVpcNic(routerId string) (result []NicResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetVpcVPN">func (a *APIv2) GetVpcVPN(routerId string) ([]IPSecVpn.VpnResult, error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.ModifyNicName">func (a *APIv2) ModifyNicName(portId, portName string) error</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.ModifyNicSecurityGroup">func (a *APIv2) ModifyNicSecurityGroup(portId string, securityGroupIds []string) error</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.ModifySubnetName">func (a *APIv2) ModifySubnetName(networkId, networkName string) error</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.ModifyVpcInfo">func (a *APIv2) ModifyVpcInfo(vpcId, name, desc string) error</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.OpenRouterGateway">func (a *APIv2) OpenRouterGateway(routerId string) (result string, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.RouterAttachSubnet">func (a *APIv2) RouterAttachSubnet()</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.RouterDetachSubnet">func (a *APIv2) RouterDetachSubnet()</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.UpdateFirewallRules">func (a *APIv2) UpdateFirewallRules()</a></dd>
+				
+			
+				
+				<dd><a href="#NicResult">type NicResult</a></dd>
+				
+				
+			
+				
+				<dd><a href="#RouterNetResult">type RouterNetResult</a></dd>
+				
+				
+			
+				
+				<dd><a href="#RouterResult">type RouterResult</a></dd>
+				
+				
+			
+				
+				<dd><a href="#ServerFixedIpDetail">type ServerFixedIpDetail</a></dd>
+				
+				
+			
+				
+				<dd><a href="#SubnetResult">type SubnetResult</a></dd>
+				
+				
+			
+				
+				<dd><a href="#VPCInterface">type VPCInterface</a></dd>
+				
+				
+			
+				
+				<dd><a href="#VpcNetResult">type VpcNetResult</a></dd>
+				
+				
+			
+				
+				<dd><a href="#VpcOrderResult">type VpcOrderResult</a></dd>
+				
+				
+			
+				
+				<dd><a href="#VpcResult">type VpcResult</a></dd>
+				
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/firewall.go.html">firewall.go</a>
+			
+				<a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/nic.go.html">nic.go</a>
+			
+				<a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/router.go.html">router.go</a>
+			
+				<a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/subnet.go.html">subnet.go</a>
+			
+				<a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/types.go.html">types.go</a>
+			
+				<a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/vpc.go.html">vpc.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+		
+		
+			
+			
+			<h2 id="APIv2">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/types.go.html?s=163:213#L1">APIv2</a>
+				<a class="permalink" href="#APIv2">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type APIv2 struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="New">func <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/types.go.html?s=215:259#L2">New</a>
+					<a class="permalink" href="#New">¶</a>
+					
+					
+				</h3>
+				<pre>func New(client *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#EcloudClient">EcloudClient</a>) *<a href="#APIv2">APIv2</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="APIv2.AddFirewallRules">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/firewall.go.html?s=77:111#L1">AddFirewallRules</a>
+					<a class="permalink" href="#APIv2.AddFirewallRules">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) AddFirewallRules()</pre>
+				<p>
+Deprecated: AddFirewallRules
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="APIv2.CloseRouterGateway">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/router.go.html?s=1306:1363#L54">CloseRouterGateway</a>
+					<a class="permalink" href="#APIv2.CloseRouterGateway">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) CloseRouterGateway(routerId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a></pre>
+				<p>
+Deprecated: CloseRouterGateway
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="APIv2.CreateNic">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/nic.go.html?s=110:182#L1">CreateNic</a>
+					<a class="permalink" href="#APIv2.CreateNic">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) CreateNic(ns *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#NicSpec">NicSpec</a>) (portId <a href="../../../../../builtin/#string">string</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.CreateSubnet">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/subnet.go.html?s=121:202#L1">CreateSubnet</a>
+					<a class="permalink" href="#APIv2.CreateSubnet">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) CreateSubnet(ss *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#SubnetSpec">SubnetSpec</a>) (networkId <a href="../../../../../builtin/#string">string</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.CreateVpc">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/vpc.go.html?s=185:265#L1">CreateVpc</a>
+					<a class="permalink" href="#APIv2.CreateVpc">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) CreateVpc(vs *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#VpcSpec">VpcSpec</a>) (result <a href="#VpcOrderResult">VpcOrderResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.DeleteFirewallRule">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/firewall.go.html?s=151:187#L1">DeleteFirewallRule</a>
+					<a class="permalink" href="#APIv2.DeleteFirewallRule">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) DeleteFirewallRule()</pre>
+				<p>
+Deprecated: DeleteFirewallRule
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="APIv2.DeleteNic">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/nic.go.html?s=1075:1121#L49">DeleteNic</a>
+					<a class="permalink" href="#APIv2.DeleteNic">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) DeleteNic(portId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.DeleteSubnet">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/subnet.go.html?s=1369:1421#L61">DeleteSubnet</a>
+					<a class="permalink" href="#APIv2.DeleteSubnet">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) DeleteSubnet(networkId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.DeleteVpc">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/vpc.go.html?s=1116:1161#L46">DeleteVpc</a>
+					<a class="permalink" href="#APIv2.DeleteVpc">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) DeleteVpc(vpcId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.FirewallBindRouter">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/firewall.go.html?s=457:547#L21">FirewallBindRouter</a>
+					<a class="permalink" href="#APIv2.FirewallBindRouter">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) FirewallBindRouter(firewallId, routerId <a href="../../../../../builtin/#string">string</a>) (result <a href="../../../../../builtin/#string">string</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				<p>
+Deprecated: FirewallBindRouter
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="APIv2.FirewallUnbindRouter">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/firewall.go.html?s=1015:1053#L49">FirewallUnbindRouter</a>
+					<a class="permalink" href="#APIv2.FirewallUnbindRouter">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) FirewallUnbindRouter()</pre>
+				<p>
+Deprecated: FirewallUnbindRouter
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetFirewallQuota">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/firewall.go.html?s=225:259#L6">GetFirewallQuota</a>
+					<a class="permalink" href="#APIv2.GetFirewallQuota">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetFirewallQuota()</pre>
+				<p>
+Deprecated: GetFirewallQuota
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetFirewallRulesList">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/firewall.go.html?s=301:339#L11">GetFirewallRulesList</a>
+					<a class="permalink" href="#APIv2.GetFirewallRulesList">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetFirewallRulesList()</pre>
+				<p>
+Deprecated: GetFirewallRulesList
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetNicDetail">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/nic.go.html?s=1354:1427#L62">GetNicDetail</a>
+					<a class="permalink" href="#APIv2.GetNicDetail">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetNicDetail(portId <a href="../../../../../builtin/#string">string</a>) (result <a href="#NicResult">NicResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetRouterInfo">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/router.go.html?s=481:560#L17">GetRouterInfo</a>
+					<a class="permalink" href="#APIv2.GetRouterInfo">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetRouterInfo(routerId <a href="../../../../../builtin/#string">string</a>) (result <a href="#RouterResult">RouterResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetRouterNetList">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/router.go.html?s=51:138#L1">GetRouterNetList</a>
+					<a class="permalink" href="#APIv2.GetRouterNetList">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetRouterNetList(routerId <a href="../../../../../builtin/#string">string</a>) (result []<a href="#RouterNetResult">RouterNetResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetSubnetInfo">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/subnet.go.html?s=2592:2671#L116">GetSubnetInfo</a>
+					<a class="permalink" href="#APIv2.GetSubnetInfo">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetSubnetInfo(subnetId <a href="../../../../../builtin/#string">string</a>) (result <a href="#SubnetResult">SubnetResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetSubnetList">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/subnet.go.html?s=2139:2221#L96">GetSubnetList</a>
+					<a class="permalink" href="#APIv2.GetSubnetList">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetSubnetList(networkId <a href="../../../../../builtin/#string">string</a>) (result []<a href="#SubnetResult">SubnetResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetVpcFirewall">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/vpc.go.html?s=3691:3765#L182">GetVpcFirewall</a>
+					<a class="permalink" href="#APIv2.GetVpcFirewall">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetVpcFirewall(routerId <a href="../../../../../builtin/#string">string</a>) (result <a href="../../../../../builtin/#string">string</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetVpcInfo">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/vpc.go.html?s=2299:2369#L108">GetVpcInfo</a>
+					<a class="permalink" href="#APIv2.GetVpcInfo">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetVpcInfo(vpcId <a href="../../../../../builtin/#string">string</a>) (result <a href="#VpcResult">VpcResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetVpcInfoByRouterId">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/vpc.go.html?s=2761:2844#L132">GetVpcInfoByRouterId</a>
+					<a class="permalink" href="#APIv2.GetVpcInfoByRouterId">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetVpcInfoByRouterId(routerId <a href="../../../../../builtin/#string">string</a>) (result <a href="#VpcResult">VpcResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetVpcList">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/vpc.go.html?s=1383:1544#L59">GetVpcList</a>
+					<a class="permalink" href="#APIv2.GetVpcList">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetVpcList(queryWord, region <a href="../../../../../builtin/#string">string</a>, natGatewayBind <a href="../../../../../builtin/#bool">bool</a>, scale <a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#VpcScale">VpcScale</a>, tagIds []<a href="../../../../../builtin/#string">string</a>, page, size <a href="../../../../../builtin/#int">int</a>) (result []<a href="#VpcResult">VpcResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetVpcNetwork">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/vpc.go.html?s=4025:4174#L199">GetVpcNetwork</a>
+					<a class="permalink" href="#APIv2.GetVpcNetwork">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetVpcNetwork(queryWord, routerId <a href="../../../../../builtin/#string">string</a>, cidrInRange, networkIdsInRange []<a href="../../../../../builtin/#string">string</a>, page, size <a href="../../../../../builtin/#int">int</a>) (result []<a href="#VpcNetResult">VpcNetResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetVpcNic">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/vpc.go.html?s=5330:5404#L260">GetVpcNic</a>
+					<a class="permalink" href="#APIv2.GetVpcNic">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetVpcNic(routerId <a href="../../../../../builtin/#string">string</a>) (result []<a href="#NicResult">NicResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetVpcVPN">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/vpc.go.html?s=5087:5159#L250">GetVpcVPN</a>
+					<a class="permalink" href="#APIv2.GetVpcVPN">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetVpcVPN(routerId <a href="../../../../../builtin/#string">string</a>) ([]<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/IPSecVpn/">IPSecVpn</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/IPSecVpn/#VpnResult">VpnResult</a>, <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.ModifyNicName">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/nic.go.html?s=1786:1846#L82">ModifyNicName</a>
+					<a class="permalink" href="#APIv2.ModifyNicName">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) ModifyNicName(portId, portName <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.ModifyNicSecurityGroup">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/nic.go.html?s=2219:2305#L104">ModifyNicSecurityGroup</a>
+					<a class="permalink" href="#APIv2.ModifyNicSecurityGroup">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) ModifyNicSecurityGroup(portId <a href="../../../../../builtin/#string">string</a>, securityGroupIds []<a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.ModifySubnetName">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/subnet.go.html?s=1659:1728#L74">ModifySubnetName</a>
+					<a class="permalink" href="#APIv2.ModifySubnetName">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) ModifySubnetName(networkId, networkName <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.ModifyVpcInfo">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/vpc.go.html?s=3242:3303#L156">ModifyVpcInfo</a>
+					<a class="permalink" href="#APIv2.ModifyVpcInfo">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) ModifyVpcInfo(vpcId, name, desc <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.OpenRouterGateway">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/router.go.html?s=955:1032#L38">OpenRouterGateway</a>
+					<a class="permalink" href="#APIv2.OpenRouterGateway">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) OpenRouterGateway(routerId <a href="../../../../../builtin/#string">string</a>) (result <a href="../../../../../builtin/#string">string</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				<p>
+Deprecated: OpenRouterGateway
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="APIv2.RouterAttachSubnet">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/router.go.html?s=1628:1664#L68">RouterAttachSubnet</a>
+					<a class="permalink" href="#APIv2.RouterAttachSubnet">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) RouterAttachSubnet()</pre>
+				<p>
+Deprecated: RouterAttachSubnet
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="APIv2.RouterDetachSubnet">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/router.go.html?s=1704:1740#L73">RouterDetachSubnet</a>
+					<a class="permalink" href="#APIv2.RouterDetachSubnet">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) RouterDetachSubnet()</pre>
+				<p>
+Deprecated: RouterDetachSubnet
+</p>
+
+				
+				
+				
+			
+				
+				<h3 id="APIv2.UpdateFirewallRules">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/firewall.go.html?s=380:417#L16">UpdateFirewallRules</a>
+					<a class="permalink" href="#APIv2.UpdateFirewallRules">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) UpdateFirewallRules()</pre>
+				<p>
+Deprecated: UpdateFirewallRules
+</p>
+
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="NicResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/types.go.html?s=5451:7235#L162">NicResult</a>
+				<a class="permalink" href="#NicResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type NicResult struct {
+<span id="NicResult.Id"></span>    Id              <a href="../../../../../builtin/#string">string</a>                   `json:&#34;id&#34;`
+<span id="NicResult.Name"></span>    Name            <a href="../../../../../builtin/#string">string</a>                   `json:&#34;name&#34;`
+<span id="NicResult.Status"></span>    Status          <a href="../../../../../builtin/#int">int</a>                      `json:&#34;status,omitempty&#34;`
+<span id="NicResult.AdminStateUp"></span>    AdminStateUp    interface{}              `json:&#34;adminStateUp&#34;`
+<span id="NicResult.MacAddress"></span>    MacAddress      <a href="../../../../../builtin/#string">string</a>                   `json:&#34;macAddress&#34;`
+<span id="NicResult.NetworkId"></span>    NetworkId       <a href="../../../../../builtin/#string">string</a>                   `json:&#34;networkId,omitempty&#34;`
+<span id="NicResult.ResourceId"></span>    ResourceId      <a href="../../../../../builtin/#string">string</a>                   `json:&#34;resourceId,omitempty&#34;`
+<span id="NicResult.ResourceName"></span>    ResourceName    <a href="../../../../../builtin/#string">string</a>                   `json:&#34;resourceName,omitempty&#34;`
+<span id="NicResult.FipBind"></span>    FipBind         <a href="../../../../../builtin/#bool">bool</a>                     `json:&#34;fipBind,omitempty&#34;`
+<span id="NicResult.OperationStatus"></span>    OperationStatus <a href="../../../../../builtin/#string">string</a>                   `json:&#34;operationStatus,omitempty&#34;`
+<span id="NicResult.Proposer"></span>    Proposer        <a href="../../../../../builtin/#string">string</a>                   `json:&#34;proposer,omitempty&#34;`
+<span id="NicResult.CustomerId"></span>    CustomerId      <a href="../../../../../builtin/#string">string</a>                   `json:&#34;customerId,omitempty&#34;`
+<span id="NicResult.PoolId"></span>    PoolId          <a href="../../../../../builtin/#string">string</a>                   `json:&#34;poolId,omitempty&#34;`
+<span id="NicResult.CreatedBy"></span>    CreatedBy       <a href="../../../../../builtin/#string">string</a>                   `json:&#34;createdBy,omitempty&#34;`
+<span id="NicResult.CreateTime"></span>    CreateTime      <a href="../../../../../builtin/#string">string</a>                   `json:&#34;createdTime,omitempty&#34;`
+<span id="NicResult.IsBasic"></span>    IsBasic         interface{}              `json:&#34;isBasic&#34; newtag:&#34;basic&#34;`
+<span id="NicResult.Source"></span>    Source          interface{}              `json:&#34;source&#34;`
+<span id="NicResult.AddressCheck"></span>    AddressCheck    <a href="../../../../../builtin/#bool">bool</a>                     `json:&#34;addressCheck,omitempty&#34;`
+<span id="NicResult.Region"></span>    Region          <a href="../../../../../builtin/#string">string</a>                   `json:&#34;region,omitempty&#34;`
+<span id="NicResult.HostName"></span>    HostName        <a href="../../../../../builtin/#string">string</a>                   `json:&#34;hostName,omitempty&#34;`
+<span id="NicResult.SecurityGroups"></span>    SecurityGroups  []map[<a href="../../../../../builtin/#string">string</a>]interface{} `json:&#34;securityGroups,omitempty&#34; newtag:&#34;sgIds&#34;`
+<span id="NicResult.FixedIps"></span>    FixedIps        []<a href="#ServerFixedIpDetail">ServerFixedIpDetail</a>    `json:&#34;fixedIps,omitempty&#34; newtag:&#34;fixedIpResps&#34;`
+<span id="NicResult.IpId"></span>    IpId            <a href="../../../../../builtin/#string">string</a>                   `json:&#34;ipId,omitempty&#34;`
+<span id="NicResult.PublicIp"></span>    PublicIp        <a href="../../../../../builtin/#string">string</a>                   `json:&#34;publicIp,omitempty&#34;`
+<span id="NicResult.BandWidthsize"></span>    BandWidthsize   <a href="../../../../../builtin/#string">string</a>                   `json:&#34;bandWidthsize,omitempty&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="RouterNetResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/types.go.html?s=4558:4808#L134">RouterNetResult</a>
+				<a class="permalink" href="#RouterNetResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type RouterNetResult struct {
+<span id="RouterNetResult.RouterId"></span>    RouterId   <a href="../../../../../builtin/#string">string</a> `json:&#34;routerId&#34;`
+<span id="RouterNetResult.SubnetId"></span>    SubnetId   <a href="../../../../../builtin/#string">string</a> `json:&#34;subnetId&#34;`
+<span id="RouterNetResult.SubnetName"></span>    SubnetName <a href="../../../../../builtin/#string">string</a> `json:&#34;subnetName&#34;`
+<span id="RouterNetResult.Cidr"></span>    Cidr       <a href="../../../../../builtin/#string">string</a> `json:&#34;cidr&#34;`
+<span id="RouterNetResult.GatewayIp"></span>    GatewayIp  <a href="../../../../../builtin/#string">string</a> `json:&#34;gatewayIP&#34;`
+<span id="RouterNetResult.PortId"></span>    PortId     <a href="../../../../../builtin/#string">string</a> `json:&#34;portId&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="RouterResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/types.go.html?s=3842:4556#L120">RouterResult</a>
+				<a class="permalink" href="#RouterResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type RouterResult struct {
+<span id="RouterResult.Id"></span>    Id                  <a href="../../../../../builtin/#string">string</a>              `json:&#34;id&#34;`
+<span id="RouterResult.Name"></span>    Name                <a href="../../../../../builtin/#string">string</a>              `json:&#34;name&#34;`
+<span id="RouterResult.CreateTime"></span>    CreateTime          <a href="../../../../../builtin/#string">string</a>              `json:&#34;createdTime&#34;`
+<span id="RouterResult.Deleted"></span>    Deleted             <a href="../../../../../builtin/#bool">bool</a>                `json:&#34;deleted&#34;`
+<span id="RouterResult.EcStatus"></span>    EcStatus            <a href="../../../../../builtin/#string">string</a>              `json:&#34;ecStatus&#34;`
+<span id="RouterResult.AdminStateUp"></span>    AdminStateUp        <a href="../../../../../builtin/#bool">bool</a>                `json:&#34;adminStateUp&#34;`
+<span id="RouterResult.ExternalGatewayInfo"></span>    ExternalGatewayInfo interface{}         `json:&#34;externalGatewayInfo,omitempty&#34;`
+<span id="RouterResult.ExternalNet"></span>    ExternalNet         <a href="../../../../../builtin/#string">string</a>              `json:&#34;externalNet,omitempty&#34;`
+<span id="RouterResult.SubnetIds"></span>    SubnetIds           []<a href="../../../../../builtin/#string">string</a>            `json:&#34;subnetIds&#34;`
+<span id="RouterResult.Routes"></span>    Routes              []map[<a href="../../../../../builtin/#string">string</a>]<a href="../../../../../builtin/#string">string</a> `json:&#34;routes,omitempty&#34;`
+<span id="RouterResult.Region"></span>    Region              <a href="../../../../../builtin/#string">string</a>              `json:&#34;region&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ServerFixedIpDetail">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/types.go.html?s=7478:8046#L201">ServerFixedIpDetail</a>
+				<a class="permalink" href="#ServerFixedIpDetail">¶</a>
+				
+				
+			</h2>
+			<p>
+绑定信息
+</p>
+<pre>IpAddress		内网ip
+IpVersion		v4/v6
+PublicIP		公网ip
+BandwidthSize		公网ip带宽（Mb）
+BandwidthType		带宽类型
+Ipv6BandwidthSize	Ipv6带宽值（Mb）
+SubnetId		子网id
+SubnetName		子网名称
+</pre>
+
+			<pre>type ServerFixedIpDetail struct {
+<span id="ServerFixedIpDetail.IpAddress"></span>    IpAddress         <a href="../../../../../builtin/#string">string</a> `json:&#34;ipAddress&#34;`
+<span id="ServerFixedIpDetail.IpVersion"></span>    IpVersion         <a href="../../../../../builtin/#int">int</a>    `json:&#34;ipVersion&#34;`
+<span id="ServerFixedIpDetail.PublicIP"></span>    PublicIP          <a href="../../../../../builtin/#string">string</a> `json:&#34;publicIP,omitempty&#34;`
+<span id="ServerFixedIpDetail.BandwidthSize"></span>    BandwidthSize     <a href="../../../../../builtin/#int">int</a>    `json:&#34;bandwidthSize,omitempty&#34;`
+<span id="ServerFixedIpDetail.BandwidthType"></span>    BandwidthType     <a href="../../../../../builtin/#string">string</a> `json:&#34;bandwidthType,omitempty&#34;`
+<span id="ServerFixedIpDetail.Ipv6BandwidthSize"></span>    Ipv6BandwidthSize <a href="../../../../../builtin/#int">int</a>    `json:&#34;ipv6BandwidthSize,omitempty&#34;`
+<span id="ServerFixedIpDetail.SubnetId"></span>    SubnetId          <a href="../../../../../builtin/#string">string</a> `json:&#34;subnetId&#34;`
+<span id="ServerFixedIpDetail.SubnetName"></span>    SubnetName        <a href="../../../../../builtin/#string">string</a> `json:&#34;subnetName,omitempty&#34;`
+<span id="ServerFixedIpDetail.SubnetCidr"></span>    SubnetCidr        <a href="../../../../../builtin/#string">string</a> `json:&#34;subnetCidr,omitempty&#34;`
+<span id="ServerFixedIpDetail.PortId"></span>    PortId            <a href="../../../../../builtin/#string">string</a> `json:&#34;portId,omitempty&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="SubnetResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/types.go.html?s=4810:5449#L143">SubnetResult</a>
+				<a class="permalink" href="#SubnetResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type SubnetResult struct {
+<span id="SubnetResult.Id"></span>    Id         <a href="../../../../../builtin/#string">string</a>   `json:&#34;id&#34;`
+<span id="SubnetResult.Name"></span>    Name       <a href="../../../../../builtin/#string">string</a>   `json:&#34;name&#34;`
+<span id="SubnetResult.NetworkId"></span>    NetworkId  <a href="../../../../../builtin/#string">string</a>   `json:&#34;networkId&#34;`
+<span id="SubnetResult.Cidr"></span>    Cidr       <a href="../../../../../builtin/#string">string</a>   `json:&#34;cidr&#34;`
+<span id="SubnetResult.IpVersion"></span>    IpVersion  <a href="../../../../../builtin/#int">int</a>      `json:&#34;ipVersion&#34;`
+<span id="SubnetResult.GatewayIP"></span>    GatewayIP  <a href="../../../../../builtin/#string">string</a>   `json:&#34;gatewayIp&#34;`
+<span id="SubnetResult.CreateTime"></span>    CreateTime <a href="../../../../../builtin/#string">string</a>   `json:&#34;createdTime&#34;`
+<span id="SubnetResult.Deleted"></span>    Deleted    <a href="../../../../../builtin/#bool">bool</a>     `json:&#34;deleted&#34;`
+<span id="SubnetResult.EnableDHCP"></span>    EnableDHCP <a href="../../../../../builtin/#bool">bool</a>     `json:&#34;enableDHCP,omitempty&#34;`
+<span id="SubnetResult.DnsNames"></span>    DnsNames   []<a href="../../../../../builtin/#string">string</a> `json:&#34;dnsNames,omitempty&#34;`
+<span id="SubnetResult.Pools"></span>    Pools      []struct {
+        Start <a href="../../../../../builtin/#string">string</a> `json:&#34;start&#34;`
+        End   <a href="../../../../../builtin/#string">string</a> `json:&#34;end&#34;`
+    } `json:&#34;pools,omitempty&#34;`
+<span id="SubnetResult.NetworkTypeEnum"></span>    NetworkTypeEnum <a href="../../../../../builtin/#string">string</a> `json:&#34;networkTypeEnum,omitempty&#34;`
+<span id="SubnetResult.Region"></span>    Region          <a href="../../../../../builtin/#string">string</a> `json:&#34;region&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="VPCInterface">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/types.go.html?s=288:2416#L6">VPCInterface</a>
+				<a class="permalink" href="#VPCInterface">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type VPCInterface interface {
+    <span class="comment">//创建VPC</span>
+    CreateVpc(spec *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#VpcSpec">VpcSpec</a>) (<a href="#VpcOrderResult">VpcOrderResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//退订VPC</span>
+    DeleteVpc(vpcId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a>
+
+    <span class="comment">/*
+        查看VPC列表
+            queryWord	查询关键字
+            natGatewayBind	VPC是否绑定了NAT网关
+            scale			VPC规格
+            region		可用区
+            tagIds		标签ID列表
+    */</span>
+    GetVpcList(queryWord, region <a href="../../../../../builtin/#string">string</a>, natGatewayBind <a href="../../../../../builtin/#bool">bool</a>, scale <a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#VpcScale">VpcScale</a>, tagIds []<a href="../../../../../builtin/#string">string</a>, page, size <a href="../../../../../builtin/#int">int</a>) ([]<a href="#VpcResult">VpcResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//根据vpcId查看VPC详情，包含路由详情</span>
+    GetVpcInfo(vpcId <a href="../../../../../builtin/#string">string</a>) (<a href="#VpcResult">VpcResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//根据routerId查看VPC详情</span>
+    GetVpcInfoByRouterId(routerId <a href="../../../../../builtin/#string">string</a>) (<a href="#VpcResult">VpcResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//更新VPC名称和描述信息</span>
+    ModifyVpcInfo(vpcId, name, desc <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a>
+
+    <span class="comment">//根据routerId查询VPC下防火墙</span>
+    GetVpcFirewall(routerId <a href="../../../../../builtin/#string">string</a>) (<a href="../../../../../builtin/#string">string</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//根据routerId查询VPC下的网络</span>
+    GetVpcNetwork(queryWord, routerId <a href="../../../../../builtin/#string">string</a>, cidrInRange, networkIdsInRange []<a href="../../../../../builtin/#string">string</a>, page, size <a href="../../../../../builtin/#int">int</a>) ([]<a href="#VpcNetResult">VpcNetResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//根据routerId查询VPC下IPSecVPN</span>
+    GetVpcVPN(routerId <a href="../../../../../builtin/#string">string</a>) ([]<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/IPSecVpn/">IPSecVpn</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/IPSecVpn/#VpnResult">VpnResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//根据routerId查询VPC下虚拟网卡</span>
+    GetVpcNic(routerId <a href="../../../../../builtin/#string">string</a>) ([]<a href="#NicResult">NicResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//创建虚拟网卡</span>
+    CreateNic(spec *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#NicSpec">NicSpec</a>) (<a href="../../../../../builtin/#string">string</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//删除虚拟网卡</span>
+    DeleteNic(portId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a>
+
+    <span class="comment">//查询虚拟网卡详情</span>
+    GetNicDetail(portId <a href="../../../../../builtin/#string">string</a>) (<a href="#NicResult">NicResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//修改虚拟网卡名称</span>
+    ModifyNicName(portId, portName <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a>
+
+    <span class="comment">//修改虚拟网卡安全组</span>
+    ModifyNicSecurityGroup(portId <a href="../../../../../builtin/#string">string</a>, securityGroupIds []<a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a>
+
+    <span class="comment">//查询路由器所关联的子网列表</span>
+    GetRouterNetList(routerId <a href="../../../../../builtin/#string">string</a>) ([]<a href="#RouterNetResult">RouterNetResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//查看路由器详情</span>
+    GetRouterInfo(routerId <a href="../../../../../builtin/#string">string</a>) (<a href="#RouterResult">RouterResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//创建子网</span>
+    CreateSubnet(spec *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#SubnetSpec">SubnetSpec</a>) (<a href="../../../../../builtin/#string">string</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//删除子网</span>
+    DeleteSubnet(networkId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a>
+
+    <span class="comment">//修改子网名称</span>
+    ModifySubnetName(networkId, networkName <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a>
+
+    <span class="comment">//根据networkId查询子网列表</span>
+    GetSubnetList(networkId <a href="../../../../../builtin/#string">string</a>) ([]<a href="#SubnetResult">SubnetResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//根据subnetId查询子网详情</span>
+    GetSubnetInfo(subnetId <a href="../../../../../builtin/#string">string</a>) (<a href="#SubnetResult">SubnetResult</a>, <a href="../../../../../builtin/#error">error</a>)
+}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="VpcNetResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/types.go.html?s=3266:3840#L106">VpcNetResult</a>
+				<a class="permalink" href="#VpcNetResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type VpcNetResult struct {
+<span id="VpcNetResult.Id"></span>    Id              <a href="../../../../../builtin/#string">string</a>         `json:&#34;id&#34;`
+<span id="VpcNetResult.Name"></span>    Name            <a href="../../../../../builtin/#string">string</a>         `json:&#34;name&#34;`
+<span id="VpcNetResult.Shared"></span>    Shared          <a href="../../../../../builtin/#bool">bool</a>           `json:&#34;shared&#34;`
+<span id="VpcNetResult.Enabled"></span>    Enabled         <a href="../../../../../builtin/#bool">bool</a>           `json:&#34;enabled&#34;`
+<span id="VpcNetResult.EcStatus"></span>    EcStatus        <a href="../../../../../builtin/#string">string</a>         `json:&#34;ecStatus&#34;`
+<span id="VpcNetResult.CreateTime"></span>    CreateTime      <a href="../../../../../builtin/#string">string</a>         `json:&#34;createdTime&#34;`
+<span id="VpcNetResult.Deleted"></span>    Deleted         <a href="../../../../../builtin/#bool">bool</a>           `json:&#34;deleted&#34;`
+<span id="VpcNetResult.OrderSource"></span>    OrderSource     <a href="../../../../../builtin/#string">string</a>         `json:&#34;orderSource&#34;`
+<span id="VpcNetResult.Subnets"></span>    Subnets         []<a href="#SubnetResult">SubnetResult</a> `json:&#34;subnets&#34;`
+<span id="VpcNetResult.NetworkTypeEnum"></span>    NetworkTypeEnum <a href="../../../../../builtin/#string">string</a>         `json:&#34;networkTypeEnum&#34;`
+<span id="VpcNetResult.Region"></span>    Region          <a href="../../../../../builtin/#string">string</a>         `json:&#34;region&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="VpcOrderResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/types.go.html?s=2418:2676#L81">VpcOrderResult</a>
+				<a class="permalink" href="#VpcOrderResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type VpcOrderResult struct {
+<span id="VpcOrderResult.OrderId"></span>    OrderId       <a href="../../../../../builtin/#string">string</a> `json:&#34;orderId&#34;`
+<span id="VpcOrderResult.OrderExtResps"></span>    OrderExtResps []struct {
+        ProductType    <a href="../../../../../builtin/#string">string</a> `json:&#34;productType&#34;`
+        OrderExtId     <a href="../../../../../builtin/#string">string</a> `json:&#34;orderExtId&#34;`
+        OrderExtStatus <a href="../../../../../builtin/#int">int</a>    `json:&#34;orderExtStatus&#34;`
+    } `json:&#34;orderExtResps&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="VpcResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/types.go.html?s=2678:3264#L90">VpcResult</a>
+				<a class="permalink" href="#VpcResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type VpcResult struct {
+<span id="VpcResult.Id"></span>    Id             <a href="../../../../../builtin/#string">string</a> `json:&#34;id&#34;`
+<span id="VpcResult.Name"></span>    Name           <a href="../../../../../builtin/#string">string</a> `json:&#34;name&#34;`
+<span id="VpcResult.Desc"></span>    Desc           <a href="../../../../../builtin/#string">string</a> `json:&#34;description,omitempty&#34;`
+<span id="VpcResult.CreateTime"></span>    CreateTime     <a href="../../../../../builtin/#string">string</a> `json:&#34;createdTime&#34;`
+<span id="VpcResult.RouterId"></span>    RouterId       <a href="../../../../../builtin/#string">string</a> `json:&#34;routerId&#34;`
+<span id="VpcResult.Deleted"></span>    Deleted        <a href="../../../../../builtin/#bool">bool</a>   `json:&#34;deleted&#34;`
+<span id="VpcResult.Scale"></span>    Scale          <a href="../../../../../builtin/#string">string</a> `json:&#34;scale&#34;`
+<span id="VpcResult.EcStatus"></span>    EcStatus       <a href="../../../../../builtin/#string">string</a> `json:&#34;ecStatus&#34;`
+<span id="VpcResult.AdminStateUp"></span>    AdminStateUp   <a href="../../../../../builtin/#bool">bool</a>   `json:&#34;adminStateUp&#34;`
+<span id="VpcResult.FirstNetworkId"></span>    FirstNetworkId <a href="../../../../../builtin/#string">string</a> `json:&#34;firstNetworkId,omitempty&#34;`
+<span id="VpcResult.UserId"></span>    UserId         <a href="../../../../../builtin/#string">string</a> `json:&#34;userId&#34;`
+<span id="VpcResult.UserName"></span>    UserName       <a href="../../../../../builtin/#string">string</a> `json:&#34;userName,omitempty&#34;`
+<span id="VpcResult.Region"></span>    Region         <a href="../../../../../builtin/#string">string</a> `json:&#34;region&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer"><a href="../../../../../docs.zip">Download docs.zip</a> to browse offline - Generated by <a href="https://godoc.org/golang.org/x/tools/godoc" target="_blank">godoc</a> + <a href="https://gitlab.com/tslocum/godoc-static" target="_blank">godoc-static</a></div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+
+
+</body></html>

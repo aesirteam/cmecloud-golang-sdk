@@ -1,0 +1,289 @@
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="theme-color" content="#375EAB"/>
+
+  <title>VirtualPrivateCloud - Documentation</title>
+
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="../../../../../../lib/style.css"/></head>
+<body>
+
+<div id="lowframe" style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="../../../../../../">Documentation</a></div>
+<div class="top-heading" id="heading-narrow"><a href="../../../../../../">Documentation</a></div>
+<!--<a href="#" id="menu-button"><span id="menu-button-arrow">▽</span></a>-->
+<div id="menu">
+<a href="../../../../../../" style="margin-right: 10px;">Package Index</a>
+</div>
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Source file
+    <a href="/src">src</a>/<a href="../../../../../../src/github.com.html">github.com</a>/<a href="../../../../../../src/github.com/aesirteam">aesirteam</a>/<a href="../../../../../../src/github.com/aesirteam/cmecloud-golang-sdk">cmecloud-golang-sdk</a>/<a href="../../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net">net</a>/<a href="../../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud">VirtualPrivateCloud</a>/<span class="text-muted">types.go</span>
+  </h1>
+
+
+
+
+
+  <h2>
+    Documentation: <a href="../../../../../../github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud">github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud</a>
+  </h2>
+
+
+
+<div id="nav"></div>
+
+
+
+<pre><span id="L1" class="ln">     1  </span>package VirtualPrivateCloud
+<span id="L2" class="ln">     2  </span>
+<span id="L3" class="ln">     3  </span>import (
+<span id="L4" class="ln">     4  </span>	&#34;github.com/aesirteam/cmecloud-golang-sdk/ecloud/global&#34;
+<span id="L5" class="ln">     5  </span>	&#34;github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/IPSecVpn&#34;
+<span id="L6" class="ln">     6  </span>)
+<span id="L7" class="ln">     7  </span>
+<span id="L8" class="ln">     8  </span>type APIv2 struct {
+<span id="L9" class="ln">     9  </span>	client *global.EcloudClient
+<span id="L10" class="ln">    10  </span>}
+<span id="L11" class="ln">    11  </span>
+<span id="L12" class="ln">    12  </span>func New(client *global.EcloudClient) *APIv2 {
+<span id="L13" class="ln">    13  </span>	return &amp;APIv2{client}
+<span id="L14" class="ln">    14  </span>}
+<span id="L15" class="ln">    15  </span>
+<span id="L16" class="ln">    16  </span>type VPCInterface interface {
+<span id="L17" class="ln">    17  </span>	<span class="comment">//创建VPC</span>
+<span id="L18" class="ln">    18  </span>	CreateVpc(spec *global.VpcSpec) (VpcOrderResult, error)
+<span id="L19" class="ln">    19  </span>
+<span id="L20" class="ln">    20  </span>	<span class="comment">//退订VPC</span>
+<span id="L21" class="ln">    21  </span>	DeleteVpc(vpcId string) error
+<span id="L22" class="ln">    22  </span>
+<span id="L23" class="ln">    23  </span>	<span class="comment">/*
+<span id="L24" class="ln">    24  </span>		查看VPC列表
+<span id="L25" class="ln">    25  </span>		    queryWord	查询关键字
+<span id="L26" class="ln">    26  </span>			natGatewayBind	VPC是否绑定了NAT网关
+<span id="L27" class="ln">    27  </span>			scale			VPC规格
+<span id="L28" class="ln">    28  </span>			region		可用区
+<span id="L29" class="ln">    29  </span>			tagIds		标签ID列表
+<span id="L30" class="ln">    30  </span>	*/</span>
+<span id="L31" class="ln">    31  </span>	GetVpcList(queryWord, region string, natGatewayBind bool, scale global.VpcScale, tagIds []string, page, size int) ([]VpcResult, error)
+<span id="L32" class="ln">    32  </span>
+<span id="L33" class="ln">    33  </span>	<span class="comment">//根据vpcId查看VPC详情，包含路由详情</span>
+<span id="L34" class="ln">    34  </span>	GetVpcInfo(vpcId string) (VpcResult, error)
+<span id="L35" class="ln">    35  </span>
+<span id="L36" class="ln">    36  </span>	<span class="comment">//根据routerId查看VPC详情</span>
+<span id="L37" class="ln">    37  </span>	GetVpcInfoByRouterId(routerId string) (VpcResult, error)
+<span id="L38" class="ln">    38  </span>
+<span id="L39" class="ln">    39  </span>	<span class="comment">//更新VPC名称和描述信息</span>
+<span id="L40" class="ln">    40  </span>	ModifyVpcInfo(vpcId, name, desc string) error
+<span id="L41" class="ln">    41  </span>
+<span id="L42" class="ln">    42  </span>	<span class="comment">//根据routerId查询VPC下防火墙</span>
+<span id="L43" class="ln">    43  </span>	GetVpcFirewall(routerId string) (string, error)
+<span id="L44" class="ln">    44  </span>
+<span id="L45" class="ln">    45  </span>	<span class="comment">//根据routerId查询VPC下的网络</span>
+<span id="L46" class="ln">    46  </span>	GetVpcNetwork(queryWord, routerId string, cidrInRange, networkIdsInRange []string, page, size int) ([]VpcNetResult, error)
+<span id="L47" class="ln">    47  </span>
+<span id="L48" class="ln">    48  </span>	<span class="comment">//根据routerId查询VPC下IPSecVPN</span>
+<span id="L49" class="ln">    49  </span>	GetVpcVPN(routerId string) ([]IPSecVpn.VpnResult, error)
+<span id="L50" class="ln">    50  </span>
+<span id="L51" class="ln">    51  </span>	<span class="comment">//根据routerId查询VPC下虚拟网卡</span>
+<span id="L52" class="ln">    52  </span>	GetVpcNic(routerId string) ([]NicResult, error)
+<span id="L53" class="ln">    53  </span>
+<span id="L54" class="ln">    54  </span>	<span class="comment">//创建虚拟网卡</span>
+<span id="L55" class="ln">    55  </span>	CreateNic(spec *global.NicSpec) (string, error)
+<span id="L56" class="ln">    56  </span>
+<span id="L57" class="ln">    57  </span>	<span class="comment">//删除虚拟网卡</span>
+<span id="L58" class="ln">    58  </span>	DeleteNic(portId string) error
+<span id="L59" class="ln">    59  </span>
+<span id="L60" class="ln">    60  </span>	<span class="comment">//查询虚拟网卡详情</span>
+<span id="L61" class="ln">    61  </span>	GetNicDetail(portId string) (NicResult, error)
+<span id="L62" class="ln">    62  </span>
+<span id="L63" class="ln">    63  </span>	<span class="comment">//修改虚拟网卡名称</span>
+<span id="L64" class="ln">    64  </span>	ModifyNicName(portId, portName string) error
+<span id="L65" class="ln">    65  </span>
+<span id="L66" class="ln">    66  </span>	<span class="comment">//修改虚拟网卡安全组</span>
+<span id="L67" class="ln">    67  </span>	ModifyNicSecurityGroup(portId string, securityGroupIds []string) error
+<span id="L68" class="ln">    68  </span>
+<span id="L69" class="ln">    69  </span>	<span class="comment">//查询路由器所关联的子网列表</span>
+<span id="L70" class="ln">    70  </span>	GetRouterNetList(routerId string) ([]RouterNetResult, error)
+<span id="L71" class="ln">    71  </span>
+<span id="L72" class="ln">    72  </span>	<span class="comment">//查看路由器详情</span>
+<span id="L73" class="ln">    73  </span>	GetRouterInfo(routerId string) (RouterResult, error)
+<span id="L74" class="ln">    74  </span>
+<span id="L75" class="ln">    75  </span>	<span class="comment">//创建子网</span>
+<span id="L76" class="ln">    76  </span>	CreateSubnet(spec *global.SubnetSpec) (string, error)
+<span id="L77" class="ln">    77  </span>
+<span id="L78" class="ln">    78  </span>	<span class="comment">//删除子网</span>
+<span id="L79" class="ln">    79  </span>	DeleteSubnet(networkId string) error
+<span id="L80" class="ln">    80  </span>
+<span id="L81" class="ln">    81  </span>	<span class="comment">//修改子网名称</span>
+<span id="L82" class="ln">    82  </span>	ModifySubnetName(networkId, networkName string) error
+<span id="L83" class="ln">    83  </span>
+<span id="L84" class="ln">    84  </span>	<span class="comment">//根据networkId查询子网列表</span>
+<span id="L85" class="ln">    85  </span>	GetSubnetList(networkId string) ([]SubnetResult, error)
+<span id="L86" class="ln">    86  </span>
+<span id="L87" class="ln">    87  </span>	<span class="comment">//根据subnetId查询子网详情</span>
+<span id="L88" class="ln">    88  </span>	GetSubnetInfo(subnetId string) (SubnetResult, error)
+<span id="L89" class="ln">    89  </span>}
+<span id="L90" class="ln">    90  </span>
+<span id="L91" class="ln">    91  </span>type VpcOrderResult struct {
+<span id="L92" class="ln">    92  </span>	OrderId       string `json:&#34;orderId&#34;`
+<span id="L93" class="ln">    93  </span>	OrderExtResps []struct {
+<span id="L94" class="ln">    94  </span>		ProductType    string `json:&#34;productType&#34;`
+<span id="L95" class="ln">    95  </span>		OrderExtId     string `json:&#34;orderExtId&#34;`
+<span id="L96" class="ln">    96  </span>		OrderExtStatus int    `json:&#34;orderExtStatus&#34;`
+<span id="L97" class="ln">    97  </span>	} `json:&#34;orderExtResps&#34;`
+<span id="L98" class="ln">    98  </span>}
+<span id="L99" class="ln">    99  </span>
+<span id="L100" class="ln">   100  </span>type VpcResult struct {
+<span id="L101" class="ln">   101  </span>	Id             string `json:&#34;id&#34;`
+<span id="L102" class="ln">   102  </span>	Name           string `json:&#34;name&#34;`
+<span id="L103" class="ln">   103  </span>	Desc           string `json:&#34;description,omitempty&#34;`
+<span id="L104" class="ln">   104  </span>	CreateTime     string `json:&#34;createdTime&#34;`
+<span id="L105" class="ln">   105  </span>	RouterId       string `json:&#34;routerId&#34;`
+<span id="L106" class="ln">   106  </span>	Deleted        bool   `json:&#34;deleted&#34;`
+<span id="L107" class="ln">   107  </span>	Scale          string `json:&#34;scale&#34;`
+<span id="L108" class="ln">   108  </span>	EcStatus       string `json:&#34;ecStatus&#34;`
+<span id="L109" class="ln">   109  </span>	AdminStateUp   bool   `json:&#34;adminStateUp&#34;`
+<span id="L110" class="ln">   110  </span>	FirstNetworkId string `json:&#34;firstNetworkId,omitempty&#34;`
+<span id="L111" class="ln">   111  </span>	UserId         string `json:&#34;userId&#34;`
+<span id="L112" class="ln">   112  </span>	UserName       string `json:&#34;userName,omitempty&#34;`
+<span id="L113" class="ln">   113  </span>	Region         string `json:&#34;region&#34;`
+<span id="L114" class="ln">   114  </span>}
+<span id="L115" class="ln">   115  </span>
+<span id="L116" class="ln">   116  </span>type VpcNetResult struct {
+<span id="L117" class="ln">   117  </span>	Id              string         `json:&#34;id&#34;`
+<span id="L118" class="ln">   118  </span>	Name            string         `json:&#34;name&#34;`
+<span id="L119" class="ln">   119  </span>	Shared          bool           `json:&#34;shared&#34;`
+<span id="L120" class="ln">   120  </span>	Enabled         bool           `json:&#34;enabled&#34;`
+<span id="L121" class="ln">   121  </span>	EcStatus        string         `json:&#34;ecStatus&#34;`
+<span id="L122" class="ln">   122  </span>	CreateTime      string         `json:&#34;createdTime&#34;`
+<span id="L123" class="ln">   123  </span>	Deleted         bool           `json:&#34;deleted&#34;`
+<span id="L124" class="ln">   124  </span>	OrderSource     string         `json:&#34;orderSource&#34;`
+<span id="L125" class="ln">   125  </span>	Subnets         []SubnetResult `json:&#34;subnets&#34;`
+<span id="L126" class="ln">   126  </span>	NetworkTypeEnum string         `json:&#34;networkTypeEnum&#34;`
+<span id="L127" class="ln">   127  </span>	Region          string         `json:&#34;region&#34;`
+<span id="L128" class="ln">   128  </span>}
+<span id="L129" class="ln">   129  </span>
+<span id="L130" class="ln">   130  </span>type RouterResult struct {
+<span id="L131" class="ln">   131  </span>	Id                  string              `json:&#34;id&#34;`
+<span id="L132" class="ln">   132  </span>	Name                string              `json:&#34;name&#34;`
+<span id="L133" class="ln">   133  </span>	CreateTime          string              `json:&#34;createdTime&#34;`
+<span id="L134" class="ln">   134  </span>	Deleted             bool                `json:&#34;deleted&#34;`
+<span id="L135" class="ln">   135  </span>	EcStatus            string              `json:&#34;ecStatus&#34;`
+<span id="L136" class="ln">   136  </span>	AdminStateUp        bool                `json:&#34;adminStateUp&#34;`
+<span id="L137" class="ln">   137  </span>	ExternalGatewayInfo interface{}         `json:&#34;externalGatewayInfo,omitempty&#34;`
+<span id="L138" class="ln">   138  </span>	ExternalNet         string              `json:&#34;externalNet,omitempty&#34;`
+<span id="L139" class="ln">   139  </span>	SubnetIds           []string            `json:&#34;subnetIds&#34;`
+<span id="L140" class="ln">   140  </span>	Routes              []map[string]string `json:&#34;routes,omitempty&#34;`
+<span id="L141" class="ln">   141  </span>	Region              string              `json:&#34;region&#34;`
+<span id="L142" class="ln">   142  </span>}
+<span id="L143" class="ln">   143  </span>
+<span id="L144" class="ln">   144  </span>type RouterNetResult struct {
+<span id="L145" class="ln">   145  </span>	RouterId   string `json:&#34;routerId&#34;`
+<span id="L146" class="ln">   146  </span>	SubnetId   string `json:&#34;subnetId&#34;`
+<span id="L147" class="ln">   147  </span>	SubnetName string `json:&#34;subnetName&#34;`
+<span id="L148" class="ln">   148  </span>	Cidr       string `json:&#34;cidr&#34;`
+<span id="L149" class="ln">   149  </span>	GatewayIp  string `json:&#34;gatewayIP&#34;`
+<span id="L150" class="ln">   150  </span>	PortId     string `json:&#34;portId&#34;`
+<span id="L151" class="ln">   151  </span>}
+<span id="L152" class="ln">   152  </span>
+<span id="L153" class="ln">   153  </span>type SubnetResult struct {
+<span id="L154" class="ln">   154  </span>	Id         string   `json:&#34;id&#34;`
+<span id="L155" class="ln">   155  </span>	Name       string   `json:&#34;name&#34;`
+<span id="L156" class="ln">   156  </span>	NetworkId  string   `json:&#34;networkId&#34;`
+<span id="L157" class="ln">   157  </span>	Cidr       string   `json:&#34;cidr&#34;`
+<span id="L158" class="ln">   158  </span>	IpVersion  int      `json:&#34;ipVersion&#34;`
+<span id="L159" class="ln">   159  </span>	GatewayIP  string   `json:&#34;gatewayIp&#34;`
+<span id="L160" class="ln">   160  </span>	CreateTime string   `json:&#34;createdTime&#34;`
+<span id="L161" class="ln">   161  </span>	Deleted    bool     `json:&#34;deleted&#34;`
+<span id="L162" class="ln">   162  </span>	EnableDHCP bool     `json:&#34;enableDHCP,omitempty&#34;`
+<span id="L163" class="ln">   163  </span>	DnsNames   []string `json:&#34;dnsNames,omitempty&#34;`
+<span id="L164" class="ln">   164  </span>	Pools      []struct {
+<span id="L165" class="ln">   165  </span>		Start string `json:&#34;start&#34;`
+<span id="L166" class="ln">   166  </span>		End   string `json:&#34;end&#34;`
+<span id="L167" class="ln">   167  </span>	} `json:&#34;pools,omitempty&#34;`
+<span id="L168" class="ln">   168  </span>	NetworkTypeEnum string `json:&#34;networkTypeEnum,omitempty&#34;`
+<span id="L169" class="ln">   169  </span>	Region          string `json:&#34;region&#34;`
+<span id="L170" class="ln">   170  </span>}
+<span id="L171" class="ln">   171  </span>
+<span id="L172" class="ln">   172  </span>type NicResult struct {
+<span id="L173" class="ln">   173  </span>	Id              string                   `json:&#34;id&#34;`
+<span id="L174" class="ln">   174  </span>	Name            string                   `json:&#34;name&#34;`
+<span id="L175" class="ln">   175  </span>	Status          int                      `json:&#34;status,omitempty&#34;`
+<span id="L176" class="ln">   176  </span>	AdminStateUp    interface{}              `json:&#34;adminStateUp&#34;`
+<span id="L177" class="ln">   177  </span>	MacAddress      string                   `json:&#34;macAddress&#34;`
+<span id="L178" class="ln">   178  </span>	NetworkId       string                   `json:&#34;networkId,omitempty&#34;`
+<span id="L179" class="ln">   179  </span>	ResourceId      string                   `json:&#34;resourceId,omitempty&#34;`
+<span id="L180" class="ln">   180  </span>	ResourceName    string                   `json:&#34;resourceName,omitempty&#34;`
+<span id="L181" class="ln">   181  </span>	FipBind         bool                     `json:&#34;fipBind,omitempty&#34;`
+<span id="L182" class="ln">   182  </span>	OperationStatus string                   `json:&#34;operationStatus,omitempty&#34;`
+<span id="L183" class="ln">   183  </span>	Proposer        string                   `json:&#34;proposer,omitempty&#34;`
+<span id="L184" class="ln">   184  </span>	CustomerId      string                   `json:&#34;customerId,omitempty&#34;`
+<span id="L185" class="ln">   185  </span>	PoolId          string                   `json:&#34;poolId,omitempty&#34;`
+<span id="L186" class="ln">   186  </span>	CreatedBy       string                   `json:&#34;createdBy,omitempty&#34;`
+<span id="L187" class="ln">   187  </span>	CreateTime      string                   `json:&#34;createdTime,omitempty&#34;`
+<span id="L188" class="ln">   188  </span>	IsBasic         interface{}              `json:&#34;isBasic&#34; newtag:&#34;basic&#34;`
+<span id="L189" class="ln">   189  </span>	Source          interface{}              `json:&#34;source&#34;`
+<span id="L190" class="ln">   190  </span>	AddressCheck    bool                     `json:&#34;addressCheck,omitempty&#34;`
+<span id="L191" class="ln">   191  </span>	Region          string                   `json:&#34;region,omitempty&#34;`
+<span id="L192" class="ln">   192  </span>	HostName        string                   `json:&#34;hostName,omitempty&#34;`
+<span id="L193" class="ln">   193  </span>	SecurityGroups  []map[string]interface{} `json:&#34;securityGroups,omitempty&#34; newtag:&#34;sgIds&#34;`
+<span id="L194" class="ln">   194  </span>	FixedIps        []ServerFixedIpDetail    `json:&#34;fixedIps,omitempty&#34; newtag:&#34;fixedIpResps&#34;`
+<span id="L195" class="ln">   195  </span>	IpId            string                   `json:&#34;ipId,omitempty&#34;`
+<span id="L196" class="ln">   196  </span>	PublicIp        string                   `json:&#34;publicIp,omitempty&#34;`
+<span id="L197" class="ln">   197  </span>	BandWidthsize   string                   `json:&#34;bandWidthsize,omitempty&#34;`
+<span id="L198" class="ln">   198  </span>}
+<span id="L199" class="ln">   199  </span>
+<span id="L200" class="ln">   200  </span><span class="comment">/*
+<span id="L201" class="ln">   201  </span>绑定信息
+<span id="L202" class="ln">   202  </span>  IpAddress		内网ip
+<span id="L203" class="ln">   203  </span>  IpVersion		v4/v6
+<span id="L204" class="ln">   204  </span>  PublicIP		公网ip
+<span id="L205" class="ln">   205  </span>  BandwidthSize		公网ip带宽（Mb）
+<span id="L206" class="ln">   206  </span>  BandwidthType		带宽类型
+<span id="L207" class="ln">   207  </span>  Ipv6BandwidthSize	Ipv6带宽值（Mb）
+<span id="L208" class="ln">   208  </span>  SubnetId		子网id
+<span id="L209" class="ln">   209  </span>  SubnetName		子网名称
+<span id="L210" class="ln">   210  </span>*/</span>
+<span id="L211" class="ln">   211  </span>type ServerFixedIpDetail struct {
+<span id="L212" class="ln">   212  </span>	IpAddress         string `json:&#34;ipAddress&#34;`
+<span id="L213" class="ln">   213  </span>	IpVersion         int    `json:&#34;ipVersion&#34;`
+<span id="L214" class="ln">   214  </span>	PublicIP          string `json:&#34;publicIP,omitempty&#34;`
+<span id="L215" class="ln">   215  </span>	BandwidthSize     int    `json:&#34;bandwidthSize,omitempty&#34;`
+<span id="L216" class="ln">   216  </span>	BandwidthType     string `json:&#34;bandwidthType,omitempty&#34;`
+<span id="L217" class="ln">   217  </span>	Ipv6BandwidthSize int    `json:&#34;ipv6BandwidthSize,omitempty&#34;`
+<span id="L218" class="ln">   218  </span>	SubnetId          string `json:&#34;subnetId&#34;`
+<span id="L219" class="ln">   219  </span>	SubnetName        string `json:&#34;subnetName,omitempty&#34;`
+<span id="L220" class="ln">   220  </span>	SubnetCidr        string `json:&#34;subnetCidr,omitempty&#34;`
+<span id="L221" class="ln">   221  </span>	PortId            string `json:&#34;portId,omitempty&#34;`
+<span id="L222" class="ln">   222  </span>}
+<span id="L223" class="ln">   223  </span>
+</pre><p><a href="../../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/VirtualPrivateCloud/types.go.html?m=text">View as plain text</a></p>
+
+<div id="footer"><a href="../../../../../../docs.zip">Download docs.zip</a> to browse offline - Generated by <a href="https://godoc.org/golang.org/x/tools/godoc" target="_blank">godoc</a> + <a href="https://gitlab.com/tslocum/godoc-static" target="_blank">godoc-static</a></div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+
+
+</body></html>

@@ -1,0 +1,441 @@
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="theme-color" content="#375EAB"/>
+
+  <title>CloudBlockStorage - Documentation</title>
+
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="../../../../../lib/style.css"/></head>
+<body>
+
+<div id="lowframe" style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="../../../../../">Documentation</a></div>
+<div class="top-heading" id="heading-narrow"><a href="../../../../../">Documentation</a></div>
+<!--<a href="#" id="menu-button"><span id="menu-button-arrow">▽</span></a>-->
+<div id="menu">
+<a href="../../../../../" style="margin-right: 10px;">Package Index</a>
+</div>
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package CloudBlockStorage
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import &#34;<a href="https://github.com/aesirteam/cmecloud-golang-sdk/tree/master/storage/CloudBlockStorage" target="_blank">github.com/aesirteam/cmecloud-golang-sdk/storage/CloudBlockStorage</a>&#34;</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+			
+			
+				
+				<dd><a href="#APIv2">type APIv2</a></dd>
+				
+					
+					<dd>    <a href="#New">func New(client *global.EcloudClient) *APIv2</a></dd>
+				
+				
+					
+					<dd>    <a href="#APIv2.CreateVolume">func (a *APIv2) CreateVolume(ss *global.CloudBlockStorageSpec) (result VolumeOrderResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.DeleteVolume">func (a *APIv2) DeleteVolume(volumeId string) (err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetVolumeInfo">func (a *APIv2) GetVolumeInfo(volumeId string) (result VolumeResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetVolumeList">func (a *APIv2) GetVolumeList(queryWord, volumeId string, showServer bool, tagIds []string, page, size int) (result []VolumeResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetVolumeTypeList">func (a *APIv2) GetVolumeTypeList(opType, region string) (result []VolumeTypeResult, err error)</a></dd>
+				
+			
+				
+				<dd><a href="#CBSInterface">type CBSInterface</a></dd>
+				
+				
+			
+				
+				<dd><a href="#VolumeOrderResult">type VolumeOrderResult</a></dd>
+				
+				
+			
+				
+				<dd><a href="#VolumeResult">type VolumeResult</a></dd>
+				
+				
+			
+				
+				<dd><a href="#VolumeTypeResult">type VolumeTypeResult</a></dd>
+				
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/storage/CloudBlockStorage/cbs.go.html">cbs.go</a>
+			
+				<a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/storage/CloudBlockStorage/types.go.html">types.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+		
+		
+			
+			
+			<h2 id="APIv2">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/storage/CloudBlockStorage/types.go.html?s=92:142#L1">APIv2</a>
+				<a class="permalink" href="#APIv2">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type APIv2 struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="New">func <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/storage/CloudBlockStorage/types.go.html?s=144:188#L1">New</a>
+					<a class="permalink" href="#New">¶</a>
+					
+					
+				</h3>
+				<pre>func New(client *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#EcloudClient">EcloudClient</a>) *<a href="#APIv2">APIv2</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="APIv2.CreateVolume">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/storage/CloudBlockStorage/cbs.go.html?s=119:219#L1">CreateVolume</a>
+					<a class="permalink" href="#APIv2.CreateVolume">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) CreateVolume(ss *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#CloudBlockStorageSpec">CloudBlockStorageSpec</a>) (result <a href="#VolumeOrderResult">VolumeOrderResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.DeleteVolume">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/storage/CloudBlockStorage/cbs.go.html?s=1669:1726#L73">DeleteVolume</a>
+					<a class="permalink" href="#APIv2.DeleteVolume">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) DeleteVolume(volumeId <a href="../../../../../builtin/#string">string</a>) (err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetVolumeInfo">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/storage/CloudBlockStorage/cbs.go.html?s=2909:2988#L136">GetVolumeInfo</a>
+					<a class="permalink" href="#APIv2.GetVolumeInfo">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetVolumeInfo(volumeId <a href="../../../../../builtin/#string">string</a>) (result <a href="#VolumeResult">VolumeResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetVolumeList">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/storage/CloudBlockStorage/cbs.go.html?s=2070:2212#L93">GetVolumeList</a>
+					<a class="permalink" href="#APIv2.GetVolumeList">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetVolumeList(queryWord, volumeId <a href="../../../../../builtin/#string">string</a>, showServer <a href="../../../../../builtin/#bool">bool</a>, tagIds []<a href="../../../../../builtin/#string">string</a>, page, size <a href="../../../../../builtin/#int">int</a>) (result []<a href="#VolumeResult">VolumeResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetVolumeTypeList">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/storage/CloudBlockStorage/cbs.go.html?s=3341:3436#L156">GetVolumeTypeList</a>
+					<a class="permalink" href="#APIv2.GetVolumeTypeList">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetVolumeTypeList(opType, region <a href="../../../../../builtin/#string">string</a>) (result []<a href="#VolumeTypeResult">VolumeTypeResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="CBSInterface">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/storage/CloudBlockStorage/types.go.html?s=217:776#L3">CBSInterface</a>
+				<a class="permalink" href="#CBSInterface">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type CBSInterface interface {
+    <span class="comment">// 云硬盘订购</span>
+    CreateVolume(spec *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#CloudBlockStorageSpec">CloudBlockStorageSpec</a>) (<a href="#VolumeOrderResult">VolumeOrderResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 查询云硬盘列表 (带硬盘的基本信息或主机信息)</span>
+    GetVolumeList(queryWord, volumeId <a href="../../../../../builtin/#string">string</a>, showServer <a href="../../../../../builtin/#bool">bool</a>, tagIds []<a href="../../../../../builtin/#string">string</a>, page, size <a href="../../../../../builtin/#int">int</a>) ([]<a href="#VolumeResult">VolumeResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 查询云硬盘详情</span>
+    GetVolumeInfo(volumeId <a href="../../../../../builtin/#string">string</a>) (<a href="#VolumeResult">VolumeResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 云硬盘退订</span>
+    DeleteVolume(volumeId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a>
+
+    <span class="comment">// 查询云硬盘的全量类型</span>
+    GetVolumeTypeList(opType, region <a href="../../../../../builtin/#string">string</a>) ([]<a href="#VolumeTypeResult">VolumeTypeResult</a>, <a href="../../../../../builtin/#error">error</a>)
+}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="VolumeOrderResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/storage/CloudBlockStorage/types.go.html?s=1188:1434#L31">VolumeOrderResult</a>
+				<a class="permalink" href="#VolumeOrderResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type VolumeOrderResult struct {
+<span id="VolumeOrderResult.ResourceId"></span>    ResourceId   <a href="../../../../../builtin/#string">string</a> `json:&#34;resourceId&#34;`
+<span id="VolumeOrderResult.ResourceType"></span>    ResourceType <a href="../../../../../builtin/#string">string</a> `json:&#34;resourceType&#34;`
+<span id="VolumeOrderResult.OrderId"></span>    OrderId      <a href="../../../../../builtin/#string">string</a> `json:&#34;orderId&#34;`
+<span id="VolumeOrderResult.OrderExtId"></span>    OrderExtId   <a href="../../../../../builtin/#string">string</a> `json:&#34;orderExtId&#34;`
+<span id="VolumeOrderResult.ReturnUrl"></span>    ReturnUrl    <a href="../../../../../builtin/#string">string</a> `json:&#34;returnUrl,omitempty&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="VolumeResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/storage/CloudBlockStorage/types.go.html?s=1436:2914#L39">VolumeResult</a>
+				<a class="permalink" href="#VolumeResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type VolumeResult struct {
+<span id="VolumeResult.Id"></span>    Id                <a href="../../../../../builtin/#string">string</a>   `json:&#34;id&#34;`
+<span id="VolumeResult.Name"></span>    Name              <a href="../../../../../builtin/#string">string</a>   `json:&#34;name&#34;`
+<span id="VolumeResult.Desc"></span>    Desc              <a href="../../../../../builtin/#string">string</a>   `json:&#34;description,omitempty&#34;`
+<span id="VolumeResult.Status"></span>    Status            <a href="../../../../../builtin/#string">string</a>   `json:&#34;status&#34;`
+<span id="VolumeResult.SourceVolumeId"></span>    SourceVolumeId    <a href="../../../../../builtin/#string">string</a>   `json:&#34;sourceVolumeId,omitempty&#34;`
+<span id="VolumeResult.AvailabilityZone"></span>    AvailabilityZone  <a href="../../../../../builtin/#string">string</a>   `json:&#34;availabilityZone,omitempty&#34;`
+<span id="VolumeResult.BackupId"></span>    BackupId          <a href="../../../../../builtin/#string">string</a>   `json:&#34;backupId,omitempty&#34;`
+<span id="VolumeResult.Size"></span>    Size              <a href="../../../../../builtin/#int">int</a>      `json:&#34;size&#34;`
+<span id="VolumeResult.VolumeType"></span>    VolumeType        <a href="../../../../../builtin/#string">string</a>   `json:&#34;volumeType&#34;`
+<span id="VolumeResult.Metadata"></span>    Metadata          <a href="../../../../../builtin/#string">string</a>   `json:&#34;metadata,omitempty&#34;`
+<span id="VolumeResult.CreatedTime"></span>    CreatedTime       <a href="../../../../../builtin/#string">string</a>   `json:&#34;createdTime&#34;`
+<span id="VolumeResult.IsDelete"></span>    IsDelete          <a href="../../../../../builtin/#bool">bool</a>     `json:&#34;isDelete&#34;`
+<span id="VolumeResult.OperationFlag"></span>    OperationFlag     <a href="../../../../../builtin/#string">string</a>   `json:&#34;operationFlag&#34;`
+<span id="VolumeResult.UserId"></span>    UserId            <a href="../../../../../builtin/#string">string</a>   `json:&#34;userId,omitempty&#34;`
+<span id="VolumeResult.Type"></span>    Type              <a href="../../../../../builtin/#string">string</a>   `json:&#34;type&#34;`
+<span id="VolumeResult.IsShare"></span>    IsShare           <a href="../../../../../builtin/#bool">bool</a>     `json:&#34;isShare&#34;`
+<span id="VolumeResult.ServerIds"></span>    ServerIds         []<a href="../../../../../builtin/#string">string</a> `json:&#34;serverIds,omitempty&#34;`
+<span id="VolumeResult.AttachServerTypes"></span>    AttachServerTypes []<a href="../../../../../builtin/#string">string</a> `json:&#34;attachServerTypes,omitempty&#34;`
+<span id="VolumeResult.AttachServers"></span>    AttachServers     []struct {
+        ServerId    <a href="../../../../../builtin/#string">string</a> `json:&#34;serverId&#34;`
+        ServerName  <a href="../../../../../builtin/#string">string</a> `json:&#34;serverName&#34;`
+        IsAuthority <a href="../../../../../builtin/#bool">bool</a>   `json:&#34;isAuthority&#34;`
+        ServerType  <a href="../../../../../builtin/#string">string</a> `json:&#34;serverType&#34;`
+<span id="VolumeResult.ProductType"></span>        ProductType <a href="../../../../../builtin/#string">string</a> `json:&#34;productType&#34;`
+    } `json:&#34;attachSevers,omitempty&#34;`
+<span id="VolumeResult.Iscsi"></span>    Iscsi       <a href="../../../../../builtin/#bool">bool</a>   `json:&#34;iscsi,omitempty&#34;`
+    ProductType <a href="../../../../../builtin/#string">string</a> `json:&#34;productType&#34;`
+<span id="VolumeResult.Region"></span>    Region      <a href="../../../../../builtin/#string">string</a> `json:&#34;region&#34;`
+<span id="VolumeResult.UserName"></span>    UserName    <a href="../../../../../builtin/#string">string</a> `json:&#34;userName,omitempty&#34;`
+<span id="VolumeResult.Recycle"></span>    Recycle     <a href="../../../../../builtin/#bool">bool</a>   `json:&#34;recycle&#34;`
+<span id="VolumeResult.RecycleTime"></span>    RecycleTime <a href="../../../../../builtin/#string">string</a> `json:&#34;recycleTime,omitempty&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="VolumeTypeResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/storage/CloudBlockStorage/types.go.html?s=778:1186#L20">VolumeTypeResult</a>
+				<a class="permalink" href="#VolumeTypeResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type VolumeTypeResult struct {
+<span id="VolumeTypeResult.CinderType"></span>    CinderType        <a href="../../../../../builtin/#string">string</a>   `json:&#34;cinderType&#34;`
+<span id="VolumeTypeResult.BackupType"></span>    BackupType        <a href="../../../../../builtin/#string">string</a>   `json:&#34;backupType&#34;`
+<span id="VolumeTypeResult.Priority"></span>    Priority          <a href="../../../../../builtin/#int">int</a>      `json:&#34;priority&#34;`
+<span id="VolumeTypeResult.AttachServerTypes"></span>    AttachServerTypes []<a href="../../../../../builtin/#string">string</a> `json:&#34;attachServerTypes&#34;`
+<span id="VolumeTypeResult.OpType"></span>    OpType            <a href="../../../../../builtin/#string">string</a>   `json:&#34;opType&#34;`
+<span id="VolumeTypeResult.CustomBack"></span>    CustomBack        <a href="../../../../../builtin/#bool">bool</a>     `json:&#34;customBack&#34;`
+<span id="VolumeTypeResult.Iscsi"></span>    Iscsi             <a href="../../../../../builtin/#bool">bool</a>     `json:&#34;iscsi&#34;`
+<span id="VolumeTypeResult.Region"></span>    Region            <a href="../../../../../builtin/#string">string</a>   `json:&#34;region&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer"><a href="../../../../../docs.zip">Download docs.zip</a> to browse offline - Generated by <a href="https://godoc.org/golang.org/x/tools/godoc" target="_blank">godoc</a> + <a href="https://gitlab.com/tslocum/godoc-static" target="_blank">godoc-static</a></div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+
+
+</body></html>

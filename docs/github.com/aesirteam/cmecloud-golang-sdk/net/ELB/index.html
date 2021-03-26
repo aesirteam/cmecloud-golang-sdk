@@ -1,0 +1,679 @@
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="theme-color" content="#375EAB"/>
+
+  <title>ELB - Documentation</title>
+
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="../../../../../lib/style.css"/></head>
+<body>
+
+<div id="lowframe" style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="../../../../../">Documentation</a></div>
+<div class="top-heading" id="heading-narrow"><a href="../../../../../">Documentation</a></div>
+<!--<a href="#" id="menu-button"><span id="menu-button-arrow">▽</span></a>-->
+<div id="menu">
+<a href="../../../../../" style="margin-right: 10px;">Package Index</a>
+</div>
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package ELB
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import &#34;<a href="https://github.com/aesirteam/cmecloud-golang-sdk/tree/master/net/ELB" target="_blank">github.com/aesirteam/cmecloud-golang-sdk/net/ELB</a>&#34;</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+			
+			
+				
+				<dd><a href="#APIv2">type APIv2</a></dd>
+				
+					
+					<dd>    <a href="#New">func New(client *global.EcloudClient) *APIv2</a></dd>
+				
+				
+					
+					<dd>    <a href="#APIv2.AddELBMember">func (a *APIv2) AddELBMember(ms *global.ELBMemberSpec) (result string, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.CreateELB">func (a *APIv2) CreateELB(es *global.ELBSpec) (result ELBOrderResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.CreateELBListener">func (a *APIv2) CreateELBListener(el *global.ELBListenerSpec) (result string, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.DeleteELB">func (a *APIv2) DeleteELB(loadBalanceId string) error</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.DeleteELBListener">func (a *APIv2) DeleteELBListener(listenerId string) (err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.DeleteELBMember">func (a *APIv2) DeleteELBMember(poolId, memberId string) (err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetELBList">func (a *APIv2) GetELBList(queryWord, routerId, networkId string, fipBind, visible bool, page, size int) (result []ELBResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetELBListenerInfo">func (a *APIv2) GetELBListenerInfo(listenerId string) (result ELBListenerResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetELBListenerList">func (a *APIv2) GetELBListenerList(loadbalanceId string) (result []ELBListenerResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetELBMemberInfo">func (a *APIv2) GetELBMemberInfo(poolId, memberId string) (result ELBMemberResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetELBMemberList">func (a *APIv2) GetELBMemberList(poolId string) (result []ELBMemberResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetELBQuota">func (a *APIv2) GetELBQuota() (result ELBQuotaResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.ModifyELBListenerName">func (a *APIv2) ModifyELBListenerName(el *global.ELBListenerSpec) (err error)</a></dd>
+				
+			
+				
+				<dd><a href="#ELBInterface">type ELBInterface</a></dd>
+				
+				
+			
+				
+				<dd><a href="#ELBListenerResult">type ELBListenerResult</a></dd>
+				
+				
+			
+				
+				<dd><a href="#ELBMemberResult">type ELBMemberResult</a></dd>
+				
+				
+			
+				
+				<dd><a href="#ELBOrderResult">type ELBOrderResult</a></dd>
+				
+				
+			
+				
+				<dd><a href="#ELBQuotaResult">type ELBQuotaResult</a></dd>
+				
+				
+			
+				
+				<dd><a href="#ELBResult">type ELBResult</a></dd>
+				
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/ELB/elb.go.html">elb.go</a>
+			
+				<a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/ELB/types.go.html">types.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+		
+		
+			
+			
+			<h2 id="APIv2">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/ELB/types.go.html?s=78:128#L1">APIv2</a>
+				<a class="permalink" href="#APIv2">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type APIv2 struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="New">func <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/ELB/types.go.html?s=130:174#L1">New</a>
+					<a class="permalink" href="#New">¶</a>
+					
+					
+				</h3>
+				<pre>func New(client *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#EcloudClient">EcloudClient</a>) *<a href="#APIv2">APIv2</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="APIv2.AddELBMember">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/ELB/elb.go.html?s=5095:5176#L233">AddELBMember</a>
+					<a class="permalink" href="#APIv2.AddELBMember">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) AddELBMember(ms *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#ELBMemberSpec">ELBMemberSpec</a>) (result <a href="../../../../../builtin/#string">string</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.CreateELB">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/ELB/elb.go.html?s=105:185#L1">CreateELB</a>
+					<a class="permalink" href="#APIv2.CreateELB">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) CreateELB(es *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#ELBSpec">ELBSpec</a>) (result <a href="#ELBOrderResult">ELBOrderResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.CreateELBListener">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/ELB/elb.go.html?s=2207:2295#L106">CreateELBListener</a>
+					<a class="permalink" href="#APIv2.CreateELBListener">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) CreateELBListener(el *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#ELBListenerSpec">ELBListenerSpec</a>) (result <a href="../../../../../builtin/#string">string</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.DeleteELB">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/ELB/elb.go.html?s=1993:2046#L97">DeleteELB</a>
+					<a class="permalink" href="#APIv2.DeleteELB">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) DeleteELB(loadBalanceId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.DeleteELBListener">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/ELB/elb.go.html?s=4775:4839#L218">DeleteELBListener</a>
+					<a class="permalink" href="#APIv2.DeleteELBListener">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) DeleteELBListener(listenerId <a href="../../../../../builtin/#string">string</a>) (err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.DeleteELBMember">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/ELB/elb.go.html?s=7084:7152#L332">DeleteELBMember</a>
+					<a class="permalink" href="#APIv2.DeleteELBMember">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) DeleteELBMember(poolId, memberId <a href="../../../../../builtin/#string">string</a>) (err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetELBList">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/ELB/elb.go.html?s=911:1047#L37">GetELBList</a>
+					<a class="permalink" href="#APIv2.GetELBList">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetELBList(queryWord, routerId, networkId <a href="../../../../../builtin/#string">string</a>, fipBind, visible <a href="../../../../../builtin/#bool">bool</a>, page, size <a href="../../../../../builtin/#int">int</a>) (result []<a href="#ELBResult">ELBResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetELBListenerInfo">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/ELB/elb.go.html?s=4240:4331#L194">GetELBListenerInfo</a>
+					<a class="permalink" href="#APIv2.GetELBListenerInfo">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetELBListenerInfo(listenerId <a href="../../../../../builtin/#string">string</a>) (result <a href="#ELBListenerResult">ELBListenerResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetELBListenerList">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/ELB/elb.go.html?s=3774:3870#L174">GetELBListenerList</a>
+					<a class="permalink" href="#APIv2.GetELBListenerList">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetELBListenerList(loadbalanceId <a href="../../../../../builtin/#string">string</a>) (result []<a href="#ELBListenerResult">ELBListenerResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetELBMemberInfo">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/ELB/elb.go.html?s=6543:6636#L307">GetELBMemberInfo</a>
+					<a class="permalink" href="#APIv2.GetELBMemberInfo">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetELBMemberInfo(poolId, memberId <a href="../../../../../builtin/#string">string</a>) (result <a href="#ELBMemberResult">ELBMemberResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetELBMemberList">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/ELB/elb.go.html?s=6106:6191#L287">GetELBMemberList</a>
+					<a class="permalink" href="#APIv2.GetELBMemberList">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetELBMemberList(poolId <a href="../../../../../builtin/#string">string</a>) (result []<a href="#ELBMemberResult">ELBMemberResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetELBQuota">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/ELB/elb.go.html?s=1687:1751#L82">GetELBQuota</a>
+					<a class="permalink" href="#APIv2.GetELBQuota">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetELBQuota() (result <a href="#ELBQuotaResult">ELBQuotaResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.ModifyELBListenerName">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/ELB/elb.go.html?s=4684:4761#L214">ModifyELBListenerName</a>
+					<a class="permalink" href="#APIv2.ModifyELBListenerName">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) ModifyELBListenerName(el *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#ELBListenerSpec">ELBListenerSpec</a>) (err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="ELBInterface">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/ELB/types.go.html?s=203:1569#L3">ELBInterface</a>
+				<a class="permalink" href="#ELBInterface">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type ELBInterface interface {
+    <span class="comment">// 创建弹性负载均衡</span>
+    CreateELB(es *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#ELBSpec">ELBSpec</a>) (<a href="#ELBOrderResult">ELBOrderResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 查看弹性负载均衡列表</span>
+    GetELBList(queryWord, routerId, networkId <a href="../../../../../builtin/#string">string</a>, fipBind, visible <a href="../../../../../builtin/#bool">bool</a>, page, size <a href="../../../../../builtin/#int">int</a>) ([]<a href="#ELBResult">ELBResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 查看弹性负载均衡配额情况</span>
+    GetELBQuota() (<a href="#ELBQuotaResult">ELBQuotaResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//  删除弹性负载均衡</span>
+    DeleteELB(loadBalanceId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a>
+
+    <span class="comment">// 创建弹性负载均衡监听器</span>
+    CreateELBListener(el *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#ELBListenerSpec">ELBListenerSpec</a>) (<a href="../../../../../builtin/#string">string</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 查看弹性负载均衡监听器列表</span>
+    GetELBListenerList(loadbalanceId <a href="../../../../../builtin/#string">string</a>) ([]<a href="#ELBListenerResult">ELBListenerResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 查看弹性负载均衡监听器详情</span>
+    GetELBListenerInfo(listenerId <a href="../../../../../builtin/#string">string</a>) (<a href="#ELBListenerResult">ELBListenerResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 修改弹性负载均衡监听器名称</span>
+    ModifyELBListenerName(el *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#ELBListenerSpec">ELBListenerSpec</a>) <a href="../../../../../builtin/#error">error</a>
+
+    <span class="comment">// 删除弹性负载均衡监听器</span>
+    DeleteELBListener(listenerId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a>
+
+    <span class="comment">// 向弹性负载均衡添加业务主机</span>
+    AddELBMember(ms *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#ELBMemberSpec">ELBMemberSpec</a>) (<a href="../../../../../builtin/#string">string</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 查看弹性负载均衡中的业务主机列表</span>
+    GetELBMemberList(poolId <a href="../../../../../builtin/#string">string</a>) ([]<a href="#ELBMemberResult">ELBMemberResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 查看弹性负载均衡中的业务主机详情</span>
+    GetELBMemberInfo(poolId, memberId <a href="../../../../../builtin/#string">string</a>) (<a href="#ELBMemberResult">ELBMemberResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 从弹性负载均衡中删除一台业务主机</span>
+    DeleteELBMember(poolId, memberId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a>
+}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ELBListenerResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/ELB/types.go.html?s=2834:4831#L83">ELBListenerResult</a>
+				<a class="permalink" href="#ELBListenerResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type ELBListenerResult struct {
+<span id="ELBListenerResult.Id"></span>    Id                     <a href="../../../../../builtin/#string">string</a> `json:&#34;id&#34;`
+<span id="ELBListenerResult.Name"></span>    Name                   <a href="../../../../../builtin/#string">string</a> `json:&#34;name&#34;`
+<span id="ELBListenerResult.Desc"></span>    Desc                   <a href="../../../../../builtin/#string">string</a> `json:&#34;description,omitempty&#34;`
+<span id="ELBListenerResult.CreateTime"></span>    CreateTime             <a href="../../../../../builtin/#string">string</a> `json:&#34;createdTime&#34;`
+<span id="ELBListenerResult.ModifiedTime"></span>    ModifiedTime           <a href="../../../../../builtin/#string">string</a> `json:&#34;modifiedTime&#34;`
+<span id="ELBListenerResult.Deleted"></span>    Deleted                <a href="../../../../../builtin/#bool">bool</a>   `json:&#34;deleted&#34;`
+<span id="ELBListenerResult.OpStatus"></span>    OpStatus               <a href="../../../../../builtin/#string">string</a> `json:&#34;opStatus&#34;`
+<span id="ELBListenerResult.LoadbalanceId"></span>    LoadbalanceId          <a href="../../../../../builtin/#string">string</a> `json:&#34;loadbalanceId&#34;`
+<span id="ELBListenerResult.PoolId"></span>    PoolId                 <a href="../../../../../builtin/#string">string</a> `json:&#34;poolId&#34;`
+<span id="ELBListenerResult.PoolName"></span>    PoolName               <a href="../../../../../builtin/#string">string</a> `json:&#34;poolName&#34;`
+<span id="ELBListenerResult.Protocol"></span>    Protocol               <a href="../../../../../builtin/#string">string</a> `json:&#34;protocol&#34;`
+<span id="ELBListenerResult.ProtocolPort"></span>    ProtocolPort           <a href="../../../../../builtin/#int">int</a>    `json:&#34;protocolPort&#34;`
+<span id="ELBListenerResult.ConnectionLimit"></span>    ConnectionLimit        <a href="../../../../../builtin/#int">int</a>    `json:&#34;connectionLimit&#34;`
+<span id="ELBListenerResult.Algorithm"></span>    Algorithm              <a href="../../../../../builtin/#string">string</a> `json:&#34;lbAlgorithm&#34;`
+<span id="ELBListenerResult.SessionPersistence"></span>    SessionPersistence     <a href="../../../../../builtin/#string">string</a> `json:&#34;sessionPersistence,omitempty&#34;`
+<span id="ELBListenerResult.HealthId"></span>    HealthId               <a href="../../../../../builtin/#string">string</a> `json:&#34;healthId&#34;`
+<span id="ELBListenerResult.HealthType"></span>    HealthType             <a href="../../../../../builtin/#string">string</a> `json:&#34;healthType,omitempty&#34;`
+<span id="ELBListenerResult.HealthDelay"></span>    HealthDelay            <a href="../../../../../builtin/#int">int</a>    `json:&#34;healthDelay&#34;`
+<span id="ELBListenerResult.HealthMaxRetries"></span>    HealthMaxRetries       <a href="../../../../../builtin/#int">int</a>    `json:&#34;healthMaxRetries&#34;`
+<span id="ELBListenerResult.HealthTimeout"></span>    HealthTimeout          <a href="../../../../../builtin/#int">int</a>    `json:&#34;healthTimeout&#34;`
+<span id="ELBListenerResult.HealthHttpMethod"></span>    HealthHttpMethod       <a href="../../../../../builtin/#string">string</a> `json:&#34;healthHttpMethod,omitempty&#34;`
+<span id="ELBListenerResult.HealthUrlPath"></span>    HealthUrlPath          <a href="../../../../../builtin/#string">string</a> `json:&#34;healthUrlPath,omitempty&#34;`
+<span id="ELBListenerResult.HealthExpectedCode"></span>    HealthExpectedCode     <a href="../../../../../builtin/#string">string</a> `json:&#34;healthExpectedCode,omitempty&#34;`
+<span id="ELBListenerResult.CookieName"></span>    CookieName             <a href="../../../../../builtin/#string">string</a> `json:&#34;cookieName,omitempty&#34;`
+<span id="ELBListenerResult.DefaultTlsContainerId"></span>    DefaultTlsContainerId  <a href="../../../../../builtin/#string">string</a> `json:&#34;defaultTlsContainerId,omitempty&#34;`
+<span id="ELBListenerResult.MutualAuthenticationUp"></span>    MutualAuthenticationUp <a href="../../../../../builtin/#bool">bool</a>   `json:&#34;mutualAuthenticationUp&#34;`
+<span id="ELBListenerResult.CaContainerId"></span>    CaContainerId          <a href="../../../../../builtin/#string">string</a> `json:&#34;caContainerId,omitempty&#34;`
+<span id="ELBListenerResult.ControlGroupId"></span>    ControlGroupId         <a href="../../../../../builtin/#string">string</a> `json:&#34;controlGroupId,omitempty&#34;`
+<span id="ELBListenerResult.GroupType"></span>    GroupType              <a href="../../../../../builtin/#string">string</a> `json:&#34;groupType,omitempty&#34;`
+<span id="ELBListenerResult.GroupEnabled"></span>    GroupEnabled           <a href="../../../../../builtin/#string">string</a> `json:&#34;groupEnabled,omitempty&#34;`
+<span id="ELBListenerResult.GroupName"></span>    GroupName              <a href="../../../../../builtin/#string">string</a> `json:&#34;groupName,omitempty&#34;`
+<span id="ELBListenerResult.LoadBalanceFlavor"></span>    LoadBalanceFlavor      <a href="../../../../../builtin/#int">int</a>    `json:&#34;loadBalanceFlavor&#34;`
+<span id="ELBListenerResult.RedirectToListenerId"></span>    RedirectToListenerId   <a href="../../../../../builtin/#string">string</a> `json:&#34;redirectToListenerId,omitempty&#34;`
+<span id="ELBListenerResult.RedirectToListenerName"></span>    RedirectToListenerName <a href="../../../../../builtin/#string">string</a> `json:&#34;redirectToListenerName,omitempty&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ELBMemberResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/ELB/types.go.html?s=4833:5508#L120">ELBMemberResult</a>
+				<a class="permalink" href="#ELBMemberResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type ELBMemberResult struct {
+<span id="ELBMemberResult.Id"></span>    Id           <a href="../../../../../builtin/#string">string</a> `json:&#34;id&#34;`
+<span id="ELBMemberResult.Desc"></span>    Desc         <a href="../../../../../builtin/#string">string</a> `json:&#34;description,omitempty&#34;`
+<span id="ELBMemberResult.CreateTime"></span>    CreateTime   <a href="../../../../../builtin/#string">string</a> `json:&#34;createdTime&#34;`
+<span id="ELBMemberResult.Status"></span>    Status       <a href="../../../../../builtin/#string">string</a> `json:&#34;status,omitempty&#34;`
+<span id="ELBMemberResult.Ip"></span>    Ip           <a href="../../../../../builtin/#string">string</a> `json:&#34;ip&#34;`
+<span id="ELBMemberResult.Port"></span>    Port         <a href="../../../../../builtin/#int">int</a>    `json:&#34;port&#34;`
+<span id="ELBMemberResult.HealthStatus"></span>    HealthStatus <a href="../../../../../builtin/#string">string</a> `json:&#34;healthStatus&#34;`
+<span id="ELBMemberResult.PoolId"></span>    PoolId       <a href="../../../../../builtin/#string">string</a> `json:&#34;poolId&#34;`
+<span id="ELBMemberResult.SubnetId"></span>    SubnetId     <a href="../../../../../builtin/#string">string</a> `json:&#34;subnetId&#34;`
+<span id="ELBMemberResult.VmHostId"></span>    VmHostId     <a href="../../../../../builtin/#string">string</a> `json:&#34;vmHostId&#34;`
+<span id="ELBMemberResult.VmName"></span>    VmName       <a href="../../../../../builtin/#string">string</a> `json:&#34;vmName,omitempty&#34;`
+<span id="ELBMemberResult.Weight"></span>    Weight       <a href="../../../../../builtin/#int">int</a>    `json:&#34;weight&#34;`
+<span id="ELBMemberResult.Type"></span>    Type         <a href="../../../../../builtin/#int">int</a>    `json:&#34;type&#34;`
+<span id="ELBMemberResult.Proposer"></span>    Proposer     <a href="../../../../../builtin/#string">string</a> `json:&#34;proposer&#34;`
+<span id="ELBMemberResult.IsDeleted"></span>    IsDeleted    <a href="../../../../../builtin/#int">int</a>    `json:&#34;isDelete&#34;`
+<span id="ELBMemberResult.Region"></span>    Region       <a href="../../../../../builtin/#string">string</a> `json:&#34;region,omitempty&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ELBOrderResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/ELB/types.go.html?s=1571:1829#L44">ELBOrderResult</a>
+				<a class="permalink" href="#ELBOrderResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type ELBOrderResult struct {
+<span id="ELBOrderResult.OrderId"></span>    OrderId       <a href="../../../../../builtin/#string">string</a> `json:&#34;orderId&#34;`
+<span id="ELBOrderResult.OrderExtResps"></span>    OrderExtResps []struct {
+        ProductType    <a href="../../../../../builtin/#string">string</a> `json:&#34;productType&#34;`
+        OrderExtId     <a href="../../../../../builtin/#string">string</a> `json:&#34;orderExtId&#34;`
+        OrderExtStatus <a href="../../../../../builtin/#int">int</a>    `json:&#34;orderExtStatus&#34;`
+    } `json:&#34;orderExtResps&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ELBQuotaResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/ELB/types.go.html?s=2731:2832#L78">ELBQuotaResult</a>
+				<a class="permalink" href="#ELBQuotaResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type ELBQuotaResult struct {
+<span id="ELBQuotaResult.UsedQuota"></span>    UsedQuota  <a href="../../../../../builtin/#int">int</a> `json:&#34;usedQuota&#34;`
+<span id="ELBQuotaResult.TotalQuota"></span>    TotalQuota <a href="../../../../../builtin/#int">int</a> `json:&#34;totalQuota&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ELBResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/ELB/types.go.html?s=1831:2729#L53">ELBResult</a>
+				<a class="permalink" href="#ELBResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type ELBResult struct {
+<span id="ELBResult.Id"></span>    Id           <a href="../../../../../builtin/#string">string</a> `json:&#34;id&#34;`
+<span id="ELBResult.Name"></span>    Name         <a href="../../../../../builtin/#string">string</a> `json:&#34;name&#34;`
+<span id="ELBResult.SubnetId"></span>    SubnetId     <a href="../../../../../builtin/#string">string</a> `json:&#34;subnetId&#34;`
+<span id="ELBResult.PrivateIp"></span>    PrivateIp    <a href="../../../../../builtin/#string">string</a> `json:&#34;privateIp&#34;`
+<span id="ELBResult.VipPortId"></span>    VipPortId    <a href="../../../../../builtin/#string">string</a> `json:&#34;vipPortId&#34;`
+<span id="ELBResult.Desc"></span>    Desc         <a href="../../../../../builtin/#string">string</a> `json:&#34;description,omitempty&#34;`
+<span id="ELBResult.EcStatus"></span>    EcStatus     <a href="../../../../../builtin/#string">string</a> `json:&#34;ecStatus&#34;`
+<span id="ELBResult.CreateTime"></span>    CreateTime   <a href="../../../../../builtin/#string">string</a> `json:&#34;createdTime&#34;`
+<span id="ELBResult.Proposer"></span>    Proposer     <a href="../../../../../builtin/#string">string</a> `json:&#34;proposer&#34;`
+<span id="ELBResult.AdminStateUp"></span>    AdminStateUp <a href="../../../../../builtin/#bool">bool</a>   `json:&#34;adminStateUp&#34;`
+<span id="ELBResult.Deleted"></span>    Deleted      <a href="../../../../../builtin/#bool">bool</a>   `json:&#34;deleted&#34;`
+<span id="ELBResult.Visible"></span>    Visible      <a href="../../../../../builtin/#bool">bool</a>   `json:&#34;visible&#34;`
+<span id="ELBResult.Region"></span>    Region       <a href="../../../../../builtin/#string">string</a> `json:&#34;region&#34;`
+<span id="ELBResult.Provider"></span>    Provider     <a href="../../../../../builtin/#string">string</a> `jsson:&#34;provider&#34;`
+<span id="ELBResult.Flavor"></span>    Flavor       <a href="../../../../../builtin/#int">int</a>    `json:&#34;flavor&#34;`
+<span id="ELBResult.UserName"></span>    UserName     <a href="../../../../../builtin/#string">string</a> `json:&#34;userName&#34;`
+<span id="ELBResult.FloatingIpId"></span>    FloatingIpId <a href="../../../../../builtin/#string">string</a> `json:&#34;ipId,omitempty&#34;`
+<span id="ELBResult.PublicIp"></span>    PublicIp     <a href="../../../../../builtin/#string">string</a> `json:&#34;publicIp&#34;`
+<span id="ELBResult.RouterId"></span>    RouterId     <a href="../../../../../builtin/#string">string</a> `json:&#34;routerId&#34;`
+<span id="ELBResult.IpVersion"></span>    IpVersion    <a href="../../../../../builtin/#int">int</a>    `json:&#34;ipVersion&#34;`
+<span id="ELBResult.SubnetName"></span>    SubnetName   <a href="../../../../../builtin/#string">string</a> `json:&#34;subnetName&#34;`
+<span id="ELBResult.VpcName"></span>    VpcName      <a href="../../../../../builtin/#string">string</a> `json:&#34;vpcName&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer"><a href="../../../../../docs.zip">Download docs.zip</a> to browse offline - Generated by <a href="https://godoc.org/golang.org/x/tools/godoc" target="_blank">godoc</a> + <a href="https://gitlab.com/tslocum/godoc-static" target="_blank">godoc-static</a></div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+
+
+</body></html>

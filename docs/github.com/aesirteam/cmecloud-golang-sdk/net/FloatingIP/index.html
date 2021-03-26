@@ -1,0 +1,507 @@
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="theme-color" content="#375EAB"/>
+
+  <title>FloatingIP - Documentation</title>
+
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="../../../../../lib/style.css"/></head>
+<body>
+
+<div id="lowframe" style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="../../../../../">Documentation</a></div>
+<div class="top-heading" id="heading-narrow"><a href="../../../../../">Documentation</a></div>
+<!--<a href="#" id="menu-button"><span id="menu-button-arrow">▽</span></a>-->
+<div id="menu">
+<a href="../../../../../" style="margin-right: 10px;">Package Index</a>
+</div>
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package FloatingIP
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import &#34;<a href="https://github.com/aesirteam/cmecloud-golang-sdk/tree/master/net/FloatingIP" target="_blank">github.com/aesirteam/cmecloud-golang-sdk/net/FloatingIP</a>&#34;</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+			
+			
+				
+				<dd><a href="#APIv2">type APIv2</a></dd>
+				
+					
+					<dd>    <a href="#New">func New(client *global.EcloudClient) *APIv2</a></dd>
+				
+				
+					
+					<dd>    <a href="#APIv2.AttachFloatingIp">func (a *APIv2) AttachFloatingIp(bindType global.FloatingIpBindType, ipId, resourceId, portId string) error</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.CreateFloatingIp">func (a *APIv2) CreateFloatingIp(fs *global.FloatingIpSpec) (result FloatingIpOrderResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.DetachFloatingIp">func (a *APIv2) DetachFloatingIp(ipId string) error</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetFloatingIpDetail">func (a *APIv2) GetFloatingIpDetail(ipId string) (result FloatingIpResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetFloatingIpList">func (a *APIv2) GetFloatingIpList(queryWord, routerId, natGatewayId string, bound, frozen, openIpv6Converter, availableForSbw bool, tagIds []string, page, size int) (result []FloatingIpResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetFloatingIpQuotaWithK">func (a *APIv2) GetFloatingIpQuotaWithK() (result FloatingIpQuotaResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetFloatingIpQuotaWithP">func (a *APIv2) GetFloatingIpQuotaWithP(quotaName global.FloatingIpQuotaName, resourceId string) (result FloatingIpQuotaResult, err error)</a></dd>
+				
+			
+				
+				<dd><a href="#FIPInterface">type FIPInterface</a></dd>
+				
+				
+			
+				
+				<dd><a href="#FloatingIpOrderResult">type FloatingIpOrderResult</a></dd>
+				
+				
+			
+				
+				<dd><a href="#FloatingIpQuotaResult">type FloatingIpQuotaResult</a></dd>
+				
+				
+			
+				
+				<dd><a href="#FloatingIpResult">type FloatingIpResult</a></dd>
+				
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/FloatingIP/floatingIP.go.html">floatingIP.go</a>
+			
+				<a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/FloatingIP/types.go.html">types.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+		
+		
+			
+			
+			<h2 id="APIv2">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/FloatingIP/types.go.html?s=85:135#L1">APIv2</a>
+				<a class="permalink" href="#APIv2">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type APIv2 struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="New">func <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/FloatingIP/types.go.html?s=137:181#L1">New</a>
+					<a class="permalink" href="#New">¶</a>
+					
+					
+				</h3>
+				<pre>func New(client *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#EcloudClient">EcloudClient</a>) *<a href="#APIv2">APIv2</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="APIv2.AttachFloatingIp">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/FloatingIP/floatingIP.go.html?s=3914:4021#L174">AttachFloatingIp</a>
+					<a class="permalink" href="#APIv2.AttachFloatingIp">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) AttachFloatingIp(bindType <a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#FloatingIpBindType">FloatingIpBindType</a>, ipId, resourceId, portId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.CreateFloatingIp">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/FloatingIP/floatingIP.go.html?s=112:213#L1">CreateFloatingIp</a>
+					<a class="permalink" href="#APIv2.CreateFloatingIp">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) CreateFloatingIp(fs *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#FloatingIpSpec">FloatingIpSpec</a>) (result <a href="#FloatingIpOrderResult">FloatingIpOrderResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.DetachFloatingIp">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/FloatingIP/floatingIP.go.html?s=4583:4634#L205">DetachFloatingIp</a>
+					<a class="permalink" href="#APIv2.DetachFloatingIp">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) DetachFloatingIp(ipId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetFloatingIpDetail">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/FloatingIP/floatingIP.go.html?s=2658:2743#L117">GetFloatingIpDetail</a>
+					<a class="permalink" href="#APIv2.GetFloatingIpDetail">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetFloatingIpDetail(ipId <a href="../../../../../builtin/#string">string</a>) (result <a href="#FloatingIpResult">FloatingIpResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetFloatingIpList">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/FloatingIP/floatingIP.go.html?s=1562:1765#L58">GetFloatingIpList</a>
+					<a class="permalink" href="#APIv2.GetFloatingIpList">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetFloatingIpList(queryWord, routerId, natGatewayId <a href="../../../../../builtin/#string">string</a>, bound, frozen, openIpv6Converter, availableForSbw <a href="../../../../../builtin/#bool">bool</a>, tagIds []<a href="../../../../../builtin/#string">string</a>, page, size <a href="../../../../../builtin/#int">int</a>) (result []<a href="#FloatingIpResult">FloatingIpResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetFloatingIpQuotaWithK">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/FloatingIP/floatingIP.go.html?s=3082:3165#L137">GetFloatingIpQuotaWithK</a>
+					<a class="permalink" href="#APIv2.GetFloatingIpQuotaWithK">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetFloatingIpQuotaWithK() (result <a href="#FloatingIpQuotaResult">FloatingIpQuotaResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetFloatingIpQuotaWithP">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/FloatingIP/floatingIP.go.html?s=3415:3553#L153">GetFloatingIpQuotaWithP</a>
+					<a class="permalink" href="#APIv2.GetFloatingIpQuotaWithP">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetFloatingIpQuotaWithP(quotaName <a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#FloatingIpQuotaName">FloatingIpQuotaName</a>, resourceId <a href="../../../../../builtin/#string">string</a>) (result <a href="#FloatingIpQuotaResult">FloatingIpQuotaResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="FIPInterface">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/FloatingIP/types.go.html?s=210:1523#L3">FIPInterface</a>
+				<a class="permalink" href="#FIPInterface">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type FIPInterface interface {
+    <span class="comment">// 订购弹性公网IP和带宽</span>
+    CreateFloatingIp(fs *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#FloatingIpSpec">FloatingIpSpec</a>) (<a href="#FloatingIpOrderResult">FloatingIpOrderResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">/*
+        查看IP带宽的列表
+          queryWord	查询关键字
+          routerId	共享带宽所在VPC的routerId
+          natGatewayId	Nat网关Id
+          bound	绑定或未绑定
+          frozen	冻结或未冻结
+          openIpv6Converter	是否开通IPv6转换
+          availableForSbw	公网IP是否可加入到共享带宽
+          tagIds	标签Id列表
+    */</span>
+    GetFloatingIpList(queryWord, routerId, natGatewayId <a href="../../../../../builtin/#string">string</a>, bound, frozen, openIpv6Converter, availableForSbw <a href="../../../../../builtin/#bool">bool</a>, tagIds []<a href="../../../../../builtin/#string">string</a>, page, size <a href="../../../../../builtin/#int">int</a>) ([]<a href="#FloatingIpResult">FloatingIpResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//  查看公网IP详情</span>
+    GetFloatingIpDetail(ipId <a href="../../../../../builtin/#string">string</a>) (<a href="#FloatingIpResult">FloatingIpResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 查看IP带宽配额 (k版)</span>
+    GetFloatingIpQuotaWithK() (<a href="#FloatingIpQuotaResult">FloatingIpQuotaResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 查看IP带宽配额 (p版)</span>
+    GetFloatingIpQuotaWithP(quotaName <a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#FloatingIpQuotaName">FloatingIpQuotaName</a>, resourceId <a href="../../../../../builtin/#string">string</a>) (<a href="#FloatingIpQuotaResult">FloatingIpQuotaResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">/*
+        弹性公网IP绑定资源
+          bindType	浮动ip绑定类型
+          ipId	浮动ip Id
+          resourceId	资源id
+          portId	虚拟网卡id (仅绑定类型为vm时需设置)
+    */</span>
+    AttachFloatingIp(bindType <a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#FloatingIpBindType">FloatingIpBindType</a>, ipId, resourceId, portId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a>
+
+    <span class="comment">//  弹性公网IP解绑资源</span>
+    DetachFloatingIp(ipId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a>
+}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="FloatingIpOrderResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/FloatingIP/types.go.html?s=1525:1954#L42">FloatingIpOrderResult</a>
+				<a class="permalink" href="#FloatingIpOrderResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type FloatingIpOrderResult struct {
+<span id="FloatingIpOrderResult.OrderId"></span>    OrderId       <a href="../../../../../builtin/#string">string</a> `json:&#34;orderId&#34;`
+<span id="FloatingIpOrderResult.OrderExtResps"></span>    OrderExtResps []struct {
+        ProductType       <a href="../../../../../builtin/#string">string</a> `json:&#34;productType&#34;`
+        OrderExtId        <a href="../../../../../builtin/#string">string</a> `json:&#34;orderExtId&#34;`
+        OrderExtStatus    <a href="../../../../../builtin/#int">int</a>    `json:&#34;orderExtStatus&#34;`
+        RelProductType    <a href="../../../../../builtin/#string">string</a> `json:&#34;relProductType&#34;`
+        RelOrderExtId     <a href="../../../../../builtin/#string">string</a> `json:&#34;relOrderExtId&#34;`
+        RelOrderExtStatus <a href="../../../../../builtin/#int">int</a>    `json:&#34;relOrderExtStatus&#34;`
+    } `json:&#34;orderExtResps&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="FloatingIpQuotaResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/FloatingIP/types.go.html?s=4142:4649#L95">FloatingIpQuotaResult</a>
+				<a class="permalink" href="#FloatingIpQuotaResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type FloatingIpQuotaResult struct {
+    <span class="comment">// k-Version</span>
+<span id="FloatingIpQuotaResult.TotalIPNum"></span>    TotalIPNum          <a href="../../../../../builtin/#int">int</a> `json:&#34;totalIPNum,omitempty&#34;`
+<span id="FloatingIpQuotaResult.UsedIPNum"></span>    UsedIPNum           <a href="../../../../../builtin/#int">int</a> `json:&#34;usedIPNum,omitempty&#34;`
+<span id="FloatingIpQuotaResult.TotalBandWidthNum"></span>    TotalBandWidthNum   <a href="../../../../../builtin/#int">int</a> `json:&#34;totalBandWidthNum,omitempty&#34;`
+<span id="FloatingIpQuotaResult.UsedBandWidthNum"></span>    UsedBandWidthNum    <a href="../../../../../builtin/#int">int</a> `json:&#34;usedBandWidthNum,omitempty&#34;`
+<span id="FloatingIpQuotaResult.TotalBandWidthValue"></span>    TotalBandWidthValue <a href="../../../../../builtin/#int">int</a> `json:&#34;totalBandWidthValue,omitempty&#34;`
+<span id="FloatingIpQuotaResult.UsedBandWidthValue"></span>    UsedBandWidthValue  <a href="../../../../../builtin/#int">int</a> `json:&#34;usedBandWidthValue,omitempty&#34;`
+
+    <span class="comment">// p-Version</span>
+<span id="FloatingIpQuotaResult.Quantity"></span>    Quantity <a href="../../../../../builtin/#int">int</a> `json:&#34;quantity,omitempty&#34;`
+<span id="FloatingIpQuotaResult.Remain"></span>    Remain   <a href="../../../../../builtin/#int">int</a> `json:&#34;remain,omitempty&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="FloatingIpResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/FloatingIP/types.go.html?s=1956:4140#L54">FloatingIpResult</a>
+				<a class="permalink" href="#FloatingIpResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type FloatingIpResult struct {
+<span id="FloatingIpResult.Id"></span>    Id                         <a href="../../../../../builtin/#string">string</a> `json:&#34;id&#34;`
+<span id="FloatingIpResult.Ipv4"></span>    Ipv4                       <a href="../../../../../builtin/#string">string</a> `json:&#34;name&#34;`
+<span id="FloatingIpResult.Desc"></span>    Desc                       <a href="../../../../../builtin/#string">string</a> `json:&#34;description,omitempty&#34;`
+<span id="FloatingIpResult.Ipv6"></span>    Ipv6                       <a href="../../../../../builtin/#string">string</a> `json:&#34;ipv6,omitempty&#34;`
+<span id="FloatingIpResult.IpType"></span>    IpType                     <a href="../../../../../builtin/#string">string</a> `json:&#34;ipType&#34;`
+<span id="FloatingIpResult.ChargeModeEnum"></span>    ChargeModeEnum             <a href="../../../../../builtin/#string">string</a> `json:&#34;chargeModeEnum&#34;`
+<span id="FloatingIpResult.IcpStatus"></span>    IcpStatus                  <a href="../../../../../builtin/#string">string</a> `json:&#34;icpStatus&#34;`
+<span id="FloatingIpResult.Status"></span>    Status                     <a href="../../../../../builtin/#string">string</a> `json:&#34;status&#34;`
+<span id="FloatingIpResult.BandwidthSize"></span>    BandwidthSize              <a href="../../../../../builtin/#int">int</a>    `json:&#34;bandwidthSize&#34;`
+<span id="FloatingIpResult.BandwidthType"></span>    BandwidthType              <a href="../../../../../builtin/#string">string</a> `json:&#34;bandwidthType&#34;`
+<span id="FloatingIpResult.BandwidthId"></span>    BandwidthId                <a href="../../../../../builtin/#string">string</a> `json:&#34;bandwidthId&#34;`
+<span id="FloatingIpResult.BandwidthMbSize"></span>    BandwidthMbSize            <a href="../../../../../builtin/#int">int</a>    `json:&#34;bandwidthMbSize&#34;`
+<span id="FloatingIpResult.Visible"></span>    Visible                    <a href="../../../../../builtin/#bool">bool</a>   `json:&#34;visible&#34;`
+<span id="FloatingIpResult.DummyFip"></span>    DummyFip                   <a href="../../../../../builtin/#string">string</a> `json:&#34;dummyFip,omitempty&#34;`
+<span id="FloatingIpResult.Region"></span>    Region                     <a href="../../../../../builtin/#string">string</a> `json:&#34;region&#34;`
+<span id="FloatingIpResult.OrderVersion"></span>    OrderVersion               <a href="../../../../../builtin/#string">string</a> `json:&#34;orderVersion,omitempty&#34;`
+<span id="FloatingIpResult.OrderType"></span>    OrderType                  <a href="../../../../../builtin/#string">string</a> `json:&#34;orderType,omitempty&#34;`
+<span id="FloatingIpResult.BindType"></span>    BindType                   <a href="../../../../../builtin/#string">string</a> `json:&#34;bindType,omitempty&#34;`
+<span id="FloatingIpResult.ResourceId"></span>    ResourceId                 <a href="../../../../../builtin/#string">string</a> `json:&#34;resourceId,omitempty&#34;`
+<span id="FloatingIpResult.ResourceName"></span>    ResourceName               <a href="../../../../../builtin/#string">string</a> `json:&#34;resourceName,omitempty&#34;`
+<span id="FloatingIpResult.PortNetworkId"></span>    PortNetworkId              <a href="../../../../../builtin/#string">string</a> `json:&#34;portNetworkId,omitempty&#34;`
+<span id="FloatingIpResult.NicName"></span>    NicName                    <a href="../../../../../builtin/#string">string</a> `json:&#34;nicName,omitempty&#34;`
+<span id="FloatingIpResult.Frozen"></span>    Frozen                     <a href="../../../../../builtin/#bool">bool</a>   `json:&#34;frozen&#34;`
+<span id="FloatingIpResult.Bound"></span>    Bound                      <a href="../../../../../builtin/#bool">bool</a>   `json:&#34;bound&#34;`
+<span id="FloatingIpResult.Occupy"></span>    Occupy                     <a href="../../../../../builtin/#bool">bool</a>   `json:&#34;occupy&#34;`
+<span id="FloatingIpResult.RouterId"></span>    RouterId                   <a href="../../../../../builtin/#string">string</a> `json:&#34;routerId,omitempty&#34;`
+<span id="FloatingIpResult.UserId"></span>    UserId                     <a href="../../../../../builtin/#string">string</a> `json:&#34;userId&#34;`
+<span id="FloatingIpResult.UserName"></span>    UserName                   <a href="../../../../../builtin/#string">string</a> `json:&#34;userName&#34;`
+<span id="FloatingIpResult.CreatedTime"></span>    CreatedTime                <a href="../../../../../builtin/#string">string</a> `json:&#34;createdTime&#34;`
+<span id="FloatingIpResult.ChargingMode"></span>    ChargingMode               <a href="../../../../../builtin/#string">string</a> `json:&#34;chargingMode,omitempty&#34;`
+<span id="FloatingIpResult.FloatingIpBindResourceResp"></span>    FloatingIpBindResourceResp *struct {
+        ResourceName <a href="../../../../../builtin/#string">string</a> `json:&#34;resourceName,omitempty&#34;`
+        NetworkId    <a href="../../../../../builtin/#string">string</a> `json:&#34;networkId,omitempty&#34;`
+        RouterId     <a href="../../../../../builtin/#string">string</a> `json:&#34;routerId,omitempty&#34;`
+        SubnetId     <a href="../../../../../builtin/#string">string</a> `json:&#34;subnetId,omitempty&#34;`
+        PortId       <a href="../../../../../builtin/#string">string</a> `json:&#34;portId,omitempty&#34;`
+    } `json:&#34;floatingIpBindResourceResp,omitempty&#34;`
+<span id="FloatingIpResult.NatGatewayDnatRuleResps"></span>    NatGatewayDnatRuleResps interface{} `json:&#34;natGatewayDnatRuleResps,omitempty&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer"><a href="../../../../../docs.zip">Download docs.zip</a> to browse offline - Generated by <a href="https://godoc.org/golang.org/x/tools/godoc" target="_blank">godoc</a> + <a href="https://gitlab.com/tslocum/godoc-static" target="_blank">godoc-static</a></div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+
+
+</body></html>

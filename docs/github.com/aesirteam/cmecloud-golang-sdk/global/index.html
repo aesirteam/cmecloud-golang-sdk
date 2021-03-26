@@ -1,0 +1,2319 @@
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="theme-color" content="#375EAB"/>
+
+  <title>global - Documentation</title>
+
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="../../../../lib/style.css"/></head>
+<body>
+
+<div id="lowframe" style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="../../../../">Documentation</a></div>
+<div class="top-heading" id="heading-narrow"><a href="../../../../">Documentation</a></div>
+<!--<a href="#" id="menu-button"><span id="menu-button-arrow">▽</span></a>-->
+<div id="menu">
+<a href="../../../../" style="margin-right: 10px;">Package Index</a>
+</div>
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package global
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import &#34;<a href="https://github.com/aesirteam/cmecloud-golang-sdk/tree/master/global" target="_blank">github.com/aesirteam/cmecloud-golang-sdk/global</a>&#34;</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+				<dd><a href="#pkg-constants">Constants</a></dd>
+			
+			
+			
+				
+				<dd><a href="#Dump">func Dump(a interface{}) string</a></dd>
+			
+				
+				<dd><a href="#RsaEncrypt">func RsaEncrypt(origData []byte) ([]byte, error)</a></dd>
+			
+			
+				
+				<dd><a href="#BillingType">type BillingType</a></dd>
+				
+				
+					
+					<dd>    <a href="#BillingType.String">func (b BillingType) String() string</a></dd>
+				
+			
+				
+				<dd><a href="#BootVolumeType">type BootVolumeType</a></dd>
+				
+				
+					
+					<dd>    <a href="#BootVolumeType.String">func (b BootVolumeType) String() string</a></dd>
+				
+			
+				
+				<dd><a href="#CloudBlockStorageSpec">type CloudBlockStorageSpec</a></dd>
+				
+				
+			
+				
+				<dd><a href="#Config">type Config</a></dd>
+				
+				
+			
+				
+				<dd><a href="#DataVolumeType">type DataVolumeType</a></dd>
+				
+				
+					
+					<dd>    <a href="#DataVolumeType.String">func (d DataVolumeType) String() string</a></dd>
+				
+			
+				
+				<dd><a href="#ELBListenerSpec">type ELBListenerSpec</a></dd>
+				
+				
+			
+				
+				<dd><a href="#ELBMemberSpec">type ELBMemberSpec</a></dd>
+				
+				
+			
+				
+				<dd><a href="#ELBSpec">type ELBSpec</a></dd>
+				
+				
+			
+				
+				<dd><a href="#EcloudClient">type EcloudClient</a></dd>
+				
+					
+					<dd>    <a href="#NewEcloudClient">func NewEcloudClient(c *Config) (*EcloudClient, error)</a></dd>
+				
+				
+					
+					<dd>    <a href="#EcloudClient.NewRequest">func (c *EcloudClient) NewRequest(verb, prefixPath string, headers, params, body map[string]interface{}) (_resp Response, err error)</a></dd>
+				
+			
+				
+				<dd><a href="#FloatingIpBindStatus">type FloatingIpBindStatus</a></dd>
+				
+				
+					
+					<dd>    <a href="#FloatingIpBindStatus.String">func (f FloatingIpBindStatus) String() string</a></dd>
+				
+			
+				
+				<dd><a href="#FloatingIpBindType">type FloatingIpBindType</a></dd>
+				
+				
+					
+					<dd>    <a href="#FloatingIpBindType.String">func (f FloatingIpBindType) String() string</a></dd>
+				
+			
+				
+				<dd><a href="#FloatingIpChargeMode">type FloatingIpChargeMode</a></dd>
+				
+				
+					
+					<dd>    <a href="#FloatingIpChargeMode.String">func (f FloatingIpChargeMode) String() string</a></dd>
+				
+			
+				
+				<dd><a href="#FloatingIpQuotaName">type FloatingIpQuotaName</a></dd>
+				
+				
+					
+					<dd>    <a href="#FloatingIpQuotaName.String">func (f FloatingIpQuotaName) String() string</a></dd>
+				
+			
+				
+				<dd><a href="#FloatingIpSpec">type FloatingIpSpec</a></dd>
+				
+				
+			
+				
+				<dd><a href="#IPSecVpnSiteConnectionSpec">type IPSecVpnSiteConnectionSpec</a></dd>
+				
+				
+			
+				
+				<dd><a href="#IPSecVpnSpec">type IPSecVpnSpec</a></dd>
+				
+				
+			
+				
+				<dd><a href="#ImageFormat">type ImageFormat</a></dd>
+				
+				
+					
+					<dd>    <a href="#ImageFormat.String">func (t ImageFormat) String() string</a></dd>
+				
+			
+				
+				<dd><a href="#ImageName">type ImageName</a></dd>
+				
+				
+					
+					<dd>    <a href="#ImageName.String">func (t ImageName) String() string</a></dd>
+				
+			
+				
+				<dd><a href="#LoadbalanceAlgorithm">type LoadbalanceAlgorithm</a></dd>
+				
+				
+					
+					<dd>    <a href="#LoadbalanceAlgorithm.String">func (p LoadbalanceAlgorithm) String() string</a></dd>
+				
+			
+				
+				<dd><a href="#LoadbalanceHealthCheck">type LoadbalanceHealthCheck</a></dd>
+				
+				
+					
+					<dd>    <a href="#LoadbalanceHealthCheck.String">func (p LoadbalanceHealthCheck) String() string</a></dd>
+				
+			
+				
+				<dd><a href="#LoadbalanceProtocol">type LoadbalanceProtocol</a></dd>
+				
+				
+					
+					<dd>    <a href="#LoadbalanceProtocol.String">func (p LoadbalanceProtocol) String() string</a></dd>
+				
+			
+				
+				<dd><a href="#LoadbalanceSessionPersistence">type LoadbalanceSessionPersistence</a></dd>
+				
+				
+					
+					<dd>    <a href="#LoadbalanceSessionPersistence.String">func (p LoadbalanceSessionPersistence) String() string</a></dd>
+				
+			
+				
+				<dd><a href="#NicSpec">type NicSpec</a></dd>
+				
+				
+			
+				
+				<dd><a href="#OsType">type OsType</a></dd>
+				
+				
+					
+					<dd>    <a href="#OsType.String">func (o OsType) String() string</a></dd>
+				
+			
+				
+				<dd><a href="#Response">type Response</a></dd>
+				
+				
+					
+					<dd>    <a href="#Response.Error">func (r *Response) Error(err error) error</a></dd>
+				
+					
+					<dd>    <a href="#Response.UnmarshalFromContent">func (r *Response) UnmarshalFromContent(result interface{}, tagKey string) error</a></dd>
+				
+			
+				
+				<dd><a href="#SecurityGroupDirection">type SecurityGroupDirection</a></dd>
+				
+				
+					
+					<dd>    <a href="#SecurityGroupDirection.String">func (s SecurityGroupDirection) String() string</a></dd>
+				
+			
+				
+				<dd><a href="#SecurityGroupEtherType">type SecurityGroupEtherType</a></dd>
+				
+				
+					
+					<dd>    <a href="#SecurityGroupEtherType.String">func (s SecurityGroupEtherType) String() string</a></dd>
+				
+			
+				
+				<dd><a href="#SecurityGroupProtocol">type SecurityGroupProtocol</a></dd>
+				
+				
+					
+					<dd>    <a href="#SecurityGroupProtocol.String">func (s SecurityGroupProtocol) String() string</a></dd>
+				
+			
+				
+				<dd><a href="#SecurityGroupRemoteType">type SecurityGroupRemoteType</a></dd>
+				
+				
+					
+					<dd>    <a href="#SecurityGroupRemoteType.String">func (s SecurityGroupRemoteType) String() string</a></dd>
+				
+			
+				
+				<dd><a href="#SecurityGroupRuleSpec">type SecurityGroupRuleSpec</a></dd>
+				
+				
+			
+				
+				<dd><a href="#ServerSpec">type ServerSpec</a></dd>
+				
+				
+			
+				
+				<dd><a href="#SubnetSpec">type SubnetSpec</a></dd>
+				
+				
+			
+				
+				<dd><a href="#UserImageImportSpec">type UserImageImportSpec</a></dd>
+				
+				
+			
+				
+				<dd><a href="#VmType">type VmType</a></dd>
+				
+				
+					
+					<dd>    <a href="#VmType.String">func (v VmType) String() string</a></dd>
+				
+			
+				
+				<dd><a href="#VpcScale">type VpcScale</a></dd>
+				
+				
+					
+					<dd>    <a href="#VpcScale.String">func (v VpcScale) String() string</a></dd>
+				
+			
+				
+				<dd><a href="#VpcSpec">type VpcSpec</a></dd>
+				
+				
+			
+				
+				<dd><a href="#VpnAuthAlgorithm">type VpnAuthAlgorithm</a></dd>
+				
+				
+					
+					<dd>    <a href="#VpnAuthAlgorithm.String">func (v VpnAuthAlgorithm) String() string</a></dd>
+				
+			
+				
+				<dd><a href="#VpnEncapsulationMode">type VpnEncapsulationMode</a></dd>
+				
+				
+					
+					<dd>    <a href="#VpnEncapsulationMode.String">func (v VpnEncapsulationMode) String() string</a></dd>
+				
+			
+				
+				<dd><a href="#VpnEncryptionAlgorithm">type VpnEncryptionAlgorithm</a></dd>
+				
+				
+					
+					<dd>    <a href="#VpnEncryptionAlgorithm.String">func (v VpnEncryptionAlgorithm) String() string</a></dd>
+				
+			
+				
+				<dd><a href="#VpnIkePhase1NegotiationMode">type VpnIkePhase1NegotiationMode</a></dd>
+				
+				
+					
+					<dd>    <a href="#VpnIkePhase1NegotiationMode.String">func (v VpnIkePhase1NegotiationMode) String() string</a></dd>
+				
+			
+				
+				<dd><a href="#VpnIkeVersion">type VpnIkeVersion</a></dd>
+				
+				
+					
+					<dd>    <a href="#VpnIkeVersion.String">func (v VpnIkeVersion) String() string</a></dd>
+				
+			
+				
+				<dd><a href="#VpnPfs">type VpnPfs</a></dd>
+				
+				
+					
+					<dd>    <a href="#VpnPfs.String">func (v VpnPfs) String() string</a></dd>
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/EcloudClient.go.html">EcloudClient.go</a>
+			
+				<a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html">const.go</a>
+			
+				<a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/specs.go.html">specs.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+			<h2 id="pkg-constants">Constants</h2>
+			
+				
+				<pre>const (
+    <span id="DEFAULT_HTTP_PORT">DEFAULT_HTTP_PORT</span>  = 80
+    <span id="DEFAULT_HTTPS_PORT">DEFAULT_HTTPS_PORT</span> = 8443
+)</pre>
+			
+				
+				<pre>const (
+    <span class="comment">// Linux操作系统</span>
+    <span id="OS_TYPE_LINUX">OS_TYPE_LINUX</span> <a href="#OsType">OsType</a> = 0
+    <span class="comment">// Windows操作系统</span>
+    <span id="OS_TYPE_WINDOWS">OS_TYPE_WINDOWS</span> <a href="#OsType">OsType</a> = 1
+
+    <span class="comment">// 性能优化型系统盘</span>
+    <span id="BOOT_VOLUME_PERFORMANCEOPTIMIZATION">BOOT_VOLUME_PERFORMANCEOPTIMIZATION</span> <a href="#BootVolumeType">BootVolumeType</a> = 0
+    <span class="comment">// 高性能型系统盘</span>
+    <span id="BOOT_VOLUME_HIGHPERFORMANCE">BOOT_VOLUME_HIGHPERFORMANCE</span> <a href="#BootVolumeType">BootVolumeType</a> = 1
+
+    <span class="comment">// 容量型云硬盘</span>
+    <span id="DATA_VOLUME_CAPEBS">DATA_VOLUME_CAPEBS</span> <a href="#DataVolumeType">DataVolumeType</a> = 0
+    <span class="comment">// 性能优化型云硬盘</span>
+    <span id="DATA_VOLUME_SSDEBS">DATA_VOLUME_SSDEBS</span> <a href="#DataVolumeType">DataVolumeType</a> = 1
+    <span class="comment">// 高性能型云硬盘</span>
+    <span id="DATA_VOLUME_SSD">DATA_VOLUME_SSD</span> <a href="#DataVolumeType">DataVolumeType</a> = 2
+
+    <span class="comment">// 通用型</span>
+    <span id="VM_TYPE_COMMON">VM_TYPE_COMMON</span> <a href="#VmType">VmType</a> = 0
+    <span class="comment">// 通用入门型</span>
+    <span id="VM_TYPE_COMMONINTRODUCTORY">VM_TYPE_COMMONINTRODUCTORY</span> <a href="#VmType">VmType</a> = 1
+    <span class="comment">// 通用网络优化型</span>
+    <span id="VM_TYPE_COMMONNETIMPROVE">VM_TYPE_COMMONNETIMPROVE</span> <a href="#VmType">VmType</a> = 2
+    <span class="comment">// 内存优化型</span>
+    <span id="VM_TYPE_MEMIMPROVE">VM_TYPE_MEMIMPROVE</span> <a href="#VmType">VmType</a> = 3
+    <span class="comment">// 计算型</span>
+    <span id="VM_TYPE_COMPUTE">VM_TYPE_COMPUTE</span> <a href="#VmType">VmType</a> = 4
+    <span class="comment">// 计算网络优化型</span>
+    <span id="VM_TYPE_COMPUTENETIMPROVE">VM_TYPE_COMPUTENETIMPROVE</span> <a href="#VmType">VmType</a> = 5
+    <span class="comment">// 内存网络优化型</span>
+    <span id="VM_TYPE_MEMNETIMPROVE">VM_TYPE_MEMNETIMPROVE</span> <a href="#VmType">VmType</a> = 6
+    <span class="comment">// 本地存储型</span>
+    <span id="VM_TYPE_LOCALSTORAGE">VM_TYPE_LOCALSTORAGE</span> <a href="#VmType">VmType</a> = 7
+    <span class="comment">// 超大内存型</span>
+    <span id="VM_TYPE_XLARGEMEMORY">VM_TYPE_XLARGEMEMORY</span> <a href="#VmType">VmType</a> = 8
+    <span class="comment">// 超高主频型</span>
+    <span id="VM_TYPE_HIGHFREQUENCY">VM_TYPE_HIGHFREQUENCY</span> <a href="#VmType">VmType</a> = 9
+    <span class="comment">// FPGA型</span>
+    <span id="VM_TYPE_FPGA">VM_TYPE_FPGA</span> <a href="#VmType">VmType</a> = 10
+    <span class="comment">// GPU型</span>
+    <span id="VM_TYPE_GPU">VM_TYPE_GPU</span> <a href="#VmType">VmType</a> = 11
+    <span class="comment">// VGPU型</span>
+    <span id="VM_TYPE_VGPU">VM_TYPE_VGPU</span> <a href="#VmType">VmType</a> = 12
+    <span class="comment">// 高IO型</span>
+    <span id="VM_TYPE_HIGHIO">VM_TYPE_HIGHIO</span> <a href="#VmType">VmType</a> = 13
+    <span class="comment">// 独享型</span>
+    <span id="VM_TYPE_EXCLUSIVE">VM_TYPE_EXCLUSIVE</span> <a href="#VmType">VmType</a> = 14
+
+    <span class="comment">// 按时计费</span>
+    <span id="BILLING_TYPE_HOUR">BILLING_TYPE_HOUR</span> <a href="#BillingType">BillingType</a> = 0
+    <span class="comment">// 按月计费</span>
+    <span id="BILLING_TYPE_MONTH">BILLING_TYPE_MONTH</span> <a href="#BillingType">BillingType</a> = 1
+    <span class="comment">// 按年计费</span>
+    <span id="BILLING_TYPE_YEAR">BILLING_TYPE_YEAR</span> <a href="#BillingType">BillingType</a> = 2
+
+    <span class="comment">// 镜像格式</span>
+    <span id="IMAGE_FORMAT_QCOW2">IMAGE_FORMAT_QCOW2</span> <a href="#ImageFormat">ImageFormat</a> = 0
+    <span id="IMAGE_FORMAT_VHD">IMAGE_FORMAT_VHD</span>   <a href="#ImageFormat">ImageFormat</a> = 1
+    <span id="IMAGE_FORMAT_RAW">IMAGE_FORMAT_RAW</span>   <a href="#ImageFormat">ImageFormat</a> = 2
+
+    <span class="comment">// 云主机镜像</span>
+    <span id="IMAGE_BCLINUX_81_X64">IMAGE_BCLINUX_81_X64</span> <a href="#ImageName">ImageName</a> = 1
+    <span id="IMAGE_BCLINUX_77_X64">IMAGE_BCLINUX_77_X64</span> <a href="#ImageName">ImageName</a> = 2
+    <span id="IMAGE_BCLINUX_76_X64">IMAGE_BCLINUX_76_X64</span> <a href="#ImageName">ImageName</a> = 3
+    <span id="IMAGE_BCLINUX_75_X64">IMAGE_BCLINUX_75_X64</span> <a href="#ImageName">ImageName</a> = 4
+    <span id="IMAGE_BCLINUX_74_X64">IMAGE_BCLINUX_74_X64</span> <a href="#ImageName">ImageName</a> = 5
+    <span id="IMAGE_BCLINUX_71_X64">IMAGE_BCLINUX_71_X64</span> <a href="#ImageName">ImageName</a> = 6
+    <span id="IMAGE_BCLINUX_65_X64">IMAGE_BCLINUX_65_X64</span> <a href="#ImageName">ImageName</a> = 7
+)</pre>
+			
+				
+				<pre>const (
+    <span class="comment">// 安全组方向(流入)</span>
+    <span id="SECURITYGROUP_DIRECTION_INGRESS">SECURITYGROUP_DIRECTION_INGRESS</span> <a href="#SecurityGroupDirection">SecurityGroupDirection</a> = 0
+    <span class="comment">// 安全组方向(流出)</span>
+    <span id="SECURITYGROUP_DIRECTION_EGRESS">SECURITYGROUP_DIRECTION_EGRESS</span> <a href="#SecurityGroupDirection">SecurityGroupDirection</a> = 1
+
+    <span class="comment">// 安全组IP类型</span>
+    <span id="SECURITYGROUP_ETHERTYPE_IPV4">SECURITYGROUP_ETHERTYPE_IPV4</span> <a href="#SecurityGroupEtherType">SecurityGroupEtherType</a> = 0
+    <span id="SECURITYGROUP_ETHERTYPE_IPV6">SECURITYGROUP_ETHERTYPE_IPV6</span> <a href="#SecurityGroupEtherType">SecurityGroupEtherType</a> = 1
+
+    <span class="comment">// 安全组协议(TCP)</span>
+    <span id="SECURITYGROUP_PROTOCOL_TCP">SECURITYGROUP_PROTOCOL_TCP</span> <a href="#SecurityGroupProtocol">SecurityGroupProtocol</a> = 0
+    <span class="comment">// 安全组协议(UDP)</span>
+    <span id="SECURITYGROUP_PROTOCOL_UDP">SECURITYGROUP_PROTOCOL_UDP</span> <a href="#SecurityGroupProtocol">SecurityGroupProtocol</a> = 1
+    <span class="comment">// 安全组协议(ICMP)</span>
+    <span id="SECURITYGROUP_PROTOCOL_ICMP">SECURITYGROUP_PROTOCOL_ICMP</span> <a href="#SecurityGroupProtocol">SecurityGroupProtocol</a> = 2
+    <span class="comment">// 安全组协议(IGMP)</span>
+    <span id="SECURITYGROUP_PROTOCOL_IGMP">SECURITYGROUP_PROTOCOL_IGMP</span> <a href="#SecurityGroupProtocol">SecurityGroupProtocol</a> = 3
+    <span class="comment">// 安全组协议(ANY)</span>
+    <span id="SECURITYGROUP_PROTOCOL_ANY">SECURITYGROUP_PROTOCOL_ANY</span> <a href="#SecurityGroupProtocol">SecurityGroupProtocol</a> = 4
+
+    <span class="comment">// 安全组授权类型</span>
+    <span id="SECURITYGROUP_REMOTETYPE_CIDR">SECURITYGROUP_REMOTETYPE_CIDR</span>          <a href="#SecurityGroupRemoteType">SecurityGroupRemoteType</a> = 0
+    <span id="SECURITYGROUP_REMOTETYPE_SECURITYGROUP">SECURITYGROUP_REMOTETYPE_SECURITYGROUP</span> <a href="#SecurityGroupRemoteType">SecurityGroupRemoteType</a> = 1
+)</pre>
+			
+				
+				<pre>const (
+    <span class="comment">// 弹性公网IP按流量计费</span>
+    <span id="FLOATINGIP_CHARGEMODE_TRAFFIC">FLOATINGIP_CHARGEMODE_TRAFFIC</span> <a href="#FloatingIpChargeMode">FloatingIpChargeMode</a> = 0
+    <span class="comment">// 弹性公网IP按带宽计费方式</span>
+    <span id="FLOATINGIP_CHARGEMODE_BANDWIDTH">FLOATINGIP_CHARGEMODE_BANDWIDTH</span> <a href="#FloatingIpChargeMode">FloatingIpChargeMode</a> = 1
+
+    <span class="comment">// 弹性公网IP配额名称</span>
+    <span id="FLOATINGIP_QUOTANAME_IP">FLOATINGIP_QUOTANAME_IP</span>        <a href="#FloatingIpQuotaName">FloatingIpQuotaName</a> = 0
+    <span id="FLOATINGIP_QUOTANAME_BANDWIDTH">FLOATINGIP_QUOTANAME_BANDWIDTH</span> <a href="#FloatingIpQuotaName">FloatingIpQuotaName</a> = 1
+
+    <span class="comment">// 弹性公网IP绑定状态</span>
+    <span class="comment">// 未绑定</span>
+    <span id="FLOATINGIP_BINDSTATUS_UNBOUND">FLOATINGIP_BINDSTATUS_UNBOUND</span> <a href="#FloatingIpBindStatus">FloatingIpBindStatus</a> = 0
+    <span class="comment">// 绑定</span>
+    <span id="FLOATINGIP_BINDSTATUS_BOUND">FLOATINGIP_BINDSTATUS_BOUND</span> <a href="#FloatingIpBindStatus">FloatingIpBindStatus</a> = 1
+    <span class="comment">// 冻结</span>
+    <span id="FLOATINGIP_BINDSTATUS_FROZEN">FLOATINGIP_BINDSTATUS_FROZEN</span> <a href="#FloatingIpBindStatus">FloatingIpBindStatus</a> = 2
+
+    <span class="comment">// 弹性公网IP绑定类型</span>
+    <span class="comment">// 虚拟机</span>
+    <span id="FLOATINGIP_BINDTYPE_VM">FLOATINGIP_BINDTYPE_VM</span> <a href="#FloatingIpBindType">FloatingIpBindType</a> = 0
+    <span class="comment">// 裸金属</span>
+    <span id="FLOATINGIP_BINDTYPE_IRONIC">FLOATINGIP_BINDTYPE_IRONIC</span> <a href="#FloatingIpBindType">FloatingIpBindType</a> = 1
+    <span class="comment">// 负载均衡</span>
+    <span id="FLOATINGIP_BINDTYPE_ELB">FLOATINGIP_BINDTYPE_ELB</span> <a href="#FloatingIpBindType">FloatingIpBindType</a> = 2
+    <span class="comment">// 共享带宽</span>
+    <span id="FLOATINGIP_BINDTYPE_SBW">FLOATINGIP_BINDTYPE_SBW</span> <a href="#FloatingIpBindType">FloatingIpBindType</a> = 3
+    <span class="comment">// 云数据库</span>
+    <span id="FLOATINGIP_BINDTYPE_RDS">FLOATINGIP_BINDTYPE_RDS</span> <a href="#FloatingIpBindType">FloatingIpBindType</a> = 4
+    <span class="comment">// HAVIP</span>
+    <span id="FLOATINGIP_BINDTYPE_HAVIP">FLOATINGIP_BINDTYPE_HAVIP</span> <a href="#FloatingIpBindType">FloatingIpBindType</a> = 5
+    <span class="comment">// 云堡垒机</span>
+    <span id="FLOATINGIP_BINDTYPE_BASTION">FLOATINGIP_BINDTYPE_BASTION</span> <a href="#FloatingIpBindType">FloatingIpBindType</a> = 6
+    <span class="comment">// SNAT</span>
+    <span id="FLOATINGIP_BINDTYPE_SNAT">FLOATINGIP_BINDTYPE_SNAT</span> <a href="#FloatingIpBindType">FloatingIpBindType</a> = 7
+    <span class="comment">// DNAT</span>
+    <span id="FLOATINGIP_BINDTYPE_DNAT">FLOATINGIP_BINDTYPE_DNAT</span> <a href="#FloatingIpBindType">FloatingIpBindType</a> = 8
+    <span class="comment">// 虚拟网卡</span>
+    <span id="FLOATINGIP_BINDTYPE_PORT">FLOATINGIP_BINDTYPE_PORT</span> <a href="#FloatingIpBindType">FloatingIpBindType</a> = 9
+)</pre>
+			
+				
+				<pre>const (
+    <span class="comment">//  认证算法</span>
+    <span id="VPN_AUTHALGORITHM_SHA1">VPN_AUTHALGORITHM_SHA1</span>   <a href="#VpnAuthAlgorithm">VpnAuthAlgorithm</a> = 0
+    <span id="VPN_AUTHALGORITHM_SHA256">VPN_AUTHALGORITHM_SHA256</span> <a href="#VpnAuthAlgorithm">VpnAuthAlgorithm</a> = 1
+    <span id="VPN_AUTHALGORITHM_SHA512">VPN_AUTHALGORITHM_SHA512</span> <a href="#VpnAuthAlgorithm">VpnAuthAlgorithm</a> = 2
+
+    <span class="comment">// 加密算法</span>
+    <span id="VPN_ENCRYPTIONALGORITHM_AES128">VPN_ENCRYPTIONALGORITHM_AES128</span> <a href="#VpnEncryptionAlgorithm">VpnEncryptionAlgorithm</a> = 0
+    <span id="VPN_ENCRYPTIONALGORITHM_DES3">VPN_ENCRYPTIONALGORITHM_DES3</span>   <a href="#VpnEncryptionAlgorithm">VpnEncryptionAlgorithm</a> = 1
+
+    <span class="comment">// 完美向前加密</span>
+    <span id="VPN_PFS_GROUP2">VPN_PFS_GROUP2</span> <a href="#VpnPfs">VpnPfs</a> = 0
+    <span id="VPN_PFS_GROUP5">VPN_PFS_GROUP5</span> <a href="#VpnPfs">VpnPfs</a> = 1
+
+    <span class="comment">// 传输封装模式</span>
+    <span id="VPN_ENCAPSULATIONMODE_TUNNEL">VPN_ENCAPSULATIONMODE_TUNNEL</span>    <a href="#VpnEncapsulationMode">VpnEncapsulationMode</a> = 0
+    <span id="VPN_ENCAPSULATIONMODE_TRANSPORT">VPN_ENCAPSULATIONMODE_TRANSPORT</span> <a href="#VpnEncapsulationMode">VpnEncapsulationMode</a> = 1
+
+    <span class="comment">// IKE策略版本</span>
+    <span id="VPN_IKE_VERSION_V1">VPN_IKE_VERSION_V1</span> <a href="#VpnIkeVersion">VpnIkeVersion</a> = 0
+    <span id="VPN_IKE_VERSION_V2">VPN_IKE_VERSION_V2</span> <a href="#VpnIkeVersion">VpnIkeVersion</a> = 1
+
+    <span class="comment">// 协商模式</span>
+    <span id="VPN_IKE_PHASE1NEGOTIATIONMODE_MAIN">VPN_IKE_PHASE1NEGOTIATIONMODE_MAIN</span>       <a href="#VpnIkePhase1NegotiationMode">VpnIkePhase1NegotiationMode</a> = 0
+    <span id="VPN_IKE_PHASE1NEGOTIATIONMODE_AGGRESSIVE">VPN_IKE_PHASE1NEGOTIATIONMODE_AGGRESSIVE</span> <a href="#VpnIkePhase1NegotiationMode">VpnIkePhase1NegotiationMode</a> = 1
+)</pre>
+			
+				
+				<pre>const (
+    <span class="comment">// 监听器协议类型</span>
+    <span id="ELB_PROTOCOL_TCP">ELB_PROTOCOL_TCP</span>   <a href="#LoadbalanceProtocol">LoadbalanceProtocol</a> = 0
+    <span id="ELB_PROTOCOL_HTTP">ELB_PROTOCOL_HTTP</span>  <a href="#LoadbalanceProtocol">LoadbalanceProtocol</a> = 1
+    <span id="ELB_PROTOCOL_HTTPS">ELB_PROTOCOL_HTTPS</span> <a href="#LoadbalanceProtocol">LoadbalanceProtocol</a> = 2
+
+    <span class="comment">// 负载均衡算法</span>
+    <span id="ELB_ALGORITHM_ROUND_ROBIN">ELB_ALGORITHM_ROUND_ROBIN</span>       <a href="#LoadbalanceAlgorithm">LoadbalanceAlgorithm</a> = 0
+    <span id="ELB_ALGORITHM_LEAST_CONNECTIONS">ELB_ALGORITHM_LEAST_CONNECTIONS</span> <a href="#LoadbalanceAlgorithm">LoadbalanceAlgorithm</a> = 1
+    <span id="ELB_ALGORITHM_SOURCE_IP">ELB_ALGORITHM_SOURCE_IP</span>         <a href="#LoadbalanceAlgorithm">LoadbalanceAlgorithm</a> = 2
+
+    <span class="comment">// 会话保持类型</span>
+    <span id="ELB_PERSISTENCE_NONE">ELB_PERSISTENCE_NONE</span>        <a href="#LoadbalanceSessionPersistence">LoadbalanceSessionPersistence</a> = 0
+    <span id="ELB_PERSISTENCE_SOURCE_IP">ELB_PERSISTENCE_SOURCE_IP</span>   <a href="#LoadbalanceSessionPersistence">LoadbalanceSessionPersistence</a> = 1
+    <span id="ELB_PERSISTENCE_HTTP_COOKIE">ELB_PERSISTENCE_HTTP_COOKIE</span> <a href="#LoadbalanceSessionPersistence">LoadbalanceSessionPersistence</a> = 2
+    <span id="ELB_PERSISTENCE_APP_COOKIE">ELB_PERSISTENCE_APP_COOKIE</span>  <a href="#LoadbalanceSessionPersistence">LoadbalanceSessionPersistence</a> = 3
+
+    <span class="comment">// 健康检查方式</span>
+    <span id="ELB_HEALTHCHECK_TCP">ELB_HEALTHCHECK_TCP</span>   <a href="#LoadbalanceHealthCheck">LoadbalanceHealthCheck</a> = 0
+    <span id="ELB_HEALTHCHECK_HTTP">ELB_HEALTHCHECK_HTTP</span>  <a href="#LoadbalanceHealthCheck">LoadbalanceHealthCheck</a> = 1
+    <span id="ELB_HEALTHCHECK_HTTPS">ELB_HEALTHCHECK_HTTPS</span> <a href="#LoadbalanceHealthCheck">LoadbalanceHealthCheck</a> = 2
+    <span id="ELB_HEALTHCHECK_PING">ELB_HEALTHCHECK_PING</span>  <a href="#LoadbalanceHealthCheck">LoadbalanceHealthCheck</a> = 3
+)</pre>
+			
+		
+		
+		
+			
+			
+			<h2 id="Dump">func <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/EcloudClient.go.html?s=6157:6188#L264">Dump</a>
+				<a class="permalink" href="#Dump">¶</a>
+				
+				
+			</h2>
+			<pre>func Dump(a interface{}) <a href="../../../../builtin/#string">string</a></pre>
+			
+			
+			
+
+		
+			
+			
+			<h2 id="RsaEncrypt">func <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/EcloudClient.go.html?s=5702:5750#L246">RsaEncrypt</a>
+				<a class="permalink" href="#RsaEncrypt">¶</a>
+				
+				
+			</h2>
+			<pre>func RsaEncrypt(origData []<a href="../../../../builtin/#byte">byte</a>) ([]<a href="../../../../builtin/#byte">byte</a>, <a href="../../../../builtin/#error">error</a>)</pre>
+			
+			
+			
+
+		
+		
+			
+			
+			<h2 id="BillingType">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=104:126#L1">BillingType</a>
+				<a class="permalink" href="#BillingType">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type BillingType <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="BillingType.String">func (BillingType) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=3350:3386#L144">String</a>
+					<a class="permalink" href="#BillingType.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (b <a href="#BillingType">BillingType</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="BootVolumeType">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=16:41#L1">BootVolumeType</a>
+				<a class="permalink" href="#BootVolumeType">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type BootVolumeType <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="BootVolumeType.String">func (BootVolumeType) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=1932:1971#L72">String</a>
+					<a class="permalink" href="#BootVolumeType.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (b <a href="#BootVolumeType">BootVolumeType</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="CloudBlockStorageSpec">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/specs.go.html?s=7914:8161#L294">CloudBlockStorageSpec</a>
+				<a class="permalink" href="#CloudBlockStorageSpec">¶</a>
+				
+				
+			</h2>
+			<p>
+云硬盘
+</p>
+<pre>CinderType	硬盘cinder类型
+Name	硬盘名称
+Share	是否设置为共享盘
+Size	硬盘大小 (最小值10，最大值视硬盘类型不同)
+Region	可用区
+PeriodType	订购周期类型
+PeriodNum	订购周期数
+BackupId	备份id (基于备份id创建云硬盘)
+BackupPolicyId	硬盘订购成功后需要直接绑定的备份策略id
+ServerId 	硬盘订购成功后需要直接挂载的主机id
+</pre>
+
+			<pre>type CloudBlockStorageSpec struct {
+<span id="CloudBlockStorageSpec.CinderType"></span>    CinderType <a href="../../../../builtin/#string">string</a>
+<span id="CloudBlockStorageSpec.Name"></span>    Name       <a href="../../../../builtin/#string">string</a>
+<span id="CloudBlockStorageSpec.Share"></span>    Share      <a href="../../../../builtin/#bool">bool</a>
+<span id="CloudBlockStorageSpec.Size"></span>    Size       <a href="../../../../builtin/#int">int</a>
+<span id="CloudBlockStorageSpec.Region"></span>    Region     <a href="../../../../builtin/#string">string</a>
+<span id="CloudBlockStorageSpec.PeriodType"></span>    PeriodType <a href="#BillingType">BillingType</a>
+<span id="CloudBlockStorageSpec.PeriodNum"></span>    PeriodNum  <a href="../../../../builtin/#int">int</a>
+    <span class="comment">// 选填</span>
+<span id="CloudBlockStorageSpec.BackupId"></span>    BackupId       <a href="../../../../builtin/#string">string</a>
+<span id="CloudBlockStorageSpec.BackupPolicyId"></span>    BackupPolicyId <a href="../../../../builtin/#string">string</a>
+<span id="CloudBlockStorageSpec.ServerId"></span>    ServerId       <a href="../../../../builtin/#string">string</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="Config">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/EcloudClient.go.html?s=352:601#L21">Config</a>
+				<a class="permalink" href="#Config">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type Config struct {
+<span id="Config.ApiGwHost"></span>    ApiGwHost     <a href="../../../../builtin/#string">string</a> `env:&#34;API_GATEWAY_HOST&#34;`
+<span id="Config.ApiGwPort"></span>    ApiGwPort     <a href="../../../../builtin/#int">int</a>    `env:&#34;API_GATEWAY_PORT&#34;`
+<span id="Config.ApiGwProtocol"></span>    ApiGwProtocol <a href="../../../../builtin/#string">string</a> `env:&#34;API_GATEWAY_PROTOCOL&#34;`
+<span id="Config.AccessKey"></span>    AccessKey     <a href="../../../../builtin/#string">string</a> `env:&#34;ACCESS_KEY&#34;`
+<span id="Config.SecretKey"></span>    SecretKey     <a href="../../../../builtin/#string">string</a> `env:&#34;SECRET_KEY&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="DataVolumeType">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=42:67#L1">DataVolumeType</a>
+				<a class="permalink" href="#DataVolumeType">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type DataVolumeType <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="DataVolumeType.String">func (DataVolumeType) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=2177:2216#L83">String</a>
+					<a class="permalink" href="#DataVolumeType.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (d <a href="#DataVolumeType">DataVolumeType</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="ELBListenerSpec">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/specs.go.html?s=3700:4248#L147">ELBListenerSpec</a>
+				<a class="permalink" href="#ELBListenerSpec">¶</a>
+				
+				
+			</h2>
+			<p>
+弹性负载均衡器 监听器
+</p>
+<pre>LoadbalanceId	负载均衡器id
+Name	监听器名称
+Protocol 监听器协议类型
+ProtocolPort	监听器的服务端口
+Algorithm	负载均衡算法
+SessionPersistence	会话保持类型
+CookieName	cookie名称
+HealthType	健康检查方式
+HealthDelay	健康检查间隔
+HealthMaxRetries   最大尝试次数
+HealthTimeout	超时时间
+HealthHttpMethod	用于监控的http方法
+HealthUrlPath	用于监控的url
+HealthExpectedCode 期望http状态代码
+MutualAuthenticationUp	开启双向认证
+</pre>
+
+			<pre>type ELBListenerSpec struct {
+<span id="ELBListenerSpec.LoadbalanceId"></span>    LoadbalanceId          <a href="../../../../builtin/#string">string</a>
+<span id="ELBListenerSpec.Name"></span>    Name                   <a href="../../../../builtin/#string">string</a>
+<span id="ELBListenerSpec.Protocol"></span>    Protocol               <a href="#LoadbalanceProtocol">LoadbalanceProtocol</a>
+<span id="ELBListenerSpec.ProtocolPort"></span>    ProtocolPort           <a href="../../../../builtin/#int">int</a>
+<span id="ELBListenerSpec.Algorithm"></span>    Algorithm              <a href="#LoadbalanceAlgorithm">LoadbalanceAlgorithm</a>
+<span id="ELBListenerSpec.SessionPersistence"></span>    SessionPersistence     <a href="#LoadbalanceSessionPersistence">LoadbalanceSessionPersistence</a>
+<span id="ELBListenerSpec.CookieName"></span>    CookieName             <a href="../../../../builtin/#string">string</a>
+<span id="ELBListenerSpec.HealthType"></span>    HealthType             <a href="#LoadbalanceHealthCheck">LoadbalanceHealthCheck</a>
+<span id="ELBListenerSpec.HealthDelay"></span>    HealthDelay            <a href="../../../../builtin/#int">int</a>
+<span id="ELBListenerSpec.HealthMaxRetries"></span>    HealthMaxRetries       <a href="../../../../builtin/#int">int</a>
+<span id="ELBListenerSpec.HealthTimeout"></span>    HealthTimeout          <a href="../../../../builtin/#int">int</a>
+<span id="ELBListenerSpec.HealthHttpMethod"></span>    HealthHttpMethod       <a href="../../../../builtin/#string">string</a>
+<span id="ELBListenerSpec.HealthUrlPath"></span>    HealthUrlPath          <a href="../../../../builtin/#string">string</a>
+<span id="ELBListenerSpec.HealthExpectedCode"></span>    HealthExpectedCode     <a href="../../../../builtin/#string">string</a>
+<span id="ELBListenerSpec.MutualAuthenticationUp"></span>    MutualAuthenticationUp <a href="../../../../builtin/#bool">bool</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ELBMemberSpec">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/specs.go.html?s=4462:4601#L175">ELBMemberSpec</a>
+				<a class="permalink" href="#ELBMemberSpec">¶</a>
+				
+				
+			</h2>
+			<p>
+弹性负载均衡器 业务主机
+</p>
+<pre>PoolId	监听器poolid
+Ip	服务器ip
+PortId	服务器端口
+Weight	权重，1-100
+Type	类型 (1:云主机 2:云数据库)
+VmHostId	虚拟机id
+Desc	描述
+</pre>
+
+			<pre>type ELBMemberSpec struct {
+<span id="ELBMemberSpec.PoolId"></span>    PoolId   <a href="../../../../builtin/#string">string</a>
+<span id="ELBMemberSpec.Ip"></span>    Ip       <a href="../../../../builtin/#string">string</a>
+<span id="ELBMemberSpec.Port"></span>    Port     <a href="../../../../builtin/#int">int</a>
+<span id="ELBMemberSpec.Weight"></span>    Weight   <a href="../../../../builtin/#int">int</a>
+<span id="ELBMemberSpec.Type"></span>    Type     <a href="../../../../builtin/#int">int</a>
+<span id="ELBMemberSpec.VmHostId"></span>    VmHostId <a href="../../../../builtin/#string">string</a>
+<span id="ELBMemberSpec.Desc"></span>    Desc     <a href="../../../../builtin/#string">string</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ELBSpec">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/specs.go.html?s=3007:3131#L122">ELBSpec</a>
+				<a class="permalink" href="#ELBSpec">¶</a>
+				
+				
+			</h2>
+			<p>
+弹性负载均衡器
+</p>
+<pre>ChargePeriod	计费方式
+LoadBalanceName	负载均衡器名称
+SubnetId	关联VPC子网的id
+FloatingIpId	关联弹性公网IP的IpId
+</pre>
+
+			<pre>type ELBSpec struct {
+<span id="ELBSpec.ChargePeriod"></span>    ChargePeriod    <a href="#BillingType">BillingType</a>
+<span id="ELBSpec.LoadBalanceName"></span>    LoadBalanceName <a href="../../../../builtin/#string">string</a>
+<span id="ELBSpec.SubnetId"></span>    SubnetId        <a href="../../../../builtin/#string">string</a>
+<span id="ELBSpec.FloatingIpId"></span>    FloatingIpId    <a href="../../../../builtin/#string">string</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="EcloudClient">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/EcloudClient.go.html?s=603:639#L29">EcloudClient</a>
+				<a class="permalink" href="#EcloudClient">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type EcloudClient struct {
+    <a href="#Config">Config</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewEcloudClient">func <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/EcloudClient.go.html?s=1994:2048#L90">NewEcloudClient</a>
+					<a class="permalink" href="#NewEcloudClient">¶</a>
+					
+					
+				</h3>
+				<pre>func NewEcloudClient(c *<a href="#Config">Config</a>) (*<a href="#EcloudClient">EcloudClient</a>, <a href="../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="EcloudClient.NewRequest">func (*EcloudClient) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/EcloudClient.go.html?s=2146:2278#L97">NewRequest</a>
+					<a class="permalink" href="#EcloudClient.NewRequest">¶</a>
+					
+					
+				</h3>
+				<pre>func (c *<a href="#EcloudClient">EcloudClient</a>) NewRequest(verb, prefixPath <a href="../../../../builtin/#string">string</a>, headers, params, body map[<a href="../../../../builtin/#string">string</a>]interface{}) (_resp <a href="#Response">Response</a>, err <a href="../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="FloatingIpBindStatus">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=6602:6633#L294">FloatingIpBindStatus</a>
+				<a class="permalink" href="#FloatingIpBindStatus">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type FloatingIpBindStatus <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="FloatingIpBindStatus.String">func (FloatingIpBindStatus) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=8357:8402#L360">String</a>
+					<a class="permalink" href="#FloatingIpBindStatus.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (f <a href="#FloatingIpBindStatus">FloatingIpBindStatus</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="FloatingIpBindType">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=6634:6663#L295">FloatingIpBindType</a>
+				<a class="permalink" href="#FloatingIpBindType">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type FloatingIpBindType <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="FloatingIpBindType.String">func (FloatingIpBindType) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=8616:8659#L373">String</a>
+					<a class="permalink" href="#FloatingIpBindType.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (f <a href="#FloatingIpBindType">FloatingIpBindType</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="FloatingIpChargeMode">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=6539:6570#L292">FloatingIpChargeMode</a>
+				<a class="permalink" href="#FloatingIpChargeMode">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type FloatingIpChargeMode <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="FloatingIpChargeMode.String">func (FloatingIpChargeMode) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=7905:7950#L338">String</a>
+					<a class="permalink" href="#FloatingIpChargeMode.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (f <a href="#FloatingIpChargeMode">FloatingIpChargeMode</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="FloatingIpQuotaName">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=6571:6601#L293">FloatingIpQuotaName</a>
+				<a class="permalink" href="#FloatingIpQuotaName">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type FloatingIpQuotaName <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="FloatingIpQuotaName.String">func (FloatingIpQuotaName) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=8134:8178#L349">String</a>
+					<a class="permalink" href="#FloatingIpQuotaName.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (f <a href="#FloatingIpQuotaName">FloatingIpQuotaName</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="FloatingIpSpec">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/specs.go.html?s=2638:2834#L106">FloatingIpSpec</a>
+				<a class="permalink" href="#FloatingIpSpec">¶</a>
+				
+				
+			</h2>
+			<p>
+弹性公网IP
+</p>
+<pre>ChargeMode	带宽计费方式
+ChargePeriod 计费周期
+Duration	购买时长
+Quantity	购买数量
+BandwidthSize	购买带宽值大小, 单位:MB (1M~10240M)
+FloatingIpAddress	指定公网IP创建的IP地址(只能指定当前用户历史订购且已退订的公网IP)
+</pre>
+
+			<pre>type FloatingIpSpec struct {
+<span id="FloatingIpSpec.ChargeMode"></span>    ChargeMode        <a href="#FloatingIpChargeMode">FloatingIpChargeMode</a>
+<span id="FloatingIpSpec.ChargePeriod"></span>    ChargePeriod      <a href="#BillingType">BillingType</a>
+<span id="FloatingIpSpec.Duration"></span>    Duration          <a href="../../../../builtin/#int">int</a>
+<span id="FloatingIpSpec.Quantity"></span>    Quantity          <a href="../../../../builtin/#int">int</a>
+<span id="FloatingIpSpec.BandwidthSize"></span>    BandwidthSize     <a href="../../../../builtin/#int">int</a>
+<span id="FloatingIpSpec.FloatingIpAddress"></span>    FloatingIpAddress <a href="../../../../builtin/#string">string</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="IPSecVpnSiteConnectionSpec">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/specs.go.html?s=1677:2333#L73">IPSecVpnSiteConnectionSpec</a>
+				<a class="permalink" href="#IPSecVpnSiteConnectionSpec">¶</a>
+				
+				
+			</h2>
+			<p>
+IPSecVpn连接
+</p>
+<pre>    VpnServiceId	ipsec站点连接所属的ipsecVPN服务id
+  	Name	ipsec站点连接的名称
+	LocalSubnetId	本端子网id
+	PeerAddress	对端网关公网地址 or FQDN
+	PeerSubnets	对端子网cidr列表
+	Psk	共享秘钥字符串
+	IkePolicy:
+	    AuthAlgorithm	认证算法
+		EncryptionAlgorithm	加密算法
+		Pfs	完美向前加密
+		Version	IKE策略版本
+		Lifetime	生命期
+		Phase1NegotiationMode	协商模式
+	IpsecPolicy:
+	    AuthAlgorithm	认证算法
+		EncryptionAlgorithm	加密算法
+		EncapsulationMode	传输封装模式
+		Pfs	完美向前加密
+		Lifetime	生命期
+</pre>
+
+			<pre>type IPSecVpnSiteConnectionSpec struct {
+<span id="IPSecVpnSiteConnectionSpec.VpnServiceId"></span>    VpnServiceId   <a href="../../../../builtin/#string">string</a>
+<span id="IPSecVpnSiteConnectionSpec.Name"></span>    Name           <a href="../../../../builtin/#string">string</a>
+<span id="IPSecVpnSiteConnectionSpec.LocalSubnetIds"></span>    LocalSubnetIds []<a href="../../../../builtin/#string">string</a>
+<span id="IPSecVpnSiteConnectionSpec.PeerAddress"></span>    PeerAddress    <a href="../../../../builtin/#string">string</a>
+<span id="IPSecVpnSiteConnectionSpec.PeerSubnets"></span>    PeerSubnets    []<a href="../../../../builtin/#string">string</a>
+<span id="IPSecVpnSiteConnectionSpec.Psk"></span>    Psk            <a href="../../../../builtin/#string">string</a>
+<span id="IPSecVpnSiteConnectionSpec.IkePolicy"></span>    IkePolicy      struct {
+        AuthAlgorithm         <a href="#VpnAuthAlgorithm">VpnAuthAlgorithm</a>
+        EncryptionAlgorithm   <a href="#VpnEncryptionAlgorithm">VpnEncryptionAlgorithm</a>
+        Pfs                   <a href="#VpnPfs">VpnPfs</a>
+        Version               <a href="#VpnIkeVersion">VpnIkeVersion</a>
+        Lifetime              <a href="../../../../builtin/#int">int</a>
+        Phase1NegotiationMode <a href="#VpnIkePhase1NegotiationMode">VpnIkePhase1NegotiationMode</a>
+    }
+<span id="IPSecVpnSiteConnectionSpec.IpsecPolicy"></span>    IpsecPolicy struct {
+        AuthAlgorithm       <a href="#VpnAuthAlgorithm">VpnAuthAlgorithm</a>
+        EncryptionAlgorithm <a href="#VpnEncryptionAlgorithm">VpnEncryptionAlgorithm</a>
+        EncapsulationMode   <a href="#VpnEncapsulationMode">VpnEncapsulationMode</a>
+        Pfs                 <a href="#VpnPfs">VpnPfs</a>
+        Lifetime            <a href="../../../../builtin/#int">int</a>
+    }
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="IPSecVpnSpec">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/specs.go.html?s=913:1066#L42">IPSecVpnSpec</a>
+				<a class="permalink" href="#IPSecVpnSpec">¶</a>
+				
+				
+			</h2>
+			<p>
+IPSecVpn服务
+</p>
+<pre>ChargePeriod	计费周期
+Duration	购买时长
+Quantity	购买数量
+Name	VPN服务名称
+RouterId 关联VPC的routerId
+FloatingIpId 关联弹性公网IP的IpId
+</pre>
+
+			<pre>type IPSecVpnSpec struct {
+<span id="IPSecVpnSpec.ChargePeriod"></span>    ChargePeriod <a href="#BillingType">BillingType</a>
+<span id="IPSecVpnSpec.Duration"></span>    Duration     <a href="../../../../builtin/#int">int</a>
+<span id="IPSecVpnSpec.Quantity"></span>    Quantity     <a href="../../../../builtin/#int">int</a>
+<span id="IPSecVpnSpec.Name"></span>    Name         <a href="../../../../builtin/#string">string</a>
+<span id="IPSecVpnSpec.RouterId"></span>    RouterId     <a href="../../../../builtin/#string">string</a>
+<span id="IPSecVpnSpec.FloatingIpId"></span>    FloatingIpId <a href="../../../../builtin/#string">string</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ImageFormat">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=127:149#L1">ImageFormat</a>
+				<a class="permalink" href="#ImageFormat">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type ImageFormat <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="ImageFormat.String">func (ImageFormat) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=3517:3553#L155">String</a>
+					<a class="permalink" href="#ImageFormat.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (t <a href="#ImageFormat">ImageFormat</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="ImageName">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=150:170#L1">ImageName</a>
+				<a class="permalink" href="#ImageName">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type ImageName <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="ImageName.String">func (ImageName) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=3722:3756#L168">String</a>
+					<a class="permalink" href="#ImageName.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (t <a href="#ImageName">ImageName</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="LoadbalanceAlgorithm">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=11379:11410#L503">LoadbalanceAlgorithm</a>
+				<a class="permalink" href="#LoadbalanceAlgorithm">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type LoadbalanceAlgorithm <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="LoadbalanceAlgorithm.String">func (LoadbalanceAlgorithm) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=12567:12612#L544">String</a>
+					<a class="permalink" href="#LoadbalanceAlgorithm.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (p <a href="#LoadbalanceAlgorithm">LoadbalanceAlgorithm</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="LoadbalanceHealthCheck">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=11452:11485#L505">LoadbalanceHealthCheck</a>
+				<a class="permalink" href="#LoadbalanceHealthCheck">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type LoadbalanceHealthCheck <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="LoadbalanceHealthCheck.String">func (LoadbalanceHealthCheck) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=13155:13202#L572">String</a>
+					<a class="permalink" href="#LoadbalanceHealthCheck.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (p <a href="#LoadbalanceHealthCheck">LoadbalanceHealthCheck</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="LoadbalanceProtocol">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=11348:11378#L502">LoadbalanceProtocol</a>
+				<a class="permalink" href="#LoadbalanceProtocol">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type LoadbalanceProtocol <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="LoadbalanceProtocol.String">func (LoadbalanceProtocol) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=12354:12398#L531">String</a>
+					<a class="permalink" href="#LoadbalanceProtocol.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (p <a href="#LoadbalanceProtocol">LoadbalanceProtocol</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="LoadbalanceSessionPersistence">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=11411:11451#L504">LoadbalanceSessionPersistence</a>
+				<a class="permalink" href="#LoadbalanceSessionPersistence">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type LoadbalanceSessionPersistence <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="LoadbalanceSessionPersistence.String">func (LoadbalanceSessionPersistence) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=12842:12896#L557">String</a>
+					<a class="permalink" href="#LoadbalanceSessionPersistence.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (p <a href="#LoadbalanceSessionPersistence">LoadbalanceSessionPersistence</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="NicSpec">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/specs.go.html?s=554:716#L23">NicSpec</a>
+				<a class="permalink" href="#NicSpec">¶</a>
+				
+				
+			</h2>
+			<p>
+VPC 虚拟网卡
+</p>
+
+			<pre>type NicSpec struct {
+<span id="NicSpec.Name"></span>    Name           <a href="../../../../builtin/#string">string</a>
+<span id="NicSpec.NetworkId"></span>    NetworkId      <a href="../../../../builtin/#string">string</a>
+<span id="NicSpec.SecurityGroups"></span>    SecurityGroups []<a href="../../../../builtin/#string">string</a>
+<span id="NicSpec.Subnets"></span>    Subnets        []struct {
+        IpAddress <a href="../../../../builtin/#string">string</a>
+        SubnetId  <a href="../../../../builtin/#string">string</a>
+    }
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="OsType">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=86:103#L1">OsType</a>
+				<a class="permalink" href="#OsType">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type OsType <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="OsType.String">func (OsType) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=3191:3222#L133">String</a>
+					<a class="permalink" href="#OsType.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (o <a href="#OsType">OsType</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="Response">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/EcloudClient.go.html?s=641:811#L33">Response</a>
+				<a class="permalink" href="#Response">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type Response struct {
+<span id="Response.Method"></span>    Method     <a href="../../../../builtin/#string">string</a>
+<span id="Response.StatusCode"></span>    StatusCode <a href="../../../../builtin/#int">int</a>
+
+<span id="Response.RequestId"></span>    RequestId <a href="../../../../builtin/#string">string</a>
+<span id="Response.State"></span>    State     <a href="../../../../builtin/#string">string</a>
+<span id="Response.Body"></span>    Body      <a href="../../../../builtin/#string">string</a>
+
+<span id="Response.ErrCode"></span>    ErrCode    <a href="../../../../builtin/#string">string</a>
+<span id="Response.ErrMessage"></span>    ErrMessage <a href="../../../../builtin/#string">string</a>
+
+<span id="Response.SignUrl"></span>    SignUrl <a href="../../../../builtin/#string">string</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="Response.Error">func (*Response) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/EcloudClient.go.html?s=4679:4720#L206">Error</a>
+					<a class="permalink" href="#Response.Error">¶</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="#Response">Response</a>) Error(err <a href="../../../../builtin/#error">error</a>) <a href="../../../../builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="Response.UnmarshalFromContent">func (*Response) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/EcloudClient.go.html?s=4802:4882#L210">UnmarshalFromContent</a>
+					<a class="permalink" href="#Response.UnmarshalFromContent">¶</a>
+					
+					
+				</h3>
+				<pre>func (r *<a href="#Response">Response</a>) UnmarshalFromContent(result interface{}, tagKey <a href="../../../../builtin/#string">string</a>) <a href="../../../../builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="SecurityGroupDirection">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=4205:4238#L189">SecurityGroupDirection</a>
+				<a class="permalink" href="#SecurityGroupDirection">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type SecurityGroupDirection <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="SecurityGroupDirection.String">func (SecurityGroupDirection) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=5228:5275#L220">String</a>
+					<a class="permalink" href="#SecurityGroupDirection.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (s <a href="#SecurityGroupDirection">SecurityGroupDirection</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="SecurityGroupEtherType">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=4239:4272#L190">SecurityGroupEtherType</a>
+				<a class="permalink" href="#SecurityGroupEtherType">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type SecurityGroupEtherType <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="SecurityGroupEtherType.String">func (SecurityGroupEtherType) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=5439:5486#L231">String</a>
+					<a class="permalink" href="#SecurityGroupEtherType.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (s <a href="#SecurityGroupEtherType">SecurityGroupEtherType</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="SecurityGroupProtocol">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=4273:4305#L191">SecurityGroupProtocol</a>
+				<a class="permalink" href="#SecurityGroupProtocol">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type SecurityGroupProtocol <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="SecurityGroupProtocol.String">func (SecurityGroupProtocol) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=5637:5683#L242">String</a>
+					<a class="permalink" href="#SecurityGroupProtocol.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (s <a href="#SecurityGroupProtocol">SecurityGroupProtocol</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="SecurityGroupRemoteType">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=4306:4340#L192">SecurityGroupRemoteType</a>
+				<a class="permalink" href="#SecurityGroupRemoteType">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type SecurityGroupRemoteType <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="SecurityGroupRemoteType.String">func (SecurityGroupRemoteType) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=5978:6026#L259">String</a>
+					<a class="permalink" href="#SecurityGroupRemoteType.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (s <a href="#SecurityGroupRemoteType">SecurityGroupRemoteType</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="SecurityGroupRuleSpec">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/specs.go.html?s=6710:7075#L249">SecurityGroupRuleSpec</a>
+				<a class="permalink" href="#SecurityGroupRuleSpec">¶</a>
+				
+				
+			</h2>
+			<p>
+安全组规则
+</p>
+<pre>SecurityGroupId	安全组id
+Protocol	访问协议
+MinPortRange	端口范围(最小值)
+MaxPortRange	端口范围(最大值)
+Direction 方向
+EtherType	IP类型
+RemoteType	授权类型
+RemoteSecurityGroupId	授权对象,当RemoteType为security_group时，此值为所选安全组id
+RemoteIpPrefix	授权对象,当RemoteType为cidr时，此值为cidr
+</pre>
+
+			<pre>type SecurityGroupRuleSpec struct {
+<span id="SecurityGroupRuleSpec.SecurityGroupId"></span>    SecurityGroupId       <a href="../../../../builtin/#string">string</a>
+<span id="SecurityGroupRuleSpec.Protocol"></span>    Protocol              <a href="#SecurityGroupProtocol">SecurityGroupProtocol</a>
+<span id="SecurityGroupRuleSpec.MinPortRange"></span>    MinPortRange          <a href="../../../../builtin/#int">int</a>
+<span id="SecurityGroupRuleSpec.MaxPortRange"></span>    MaxPortRange          <a href="../../../../builtin/#int">int</a>
+<span id="SecurityGroupRuleSpec.Direction"></span>    Direction             <a href="#SecurityGroupDirection">SecurityGroupDirection</a>
+<span id="SecurityGroupRuleSpec.EtherType"></span>    EtherType             <a href="#SecurityGroupEtherType">SecurityGroupEtherType</a>
+<span id="SecurityGroupRuleSpec.RemoteType"></span>    RemoteType            <a href="#SecurityGroupRemoteType">SecurityGroupRemoteType</a>
+<span id="SecurityGroupRuleSpec.RemoteSecurityGroupId"></span>    RemoteSecurityGroupId <a href="../../../../builtin/#string">string</a>
+<span id="SecurityGroupRuleSpec.RemoteIpPrefix"></span>    RemoteIpPrefix        <a href="../../../../builtin/#string">string</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ServerSpec">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/specs.go.html?s=5806:6318#L206">ServerSpec</a>
+				<a class="permalink" href="#ServerSpec">¶</a>
+				
+				
+			</h2>
+			<p>
+云主机
+</p>
+<pre>Name		云主机名称 (名称为5-22位数字、字母、“-”组合，且“-”不可在名称的开头或结尾)
+Cpu		主机cpu
+Ram		主机ram
+Disk		20/40（创建linux操作系统云主机仅可填写20，windows操作系统仅可填写40）
+BootVolume	云主机系统盘(VolumeType: 系统盘类型，Size: 云硬盘大小(GB)，linux主机系统盘最小为20，windows主机系统盘最小为40，最大均为500)
+Password	密文（采用RSA对明文加密，password和keypairName能且仅能填写一个）
+ImageName	镜像名称
+KeypairName	SSH密钥名称
+Networks	云主机网络 (NetworkId:云主机网络id, PortId: 网卡id)
+SecurityGroupIds 安全组id
+UserData	云主机自定义数据
+VmType		主机规格类型
+Region		可用区
+BillingType	计费类型
+Duration		订购时长（月），取值范围[0,60]。按小时付费与按月后付费填写0，按月预付费按需填写
+Quantity	订购数量，取值范围[1,10]
+DataVolumes	云主机数据盘(ResourceType: 数据盘类型，Size: 数据盘大小(G)，取值范围[10,32768]，IsShare: 是否为共享数据盘，默认为非共享数据盘)
+OsType		操作系统类型
+</pre>
+
+			<pre>type ServerSpec struct {
+<span id="ServerSpec.Name"></span>    Name       <a href="../../../../builtin/#string">string</a>
+<span id="ServerSpec.Cpu"></span>    Cpu        <a href="../../../../builtin/#int">int</a>
+<span id="ServerSpec.Ram"></span>    Ram        <a href="../../../../builtin/#int">int</a>
+<span id="ServerSpec.Disk"></span>    Disk       <a href="../../../../builtin/#int">int</a>
+<span id="ServerSpec.BootVolume"></span>    BootVolume struct {
+        VolumeType <a href="#BootVolumeType">BootVolumeType</a>
+        Size       <a href="../../../../builtin/#int">int</a>
+    }
+<span id="ServerSpec.Password"></span>    Password    <a href="../../../../builtin/#string">string</a>
+<span id="ServerSpec.ImageName"></span>    ImageName   <a href="../../../../builtin/#string">string</a>
+<span id="ServerSpec.KeypairName"></span>    KeypairName <a href="../../../../builtin/#string">string</a>
+<span id="ServerSpec.Networks"></span>    Networks    *struct {
+        NetworkId <a href="../../../../builtin/#string">string</a>
+        PortId    <a href="../../../../builtin/#string">string</a>
+    }
+<span id="ServerSpec.SecurityGroupIds"></span>    SecurityGroupIds []<a href="../../../../builtin/#string">string</a>
+<span id="ServerSpec.UserData"></span>    UserData         <a href="../../../../builtin/#string">string</a>
+    <a href="#VmType">VmType</a>
+<span id="ServerSpec.Region"></span>    Region <a href="../../../../builtin/#string">string</a>
+    <a href="#BillingType">BillingType</a>
+<span id="ServerSpec.Duration"></span>    Duration    <a href="../../../../builtin/#int">int</a>
+<span id="ServerSpec.Quantity"></span>    Quantity    <a href="../../../../builtin/#int">int</a>
+<span id="ServerSpec.DataVolumes"></span>    DataVolumes []struct {
+        ResourceType <a href="#DataVolumeType">DataVolumeType</a>
+        Size         <a href="../../../../builtin/#int">int</a>
+        IsShare      <a href="../../../../builtin/#bool">bool</a>
+    }
+    <a href="#OsType">OsType</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="SubnetSpec">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/specs.go.html?s=363:533#L11">SubnetSpec</a>
+				<a class="permalink" href="#SubnetSpec">¶</a>
+				
+				
+			</h2>
+			<p>
+VPC子网
+</p>
+
+			<pre>type SubnetSpec struct {
+<span id="SubnetSpec.RouterId"></span>    RouterId    <a href="../../../../builtin/#string">string</a>
+<span id="SubnetSpec.NetworkName"></span>    NetworkName <a href="../../../../builtin/#string">string</a>
+<span id="SubnetSpec.Region"></span>    Region      <a href="../../../../builtin/#string">string</a>
+<span id="SubnetSpec.Subnets"></span>    Subnets     []struct {
+        Cidr       <a href="../../../../builtin/#string">string</a>
+        IpVersion  <a href="../../../../builtin/#int">int</a>
+        SubnetName <a href="../../../../builtin/#string">string</a>
+    }
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="UserImageImportSpec">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/specs.go.html?s=7333:7476#L271">UserImageImportSpec</a>
+				<a class="permalink" href="#UserImageImportSpec">¶</a>
+				
+				
+			</h2>
+			<p>
+自定义镜像导入
+</p>
+<pre>  	ImageUrl	制作好的镜像url
+	ImageName	镜像名称
+	OsType	操作系统类型
+	MinDisk	磁盘容量 (Linux系统最小为20，Windows系统最小为40)
+	ImageFormat	镜像格式
+	OsVersion	操作系统版本
+	Desc	描述
+</pre>
+
+			<pre>type UserImageImportSpec struct {
+<span id="UserImageImportSpec.ImageUrl"></span>    ImageUrl  <a href="../../../../builtin/#string">string</a>
+<span id="UserImageImportSpec.ImageName"></span>    ImageName <a href="../../../../builtin/#string">string</a>
+    <a href="#OsType">OsType</a>
+<span id="UserImageImportSpec.MinDisk"></span>    MinDisk <a href="../../../../builtin/#int64">int64</a>
+    <a href="#ImageFormat">ImageFormat</a>
+<span id="UserImageImportSpec.OsVersion"></span>    OsVersion <a href="../../../../builtin/#string">string</a>
+<span id="UserImageImportSpec.Desc"></span>    Desc      <a href="../../../../builtin/#string">string</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="VmType">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=68:85#L1">VmType</a>
+				<a class="permalink" href="#VmType">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type VmType <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="VmType.String">func (VmType) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=2391:2422#L96">String</a>
+					<a class="permalink" href="#VmType.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (v <a href="#VmType">VmType</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="VpcScale">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=6198:6217#L270">VpcScale</a>
+				<a class="permalink" href="#VpcScale">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type VpcScale <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+				
+				<pre>const (
+    <span class="comment">// VPC规格</span>
+    <span id="VPC_SCALE_HIGH">VPC_SCALE_HIGH</span>   <a href="#VpcScale">VpcScale</a> = 0
+    <span id="VPC_SCALE_NORMAL">VPC_SCALE_NORMAL</span> <a href="#VpcScale">VpcScale</a> = 1
+    <span id="VPC_SCALE_MIDDLE">VPC_SCALE_MIDDLE</span> <a href="#VpcScale">VpcScale</a> = 2
+)</pre>
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="VpcScale.String">func (VpcScale) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=6337:6370#L279">String</a>
+					<a class="permalink" href="#VpcScale.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (v <a href="#VpcScale">VpcScale</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="VpcSpec">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/specs.go.html?s=203:348#L1">VpcSpec</a>
+				<a class="permalink" href="#VpcSpec">¶</a>
+				
+				
+			</h2>
+			<p>
+虚拟私有云(VPC)
+</p>
+<pre>Cidr	【必填】cidr
+Name		【必填】vpc名称,路由器名称
+NetworkName	【必填】网络名称
+Region		【必填】可用区
+Specs		VPC规格
+</pre>
+
+			<pre>type VpcSpec struct {
+<span id="VpcSpec.Cidr"></span>    Cidr        <a href="../../../../builtin/#string">string</a>
+<span id="VpcSpec.CidrV6"></span>    CidrV6      <a href="../../../../builtin/#string">string</a>
+<span id="VpcSpec.Name"></span>    Name        <a href="../../../../builtin/#string">string</a>
+<span id="VpcSpec.NetworkName"></span>    NetworkName <a href="../../../../builtin/#string">string</a>
+<span id="VpcSpec.Region"></span>    Region      <a href="../../../../builtin/#string">string</a>
+<span id="VpcSpec.Specs"></span>    Specs       <a href="#VpcScale">VpcScale</a>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="VpnAuthAlgorithm">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=9186:9213#L400">VpnAuthAlgorithm</a>
+				<a class="permalink" href="#VpnAuthAlgorithm">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type VpnAuthAlgorithm <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="VpnAuthAlgorithm.String">func (VpnAuthAlgorithm) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=10150:10191#L434">String</a>
+					<a class="permalink" href="#VpnAuthAlgorithm.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (v <a href="#VpnAuthAlgorithm">VpnAuthAlgorithm</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="VpnEncapsulationMode">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=9266:9297#L403">VpnEncapsulationMode</a>
+				<a class="permalink" href="#VpnEncapsulationMode">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type VpnEncapsulationMode <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="VpnEncapsulationMode.String">func (VpnEncapsulationMode) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=10750:10795#L469">String</a>
+					<a class="permalink" href="#VpnEncapsulationMode.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (v <a href="#VpnEncapsulationMode">VpnEncapsulationMode</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="VpnEncryptionAlgorithm">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=9214:9247#L401">VpnEncryptionAlgorithm</a>
+				<a class="permalink" href="#VpnEncryptionAlgorithm">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type VpnEncryptionAlgorithm <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="VpnEncryptionAlgorithm.String">func (VpnEncryptionAlgorithm) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=10384:10431#L447">String</a>
+					<a class="permalink" href="#VpnEncryptionAlgorithm.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (v <a href="#VpnEncryptionAlgorithm">VpnEncryptionAlgorithm</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="VpnIkePhase1NegotiationMode">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=9323:9361#L405">VpnIkePhase1NegotiationMode</a>
+				<a class="permalink" href="#VpnIkePhase1NegotiationMode">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type VpnIkePhase1NegotiationMode <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="VpnIkePhase1NegotiationMode.String">func (VpnIkePhase1NegotiationMode) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=11121:11173#L491">String</a>
+					<a class="permalink" href="#VpnIkePhase1NegotiationMode.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (v <a href="#VpnIkePhase1NegotiationMode">VpnIkePhase1NegotiationMode</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="VpnIkeVersion">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=9298:9322#L404">VpnIkeVersion</a>
+				<a class="permalink" href="#VpnIkeVersion">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type VpnIkeVersion <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="VpnIkeVersion.String">func (VpnIkeVersion) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=10958:10996#L480">String</a>
+					<a class="permalink" href="#VpnIkeVersion.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (v <a href="#VpnIkeVersion">VpnIkeVersion</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="VpnPfs">type <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=9248:9265#L402">VpnPfs</a>
+				<a class="permalink" href="#VpnPfs">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type VpnPfs <a href="../../../../builtin/#int32">int32</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+				
+				<h3 id="VpnPfs.String">func (VpnPfs) <a href="../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/const.go.html?s=10590:10621#L458">String</a>
+					<a class="permalink" href="#VpnPfs.String">¶</a>
+					
+					
+				</h3>
+				<pre>func (v <a href="#VpnPfs">VpnPfs</a>) String() <a href="../../../../builtin/#string">string</a></pre>
+				
+				
+				
+				
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer"><a href="../../../../docs.zip">Download docs.zip</a> to browse offline - Generated by <a href="https://godoc.org/golang.org/x/tools/godoc" target="_blank">godoc</a> + <a href="https://gitlab.com/tslocum/godoc-static" target="_blank">godoc-static</a></div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+
+
+</body></html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="theme-color" content="#375EAB"/>
+
+  <title>global - Documentation</title>
+
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="../../../../../lib/style.css"/></head>
+<body>
+
+<div id="lowframe" style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="../../../../../">Documentation</a></div>
+<div class="top-heading" id="heading-narrow"><a href="../../../../../">Documentation</a></div>
+<!--<a href="#" id="menu-button"><span id="menu-button-arrow">▽</span></a>-->
+<div id="menu">
+<a href="../../../../../" style="margin-right: 10px;">Package Index</a>
+</div>
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Source file
+    <a href="/src">src</a>/<a href="../../../../../src/github.com.html">github.com</a>/<a href="../../../../../src/github.com/aesirteam">aesirteam</a>/<a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk">cmecloud-golang-sdk</a>/<a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global">global</a>/<span class="text-muted">specs.go</span>
+  </h1>
+
+
+
+
+
+  <h2>
+    Documentation: <a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/global">github.com/aesirteam/cmecloud-golang-sdk/global</a>
+  </h2>
+
+
+
+<div id="nav"></div>
+
+
+
+<pre><span id="L1" class="ln">     1  </span>package global
+<span id="L2" class="ln">     2  </span>
+<span id="L3" class="ln">     3  </span><span class="comment">/*
+<span id="L4" class="ln">     4  </span>虚拟私有云(VPC)
+<span id="L5" class="ln">     5  </span>  Cidr	【必填】cidr
+<span id="L6" class="ln">     6  </span>  Name		【必填】vpc名称,路由器名称
+<span id="L7" class="ln">     7  </span>  NetworkName	【必填】网络名称
+<span id="L8" class="ln">     8  </span>  Region		【必填】可用区
+<span id="L9" class="ln">     9  </span>  Specs		VPC规格
+<span id="L10" class="ln">    10  </span>*/</span>
+<span id="L11" class="ln">    11  </span>type VpcSpec struct {
+<span id="L12" class="ln">    12  </span>	Cidr        string
+<span id="L13" class="ln">    13  </span>	CidrV6      string
+<span id="L14" class="ln">    14  </span>	Name        string
+<span id="L15" class="ln">    15  </span>	NetworkName string
+<span id="L16" class="ln">    16  </span>	Region      string
+<span id="L17" class="ln">    17  </span>	Specs       VpcScale
+<span id="L18" class="ln">    18  </span>}
+<span id="L19" class="ln">    19  </span>
+<span id="L20" class="ln">    20  </span><span class="comment">// VPC子网</span>
+<span id="L21" class="ln">    21  </span>type SubnetSpec struct {
+<span id="L22" class="ln">    22  </span>	RouterId    string
+<span id="L23" class="ln">    23  </span>	NetworkName string
+<span id="L24" class="ln">    24  </span>	Region      string
+<span id="L25" class="ln">    25  </span>	Subnets     []struct {
+<span id="L26" class="ln">    26  </span>		Cidr       string
+<span id="L27" class="ln">    27  </span>		IpVersion  int
+<span id="L28" class="ln">    28  </span>		SubnetName string
+<span id="L29" class="ln">    29  </span>	}
+<span id="L30" class="ln">    30  </span>}
+<span id="L31" class="ln">    31  </span>
+<span id="L32" class="ln">    32  </span><span class="comment">//VPC 虚拟网卡</span>
+<span id="L33" class="ln">    33  </span>type NicSpec struct {
+<span id="L34" class="ln">    34  </span>	Name           string
+<span id="L35" class="ln">    35  </span>	NetworkId      string
+<span id="L36" class="ln">    36  </span>	SecurityGroups []string
+<span id="L37" class="ln">    37  </span>	Subnets        []struct {
+<span id="L38" class="ln">    38  </span>		IpAddress string
+<span id="L39" class="ln">    39  </span>		SubnetId  string
+<span id="L40" class="ln">    40  </span>	}
+<span id="L41" class="ln">    41  </span>}
+<span id="L42" class="ln">    42  </span>
+<span id="L43" class="ln">    43  </span><span class="comment">/*
+<span id="L44" class="ln">    44  </span>IPSecVpn服务
+<span id="L45" class="ln">    45  </span>  ChargePeriod	计费周期
+<span id="L46" class="ln">    46  </span>  Duration	购买时长
+<span id="L47" class="ln">    47  </span>  Quantity	购买数量
+<span id="L48" class="ln">    48  </span>  Name	VPN服务名称
+<span id="L49" class="ln">    49  </span>  RouterId 关联VPC的routerId
+<span id="L50" class="ln">    50  </span>  FloatingIpId 关联弹性公网IP的IpId
+<span id="L51" class="ln">    51  </span>*/</span>
+<span id="L52" class="ln">    52  </span>type IPSecVpnSpec struct {
+<span id="L53" class="ln">    53  </span>	ChargePeriod BillingType
+<span id="L54" class="ln">    54  </span>	Duration     int
+<span id="L55" class="ln">    55  </span>	Quantity     int
+<span id="L56" class="ln">    56  </span>	Name         string
+<span id="L57" class="ln">    57  </span>	RouterId     string
+<span id="L58" class="ln">    58  </span>	FloatingIpId string
+<span id="L59" class="ln">    59  </span>}
+<span id="L60" class="ln">    60  </span>
+<span id="L61" class="ln">    61  </span><span class="comment">/*
+<span id="L62" class="ln">    62  </span>IPSecVpn连接
+<span id="L63" class="ln">    63  </span>    VpnServiceId	ipsec站点连接所属的ipsecVPN服务id
+<span id="L64" class="ln">    64  </span>  	Name	ipsec站点连接的名称
+<span id="L65" class="ln">    65  </span>	LocalSubnetId	本端子网id
+<span id="L66" class="ln">    66  </span>	PeerAddress	对端网关公网地址 or FQDN
+<span id="L67" class="ln">    67  </span>	PeerSubnets	对端子网cidr列表
+<span id="L68" class="ln">    68  </span>	Psk	共享秘钥字符串
+<span id="L69" class="ln">    69  </span>	IkePolicy:
+<span id="L70" class="ln">    70  </span>	    AuthAlgorithm	认证算法
+<span id="L71" class="ln">    71  </span>		EncryptionAlgorithm	加密算法
+<span id="L72" class="ln">    72  </span>		Pfs	完美向前加密
+<span id="L73" class="ln">    73  </span>		Version	IKE策略版本
+<span id="L74" class="ln">    74  </span>		Lifetime	生命期
+<span id="L75" class="ln">    75  </span>		Phase1NegotiationMode	协商模式
+<span id="L76" class="ln">    76  </span>	IpsecPolicy:
+<span id="L77" class="ln">    77  </span>	    AuthAlgorithm	认证算法
+<span id="L78" class="ln">    78  </span>		EncryptionAlgorithm	加密算法
+<span id="L79" class="ln">    79  </span>		EncapsulationMode	传输封装模式
+<span id="L80" class="ln">    80  </span>		Pfs	完美向前加密
+<span id="L81" class="ln">    81  </span>		Lifetime	生命期
+<span id="L82" class="ln">    82  </span>*/</span>
+<span id="L83" class="ln">    83  </span>type IPSecVpnSiteConnectionSpec struct {
+<span id="L84" class="ln">    84  </span>	VpnServiceId   string
+<span id="L85" class="ln">    85  </span>	Name           string
+<span id="L86" class="ln">    86  </span>	LocalSubnetIds []string
+<span id="L87" class="ln">    87  </span>	PeerAddress    string
+<span id="L88" class="ln">    88  </span>	PeerSubnets    []string
+<span id="L89" class="ln">    89  </span>	Psk            string
+<span id="L90" class="ln">    90  </span>	IkePolicy      struct {
+<span id="L91" class="ln">    91  </span>		AuthAlgorithm         VpnAuthAlgorithm
+<span id="L92" class="ln">    92  </span>		EncryptionAlgorithm   VpnEncryptionAlgorithm
+<span id="L93" class="ln">    93  </span>		Pfs                   VpnPfs
+<span id="L94" class="ln">    94  </span>		Version               VpnIkeVersion
+<span id="L95" class="ln">    95  </span>		Lifetime              int
+<span id="L96" class="ln">    96  </span>		Phase1NegotiationMode VpnIkePhase1NegotiationMode
+<span id="L97" class="ln">    97  </span>	}
+<span id="L98" class="ln">    98  </span>	IpsecPolicy struct {
+<span id="L99" class="ln">    99  </span>		AuthAlgorithm       VpnAuthAlgorithm
+<span id="L100" class="ln">   100  </span>		EncryptionAlgorithm VpnEncryptionAlgorithm
+<span id="L101" class="ln">   101  </span>		EncapsulationMode   VpnEncapsulationMode
+<span id="L102" class="ln">   102  </span>		Pfs                 VpnPfs
+<span id="L103" class="ln">   103  </span>		Lifetime            int
+<span id="L104" class="ln">   104  </span>	}
+<span id="L105" class="ln">   105  </span>}
+<span id="L106" class="ln">   106  </span>
+<span id="L107" class="ln">   107  </span><span class="comment">/*
+<span id="L108" class="ln">   108  </span>弹性公网IP
+<span id="L109" class="ln">   109  </span>  ChargeMode	带宽计费方式
+<span id="L110" class="ln">   110  </span>  ChargePeriod 计费周期
+<span id="L111" class="ln">   111  </span>  Duration	购买时长
+<span id="L112" class="ln">   112  </span>  Quantity	购买数量
+<span id="L113" class="ln">   113  </span>  BandwidthSize	购买带宽值大小, 单位:MB (1M~10240M)
+<span id="L114" class="ln">   114  </span>  FloatingIpAddress	指定公网IP创建的IP地址(只能指定当前用户历史订购且已退订的公网IP)
+<span id="L115" class="ln">   115  </span>*/</span>
+<span id="L116" class="ln">   116  </span>type FloatingIpSpec struct {
+<span id="L117" class="ln">   117  </span>	ChargeMode        FloatingIpChargeMode
+<span id="L118" class="ln">   118  </span>	ChargePeriod      BillingType
+<span id="L119" class="ln">   119  </span>	Duration          int
+<span id="L120" class="ln">   120  </span>	Quantity          int
+<span id="L121" class="ln">   121  </span>	BandwidthSize     int
+<span id="L122" class="ln">   122  </span>	FloatingIpAddress string
+<span id="L123" class="ln">   123  </span>}
+<span id="L124" class="ln">   124  </span>
+<span id="L125" class="ln">   125  </span><span class="comment">/*
+<span id="L126" class="ln">   126  </span>弹性负载均衡器
+<span id="L127" class="ln">   127  </span>  ChargePeriod	计费方式
+<span id="L128" class="ln">   128  </span>  LoadBalanceName	负载均衡器名称
+<span id="L129" class="ln">   129  </span>  SubnetId	关联VPC子网的id
+<span id="L130" class="ln">   130  </span>  FloatingIpId	关联弹性公网IP的IpId
+<span id="L131" class="ln">   131  </span>*/</span>
+<span id="L132" class="ln">   132  </span>type ELBSpec struct {
+<span id="L133" class="ln">   133  </span>	ChargePeriod    BillingType
+<span id="L134" class="ln">   134  </span>	LoadBalanceName string
+<span id="L135" class="ln">   135  </span>	SubnetId        string
+<span id="L136" class="ln">   136  </span>	FloatingIpId    string
+<span id="L137" class="ln">   137  </span>}
+<span id="L138" class="ln">   138  </span>
+<span id="L139" class="ln">   139  </span><span class="comment">/*
+<span id="L140" class="ln">   140  </span>弹性负载均衡器 监听器
+<span id="L141" class="ln">   141  </span>  LoadbalanceId	负载均衡器id
+<span id="L142" class="ln">   142  </span>  Name	监听器名称
+<span id="L143" class="ln">   143  </span>  Protocol 监听器协议类型
+<span id="L144" class="ln">   144  </span>  ProtocolPort	监听器的服务端口
+<span id="L145" class="ln">   145  </span>  Algorithm	负载均衡算法
+<span id="L146" class="ln">   146  </span>  SessionPersistence	会话保持类型
+<span id="L147" class="ln">   147  </span>  CookieName	cookie名称
+<span id="L148" class="ln">   148  </span>  HealthType	健康检查方式
+<span id="L149" class="ln">   149  </span>  HealthDelay	健康检查间隔
+<span id="L150" class="ln">   150  </span>  HealthMaxRetries   最大尝试次数
+<span id="L151" class="ln">   151  </span>  HealthTimeout	超时时间
+<span id="L152" class="ln">   152  </span>  HealthHttpMethod	用于监控的http方法
+<span id="L153" class="ln">   153  </span>  HealthUrlPath	用于监控的url
+<span id="L154" class="ln">   154  </span>  HealthExpectedCode 期望http状态代码
+<span id="L155" class="ln">   155  </span>  MutualAuthenticationUp	开启双向认证
+<span id="L156" class="ln">   156  </span>*/</span>
+<span id="L157" class="ln">   157  </span>type ELBListenerSpec struct {
+<span id="L158" class="ln">   158  </span>	LoadbalanceId          string
+<span id="L159" class="ln">   159  </span>	Name                   string
+<span id="L160" class="ln">   160  </span>	Protocol               LoadbalanceProtocol
+<span id="L161" class="ln">   161  </span>	ProtocolPort           int
+<span id="L162" class="ln">   162  </span>	Algorithm              LoadbalanceAlgorithm
+<span id="L163" class="ln">   163  </span>	SessionPersistence     LoadbalanceSessionPersistence
+<span id="L164" class="ln">   164  </span>	CookieName             string
+<span id="L165" class="ln">   165  </span>	HealthType             LoadbalanceHealthCheck
+<span id="L166" class="ln">   166  </span>	HealthDelay            int
+<span id="L167" class="ln">   167  </span>	HealthMaxRetries       int
+<span id="L168" class="ln">   168  </span>	HealthTimeout          int
+<span id="L169" class="ln">   169  </span>	HealthHttpMethod       string
+<span id="L170" class="ln">   170  </span>	HealthUrlPath          string
+<span id="L171" class="ln">   171  </span>	HealthExpectedCode     string
+<span id="L172" class="ln">   172  </span>	MutualAuthenticationUp bool
+<span id="L173" class="ln">   173  </span>}
+<span id="L174" class="ln">   174  </span>
+<span id="L175" class="ln">   175  </span><span class="comment">/*
+<span id="L176" class="ln">   176  </span>弹性负载均衡器 业务主机
+<span id="L177" class="ln">   177  </span>  PoolId	监听器poolid
+<span id="L178" class="ln">   178  </span>  Ip	服务器ip
+<span id="L179" class="ln">   179  </span>  PortId	服务器端口
+<span id="L180" class="ln">   180  </span>  Weight	权重，1-100
+<span id="L181" class="ln">   181  </span>  Type	类型 (1:云主机 2:云数据库)
+<span id="L182" class="ln">   182  </span>  VmHostId	虚拟机id
+<span id="L183" class="ln">   183  </span>  Desc	描述
+<span id="L184" class="ln">   184  </span>*/</span>
+<span id="L185" class="ln">   185  </span>type ELBMemberSpec struct {
+<span id="L186" class="ln">   186  </span>	PoolId   string
+<span id="L187" class="ln">   187  </span>	Ip       string
+<span id="L188" class="ln">   188  </span>	Port     int
+<span id="L189" class="ln">   189  </span>	Weight   int
+<span id="L190" class="ln">   190  </span>	Type     int
+<span id="L191" class="ln">   191  </span>	VmHostId string
+<span id="L192" class="ln">   192  </span>	Desc     string
+<span id="L193" class="ln">   193  </span>}
+<span id="L194" class="ln">   194  </span>
+<span id="L195" class="ln">   195  </span><span class="comment">/*
+<span id="L196" class="ln">   196  </span>云主机
+<span id="L197" class="ln">   197  </span>  Name		云主机名称 (名称为5-22位数字、字母、“-”组合，且“-”不可在名称的开头或结尾)
+<span id="L198" class="ln">   198  </span>  Cpu		主机cpu
+<span id="L199" class="ln">   199  </span>  Ram		主机ram
+<span id="L200" class="ln">   200  </span>  Disk		20/40（创建linux操作系统云主机仅可填写20，windows操作系统仅可填写40）
+<span id="L201" class="ln">   201  </span>  BootVolume	云主机系统盘(VolumeType: 系统盘类型，Size: 云硬盘大小(GB)，linux主机系统盘最小为20，windows主机系统盘最小为40，最大均为500)
+<span id="L202" class="ln">   202  </span>  Password	密文（采用RSA对明文加密，password和keypairName能且仅能填写一个）
+<span id="L203" class="ln">   203  </span>  ImageName	镜像名称
+<span id="L204" class="ln">   204  </span>  KeypairName	SSH密钥名称
+<span id="L205" class="ln">   205  </span>  Networks	云主机网络 (NetworkId:云主机网络id, PortId: 网卡id)
+<span id="L206" class="ln">   206  </span>  SecurityGroupIds 安全组id
+<span id="L207" class="ln">   207  </span>  UserData	云主机自定义数据
+<span id="L208" class="ln">   208  </span>  VmType		主机规格类型
+<span id="L209" class="ln">   209  </span>  Region		可用区
+<span id="L210" class="ln">   210  </span>  BillingType	计费类型
+<span id="L211" class="ln">   211  </span>  Duration		订购时长（月），取值范围[0,60]。按小时付费与按月后付费填写0，按月预付费按需填写
+<span id="L212" class="ln">   212  </span>  Quantity	订购数量，取值范围[1,10]
+<span id="L213" class="ln">   213  </span>  DataVolumes	云主机数据盘(ResourceType: 数据盘类型，Size: 数据盘大小(G)，取值范围[10,32768]，IsShare: 是否为共享数据盘，默认为非共享数据盘)
+<span id="L214" class="ln">   214  </span>  OsType		操作系统类型
+<span id="L215" class="ln">   215  </span>*/</span>
+<span id="L216" class="ln">   216  </span>type ServerSpec struct {
+<span id="L217" class="ln">   217  </span>	Name       string
+<span id="L218" class="ln">   218  </span>	Cpu        int
+<span id="L219" class="ln">   219  </span>	Ram        int
+<span id="L220" class="ln">   220  </span>	Disk       int
+<span id="L221" class="ln">   221  </span>	BootVolume struct {
+<span id="L222" class="ln">   222  </span>		VolumeType BootVolumeType
+<span id="L223" class="ln">   223  </span>		Size       int
+<span id="L224" class="ln">   224  </span>	}
+<span id="L225" class="ln">   225  </span>	Password    string
+<span id="L226" class="ln">   226  </span>	ImageName   string
+<span id="L227" class="ln">   227  </span>	KeypairName string
+<span id="L228" class="ln">   228  </span>	Networks    *struct {
+<span id="L229" class="ln">   229  </span>		NetworkId string
+<span id="L230" class="ln">   230  </span>		PortId    string
+<span id="L231" class="ln">   231  </span>	}
+<span id="L232" class="ln">   232  </span>	SecurityGroupIds []string
+<span id="L233" class="ln">   233  </span>	UserData         string
+<span id="L234" class="ln">   234  </span>	VmType
+<span id="L235" class="ln">   235  </span>	Region string
+<span id="L236" class="ln">   236  </span>	BillingType
+<span id="L237" class="ln">   237  </span>	Duration    int
+<span id="L238" class="ln">   238  </span>	Quantity    int
+<span id="L239" class="ln">   239  </span>	DataVolumes []struct {
+<span id="L240" class="ln">   240  </span>		ResourceType DataVolumeType
+<span id="L241" class="ln">   241  </span>		Size         int
+<span id="L242" class="ln">   242  </span>		IsShare      bool
+<span id="L243" class="ln">   243  </span>	}
+<span id="L244" class="ln">   244  </span>	OsType
+<span id="L245" class="ln">   245  </span>}
+<span id="L246" class="ln">   246  </span>
+<span id="L247" class="ln">   247  </span><span class="comment">/*
+<span id="L248" class="ln">   248  </span>安全组规则
+<span id="L249" class="ln">   249  </span>  SecurityGroupId	安全组id
+<span id="L250" class="ln">   250  </span>  Protocol	访问协议
+<span id="L251" class="ln">   251  </span>  MinPortRange	端口范围(最小值)
+<span id="L252" class="ln">   252  </span>  MaxPortRange	端口范围(最大值)
+<span id="L253" class="ln">   253  </span>  Direction 方向
+<span id="L254" class="ln">   254  </span>  EtherType	IP类型
+<span id="L255" class="ln">   255  </span>  RemoteType	授权类型
+<span id="L256" class="ln">   256  </span>  RemoteSecurityGroupId	授权对象,当RemoteType为security_group时，此值为所选安全组id
+<span id="L257" class="ln">   257  </span>  RemoteIpPrefix	授权对象,当RemoteType为cidr时，此值为cidr
+<span id="L258" class="ln">   258  </span>*/</span>
+<span id="L259" class="ln">   259  </span>type SecurityGroupRuleSpec struct {
+<span id="L260" class="ln">   260  </span>	SecurityGroupId       string
+<span id="L261" class="ln">   261  </span>	Protocol              SecurityGroupProtocol
+<span id="L262" class="ln">   262  </span>	MinPortRange          int
+<span id="L263" class="ln">   263  </span>	MaxPortRange          int
+<span id="L264" class="ln">   264  </span>	Direction             SecurityGroupDirection
+<span id="L265" class="ln">   265  </span>	EtherType             SecurityGroupEtherType
+<span id="L266" class="ln">   266  </span>	RemoteType            SecurityGroupRemoteType
+<span id="L267" class="ln">   267  </span>	RemoteSecurityGroupId string
+<span id="L268" class="ln">   268  </span>	RemoteIpPrefix        string
+<span id="L269" class="ln">   269  </span>}
+<span id="L270" class="ln">   270  </span>
+<span id="L271" class="ln">   271  </span><span class="comment">/*
+<span id="L272" class="ln">   272  </span>自定义镜像导入
+<span id="L273" class="ln">   273  </span>  	ImageUrl	制作好的镜像url
+<span id="L274" class="ln">   274  </span>	ImageName	镜像名称
+<span id="L275" class="ln">   275  </span>	OsType	操作系统类型
+<span id="L276" class="ln">   276  </span>	MinDisk	磁盘容量 (Linux系统最小为20，Windows系统最小为40)
+<span id="L277" class="ln">   277  </span>	ImageFormat	镜像格式
+<span id="L278" class="ln">   278  </span>	OsVersion	操作系统版本
+<span id="L279" class="ln">   279  </span>	Desc	描述
+<span id="L280" class="ln">   280  </span>*/</span>
+<span id="L281" class="ln">   281  </span>type UserImageImportSpec struct {
+<span id="L282" class="ln">   282  </span>	ImageUrl  string
+<span id="L283" class="ln">   283  </span>	ImageName string
+<span id="L284" class="ln">   284  </span>	OsType
+<span id="L285" class="ln">   285  </span>	MinDisk int64
+<span id="L286" class="ln">   286  </span>	ImageFormat
+<span id="L287" class="ln">   287  </span>	OsVersion string
+<span id="L288" class="ln">   288  </span>	Desc      string
+<span id="L289" class="ln">   289  </span>}
+<span id="L290" class="ln">   290  </span>
+<span id="L291" class="ln">   291  </span><span class="comment">/*
+<span id="L292" class="ln">   292  </span>云硬盘
+<span id="L293" class="ln">   293  </span>  CinderType	硬盘cinder类型
+<span id="L294" class="ln">   294  </span>  Name	硬盘名称
+<span id="L295" class="ln">   295  </span>  Share	是否设置为共享盘
+<span id="L296" class="ln">   296  </span>  Size	硬盘大小 (最小值10，最大值视硬盘类型不同)
+<span id="L297" class="ln">   297  </span>  Region	可用区
+<span id="L298" class="ln">   298  </span>  PeriodType	订购周期类型
+<span id="L299" class="ln">   299  </span>  PeriodNum	订购周期数
+<span id="L300" class="ln">   300  </span>  BackupId	备份id (基于备份id创建云硬盘)
+<span id="L301" class="ln">   301  </span>  BackupPolicyId	硬盘订购成功后需要直接绑定的备份策略id
+<span id="L302" class="ln">   302  </span>  ServerId 	硬盘订购成功后需要直接挂载的主机id
+<span id="L303" class="ln">   303  </span>*/</span>
+<span id="L304" class="ln">   304  </span>type CloudBlockStorageSpec struct {
+<span id="L305" class="ln">   305  </span>	CinderType string
+<span id="L306" class="ln">   306  </span>	Name       string
+<span id="L307" class="ln">   307  </span>	Share      bool
+<span id="L308" class="ln">   308  </span>	Size       int
+<span id="L309" class="ln">   309  </span>	Region     string
+<span id="L310" class="ln">   310  </span>	PeriodType BillingType
+<span id="L311" class="ln">   311  </span>	PeriodNum  int
+<span id="L312" class="ln">   312  </span>	<span class="comment">// 选填</span>
+<span id="L313" class="ln">   313  </span>	BackupId       string
+<span id="L314" class="ln">   314  </span>	BackupPolicyId string
+<span id="L315" class="ln">   315  </span>	ServerId       string
+<span id="L316" class="ln">   316  </span>}
+<span id="L317" class="ln">   317  </span>
+</pre><p><a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/global/specs.go.html?m=text">View as plain text</a></p>
+
+<div id="footer"><a href="../../../../../docs.zip">Download docs.zip</a> to browse offline - Generated by <a href="https://godoc.org/golang.org/x/tools/godoc" target="_blank">godoc</a> + <a href="https://gitlab.com/tslocum/godoc-static" target="_blank">godoc-static</a></div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+
+
+</body></html>

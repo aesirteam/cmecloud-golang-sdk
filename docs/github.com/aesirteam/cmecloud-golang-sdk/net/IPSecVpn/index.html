@@ -1,0 +1,647 @@
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="theme-color" content="#375EAB"/>
+
+  <title>IPSecVpn - Documentation</title>
+
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="../../../../../lib/style.css"/></head>
+<body>
+
+<div id="lowframe" style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="../../../../../">Documentation</a></div>
+<div class="top-heading" id="heading-narrow"><a href="../../../../../">Documentation</a></div>
+<!--<a href="#" id="menu-button"><span id="menu-button-arrow">▽</span></a>-->
+<div id="menu">
+<a href="../../../../../" style="margin-right: 10px;">Package Index</a>
+</div>
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package IPSecVpn
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import &#34;<a href="https://github.com/aesirteam/cmecloud-golang-sdk/tree/master/net/IPSecVpn" target="_blank">github.com/aesirteam/cmecloud-golang-sdk/net/IPSecVpn</a>&#34;</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+			
+			
+				
+				<dd><a href="#APIv2">type APIv2</a></dd>
+				
+					
+					<dd>    <a href="#New">func New(client *global.EcloudClient) *APIv2</a></dd>
+				
+				
+					
+					<dd>    <a href="#APIv2.CreateIpsecVpn">func (a *APIv2) CreateIpsecVpn(vs *global.IPSecVpnSpec) (result VpnOrderResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.CreateIpsecVpnConnection">func (a *APIv2) CreateIpsecVpnConnection(cs *global.IPSecVpnSiteConnectionSpec) (err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.DeleteIpsecVpn">func (a *APIv2) DeleteIpsecVpn(vpnId string) error</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.DeleteIpsecVpnConnection">func (a *APIv2) DeleteIpsecVpnConnection(siteConnectionId string) (err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetIkePolicyInfo">func (a *APIv2) GetIkePolicyInfo(siteConnectionId, ikePolicyId string) (result VpnConnectionPolicyResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetIpsecPolicyInfo">func (a *APIv2) GetIpsecPolicyInfo(siteConnectionId, ipsecPolicyId string) (result VpnConnectionPolicyResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetIpsecVpnConnectionInfo">func (a *APIv2) GetIpsecVpnConnectionInfo(siteConnectionId string) (result VpnConnectionResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetIpsecVpnConnectionList">func (a *APIv2) GetIpsecVpnConnectionList(queryWord, name, networkId string, serviceIdsInRange []string, page, size int) (result []VpnConnectionResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetIpsecVpnInfo">func (a *APIv2) GetIpsecVpnInfo(vpnId string) (result VpnResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetIpsecVpnList">func (a *APIv2) GetIpsecVpnList(vpcName, routerId string, scale global.VpcScale, region string, page, size int) (result []VpnResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetIpsecVpnQuota">func (a *APIv2) GetIpsecVpnQuota() (result VpnQuotaResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.ModifyIpsecVpnConnection">func (a *APIv2) ModifyIpsecVpnConnection(siteConnectionId string, cs *global.IPSecVpnSiteConnectionSpec) (err error)</a></dd>
+				
+			
+				
+				<dd><a href="#VPNInterface">type VPNInterface</a></dd>
+				
+				
+			
+				
+				<dd><a href="#VpnConnectionPolicyResult">type VpnConnectionPolicyResult</a></dd>
+				
+				
+			
+				
+				<dd><a href="#VpnConnectionResult">type VpnConnectionResult</a></dd>
+				
+				
+			
+				
+				<dd><a href="#VpnOrderResult">type VpnOrderResult</a></dd>
+				
+				
+			
+				
+				<dd><a href="#VpnQuotaResult">type VpnQuotaResult</a></dd>
+				
+				
+			
+				
+				<dd><a href="#VpnResult">type VpnResult</a></dd>
+				
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/IPSecVpn/ipsecvpn.go.html">ipsecvpn.go</a>
+			
+				<a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/IPSecVpn/types.go.html">types.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+		
+		
+			
+			
+			<h2 id="APIv2">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/IPSecVpn/types.go.html?s=88:138#L1">APIv2</a>
+				<a class="permalink" href="#APIv2">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type APIv2 struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="New">func <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/IPSecVpn/types.go.html?s=140:184#L1">New</a>
+					<a class="permalink" href="#New">¶</a>
+					
+					
+				</h3>
+				<pre>func New(client *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#EcloudClient">EcloudClient</a>) *<a href="#APIv2">APIv2</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="APIv2.CreateIpsecVpn">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/IPSecVpn/ipsecvpn.go.html?s=110:200#L1">CreateIpsecVpn</a>
+					<a class="permalink" href="#APIv2.CreateIpsecVpn">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) CreateIpsecVpn(vs *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#IPSecVpnSpec">IPSecVpnSpec</a>) (result <a href="#VpnOrderResult">VpnOrderResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.CreateIpsecVpnConnection">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/IPSecVpn/ipsecvpn.go.html?s=3251:3342#L150">CreateIpsecVpnConnection</a>
+					<a class="permalink" href="#APIv2.CreateIpsecVpnConnection">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) CreateIpsecVpnConnection(cs *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#IPSecVpnSiteConnectionSpec">IPSecVpnSiteConnectionSpec</a>) (err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.DeleteIpsecVpn">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/IPSecVpn/ipsecvpn.go.html?s=2966:3016#L137">DeleteIpsecVpn</a>
+					<a class="permalink" href="#APIv2.DeleteIpsecVpn">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) DeleteIpsecVpn(vpnId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.DeleteIpsecVpnConnection">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/IPSecVpn/ipsecvpn.go.html?s=9814:9891#L427">DeleteIpsecVpnConnection</a>
+					<a class="permalink" href="#APIv2.DeleteIpsecVpnConnection">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) DeleteIpsecVpnConnection(siteConnectionId <a href="../../../../../builtin/#string">string</a>) (err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetIkePolicyInfo">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/IPSecVpn/ipsecvpn.go.html?s=7102:7218#L306">GetIkePolicyInfo</a>
+					<a class="permalink" href="#APIv2.GetIkePolicyInfo">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetIkePolicyInfo(siteConnectionId, ikePolicyId <a href="../../../../../builtin/#string">string</a>) (result <a href="#VpnConnectionPolicyResult">VpnConnectionPolicyResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetIpsecPolicyInfo">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/IPSecVpn/ipsecvpn.go.html?s=7761:7881#L335">GetIpsecPolicyInfo</a>
+					<a class="permalink" href="#APIv2.GetIpsecPolicyInfo">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetIpsecPolicyInfo(siteConnectionId, ipsecPolicyId <a href="../../../../../builtin/#string">string</a>) (result <a href="#VpnConnectionPolicyResult">VpnConnectionPolicyResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetIpsecVpnConnectionInfo">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/IPSecVpn/ipsecvpn.go.html?s=6584:6690#L286">GetIpsecVpnConnectionInfo</a>
+					<a class="permalink" href="#APIv2.GetIpsecVpnConnectionInfo">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetIpsecVpnConnectionInfo(siteConnectionId <a href="../../../../../builtin/#string">string</a>) (result <a href="#VpnConnectionResult">VpnConnectionResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetIpsecVpnConnectionList">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/IPSecVpn/ipsecvpn.go.html?s=5702:5864#L245">GetIpsecVpnConnectionList</a>
+					<a class="permalink" href="#APIv2.GetIpsecVpnConnectionList">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetIpsecVpnConnectionList(queryWord, name, networkId <a href="../../../../../builtin/#string">string</a>, serviceIdsInRange []<a href="../../../../../builtin/#string">string</a>, page, size <a href="../../../../../builtin/#int">int</a>) (result []<a href="#VpnConnectionResult">VpnConnectionResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetIpsecVpnInfo">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/IPSecVpn/ipsecvpn.go.html?s=2151:2226#L98">GetIpsecVpnInfo</a>
+					<a class="permalink" href="#APIv2.GetIpsecVpnInfo">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetIpsecVpnInfo(vpnId <a href="../../../../../builtin/#string">string</a>) (result <a href="#VpnResult">VpnResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetIpsecVpnList">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/IPSecVpn/ipsecvpn.go.html?s=1385:1528#L58">GetIpsecVpnList</a>
+					<a class="permalink" href="#APIv2.GetIpsecVpnList">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetIpsecVpnList(vpcName, routerId <a href="../../../../../builtin/#string">string</a>, scale <a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#VpcScale">VpcScale</a>, region <a href="../../../../../builtin/#string">string</a>, page, size <a href="../../../../../builtin/#int">int</a>) (result []<a href="#VpnResult">VpnResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetIpsecVpnQuota">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/IPSecVpn/ipsecvpn.go.html?s=2644:2713#L122">GetIpsecVpnQuota</a>
+					<a class="permalink" href="#APIv2.GetIpsecVpnQuota">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetIpsecVpnQuota() (result <a href="#VpnQuotaResult">VpnQuotaResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.ModifyIpsecVpnConnection">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/IPSecVpn/ipsecvpn.go.html?s=8432:8548#L364">ModifyIpsecVpnConnection</a>
+					<a class="permalink" href="#APIv2.ModifyIpsecVpnConnection">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) ModifyIpsecVpnConnection(siteConnectionId <a href="../../../../../builtin/#string">string</a>, cs *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#IPSecVpnSiteConnectionSpec">IPSecVpnSiteConnectionSpec</a>) (err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="VPNInterface">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/IPSecVpn/types.go.html?s=213:1534#L5">VPNInterface</a>
+				<a class="permalink" href="#VPNInterface">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type VPNInterface interface {
+    <span class="comment">// 创建IPSecVPN</span>
+    CreateIpsecVpn(spec *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#IPSecVpnSpec">IPSecVpnSpec</a>) (<a href="#VpnOrderResult">VpnOrderResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 查看IPSecVPN列表</span>
+    GetIpsecVpnList(vpcName, routerId <a href="../../../../../builtin/#string">string</a>, scale <a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#VpcScale">VpcScale</a>, region <a href="../../../../../builtin/#string">string</a>, page, size <a href="../../../../../builtin/#int">int</a>) ([]<a href="#VpnResult">VpnResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 根据vpnId查看IPSecVPN服务的详情</span>
+    GetIpsecVpnInfo(vpnId <a href="../../../../../builtin/#string">string</a>) (<a href="#VpnResult">VpnResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 查看VPN配额情况</span>
+    GetIpsecVpnQuota() (<a href="#VpnQuotaResult">VpnQuotaResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 删除IPSecVPN</span>
+    DeleteIpsecVpn(vpnId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a>
+
+    <span class="comment">// 创建VPN站点连接</span>
+    CreateIpsecVpnConnection(cs *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#IPSecVpnSiteConnectionSpec">IPSecVpnSiteConnectionSpec</a>) <a href="../../../../../builtin/#error">error</a>
+
+    <span class="comment">// 查看VPN站点连接列表</span>
+    GetIpsecVpnConnectionList(queryWord, name, networkId <a href="../../../../../builtin/#string">string</a>, serviceIdsInRange []<a href="../../../../../builtin/#string">string</a>, page, size <a href="../../../../../builtin/#int">int</a>) ([]<a href="#VpnConnectionResult">VpnConnectionResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 查看VPN站点连接详情</span>
+    GetIpsecVpnConnectionInfo(siteConnectionId <a href="../../../../../builtin/#string">string</a>) (<a href="#VpnConnectionResult">VpnConnectionResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 查看ikePolicy详情</span>
+    GetIkePolicyInfo(siteConnectionId, ikePolicyId <a href="../../../../../builtin/#string">string</a>) (<a href="#VpnConnectionPolicyResult">VpnConnectionPolicyResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 查看ipsecPolicy详情</span>
+    GetIpsecPolicyInfo(siteConnectionId, ipsecPolicyId <a href="../../../../../builtin/#string">string</a>) (<a href="#VpnConnectionPolicyResult">VpnConnectionPolicyResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 修改VPN站点连接信息</span>
+    ModifyIpsecVpnConnection(siteConnectionId <a href="../../../../../builtin/#string">string</a>, cs *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#IPSecVpnSiteConnectionSpec">IPSecVpnSiteConnectionSpec</a>) <a href="../../../../../builtin/#error">error</a>
+
+    <span class="comment">// 删除VPN站点连接</span>
+    DeleteIpsecVpnConnection(siteConnectionId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a>
+}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="VpnConnectionPolicyResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/IPSecVpn/types.go.html?s=4403:5158#L108">VpnConnectionPolicyResult</a>
+				<a class="permalink" href="#VpnConnectionPolicyResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type VpnConnectionPolicyResult struct {
+<span id="VpnConnectionPolicyResult.Id"></span>    Id                    <a href="../../../../../builtin/#string">string</a>      `json:&#34;id&#34;`
+<span id="VpnConnectionPolicyResult.ServiceName"></span>    ServiceName           <a href="../../../../../builtin/#string">string</a>      `json:&#34;name&#34;`
+<span id="VpnConnectionPolicyResult.Desc"></span>    Desc                  <a href="../../../../../builtin/#string">string</a>      `json:&#34;description,omitempty&#34;`
+<span id="VpnConnectionPolicyResult.Lifetime"></span>    Lifetime              interface{} `json:&#34;lifetime&#34;`
+<span id="VpnConnectionPolicyResult.Pfs"></span>    Pfs                   <a href="../../../../../builtin/#string">string</a>      `json:&#34;pfs&#34;`
+<span id="VpnConnectionPolicyResult.TenantId"></span>    TenantId              <a href="../../../../../builtin/#string">string</a>      `json:&#34;tenant_id&#34;`
+<span id="VpnConnectionPolicyResult.AuthAlgorithm"></span>    AuthAlgorithm         <a href="../../../../../builtin/#string">string</a>      `json:&#34;auth_algorithm&#34;`
+<span id="VpnConnectionPolicyResult.EncryptionAlgorithm"></span>    EncryptionAlgorithm   <a href="../../../../../builtin/#string">string</a>      `json:&#34;encryption_algorithm&#34;`
+<span id="VpnConnectionPolicyResult.Phase1NegotiationMode"></span>    Phase1NegotiationMode <a href="../../../../../builtin/#string">string</a>      `json:&#34;phase1_negotiation_mode,omitempty&#34;`
+<span id="VpnConnectionPolicyResult.Version"></span>    Version               <a href="../../../../../builtin/#string">string</a>      `json:&#34;ike_version,omitempty&#34;`
+
+<span id="VpnConnectionPolicyResult.TransformProtocol"></span>    TransformProtocol <a href="../../../../../builtin/#string">string</a> `json:&#34;transform_protocol,omitempty&#34;`
+<span id="VpnConnectionPolicyResult.EncapsulationMode"></span>    EncapsulationMode <a href="../../../../../builtin/#string">string</a> `json:&#34;encapsulation_mode,omitempty&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="VpnConnectionResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/IPSecVpn/types.go.html?s=2923:4401#L79">VpnConnectionResult</a>
+				<a class="permalink" href="#VpnConnectionResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type VpnConnectionResult struct {
+<span id="VpnConnectionResult.Id"></span>    Id                   <a href="../../../../../builtin/#string">string</a>      `json:&#34;id&#34;`
+<span id="VpnConnectionResult.Name"></span>    Name                 <a href="../../../../../builtin/#string">string</a>      `json:&#34;name&#34;`
+<span id="VpnConnectionResult.Desc"></span>    Desc                 <a href="../../../../../builtin/#string">string</a>      `json:&#34;description,omitempty&#34;`
+<span id="VpnConnectionResult.EcStatus"></span>    EcStatus             <a href="../../../../../builtin/#string">string</a>      `json:&#34;ecStatus&#34;`
+<span id="VpnConnectionResult.AdminStateUp"></span>    AdminStateUp         <a href="../../../../../builtin/#bool">bool</a>        `json:&#34;adminStateUp&#34;`
+<span id="VpnConnectionResult.BandwithSize"></span>    BandwithSize         <a href="../../../../../builtin/#int">int</a>         `json:&#34;bandwithSize,omitempty&#34;`
+<span id="VpnConnectionResult.VpnServiceId"></span>    VpnServiceId         <a href="../../../../../builtin/#string">string</a>      `json:&#34;vpnserviceId&#34;`
+<span id="VpnConnectionResult.IkePolicyId"></span>    IkePolicyId          <a href="../../../../../builtin/#string">string</a>      `json:&#34;ikepolicyId&#34;`
+<span id="VpnConnectionResult.IpsecPolicyId"></span>    IpsecPolicyId        <a href="../../../../../builtin/#string">string</a>      `json:&#34;ipsecpolicyId&#34;`
+<span id="VpnConnectionResult.PeerAddress"></span>    PeerAddress          <a href="../../../../../builtin/#string">string</a>      `json:&#34;peerAddress&#34;`
+<span id="VpnConnectionResult.PeerId"></span>    PeerId               <a href="../../../../../builtin/#string">string</a>      `json:&#34;peerId,omitempty&#34;`
+<span id="VpnConnectionResult.LocalId"></span>    LocalId              <a href="../../../../../builtin/#string">string</a>      `json:&#34;localId,omitempty&#34;`
+<span id="VpnConnectionResult.PeerCidrs"></span>    PeerCidrs            <a href="../../../../../builtin/#string">string</a>      `json:&#34;peerCidrs,omitempty&#34;`
+<span id="VpnConnectionResult.AuthMode"></span>    AuthMode             <a href="../../../../../builtin/#string">string</a>      `json:&#34;authMode&#34;`
+<span id="VpnConnectionResult.RouteMode"></span>    RouteMode            <a href="../../../../../builtin/#string">string</a>      `json:&#34;routeMode&#34;`
+<span id="VpnConnectionResult.Mtu"></span>    Mtu                  <a href="../../../../../builtin/#int">int</a>         `json:&#34;mtu&#34;`
+<span id="VpnConnectionResult.Initiator"></span>    Initiator            <a href="../../../../../builtin/#string">string</a>      `json:&#34;initiator&#34;`
+<span id="VpnConnectionResult.Psk"></span>    Psk                  <a href="../../../../../builtin/#string">string</a>      `json:&#34;psk&#34;`
+<span id="VpnConnectionResult.Dpd"></span>    Dpd                  interface{} `json:&#34;dpd,omitempty&#34;`
+<span id="VpnConnectionResult.CreateTime"></span>    CreateTime           <a href="../../../../../builtin/#string">string</a>      `json:&#34;createdTime&#34;`
+<span id="VpnConnectionResult.Deleted"></span>    Deleted              <a href="../../../../../builtin/#bool">bool</a>        `json:&#34;deleted&#34;`
+<span id="VpnConnectionResult.Region"></span>    Region               <a href="../../../../../builtin/#string">string</a>      `json:&#34;region&#34;`
+<span id="VpnConnectionResult.LocalEndpointGroupId"></span>    LocalEndpointGroupId <a href="../../../../../builtin/#string">string</a>      `json:&#34;localEndpointGroupId&#34;`
+<span id="VpnConnectionResult.PeerEndpointGroupId"></span>    PeerEndpointGroupId  <a href="../../../../../builtin/#string">string</a>      `json:&#34;peerEndpointGroupId&#34;`
+<span id="VpnConnectionResult.LocalSubnets"></span>    LocalSubnets         []<a href="../../../../../builtin/#string">string</a>    `json:&#34;localSubnets&#34;`
+<span id="VpnConnectionResult.PeerSubnets"></span>    PeerSubnets          []<a href="../../../../../builtin/#string">string</a>    `json:&#34;peerSubnets&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="VpnOrderResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/IPSecVpn/types.go.html?s=1536:1794#L43">VpnOrderResult</a>
+				<a class="permalink" href="#VpnOrderResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type VpnOrderResult struct {
+<span id="VpnOrderResult.OrderId"></span>    OrderId       <a href="../../../../../builtin/#string">string</a> `json:&#34;orderId&#34;`
+<span id="VpnOrderResult.OrderExtResps"></span>    OrderExtResps []struct {
+        ProductType    <a href="../../../../../builtin/#string">string</a> `json:&#34;productType&#34;`
+        OrderExtId     <a href="../../../../../builtin/#string">string</a> `json:&#34;orderExtId&#34;`
+        OrderExtStatus <a href="../../../../../builtin/#int">int</a>    `json:&#34;orderExtStatus&#34;`
+    } `json:&#34;orderExtResps&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="VpnQuotaResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/IPSecVpn/types.go.html?s=2820:2921#L74">VpnQuotaResult</a>
+				<a class="permalink" href="#VpnQuotaResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type VpnQuotaResult struct {
+<span id="VpnQuotaResult.UsedQuota"></span>    UsedQuota  <a href="../../../../../builtin/#int">int</a> `json:&#34;usedQuota&#34;`
+<span id="VpnQuotaResult.TotalQuota"></span>    TotalQuota <a href="../../../../../builtin/#int">int</a> `json:&#34;totalQuota&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="VpnResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/net/IPSecVpn/types.go.html?s=1796:2818#L52">VpnResult</a>
+				<a class="permalink" href="#VpnResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type VpnResult struct {
+<span id="VpnResult.Id"></span>    Id                 <a href="../../../../../builtin/#string">string</a>   `json:&#34;id&#34;`
+<span id="VpnResult.Name"></span>    Name               <a href="../../../../../builtin/#string">string</a>   `json:&#34;name&#34;`
+<span id="VpnResult.Desc"></span>    Desc               <a href="../../../../../builtin/#string">string</a>   `json:&#34;description,omitempty&#34;`
+<span id="VpnResult.RouterId"></span>    RouterId           <a href="../../../../../builtin/#string">string</a>   `json:&#34;routerId&#34;`
+<span id="VpnResult.EcStatus"></span>    EcStatus           <a href="../../../../../builtin/#string">string</a>   `json:&#34;ecStatus&#34;`
+<span id="VpnResult.AdminStateUp"></span>    AdminStateUp       <a href="../../../../../builtin/#bool">bool</a>     `json:&#34;adminStateUp&#34;`
+<span id="VpnResult.FloatingIpId"></span>    FloatingIpId       <a href="../../../../../builtin/#string">string</a>   `json:&#34;floatingipId,omitempty&#34;`
+<span id="VpnResult.Region"></span>    Region             <a href="../../../../../builtin/#string">string</a>   `json:&#34;region&#34;`
+<span id="VpnResult.MaxSiteConnections"></span>    MaxSiteConnections <a href="../../../../../builtin/#string">string</a>   `json:&#34;maxSiteConnections,omitempty&#34;`
+<span id="VpnResult.LocalGateway"></span>    LocalGateway       <a href="../../../../../builtin/#string">string</a>   `json:&#34;localGateway&#34;`
+<span id="VpnResult.BandwidthSize"></span>    BandwidthSize      <a href="../../../../../builtin/#int">int</a>      `json:&#34;bandwidthSize&#34;`
+<span id="VpnResult.BandwidthType"></span>    BandwidthType      <a href="../../../../../builtin/#string">string</a>   `json:&#34;bandwidthType&#34;`
+<span id="VpnResult.CreateTime"></span>    CreateTime         <a href="../../../../../builtin/#string">string</a>   `json:&#34;createdTime&#34;`
+<span id="VpnResult.Deleted"></span>    Deleted            <a href="../../../../../builtin/#bool">bool</a>     `json:&#34;deleted&#34;`
+<span id="VpnResult.Visible"></span>    Visible            <a href="../../../../../builtin/#bool">bool</a>     `json:&#34;visible&#34;`
+<span id="VpnResult.SubnetIds"></span>    SubnetIds          []<a href="../../../../../builtin/#string">string</a> `json:&#34;subnetIds&#34;`
+    <span class="comment">//SubnetResps        []VirtualPrivateCloud.SubnetResult `json:&#34;subnetResps,omitempty&#34;`</span>
+<span id="VpnResult.SubnetResps"></span>    SubnetResps interface{} `json:&#34;subnetResps,omitempty&#34;`
+<span id="VpnResult.SiteConnIds"></span>    SiteConnIds []<a href="../../../../../builtin/#string">string</a>    `json:&#34;siteConnIds&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer"><a href="../../../../../docs.zip">Download docs.zip</a> to browse offline - Generated by <a href="https://godoc.org/golang.org/x/tools/godoc" target="_blank">godoc</a> + <a href="https://gitlab.com/tslocum/godoc-static" target="_blank">godoc-static</a></div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+
+
+</body></html>

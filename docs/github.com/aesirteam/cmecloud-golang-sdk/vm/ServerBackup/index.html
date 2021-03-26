@@ -1,0 +1,348 @@
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="theme-color" content="#375EAB"/>
+
+  <title>ServerBackup - Documentation</title>
+
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="../../../../../lib/style.css"/></head>
+<body>
+
+<div id="lowframe" style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="../../../../../">Documentation</a></div>
+<div class="top-heading" id="heading-narrow"><a href="../../../../../">Documentation</a></div>
+<!--<a href="#" id="menu-button"><span id="menu-button-arrow">▽</span></a>-->
+<div id="menu">
+<a href="../../../../../" style="margin-right: 10px;">Package Index</a>
+</div>
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package ServerBackup
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import &#34;<a href="https://github.com/aesirteam/cmecloud-golang-sdk/tree/master/vm/ServerBackup" target="_blank">github.com/aesirteam/cmecloud-golang-sdk/vm/ServerBackup</a>&#34;</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+			
+			
+				
+				<dd><a href="#APIv1">type APIv1</a></dd>
+				
+					
+					<dd>    <a href="#New">func New(client *global.EcloudClient) *APIv1</a></dd>
+				
+				
+					
+					<dd>    <a href="#APIv1.CreateServerBackup">func (a *APIv1) CreateServerBackup(serverId, name string) (result ServerBackupResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv1.DeleteServerBackup">func (a *APIv1) DeleteServerBackup(backupId string) (err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv1.GetServerBackupList">func (a *APIv1) GetServerBackupList(serverId, name string, page, size int) (result []ServerBackupResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv1.RestoreServerFromBackup">func (a *APIv1) RestoreServerFromBackup(backupId, serverId string) (err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv1.ServerBackupOrder">func (a *APIv1) ServerBackupOrder() (result string, err error)</a></dd>
+				
+			
+				
+				<dd><a href="#ServerBackupInterface">type ServerBackupInterface</a></dd>
+				
+				
+			
+				
+				<dd><a href="#ServerBackupResult">type ServerBackupResult</a></dd>
+				
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/ServerBackup/serverBackup.go.html">serverBackup.go</a>
+			
+				<a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/ServerBackup/types.go.html">types.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+		
+		
+			
+			
+			<h2 id="APIv1">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/ServerBackup/types.go.html?s=87:137#L1">APIv1</a>
+				<a class="permalink" href="#APIv1">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type APIv1 struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="New">func <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/ServerBackup/types.go.html?s=139:183#L1">New</a>
+					<a class="permalink" href="#New">¶</a>
+					
+					
+				</h3>
+				<pre>func New(client *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#EcloudClient">EcloudClient</a>) *<a href="#APIv1">APIv1</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="APIv1.CreateServerBackup">func (*APIv1) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/ServerBackup/serverBackup.go.html?s=363:459#L13">CreateServerBackup</a>
+					<a class="permalink" href="#APIv1.CreateServerBackup">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv1">APIv1</a>) CreateServerBackup(serverId, name <a href="../../../../../builtin/#string">string</a>) (result <a href="#ServerBackupResult">ServerBackupResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv1.DeleteServerBackup">func (*APIv1) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/ServerBackup/serverBackup.go.html?s=2012:2075#L101">DeleteServerBackup</a>
+					<a class="permalink" href="#APIv1.DeleteServerBackup">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv1">APIv1</a>) DeleteServerBackup(backupId <a href="../../../../../builtin/#string">string</a>) (err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv1.GetServerBackupList">func (*APIv1) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/ServerBackup/serverBackup.go.html?s=942:1057#L43">GetServerBackupList</a>
+					<a class="permalink" href="#APIv1.GetServerBackupList">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv1">APIv1</a>) GetServerBackupList(serverId, name <a href="../../../../../builtin/#string">string</a>, page, size <a href="../../../../../builtin/#int">int</a>) (result []<a href="#ServerBackupResult">ServerBackupResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv1.RestoreServerFromBackup">func (*APIv1) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/ServerBackup/serverBackup.go.html?s=1531:1609#L76">RestoreServerFromBackup</a>
+					<a class="permalink" href="#APIv1.RestoreServerFromBackup">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv1">APIv1</a>) RestoreServerFromBackup(backupId, serverId <a href="../../../../../builtin/#string">string</a>) (err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv1.ServerBackupOrder">func (*APIv1) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/ServerBackup/serverBackup.go.html?s=44:106#L1">ServerBackupOrder</a>
+					<a class="permalink" href="#APIv1.ServerBackupOrder">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv1">APIv1</a>) ServerBackupOrder() (result <a href="../../../../../builtin/#string">string</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="ServerBackupInterface">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/ServerBackup/types.go.html?s=212:712#L3">ServerBackupInterface</a>
+				<a class="permalink" href="#ServerBackupInterface">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type ServerBackupInterface interface {
+    <span class="comment">// 开通云主机备份服务</span>
+    ServerBackupOrder() (<a href="../../../../../builtin/#string">string</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 创建云主机备份</span>
+    CreateServerBackup(serverId, name <a href="../../../../../builtin/#string">string</a>) (<a href="#ServerBackupResult">ServerBackupResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 查看云主机备份列表</span>
+    GetServerBackupList(serverId, name <a href="../../../../../builtin/#string">string</a>, page, size <a href="../../../../../builtin/#int">int</a>) ([]<a href="#ServerBackupResult">ServerBackupResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 使用云主机备份恢复云主机</span>
+    RestoreServerFromBackup(backupId, serverId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a>
+
+    <span class="comment">// 删除云主机备份</span>
+    DeleteServerBackup(backupId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a>
+}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ServerBackupResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/ServerBackup/types.go.html?s=714:1112#L20">ServerBackupResult</a>
+				<a class="permalink" href="#ServerBackupResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type ServerBackupResult struct {
+<span id="ServerBackupResult.Id"></span>    Id           <a href="../../../../../builtin/#string">string</a> `json:&#34;id&#34;`
+<span id="ServerBackupResult.ServerId"></span>    ServerId     <a href="../../../../../builtin/#string">string</a> `json:&#34;serverId&#34;`
+<span id="ServerBackupResult.Name"></span>    Name         <a href="../../../../../builtin/#string">string</a> `json:&#34;name&#34;`
+<span id="ServerBackupResult.BackupSize"></span>    BackupSize   <a href="../../../../../builtin/#int">int</a>    `json:&#34;backupSize&#34;`
+<span id="ServerBackupResult.Status"></span>    Status       <a href="../../../../../builtin/#int">int</a>    `json:&#34;status&#34;`
+<span id="ServerBackupResult.BackupStatus"></span>    BackupStatus <a href="../../../../../builtin/#int">int</a>    `json:&#34;backupStatus&#34;`
+<span id="ServerBackupResult.SystemDisk"></span>    SystemDisk   <a href="../../../../../builtin/#string">string</a> `json:&#34;systemDisk&#34;`
+<span id="ServerBackupResult.CreatedTime"></span>    CreatedTime  <a href="../../../../../builtin/#string">string</a> `json:&#34;createdTime&#34;`
+<span id="ServerBackupResult.ModifiedTime"></span>    ModifiedTime <a href="../../../../../builtin/#string">string</a> `json:&#34;modifiedTime,omitempty&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer"><a href="../../../../../docs.zip">Download docs.zip</a> to browse offline - Generated by <a href="https://godoc.org/golang.org/x/tools/godoc" target="_blank">godoc</a> + <a href="https://gitlab.com/tslocum/godoc-static" target="_blank">godoc-static</a></div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+
+
+</body></html>

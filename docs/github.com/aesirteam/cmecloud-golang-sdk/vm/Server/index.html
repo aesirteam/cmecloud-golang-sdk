@@ -1,0 +1,1053 @@
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="theme-color" content="#375EAB"/>
+
+  <title>Server - Documentation</title>
+
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="../../../../../lib/style.css"/></head>
+<body>
+
+<div id="lowframe" style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="../../../../../">Documentation</a></div>
+<div class="top-heading" id="heading-narrow"><a href="../../../../../">Documentation</a></div>
+<!--<a href="#" id="menu-button"><span id="menu-button-arrow">▽</span></a>-->
+<div id="menu">
+<a href="../../../../../" style="margin-right: 10px;">Package Index</a>
+</div>
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package Server
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import &#34;<a href="https://github.com/aesirteam/cmecloud-golang-sdk/tree/master/vm/Server" target="_blank">github.com/aesirteam/cmecloud-golang-sdk/vm/Server</a>&#34;</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+			
+			
+				
+				<dd><a href="#APIv2">type APIv2</a></dd>
+				
+					
+					<dd>    <a href="#New">func New(client *global.EcloudClient) *APIv2</a></dd>
+				
+				
+					
+					<dd>    <a href="#APIv2.AttachNic">func (a *APIv2) AttachNic(serverId, portId string) (err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.CreatServer">func (a *APIv2) CreatServer(ss *global.ServerSpec) (result ServerOrderResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.DetachNic">func (a *APIv2) DetachNic(serverId, portId string) (err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetProductFlavorList">func (a *APIv2) GetProductFlavorList(cpu, ram int, osType global.OsType, vmType global.VmType, page, size int) (result []ProductResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetRebuildImageList">func (a *APIv2) GetRebuildImageList(serverId string, imageType int) (result []ServerRebuildImageResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetRegionList">func (a *APIv2) GetRegionList(component string) (result []RegionResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetServerInfo">func (a *APIv2) GetServerInfo(serverId string, detail bool) (result *ServerResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetServerList">func (a *APIv2) GetServerList(name, networkId, region string, page, size int) (result []ServerResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetServerVNCAddress">func (a *APIv2) GetServerVNCAddress(serverId string) (result string, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetUnbindNicList">func (a *APIv2) GetUnbindNicList(serverId string, resourceType int, page, size int) (result []VirtualPrivateCloud.NicResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.GetUnmountList">func (a *APIv2) GetUnmountList(serverId string, page, size int) (result []CloudBlockStorage.VolumeResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.ModifyServerName">func (a *APIv2) ModifyServerName(serverId, name string) (result ServerResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.ModifyServerPassword">func (a *APIv2) ModifyServerPassword(serverId, password string) (result ServerResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.MountVolume">func (a *APIv2) MountVolume(serverId, volumeId string) (err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.RebootServer">func (a *APIv2) RebootServer(serverId string) (result ServerResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.RebuildServer">func (a *APIv2) RebuildServer(serverId, imageId string, adminPass, userData string) error</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.StartServer">func (a *APIv2) StartServer(serverId string) (result ServerResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.StopServer">func (a *APIv2) StopServer(serverId string) (result ServerResult, err error)</a></dd>
+				
+					
+					<dd>    <a href="#APIv2.UnmountVolume">func (a *APIv2) UnmountVolume(serverId, volumeId string) (err error)</a></dd>
+				
+			
+				
+				<dd><a href="#ProductResult">type ProductResult</a></dd>
+				
+				
+			
+				
+				<dd><a href="#RegionResult">type RegionResult</a></dd>
+				
+				
+			
+				
+				<dd><a href="#ServerFixedIpDetail">type ServerFixedIpDetail</a></dd>
+				
+				
+			
+				
+				<dd><a href="#ServerFixedIpDetailArray">type ServerFixedIpDetailArray</a></dd>
+				
+				
+			
+				
+				<dd><a href="#ServerInterface">type ServerInterface</a></dd>
+				
+				
+			
+				
+				<dd><a href="#ServerOrderResult">type ServerOrderResult</a></dd>
+				
+				
+			
+				
+				<dd><a href="#ServerPortDetail">type ServerPortDetail</a></dd>
+				
+				
+			
+				
+				<dd><a href="#ServerPortDetailArray">type ServerPortDetailArray</a></dd>
+				
+				
+			
+				
+				<dd><a href="#ServerRebuildImageResult">type ServerRebuildImageResult</a></dd>
+				
+				
+			
+				
+				<dd><a href="#ServerResult">type ServerResult</a></dd>
+				
+				
+			
+				
+				<dd><a href="#ServerVolumeDetail">type ServerVolumeDetail</a></dd>
+				
+				
+			
+				
+				<dd><a href="#ServerVolumeDetailArray">type ServerVolumeDetailArray</a></dd>
+				
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/product.go.html">product.go</a>
+			
+				<a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/region.go.html">region.go</a>
+			
+				<a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/server.go.html">server.go</a>
+			
+				<a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/types.go.html">types.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+		
+		
+			
+			
+			<h2 id="APIv2">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/types.go.html?s=238:288#L1">APIv2</a>
+				<a class="permalink" href="#APIv2">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type APIv2 struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="New">func <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/types.go.html?s=290:334#L3">New</a>
+					<a class="permalink" href="#New">¶</a>
+					
+					
+				</h3>
+				<pre>func New(client *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#EcloudClient">EcloudClient</a>) *<a href="#APIv2">APIv2</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="APIv2.AttachNic">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/server.go.html?s=8697:8759#L417">AttachNic</a>
+					<a class="permalink" href="#APIv2.AttachNic">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) AttachNic(serverId, portId <a href="../../../../../builtin/#string">string</a>) (err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.CreatServer">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/server.go.html?s=260:348#L2">CreatServer</a>
+					<a class="permalink" href="#APIv2.CreatServer">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) CreatServer(ss *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#ServerSpec">ServerSpec</a>) (result <a href="#ServerOrderResult">ServerOrderResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.DetachNic">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/server.go.html?s=9146:9208#L442">DetachNic</a>
+					<a class="permalink" href="#APIv2.DetachNic">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) DetachNic(serverId, portId <a href="../../../../../builtin/#string">string</a>) (err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetProductFlavorList">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/product.go.html?s=81:227#L1">GetProductFlavorList</a>
+					<a class="permalink" href="#APIv2.GetProductFlavorList">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetProductFlavorList(cpu, ram <a href="../../../../../builtin/#int">int</a>, osType <a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#OsType">OsType</a>, vmType <a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#VmType">VmType</a>, page, size <a href="../../../../../builtin/#int">int</a>) (result []<a href="#ProductResult">ProductResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetRebuildImageList">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/server.go.html?s=7477:7591#L357">GetRebuildImageList</a>
+					<a class="permalink" href="#APIv2.GetRebuildImageList">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetRebuildImageList(serverId <a href="../../../../../builtin/#string">string</a>, imageType <a href="../../../../../builtin/#int">int</a>) (result []<a href="#ServerRebuildImageResult">ServerRebuildImageResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetRegionList">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/region.go.html?s=16:98#L1">GetRegionList</a>
+					<a class="permalink" href="#APIv2.GetRegionList">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetRegionList(component <a href="../../../../../builtin/#string">string</a>) (result []<a href="#RegionResult">RegionResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetServerInfo">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/server.go.html?s=3964:4057#L180">GetServerInfo</a>
+					<a class="permalink" href="#APIv2.GetServerInfo">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetServerInfo(serverId <a href="../../../../../builtin/#string">string</a>, detail <a href="../../../../../builtin/#bool">bool</a>) (result *<a href="#ServerResult">ServerResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetServerList">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/server.go.html?s=3167:3279#L139">GetServerList</a>
+					<a class="permalink" href="#APIv2.GetServerList">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetServerList(name, networkId, region <a href="../../../../../builtin/#string">string</a>, page, size <a href="../../../../../builtin/#int">int</a>) (result []<a href="#ServerResult">ServerResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetServerVNCAddress">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/server.go.html?s=4504:4583#L208">GetServerVNCAddress</a>
+					<a class="permalink" href="#APIv2.GetServerVNCAddress">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetServerVNCAddress(serverId <a href="../../../../../builtin/#string">string</a>) (result <a href="../../../../../builtin/#string">string</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetUnbindNicList">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/server.go.html?s=9595:9730#L467">GetUnbindNicList</a>
+					<a class="permalink" href="#APIv2.GetUnbindNicList">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetUnbindNicList(serverId <a href="../../../../../builtin/#string">string</a>, resourceType <a href="../../../../../builtin/#int">int</a>, page, size <a href="../../../../../builtin/#int">int</a>) (result []<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/VirtualPrivateCloud/">VirtualPrivateCloud</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/VirtualPrivateCloud/#NicResult">NicResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.GetUnmountList">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/server.go.html?s=11169:11285#L547">GetUnmountList</a>
+					<a class="permalink" href="#APIv2.GetUnmountList">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) GetUnmountList(serverId <a href="../../../../../builtin/#string">string</a>, page, size <a href="../../../../../builtin/#int">int</a>) (result []<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/storage/CloudBlockStorage/">CloudBlockStorage</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/storage/CloudBlockStorage/#VolumeResult">VolumeResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.ModifyServerName">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/server.go.html?s=4841:4929#L225">ModifyServerName</a>
+					<a class="permalink" href="#APIv2.ModifyServerName">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) ModifyServerName(serverId, name <a href="../../../../../builtin/#string">string</a>) (result <a href="#ServerResult">ServerResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.ModifyServerPassword">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/server.go.html?s=5418:5514#L255">ModifyServerPassword</a>
+					<a class="permalink" href="#APIv2.ModifyServerPassword">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) ModifyServerPassword(serverId, password <a href="../../../../../builtin/#string">string</a>) (result <a href="#ServerResult">ServerResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.MountVolume">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/server.go.html?s=10227:10293#L497">MountVolume</a>
+					<a class="permalink" href="#APIv2.MountVolume">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) MountVolume(serverId, volumeId <a href="../../../../../builtin/#string">string</a>) (err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.RebootServer">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/server.go.html?s=6022:6100#L285">RebootServer</a>
+					<a class="permalink" href="#APIv2.RebootServer">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) RebootServer(serverId <a href="../../../../../builtin/#string">string</a>) (result <a href="#ServerResult">ServerResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.RebuildServer">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/server.go.html?s=8043:8132#L385">RebuildServer</a>
+					<a class="permalink" href="#APIv2.RebuildServer">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) RebuildServer(serverId, imageId <a href="../../../../../builtin/#string">string</a>, adminPass, userData <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a></pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.StartServer">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/server.go.html?s=6509:6586#L309">StartServer</a>
+					<a class="permalink" href="#APIv2.StartServer">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) StartServer(serverId <a href="../../../../../builtin/#string">string</a>) (result <a href="#ServerResult">ServerResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.StopServer">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/server.go.html?s=6994:7070#L333">StopServer</a>
+					<a class="permalink" href="#APIv2.StopServer">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) StopServer(serverId <a href="../../../../../builtin/#string">string</a>) (result <a href="#ServerResult">ServerResult</a>, err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="APIv2.UnmountVolume">func (*APIv2) <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/server.go.html?s=10696:10764#L522">UnmountVolume</a>
+					<a class="permalink" href="#APIv2.UnmountVolume">¶</a>
+					
+					
+				</h3>
+				<pre>func (a *<a href="#APIv2">APIv2</a>) UnmountVolume(serverId, volumeId <a href="../../../../../builtin/#string">string</a>) (err <a href="../../../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+				
+			
+		
+			
+			
+			<h2 id="ProductResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/types.go.html?s=2689:3198#L76">ProductResult</a>
+				<a class="permalink" href="#ProductResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type ProductResult struct {
+<span id="ProductResult.ProductId"></span>    ProductId  <a href="../../../../../builtin/#string">string</a> `json:&#34;productId&#34;`
+<span id="ProductResult.FlavorId"></span>    FlavorId   <a href="../../../../../builtin/#string">string</a> `json:&#34;flavorId&#34;`
+<span id="ProductResult.OsType"></span>    OsType     <a href="../../../../../builtin/#string">string</a> `json:&#34;osType&#34;`
+<span id="ProductResult.ServerType"></span>    ServerType <a href="../../../../../builtin/#string">string</a> `json:&#34;serverType&#34;`
+<span id="ProductResult.VmType"></span>    VmType     <a href="../../../../../builtin/#string">string</a> `json:&#34;vmType&#34;`
+<span id="ProductResult.Generation"></span>    Generation <a href="../../../../../builtin/#string">string</a> `json:&#34;generation,omitempty&#34;`
+<span id="ProductResult.Cpu"></span>    Cpu        <a href="../../../../../builtin/#int">int</a>    `json:&#34;cpu&#34;`
+<span id="ProductResult.Ram"></span>    Ram        <a href="../../../../../builtin/#int">int</a>    `json:&#34;ram&#34;`
+<span id="ProductResult.Disk"></span>    Disk       <a href="../../../../../builtin/#int">int</a>    `json:&#34;disk&#34;`
+<span id="ProductResult.Gpu"></span>    Gpu        <a href="../../../../../builtin/#string">string</a> `json:&#34;gpu,omitempty&#34;`
+<span id="ProductResult.BootVolume"></span>    BootVolume <a href="../../../../../builtin/#bool">bool</a>   `json:&#34;bootVolume&#34;`
+<span id="ProductResult.Zone"></span>    Zone       <a href="../../../../../builtin/#string">string</a> `json:&#34;zone&#34;`
+<span id="ProductResult.Deleted"></span>    Deleted    <a href="../../../../../builtin/#bool">bool</a>   `json:&#34;deleted&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="RegionResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/types.go.html?s=2362:2687#L66">RegionResult</a>
+				<a class="permalink" href="#RegionResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type RegionResult struct {
+<span id="RegionResult.Id"></span>    Id        <a href="../../../../../builtin/#int">int</a>    `json:&#34;id,omitempty&#34;`
+<span id="RegionResult.Name"></span>    Name      <a href="../../../../../builtin/#string">string</a> `json:&#34;region&#34;`
+<span id="RegionResult.Note"></span>    Note      <a href="../../../../../builtin/#string">string</a> `json:&#34;name,omitempty&#34;`
+<span id="RegionResult.Component"></span>    Component <a href="../../../../../builtin/#string">string</a> `json:&#34;component,omitempty&#34;`
+<span id="RegionResult.PoolId"></span>    PoolId    <a href="../../../../../builtin/#string">string</a> `json:&#34;poolId,omitempty&#34;`
+<span id="RegionResult.Deleted"></span>    Deleted   <a href="../../../../../builtin/#bool">bool</a>   `json:&#34;deleted,omitempty&#34;`
+<span id="RegionResult.Visible"></span>    Visible   <a href="../../../../../builtin/#bool">bool</a>   `json:&#34;visible,omitempty&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ServerFixedIpDetail">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/types.go.html?s=7397:7965#L197">ServerFixedIpDetail</a>
+				<a class="permalink" href="#ServerFixedIpDetail">¶</a>
+				
+				
+			</h2>
+			<p>
+绑定信息
+</p>
+<pre>IpAddress		内网ip
+IpVersion		v4/v6
+PublicIP		公网ip
+BandwidthSize		公网ip带宽（Mb）
+BandwidthType		带宽类型
+Ipv6BandwidthSize	Ipv6带宽值（Mb）
+SubnetId		子网id
+SubnetName		子网名称
+</pre>
+
+			<pre>type ServerFixedIpDetail struct {
+<span id="ServerFixedIpDetail.IpAddress"></span>    IpAddress         <a href="../../../../../builtin/#string">string</a> `json:&#34;ipAddress&#34;`
+<span id="ServerFixedIpDetail.IpVersion"></span>    IpVersion         <a href="../../../../../builtin/#int">int</a>    `json:&#34;ipVersion&#34;`
+<span id="ServerFixedIpDetail.PublicIP"></span>    PublicIP          <a href="../../../../../builtin/#string">string</a> `json:&#34;publicIP,omitempty&#34;`
+<span id="ServerFixedIpDetail.BandwidthSize"></span>    BandwidthSize     <a href="../../../../../builtin/#int">int</a>    `json:&#34;bandwidthSize,omitempty&#34;`
+<span id="ServerFixedIpDetail.BandwidthType"></span>    BandwidthType     <a href="../../../../../builtin/#string">string</a> `json:&#34;bandwidthType,omitempty&#34;`
+<span id="ServerFixedIpDetail.Ipv6BandwidthSize"></span>    Ipv6BandwidthSize <a href="../../../../../builtin/#int">int</a>    `json:&#34;ipv6BandwidthSize,omitempty&#34;`
+<span id="ServerFixedIpDetail.SubnetId"></span>    SubnetId          <a href="../../../../../builtin/#string">string</a> `json:&#34;subnetId&#34;`
+<span id="ServerFixedIpDetail.SubnetName"></span>    SubnetName        <a href="../../../../../builtin/#string">string</a> `json:&#34;subnetName,omitempty&#34;`
+<span id="ServerFixedIpDetail.SubnetCidr"></span>    SubnetCidr        <a href="../../../../../builtin/#string">string</a> `json:&#34;subnetCidr,omitempty&#34;`
+<span id="ServerFixedIpDetail.PortId"></span>    PortId            <a href="../../../../../builtin/#string">string</a> `json:&#34;portId,omitempty&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ServerFixedIpDetailArray">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/types.go.html?s=7966:8017#L209">ServerFixedIpDetailArray</a>
+				<a class="permalink" href="#ServerFixedIpDetailArray">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type ServerFixedIpDetailArray []<a href="#ServerFixedIpDetail">ServerFixedIpDetail</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ServerInterface">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/types.go.html?s=363:2360#L7">ServerInterface</a>
+				<a class="permalink" href="#ServerInterface">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type ServerInterface interface {
+    <span class="comment">//查询可用区</span>
+    GetRegionList(component <a href="../../../../../builtin/#string">string</a>) ([]<a href="#RegionResult">RegionResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//查询云主机可用规格</span>
+    GetProductFlavorList(cpu, ram <a href="../../../../../builtin/#int">int</a>, osType <a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#OsType">OsType</a>, vmType <a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#VmType">VmType</a>, page, size <a href="../../../../../builtin/#int">int</a>) ([]<a href="#ProductResult">ProductResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//创建云主机</span>
+    CreatServer(spec *<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#ServerSpec">ServerSpec</a>) (<a href="#ServerOrderResult">ServerOrderResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//查询云主机列表</span>
+    GetServerList(name, networkId, region <a href="../../../../../builtin/#string">string</a>, page, size <a href="../../../../../builtin/#int">int</a>) ([]<a href="#ServerResult">ServerResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//查看云主机详情</span>
+    GetServerInfo(serverId <a href="../../../../../builtin/#string">string</a>, detail <a href="../../../../../builtin/#bool">bool</a>) (*<a href="#ServerResult">ServerResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//获取VNC登录云主机地址</span>
+    GetServerVNCAddress(serverId <a href="../../../../../builtin/#string">string</a>) (<a href="../../../../../builtin/#string">string</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//修改云主机名称信息</span>
+    ModifyServerName(serverId, name <a href="../../../../../builtin/#string">string</a>) (<a href="#ServerResult">ServerResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//重置云主机的密码</span>
+    ModifyServerPassword(serverId, password <a href="../../../../../builtin/#string">string</a>) (<a href="#ServerResult">ServerResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//重启云主机</span>
+    RebootServer(serverId <a href="../../../../../builtin/#string">string</a>) (<a href="#ServerResult">ServerResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//启动云主机</span>
+    StartServer(serverId <a href="../../../../../builtin/#string">string</a>) (<a href="#ServerResult">ServerResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//停止云主机</span>
+    StopServer(serverId <a href="../../../../../builtin/#string">string</a>) (<a href="#ServerResult">ServerResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//查看可重装云主机镜像列表 (imageType: 1:用户创建镜像,2:系统镜像)</span>
+    GetRebuildImageList(serverId <a href="../../../../../builtin/#string">string</a>, imageType <a href="../../../../../builtin/#int">int</a>) ([]<a href="#ServerRebuildImageResult">ServerRebuildImageResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//重装指定云主机上的操作系统 (非必填: adminPass, userData)</span>
+    RebuildServer(serverId, imageId <a href="../../../../../builtin/#string">string</a>, adminPass, userData <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a>
+
+    <span class="comment">//查看可绑定虚拟网卡列表 (resourceType：云主机0，物理机1)</span>
+    GetUnbindNicList(serverId <a href="../../../../../builtin/#string">string</a>, resourceType, page, size <a href="../../../../../builtin/#int">int</a>) ([]<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/VirtualPrivateCloud/">VirtualPrivateCloud</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/VirtualPrivateCloud/#NicResult">NicResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">//为云主机绑定虚拟网卡</span>
+    AttachNic(serverId, portId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a>
+
+    <span class="comment">//为云主机解绑虚拟网卡</span>
+    DetachNic(serverId, portId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a>
+
+    <span class="comment">// 查询云主机可挂载云硬盘列表</span>
+    GetUnmountList(serverId <a href="../../../../../builtin/#string">string</a>, page, size <a href="../../../../../builtin/#int">int</a>) ([]<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/storage/CloudBlockStorage/">CloudBlockStorage</a>.<a href="../../../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/storage/CloudBlockStorage/#VolumeResult">VolumeResult</a>, <a href="../../../../../builtin/#error">error</a>)
+
+    <span class="comment">// 云硬盘挂载</span>
+    MountVolume(volumeId, serverId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a>
+
+    <span class="comment">// 云硬盘卸载</span>
+    UnmountVolume(volumeId, serverId <a href="../../../../../builtin/#string">string</a>) <a href="../../../../../builtin/#error">error</a>
+}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ServerOrderResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/types.go.html?s=3200:3417#L92">ServerOrderResult</a>
+				<a class="permalink" href="#ServerOrderResult">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type ServerOrderResult struct {
+<span id="ServerOrderResult.ProcedureCode"></span>    ProcedureCode <a href="../../../../../builtin/#string">string</a>   `json:&#34;procedureCode&#34;`
+<span id="ServerOrderResult.ReturnUrl"></span>    ReturnUrl     <a href="../../../../../builtin/#string">string</a>   `json:&#34;returnUrl,omitempty&#34;`
+<span id="ServerOrderResult.OrderId"></span>    OrderId       <a href="../../../../../builtin/#string">string</a>   `json:&#34;orderId&#34;`
+<span id="ServerOrderResult.OrderExts"></span>    OrderExts     []<a href="../../../../../builtin/#string">string</a> `json:&#34;orderExts&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ServerPortDetail">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/types.go.html?s=6552:7108#L174">ServerPortDetail</a>
+				<a class="permalink" href="#ServerPortDetail">¶</a>
+				
+				
+			</h2>
+			<p>
+云主机绑定的网络信息
+</p>
+<pre>PrivateIp		内网ip
+FipAddress 		公网ip地址
+FipV6Address 		公网ipv6地址
+FipBandwidthSize	带宽大小
+PortId			网卡id
+PortName		网卡名称
+</pre>
+
+			<pre>type ServerPortDetail struct {
+<span id="ServerPortDetail.IpId"></span>    IpId                     <a href="../../../../../builtin/#string">string</a> `json:&#34;ipId,omitempty&#34;`
+<span id="ServerPortDetail.PrivateIp"></span>    PrivateIp                <a href="../../../../../builtin/#string">string</a> `json:&#34;privateIp&#34;`
+<span id="ServerPortDetail.FipAddress"></span>    FipAddress               <a href="../../../../../builtin/#string">string</a> `json:&#34;fipAddress,omitempty&#34; newtag:&#34;publicIp&#34;`
+<span id="ServerPortDetail.FipV6Address"></span>    FipV6Address             <a href="../../../../../builtin/#string">string</a> `json:&#34;fipV6Address,omitempty&#34;`
+<span id="ServerPortDetail.FipBandwidthSize"></span>    FipBandwidthSize         <a href="../../../../../builtin/#int">int</a>    `json:&#34;fipBandwidthSize,omitempty&#34;`
+<span id="ServerPortDetail.PortId"></span>    PortId                   <a href="../../../../../builtin/#string">string</a> `json:&#34;portId&#34; newtag:&#34;id&#34;`
+<span id="ServerPortDetail.PortName"></span>    PortName                 <a href="../../../../../builtin/#string">string</a> `json:&#34;portName,omitempty&#34; newtag:&#34;name&#34;`
+    <a href="#ServerFixedIpDetailArray">ServerFixedIpDetailArray</a> `json:&#34;fixedIpDetailResps,omitempty&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ServerPortDetailArray">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/types.go.html?s=7109:7154#L184">ServerPortDetailArray</a>
+				<a class="permalink" href="#ServerPortDetailArray">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type ServerPortDetailArray []<a href="#ServerPortDetail">ServerPortDetail</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ServerRebuildImageResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/types.go.html?s=8813:9528#L245">ServerRebuildImageResult</a>
+				<a class="permalink" href="#ServerRebuildImageResult">¶</a>
+				
+				
+			</h2>
+			<p>
+ServerRebuildImageResult
+</p>
+<pre>Id		镜像id
+ServerId	虚机id
+Name		镜像名称
+Type		镜像来源类型
+Url		镜像路径
+SourceImagePoolId 原镜像所属资源池ID
+SourceImageId	原镜像ID
+Status		镜像状态
+Size		镜像大小，单位M
+CreatedTime	创建时间
+ModifiedTime	更新时间
+Note		备注
+OsType		操作系统类型：linux,windows
+MinDisk		flavor需要的最小大小，单位G
+</pre>
+
+			<pre>type ServerRebuildImageResult struct {
+<span id="ServerRebuildImageResult.Id"></span>    Id                <a href="../../../../../builtin/#string">string</a> `json:&#34;id&#34;`
+<span id="ServerRebuildImageResult.ServerId"></span>    ServerId          <a href="../../../../../builtin/#string">string</a> `json:&#34;serverId,omitempty&#34;`
+<span id="ServerRebuildImageResult.Name"></span>    Name              <a href="../../../../../builtin/#string">string</a> `json:&#34;name&#34;`
+<span id="ServerRebuildImageResult.Type"></span>    Type              <a href="../../../../../builtin/#int">int</a>    `json:&#34;type&#34;`
+<span id="ServerRebuildImageResult.Url"></span>    Url               <a href="../../../../../builtin/#string">string</a> `json:&#34;url,omitempty&#34;`
+<span id="ServerRebuildImageResult.SourceImagePoolId"></span>    SourceImagePoolId <a href="../../../../../builtin/#string">string</a> `json:&#34;sourceImagePoolId,omitempty&#34;`
+<span id="ServerRebuildImageResult.SourceImageId"></span>    SourceImageId     <a href="../../../../../builtin/#string">string</a> `json:&#34;sourceImageId,omitempty&#34;`
+<span id="ServerRebuildImageResult.Status"></span>    Status            <a href="../../../../../builtin/#string">string</a> `json:&#34;status&#34;`
+<span id="ServerRebuildImageResult.Size"></span>    Size              <a href="../../../../../builtin/#int">int</a>    `json:&#34;size&#34;`
+<span id="ServerRebuildImageResult.CreatedTime"></span>    CreatedTime       <a href="../../../../../builtin/#string">string</a> `json:&#34;createdTime,omitempty&#34;`
+<span id="ServerRebuildImageResult.ModifiedTime"></span>    ModifiedTime      <a href="../../../../../builtin/#string">string</a> `json:&#34;modifiedTime,omitempty&#34;`
+<span id="ServerRebuildImageResult.Note"></span>    Note              <a href="../../../../../builtin/#string">string</a> `json:&#34;note,omitempty&#34;`
+<span id="ServerRebuildImageResult.OsType"></span>    OsType            <a href="../../../../../builtin/#string">string</a> `json:&#34;osType&#34;`
+<span id="ServerRebuildImageResult.MinDisk"></span>    MinDisk           <a href="../../../../../builtin/#int">int</a>    `json:&#34;minDisk&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ServerResult">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/types.go.html?s=4153:6350#L127">ServerResult</a>
+				<a class="permalink" href="#ServerResult">¶</a>
+				
+				
+			</h2>
+			<p>
+ServerResult
+</p>
+<pre>ServerId	云主机id
+Name		云主机名称
+Cpu		云主机cpu数量
+Ram		云主机内存大小
+Disk		云主机硬盘大小
+HwHostId	所属物理机id
+HwHost		所属物理机编号
+KeyName		密钥对名称
+ImageRef	镜像id
+ImageName	镜像名称
+ImageOsType	镜像操作系统类型
+FlavorRef	规格id
+SystemDiskId	系统盘id
+Task		底层任务描述
+Deleted		是否已删除
+AvailabilityZone 所属区域
+ServerType	主机类型
+ServerVmType	主机规格类型
+ProductType	云主机产品类型
+OpStatus	云主机op侧状态
+EcStatus	云主机底层状态
+BootVolumeType	云主机系统盘类型
+UserName	订购用户名称
+Visible		是否可见
+Region		可用区
+</pre>
+
+			<pre>type ServerResult struct {
+<span id="ServerResult.ServerId"></span>    ServerId                <a href="../../../../../builtin/#string">string</a> `json:&#34;id&#34; newtag:&#34;id&#34;`
+<span id="ServerResult.Name"></span>    Name                    <a href="../../../../../builtin/#string">string</a> `json:&#34;name&#34;`
+<span id="ServerResult.Cpu"></span>    Cpu                     <a href="../../../../../builtin/#int">int</a>    `json:&#34;vcpu&#34; newtag:&#34;cpu&#34;`
+<span id="ServerResult.Ram"></span>    Ram                     <a href="../../../../../builtin/#int">int</a>    `json:&#34;vmemory&#34; newtag:&#34;memory&#34;`
+<span id="ServerResult.Disk"></span>    Disk                    <a href="../../../../../builtin/#int">int</a>    `json:&#34;vdisk&#34; newtag:&#34;disk&#34;`
+<span id="ServerResult.HwHostId"></span>    HwHostId                <a href="../../../../../builtin/#string">string</a> `json:&#34;hwHostId,omitempty&#34;`
+<span id="ServerResult.HwHost"></span>    HwHost                  <a href="../../../../../builtin/#string">string</a> `json:&#34;hwHost,omitempty&#34;`
+<span id="ServerResult.KeyName"></span>    KeyName                 <a href="../../../../../builtin/#string">string</a> `json:&#34;keyName,omitempty&#34; newtag:&#34;keypairName&#34;`
+<span id="ServerResult.Status"></span>    Status                  <a href="../../../../../builtin/#int">int</a>    `json:&#34;status,omitempty&#34;`
+<span id="ServerResult.ImageRef"></span>    ImageRef                <a href="../../../../../builtin/#string">string</a> `json:&#34;imageRef&#34; newtag:&#34;imageId&#34;`
+<span id="ServerResult.ImageName"></span>    ImageName               <a href="../../../../../builtin/#string">string</a> `json:&#34;imageName&#34; newtag:&#34;imageName&#34;`
+<span id="ServerResult.ImageOsType"></span>    ImageOsType             <a href="../../../../../builtin/#string">string</a> `json:&#34;imageOsType,omitempty&#34;`
+<span id="ServerResult.FlavorRef"></span>    FlavorRef               <a href="../../../../../builtin/#string">string</a> `json:&#34;flavorRef&#34; newtag:&#34;flavorId&#34;`
+<span id="ServerResult.FlavorName"></span>    FlavorName              <a href="../../../../../builtin/#string">string</a> `json:&#34;flavorName,omitempty&#34;`
+<span id="ServerResult.SystemDiskId"></span>    SystemDiskId            <a href="../../../../../builtin/#string">string</a> `json:&#34;systemDiskId&#34; newtag:&#34;systemDisk&#34;`
+<span id="ServerResult.Task"></span>    Task                    <a href="../../../../../builtin/#string">string</a> `json:&#34;task,omitempty&#34;`
+<span id="ServerResult.CreatedTime"></span>    CreatedTime             <a href="../../../../../builtin/#string">string</a> `json:&#34;createdTime&#34;`
+<span id="ServerResult.ModifiedTime"></span>    ModifiedTime            <a href="../../../../../builtin/#string">string</a> `json:&#34;modifiedTime&#34;`
+<span id="ServerResult.Deleted"></span>    Deleted                 <a href="../../../../../builtin/#int">int</a>    `json:&#34;deleted,omitempty&#34;`
+<span id="ServerResult.AvailabilityZone"></span>    AvailabilityZone        <a href="../../../../../builtin/#string">string</a> `json:&#34;availabilityZone&#34;`
+<span id="ServerResult.ServerType"></span>    ServerType              <a href="../../../../../builtin/#string">string</a> `json:&#34;serverType,omitempty&#34;`
+<span id="ServerResult.ServerVmType"></span>    ServerVmType            <a href="../../../../../builtin/#string">string</a> `json:&#34;serverVmType,omitempty&#34;`
+<span id="ServerResult.ProductType"></span>    ProductType             <a href="../../../../../builtin/#string">string</a> `json:&#34;productType,omitempty&#34;`
+<span id="ServerResult.OpStatus"></span>    OpStatus                <a href="../../../../../builtin/#string">string</a> `json:&#34;opStatus,omitempty&#34;`
+<span id="ServerResult.EcStatus"></span>    EcStatus                <a href="../../../../../builtin/#string">string</a> `json:&#34;ecStatus,omitempty&#34;`
+<span id="ServerResult.BootVolumeType"></span>    BootVolumeType          <a href="../../../../../builtin/#string">string</a> `json:&#34;bootVolumeType,omitempty&#34;`
+<span id="ServerResult.AdminPaused"></span>    AdminPaused             <a href="../../../../../builtin/#bool">bool</a>   `json:&#34;adminPaused,omitempty&#34;`
+    <a href="#ServerPortDetailArray">ServerPortDetailArray</a>   `json:&#34;portDetail,omitempty&#34; newtag:&#34;ports&#34;`
+    <a href="#ServerVolumeDetailArray">ServerVolumeDetailArray</a> `json:&#34;volumeDetail,omitempty&#34; newtag:&#34;volumes&#34;`
+<span id="ServerResult.UserName"></span>    UserName                <a href="../../../../../builtin/#string">string</a> `json:&#34;userName,omitempty&#34;`
+<span id="ServerResult.Visible"></span>    Visible                 <a href="../../../../../builtin/#bool">bool</a>   `json:&#34;visible,omitempty&#34;`
+<span id="ServerResult.Region"></span>    Region                  <a href="../../../../../builtin/#string">string</a> `json:&#34;region&#34;`
+<span id="ServerResult.PoolId"></span>    PoolId                  <a href="../../../../../builtin/#string">string</a> `json:&#34;poolId,omitempty&#34;`
+<span id="ServerResult.OperationFlag"></span>    OperationFlag           <a href="../../../../../builtin/#int">int</a>    `json:&#34;operationFlag,omitempty&#34;`
+<span id="ServerResult.DeCloudServerName"></span>    DeCloudServerName       <a href="../../../../../builtin/#string">string</a> `json:&#34;deCloudServerName,omitempty&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ServerVolumeDetail">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/types.go.html?s=8155:8334#L219">ServerVolumeDetail</a>
+				<a class="permalink" href="#ServerVolumeDetail">¶</a>
+				
+				
+			</h2>
+			<p>
+ServerVolumeDetail
+</p>
+<pre>Id	数据盘id
+Name	数据盘名称
+Size	数据盘大小(G)
+Type	数据盘类型
+Status	使用状态
+</pre>
+
+			<pre>type ServerVolumeDetail struct {
+<span id="ServerVolumeDetail.Id"></span>    Id     <a href="../../../../../builtin/#string">string</a> `json:&#34;id&#34;`
+<span id="ServerVolumeDetail.Name"></span>    Name   <a href="../../../../../builtin/#string">string</a> `json:&#34;name&#34;`
+<span id="ServerVolumeDetail.Size"></span>    Size   <a href="../../../../../builtin/#int">int</a>    `json:&#34;size&#34;`
+<span id="ServerVolumeDetail.Type"></span>    Type   <a href="../../../../../builtin/#string">string</a> `json:&#34;type&#34;`
+<span id="ServerVolumeDetail.Status"></span>    Status <a href="../../../../../builtin/#string">string</a> `json:&#34;status&#34;`
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+			
+			
+			<h2 id="ServerVolumeDetailArray">type <a href="../../../../../src/github.com/aesirteam/cmecloud-golang-sdk/vm/Server/types.go.html?s=8335:8384#L226">ServerVolumeDetailArray</a>
+				<a class="permalink" href="#ServerVolumeDetailArray">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type ServerVolumeDetailArray []<a href="#ServerVolumeDetail">ServerVolumeDetail</a></pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+
+			
+		
+	
+
+	
+
+
+
+
+
+
+
+<div id="footer"><a href="../../../../../docs.zip">Download docs.zip</a> to browse offline - Generated by <a href="https://godoc.org/golang.org/x/tools/godoc" target="_blank">godoc</a> + <a href="https://gitlab.com/tslocum/godoc-static" target="_blank">godoc-static</a></div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+
+
+</body></html>

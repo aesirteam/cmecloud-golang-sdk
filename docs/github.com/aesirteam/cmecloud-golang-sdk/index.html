@@ -1,0 +1,427 @@
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="theme-color" content="#375EAB"/>
+
+  <title>cmecloud-golang-sdk - Documentation</title>
+
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="../../../lib/style.css"/></head>
+<body>
+
+<div id="lowframe" style="position: fixed; bottom: 0; left: 0; height: 0; width: 100%; border-top: thin solid grey; background-color: white; overflow: auto;">
+...
+</div><!-- #lowframe -->
+
+<div id="topbar" class="wide"><div class="container">
+<div class="top-heading" id="heading-wide"><a href="../../../">Documentation</a></div>
+<div class="top-heading" id="heading-narrow"><a href="../../../">Documentation</a></div>
+<!--<a href="#" id="menu-button"><span id="menu-button-arrow">▽</span></a>-->
+<div id="menu">
+<a href="../../../" style="margin-right: 10px;">Package Index</a>
+</div>
+</div></div>
+
+
+
+<div id="page" class="wide">
+<div class="container">
+
+
+  <h1>
+    Package ecloud
+    <span class="text-muted"></span>
+  </h1>
+
+
+
+
+
+
+
+<div id="nav"></div>
+
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import &#34;<a href="https://github.com/aesirteam/cmecloud-golang-sdk" target="_blank">github.com/aesirteam/cmecloud-golang-sdk</a>&#34;</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+				<dd><a href="#pkg-subdirectories">Subdirectories</a></dd>
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+				
+			</div>
+		</div>
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+			
+			
+				
+				<dd><a href="#ClientSet">type ClientSet</a></dd>
+				
+					
+					<dd>    <a href="#NewForConfig">func NewForConfig(conf *global.Config) (*ClientSet, error)</a></dd>
+				
+					
+					<dd>    <a href="#NewForConfigDie">func NewForConfigDie(conf *global.Config) *ClientSet</a></dd>
+				
+				
+					
+					<dd>    <a href="#ClientSet.Net">func (cs *ClientSet) Net() *netInterface</a></dd>
+				
+					
+					<dd>    <a href="#ClientSet.Storage">func (cs *ClientSet) Storage() *storageInterface</a></dd>
+				
+					
+					<dd>    <a href="#ClientSet.VM">func (cs *ClientSet) VM() *vmInterface</a></dd>
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h3>Package files</h3>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="../../../src/github.com/aesirteam/cmecloud-golang-sdk/clientset.go.html">clientset.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		
+
+		
+		
+		
+		
+			
+			
+			<h2 id="ClientSet">type <a href="../../../src/github.com/aesirteam/cmecloud-golang-sdk/clientset.go.html?s=775:1154#L8">ClientSet</a>
+				<a class="permalink" href="#ClientSet">¶</a>
+				
+				
+			</h2>
+			
+			<pre>type ClientSet struct {
+    <span class="comment">// contains filtered or unexported fields</span>
+}
+</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="NewForConfig">func <a href="../../../src/github.com/aesirteam/cmecloud-golang-sdk/clientset.go.html?s=1156:1214#L24">NewForConfig</a>
+					<a class="permalink" href="#NewForConfig">¶</a>
+					
+					
+				</h3>
+				<pre>func NewForConfig(conf *<a href="../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#Config">Config</a>) (*<a href="#ClientSet">ClientSet</a>, <a href="../../../builtin/#error">error</a>)</pre>
+				
+				
+				
+			
+				
+				<h3 id="NewForConfigDie">func <a href="../../../src/github.com/aesirteam/cmecloud-golang-sdk/clientset.go.html?s=1855:1907#L48">NewForConfigDie</a>
+					<a class="permalink" href="#NewForConfigDie">¶</a>
+					
+					
+				</h3>
+				<pre>func NewForConfigDie(conf *<a href="../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/">global</a>.<a href="../../../github.com/aesirteam/cmecloud-golang-sdk/ecloud/global/#Config">Config</a>) *<a href="#ClientSet">ClientSet</a></pre>
+				
+				
+				
+			
+
+			
+				
+				<h3 id="ClientSet.Net">func (*ClientSet) <a href="../../../src/github.com/aesirteam/cmecloud-golang-sdk/clientset.go.html?s=2367:2407#L75">Net</a>
+					<a class="permalink" href="#ClientSet.Net">¶</a>
+					
+					
+				</h3>
+				<pre>func (cs *<a href="#ClientSet">ClientSet</a>) Net() *netInterface</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ClientSet.Storage">func (*ClientSet) <a href="../../../src/github.com/aesirteam/cmecloud-golang-sdk/clientset.go.html?s=2645:2693#L83">Storage</a>
+					<a class="permalink" href="#ClientSet.Storage">¶</a>
+					
+					
+				</h3>
+				<pre>func (cs *<a href="#ClientSet">ClientSet</a>) Storage() *storageInterface</pre>
+				
+				
+				
+				
+			
+				
+				<h3 id="ClientSet.VM">func (*ClientSet) <a href="../../../src/github.com/aesirteam/cmecloud-golang-sdk/clientset.go.html?s=2487:2525#L79">VM</a>
+					<a class="permalink" href="#ClientSet.VM">¶</a>
+					
+					
+				</h3>
+				<pre>func (cs *<a href="#ClientSet">ClientSet</a>) VM() *vmInterface</pre>
+				
+				
+				
+				
+			
+		
+	
+
+	
+
+
+
+
+
+	
+	
+		<h2 id="pkg-subdirectories">Subdirectories</h2>
+	
+	<div class="pkg-dir">
+		<table>
+			<tbody><tr>
+				<th class="pkg-name">Name</th>
+				<th class="pkg-synopsis">Synopsis</th>
+			</tr>
+
+			
+			<tr>
+				<td colspan="2"><a href="..">..</a></td>
+			</tr>
+			
+
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="global/">global</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="net/">net</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 20px;">
+						<a href="net/ELB/">ELB</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 20px;">
+						<a href="net/FloatingIP/">FloatingIP</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 20px;">
+						<a href="net/IPSecVpn/">IPSecVpn</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 20px;">
+						<a href="net/VirtualPrivateCloud/">VirtualPrivateCloud</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="storage/">storage</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 20px;">
+						<a href="storage/CloudBlockStorage/">CloudBlockStorage</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 0px;">
+						<a href="vm/">vm</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 20px;">
+						<a href="vm/Image/">Image</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 20px;">
+						<a href="vm/KeyPair/">KeyPair</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 20px;">
+						<a href="vm/SecurityGroup/">SecurityGroup</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 20px;">
+						<a href="vm/Server/">Server</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+				<tr>
+				
+					<td class="pkg-name" style="padding-left: 20px;">
+						<a href="vm/ServerBackup/">ServerBackup</a>
+					</td>
+				
+					<td class="pkg-synopsis">
+						
+					</td>
+				</tr>
+			
+		</tbody></table>
+	</div>
+
+
+
+<div id="footer"><a href="../../../docs.zip">Download docs.zip</a> to browse offline - Generated by <a href="https://godoc.org/golang.org/x/tools/godoc" target="_blank">godoc</a> + <a href="https://gitlab.com/tslocum/godoc-static" target="_blank">godoc-static</a></div>
+
+</div><!-- .container -->
+</div><!-- #page -->
+
+
+</body></html>
