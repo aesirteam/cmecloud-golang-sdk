@@ -20,7 +20,7 @@ type ImageInterface interface {
 	GetUserImageList(imageId, serverId, name string, imageOsTypes, tagIds []string, page, size int) ([]UserImageResult, error)
 
 	// 查询用户创建的自定义镜像详情信息
-	GetUserImageInfo(imageId string) (*UserImageResult, error)
+	GetUserImageInfo(imageId string) (UserImageResult, error)
 
 	// 更新镜像属性，包括镜像名称和镜像描述
 	UpdateUserImageInfo(imageId, name string, note string) (UserImageResult, error)

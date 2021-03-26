@@ -38,7 +38,7 @@ var (
 )
 
 var region = func() string {
-	if result, err := vm.GetRegionList(); err == nil && len(result) > 0 {
+	if result, err := vm.GetRegionList(""); err == nil && len(result) > 0 {
 		return result[0].Name
 	}
 	return ""

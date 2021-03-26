@@ -69,7 +69,7 @@ func (a *APIv2) DeleteNic(portId string) error {
 	return nil
 }
 
-func (a *APIv2) GetNicDetail(portId string) (result *NicResult, err error) {
+func (a *APIv2) GetNicDetail(portId string) (result NicResult, err error) {
 	if portId == "" {
 		err = errors.New("No portId is available")
 		return

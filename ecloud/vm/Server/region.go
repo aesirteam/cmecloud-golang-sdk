@@ -1,8 +1,12 @@
 package Server
 
-func (a *APIv2) GetRegionList() (result []RegionResult, err error) {
+func (a *APIv2) GetRegionList(component string) (result []RegionResult, err error) {
 	params := map[string]interface{}{
-		"component": "NOVA",
+		"component": component,
+	}
+
+	if component == "" {
+		params["component"] = "NOVA"
 	}
 
 	resp, err := a.client.NewRequest("GET", "/api/v2/region", nil, params, nil)

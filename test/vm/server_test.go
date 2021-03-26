@@ -194,19 +194,26 @@ func TestServer(t *testing.T) {
 		serverId = getServerId()
 		portId = getPortId()
 
-		result, err := vm.AttachNic(serverId, portId)
+		err := vm.AttachNic(serverId, portId)
 		if err != nil {
 			t.Fatal(err)
 		}
-
-		t.Log(global.Dump(result))
 	})
 
 	t.Run("DetachNic", func(t *testing.T) {
 		serverId = getServerId()
 		portId = getPortId()
 
-		result, err := vm.DetachNic(serverId, portId)
+		err := vm.DetachNic(serverId, portId)
+		if err != nil {
+			t.Fatal(err)
+		}
+	})
+
+	t.Run("GetUnbindNicList", func(t *testing.T) {
+		serverId = getServerId()
+
+		result, err := vm.GetUnbindNicList(serverId, 0, 0, 0)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -214,10 +221,30 @@ func TestServer(t *testing.T) {
 		t.Log(global.Dump(result))
 	})
 
-	t.Run("GetUnbindNicList", func(t *testing.T) {
+	t.Run("MountVolume", func(t *testing.T) {
+		cbsVolumeId = getVolumeId()
 		serverId = getServerId()
 
-		result, err := vm.GetUnbindNicList(serverId, 0, 0, 0)
+		err := vm.MountVolume(serverId, cbsVolumeId)
+		if err != nil {
+			t.Fatal(err)
+		}
+	})
+
+	t.Run("UnmountVolume", func(t *testing.T) {
+		cbsVolumeId = getVolumeId()
+		serverId = getServerId()
+
+		err := vm.UnmountVolume(serverId, cbsVolumeId)
+		if err != nil {
+			t.Fatal(err)
+		}
+	})
+
+	t.Run("GetUnmountList", func(t *testing.T) {
+		serverId = getServerId()
+
+		result, err := vm.GetUnmountList(serverId, 0, 0)
 		if err != nil {
 			t.Fatal(err)
 		}

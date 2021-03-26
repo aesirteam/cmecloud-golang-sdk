@@ -287,3 +287,30 @@ type UserImageImportSpec struct {
 	OsVersion string
 	Desc      string
 }
+
+/*
+云硬盘
+  CinderType	硬盘cinder类型
+  Name	硬盘名称
+  Share	是否设置为共享盘
+  Size	硬盘大小 (最小值10，最大值视硬盘类型不同)
+  Region	可用区
+  PeriodType	订购周期类型
+  PeriodNum	订购周期数
+  BackupId	备份id (基于备份id创建云硬盘)
+  BackupPolicyId	硬盘订购成功后需要直接绑定的备份策略id
+  ServerId 	硬盘订购成功后需要直接挂载的主机id
+*/
+type CloudBlockStorageSpec struct {
+	CinderType string
+	Name       string
+	Share      bool
+	Size       int
+	Region     string
+	PeriodType BillingType
+	PeriodNum  int
+	// 选填
+	BackupId       string
+	BackupPolicyId string
+	ServerId       string
+}

@@ -124,7 +124,7 @@ func (a *APIv2) GetFloatingIpList(queryWord, routerId, natGatewayId string, boun
 	return
 }
 
-func (a *APIv2) GetFloatingIpDetail(ipId string) (result *FloatingIpResult, err error) {
+func (a *APIv2) GetFloatingIpDetail(ipId string) (result FloatingIpResult, err error) {
 	if ipId == "" {
 		err = errors.New("No ipId is available")
 		return

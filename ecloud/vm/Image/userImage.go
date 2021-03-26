@@ -91,7 +91,7 @@ func (a *APIv1) GetUserImageList(imageId, serverId, name string, imageOsTypes, t
 	return
 }
 
-func (a *APIv1) GetUserImageInfo(imageId string) (result *UserImageResult, err error) {
+func (a *APIv1) GetUserImageInfo(imageId string) (result UserImageResult, err error) {
 	if imageId == "" {
 		err = errors.New("No imageId is available")
 		return

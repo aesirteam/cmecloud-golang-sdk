@@ -105,7 +105,7 @@ func (a *APIv2) GetIpsecVpnList(vpcName, routerId string, scale global.VpcScale,
 	return
 }
 
-func (a *APIv2) GetIpsecVpnInfo(vpnId string) (result *VpnResult, err error) {
+func (a *APIv2) GetIpsecVpnInfo(vpnId string) (result VpnResult, err error) {
 	if vpnId == "" {
 		err = errors.New("No vpnId is available")
 		return
@@ -293,7 +293,7 @@ func (a *APIv2) GetIpsecVpnConnectionList(queryWord, name, networkId string, ser
 	return
 }
 
-func (a *APIv2) GetIpsecVpnConnectionInfo(siteConnectionId string) (result *VpnConnectionResult, err error) {
+func (a *APIv2) GetIpsecVpnConnectionInfo(siteConnectionId string) (result VpnConnectionResult, err error) {
 	if siteConnectionId == "" {
 		err = errors.New("No siteConnectionId is available")
 		return
@@ -313,7 +313,7 @@ func (a *APIv2) GetIpsecVpnConnectionInfo(siteConnectionId string) (result *VpnC
 	return
 }
 
-func (a *APIv2) GetIkePolicyInfo(siteConnectionId, ikePolicyId string) (result *VpnConnectionPolicyResult, err error) {
+func (a *APIv2) GetIkePolicyInfo(siteConnectionId, ikePolicyId string) (result VpnConnectionPolicyResult, err error) {
 	if siteConnectionId == "" {
 		err = errors.New("No siteConnectionId is available")
 		return
@@ -342,7 +342,7 @@ func (a *APIv2) GetIkePolicyInfo(siteConnectionId, ikePolicyId string) (result *
 	return
 }
 
-func (a *APIv2) GetIpsecPolicyInfo(siteConnectionId, ipsecPolicyId string) (result *VpnConnectionPolicyResult, err error) {
+func (a *APIv2) GetIpsecPolicyInfo(siteConnectionId, ipsecPolicyId string) (result VpnConnectionPolicyResult, err error) {
 	if siteConnectionId == "" {
 		err = errors.New("No siteConnectionId is available")
 		return

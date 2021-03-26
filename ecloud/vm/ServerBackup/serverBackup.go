@@ -4,7 +4,7 @@ import (
 	"errors"
 )
 
-func (a *APIv2) OrderServerBackup() (result string, err error) {
+func (a *APIv1) ServerBackupOrder() (result string, err error) {
 	body := map[string]interface{}{
 		"resourceType": "SERVERBACK_SERVICE",
 	}
@@ -20,7 +20,7 @@ func (a *APIv2) OrderServerBackup() (result string, err error) {
 	return
 }
 
-func (a *APIv2) CreateServerBackup(serverId, name string) (result ServerBackupResult, err error) {
+func (a *APIv1) CreateServerBackup(serverId, name string) (result ServerBackupResult, err error) {
 	if serverId == "" {
 		err = errors.New("No serverId is available")
 		return
@@ -50,7 +50,7 @@ func (a *APIv2) CreateServerBackup(serverId, name string) (result ServerBackupRe
 	return
 }
 
-func (a *APIv2) GetServerBackupList(serverId, name string, page, size int) (result []ServerBackupResult, err error) {
+func (a *APIv1) GetServerBackupList(serverId, name string, page, size int) (result []ServerBackupResult, err error) {
 	params := map[string]interface{}{}
 
 	if serverId != "" {
@@ -83,7 +83,7 @@ func (a *APIv2) GetServerBackupList(serverId, name string, page, size int) (resu
 	return
 }
 
-func (a *APIv2) RestoreServerFromBackup(backupId, serverId string) (err error) {
+func (a *APIv1) RestoreServerFromBackup(backupId, serverId string) (err error) {
 	if backupId == "" {
 		err = errors.New("No backupId is available")
 		return
@@ -108,7 +108,7 @@ func (a *APIv2) RestoreServerFromBackup(backupId, serverId string) (err error) {
 	return
 }
 
-func (a *APIv2) DeleteServerBackup(backupId string) (err error) {
+func (a *APIv1) DeleteServerBackup(backupId string) (err error) {
 	if backupId == "" {
 		err = errors.New("No backupId is available")
 		return

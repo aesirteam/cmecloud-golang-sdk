@@ -22,7 +22,7 @@ type KeypairInterface interface {
 }
 
 type KeypairResult struct {
-	Id           string `json:"id,omitempty"`
+	Id           string `json:"id"`
 	Name         string `json:"name"`
 	Type         string `json:"ssh,omitempty"`
 	FingerPrint  string `json:"fingerPrint,omitempty"`

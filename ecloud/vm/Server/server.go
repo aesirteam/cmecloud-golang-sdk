@@ -6,6 +6,7 @@ import (
 
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/VirtualPrivateCloud"
+	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/storage/CloudBlockStorage"
 )
 
 func (a *APIv2) CreatServer(ss *global.ServerSpec) (result ServerOrderResult, err error) {
@@ -423,7 +424,7 @@ func (a *APIv2) RebuildServer(serverId, imageId string, adminPass, userData stri
 	return nil
 }
 
-func (a *APIv2) AttachNic(serverId, portId string) (result VirtualPrivateCloud.NicResult, err error) {
+func (a *APIv2) AttachNic(serverId, portId string) (err error) {
 	if serverId == "" {
 		err = errors.New("No serverId is available")
 		return
@@ -445,15 +446,10 @@ func (a *APIv2) AttachNic(serverId, portId string) (result VirtualPrivateCloud.N
 		return
 	}
 
-	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
-		err = resp.Error(err)
-		return
-	}
-
 	return
 }
 
-func (a *APIv2) DetachNic(serverId, portId string) (result VirtualPrivateCloud.NicResult, err error) {
+func (a *APIv2) DetachNic(serverId, portId string) (err error) {
 	if serverId == "" {
 		err = errors.New("No serverId is available")
 		return
@@ -471,11 +467,6 @@ func (a *APIv2) DetachNic(serverId, portId string) (result VirtualPrivateCloud.N
 
 	resp, err := a.client.NewRequest("POST", "/api/port/detach", nil, nil, body)
 	if err != nil {
-		err = resp.Error(err)
-		return
-	}
-
-	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
 		err = resp.Error(err)
 		return
 	}
@@ -500,6 +491,88 @@ func (a *APIv2) GetUnbindNicList(serverId string, resourceType int, page, size i
 	}
 
 	resp, err := a.client.NewRequest("GET", "/api/server/unbindNic/"+serverId+"/"+strconv.Itoa(resourceType), nil, params, nil)
+	if err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	if err = resp.UnmarshalFromContent(&result, ""); err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	return
+}
+
+func (a *APIv2) MountVolume(serverId, volumeId string) (err error) {
+	if serverId == "" {
+		err = errors.New("No serverId is available")
+		return
+	}
+
+	if volumeId == "" {
+		err = errors.New("No volumeId is available")
+		return
+	}
+
+	body := map[string]interface{}{
+		"volumeId": volumeId,
+		"serverId": serverId,
+	}
+
+	resp, err := a.client.NewRequest("PUT", "/api/v2/volume/volume/mount", nil, nil, body)
+	if err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	return
+}
+
+func (a *APIv2) UnmountVolume(serverId, volumeId string) (err error) {
+	if serverId == "" {
+		err = errors.New("No serverId is available")
+		return
+	}
+
+	if volumeId == "" {
+		err = errors.New("No volumeId is available")
+		return
+	}
+
+	body := map[string]interface{}{
+		"volumeId": volumeId,
+		"serverId": serverId,
+	}
+
+	resp, err := a.client.NewRequest("PUT", "/api/v2/volume/volume/unmount", nil, nil, body)
+	if err != nil {
+		err = resp.Error(err)
+		return
+	}
+
+	return
+}
+
+func (a *APIv2) GetUnmountList(serverId string, page, size int) (result []CloudBlockStorage.VolumeResult, err error) {
+	if serverId == "" {
+		err = errors.New("No serverId is available")
+		return
+	}
+
+	params := map[string]interface{}{
+		"serverId": serverId,
+	}
+
+	if page > 0 {
+		params["page"] = page
+	}
+
+	if size > 0 {
+		params["size"] = size
+	}
+
+	resp, err := a.client.NewRequest("GET", "/api/v2/volume/volume/unmount/list", nil, params, nil)
 	if err != nil {
 		err = resp.Error(err)
 		return

@@ -115,7 +115,7 @@ func (a *APIv2) GetVpcList(queryWord, region string, natGatewayBind bool, scale 
 	return
 }
 
-func (a *APIv2) GetVpcInfo(vpcId string) (result *VpcResult, err error) {
+func (a *APIv2) GetVpcInfo(vpcId string) (result VpcResult, err error) {
 	if vpcId == "" {
 		err = errors.New("No vpcId is available")
 		return
@@ -139,7 +139,7 @@ func (a *APIv2) GetVpcInfo(vpcId string) (result *VpcResult, err error) {
 	return
 }
 
-func (a *APIv2) GetVpcInfoByRouterId(routerId string) (result *VpcResult, err error) {
+func (a *APIv2) GetVpcInfoByRouterId(routerId string) (result VpcResult, err error) {
 	if routerId == "" {
 		err = errors.New("No routerId is available")
 		return

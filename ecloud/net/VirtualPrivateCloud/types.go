@@ -31,10 +31,10 @@ type VPCInterface interface {
 	GetVpcList(queryWord, region string, natGatewayBind bool, scale global.VpcScale, tagIds []string, page, size int) ([]VpcResult, error)
 
 	//根据vpcId查看VPC详情，包含路由详情
-	GetVpcInfo(vpcId string) (*VpcResult, error)
+	GetVpcInfo(vpcId string) (VpcResult, error)
 
 	//根据routerId查看VPC详情
-	GetVpcInfoByRouterId(routerId string) (*VpcResult, error)
+	GetVpcInfoByRouterId(routerId string) (VpcResult, error)
 
 	//更新VPC名称和描述信息
 	ModifyVpcInfo(vpcId, name, desc string) error
@@ -58,7 +58,7 @@ type VPCInterface interface {
 	DeleteNic(portId string) error
 
 	//查询虚拟网卡详情
-	GetNicDetail(portId string) (*NicResult, error)
+	GetNicDetail(portId string) (NicResult, error)
 
 	//修改虚拟网卡名称
 	ModifyNicName(portId, portName string) error
@@ -70,7 +70,7 @@ type VPCInterface interface {
 	GetRouterNetList(routerId string) ([]RouterNetResult, error)
 
 	//查看路由器详情
-	GetRouterInfo(routerId string) (*RouterResult, error)
+	GetRouterInfo(routerId string) (RouterResult, error)
 
 	//创建子网
 	CreateSubnet(spec *global.SubnetSpec) (string, error)
@@ -85,7 +85,7 @@ type VPCInterface interface {
 	GetSubnetList(networkId string) ([]SubnetResult, error)
 
 	//根据subnetId查询子网详情
-	GetSubnetInfo(subnetId string) (*SubnetResult, error)
+	GetSubnetInfo(subnetId string) (SubnetResult, error)
 }
 
 type VpcOrderResult struct {

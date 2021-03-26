@@ -9,7 +9,7 @@ import (
 func TestServerBackup(t *testing.T) {
 
 	t.Run("OrderServerBackup", func(t *testing.T) {
-		result, err := vm.OrderServerBackup()
+		result, err := vm.ServerBackupOrder()
 		if err != nil {
 			t.Fatal(err)
 		}

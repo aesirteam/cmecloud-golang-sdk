@@ -123,7 +123,7 @@ func (a *APIv2) GetSubnetList(networkId string) (result []SubnetResult, err erro
 	return
 }
 
-func (a *APIv2) GetSubnetInfo(subnetId string) (result *SubnetResult, err error) {
+func (a *APIv2) GetSubnetInfo(subnetId string) (result SubnetResult, err error) {
 	if subnetId == "" {
 		err = errors.New("No subnetId is available")
 		return

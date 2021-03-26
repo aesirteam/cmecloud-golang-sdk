@@ -26,7 +26,7 @@ type ClientSet struct {
 	keypairAPIv2       *KeyPair.APIv2
 	securityGroupAPIv1 *SecurityGroup.APIv1
 	serverAPIv2        *Server.APIv2
-	serverBackupAPIv2  *ServerBackup.APIv2
+	serverBackupAPIv1  *ServerBackup.APIv1
 	//storage
 	cbsAPIv2 *CloudBlockStorage.APIv2
 }
@@ -50,7 +50,7 @@ func NewForConfig(conf *global.Config) (*ClientSet, error) {
 		keypairAPIv2:       KeyPair.New(client),
 		securityGroupAPIv1: SecurityGroup.New(client),
 		serverAPIv2:        Server.New(client),
-		serverBackupAPIv2:  ServerBackup.New(client),
+		serverBackupAPIv1:  ServerBackup.New(client),
 		cbsAPIv2:           CloudBlockStorage.New(client),
 	}, nil
 }
@@ -87,7 +87,7 @@ func (cs *ClientSet) Net() *netInterface {
 }
 
 func (cs *ClientSet) VM() *vmInterface {
-	return &vmInterface{cs.imageAPIv1, cs.keypairAPIv2, cs.securityGroupAPIv1, cs.serverAPIv2, cs.serverBackupAPIv2}
+	return &vmInterface{cs.imageAPIv1, cs.keypairAPIv2, cs.securityGroupAPIv1, cs.serverAPIv2, cs.serverBackupAPIv1}
 }
 
 func (cs *ClientSet) Storage() *storageInterface {

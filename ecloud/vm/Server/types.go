@@ -3,6 +3,7 @@ package Server
 import (
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/global"
 	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/net/VirtualPrivateCloud"
+	"github.com/aesirteam/cmecloud-golang-sdk/ecloud/storage/CloudBlockStorage"
 )
 
 type APIv2 struct {
@@ -15,7 +16,7 @@ func New(client *global.EcloudClient) *APIv2 {
 
 type ServerInterface interface {
 	//查询可用区
-	GetRegionList() ([]RegionResult, error)
+	GetRegionList(component string) ([]RegionResult, error)
 
 	//查询云主机可用规格
 	GetProductFlavorList(cpu, ram int, osType global.OsType, vmType global.VmType, page, size int) ([]ProductResult, error)
@@ -57,10 +58,19 @@ type ServerInterface interface {
 	GetUnbindNicList(serverId string, resourceType, page, size int) ([]VirtualPrivateCloud.NicResult, error)
 
 	//为云主机绑定虚拟网卡
-	AttachNic(serverId, portId string) (VirtualPrivateCloud.NicResult, error)
+	AttachNic(serverId, portId string) error
 
 	//为云主机解绑虚拟网卡
-	DetachNic(serverId, portId string) (VirtualPrivateCloud.NicResult, error)
+	DetachNic(serverId, portId string) error
+
+	// 查询云主机可挂载云硬盘列表
+	GetUnmountList(serverId string, page, size int) ([]CloudBlockStorage.VolumeResult, error)
+
+	// 云硬盘挂载
+	MountVolume(volumeId, serverId string) error
+
+	// 云硬盘卸载
+	UnmountVolume(volumeId, serverId string) error
 }
 
 type RegionResult struct {

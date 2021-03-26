@@ -191,6 +191,8 @@ func (c *EcloudClient) NewRequest(verb, prefixPath string, headers, params, body
 		return _resp, err
 	}
 
+	//fmt.Printf("%s\n", data)
+
 	obj := json.Get(data)
 	if obj.LastError() != nil {
 		err = obj.LastError()

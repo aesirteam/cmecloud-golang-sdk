@@ -13,7 +13,7 @@ var cli = ecloud.NewForConfigDie(&global.Config{
 	// SecretKey:     "YOUR SECRET KEY",
 })
 
-var vm, net = cli.VM(), cli.Net()
+var vm, net, storage = cli.VM(), cli.Net(), cli.Storage()
 
 var (
 	vpcName                     = "vpc99999"
@@ -22,6 +22,9 @@ var (
 	portName                    = "port99999"
 	vpcId, routerId             string
 	networkId, subnetId, portId string
+
+	cbsVolumeName = "BS99999"
+	cbsVolumeId   string
 
 	keypairName = "kp99999"
 	keypairId   string
@@ -38,7 +41,7 @@ var (
 )
 
 var region = func() string {
-	if result, err := vm.GetRegionList(); err == nil && len(result) > 0 {
+	if result, err := vm.GetRegionList(""); err == nil && len(result) > 0 {
 		return result[0].Name
 	}
 	return ""
@@ -84,6 +87,16 @@ var getPortId = func() string {
 	}
 
 	return portId
+}
+
+var getVolumeId = func() string {
+	if cbsVolumeId == "" {
+		if result, err := storage.GetVolumeList(cbsVolumeName, "", false, nil, 0, 0); err == nil && len(result) > 0 {
+			cbsVolumeId = result[0].Id
+		}
+	}
+
+	return cbsVolumeId
 }
 
 var getKeypairId = func() string {
